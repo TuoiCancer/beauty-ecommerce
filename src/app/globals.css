@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+:root{
+  --bg-login:#BED9D4 ;
+  --bg-signup: #DABEB0;
+}
+
 * {
   box-sizing: border-box;
 }

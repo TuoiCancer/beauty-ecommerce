@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import BaseNavbar from "@/components/base/BaseNavbar";
-import React, { useState } from "react";
+import BaseNavbar from '@/components/base/BaseNavbar';
+import React, { useState } from 'react';
 
 const menuItems = [
   { id: 1, label: 'Home', isHasDropdown: false },
@@ -12,8 +12,8 @@ const menuItems = [
 const menuDropdownItems = [
   { id: 1, label: 'L’Oréal' },
   { id: 2, label: 'The Ordinary' },
-  { id: 3, label: 'Bioderma' }
-]
+  { id: 3, label: 'Bioderma' },
+];
 
 export default function Home() {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
@@ -28,9 +28,9 @@ export default function Home() {
 
   return (
     <>
-      <BaseNavbar 
+      <BaseNavbar
         position="static"
-        disableGutters={true} 
+        disableGutters={true}
         containerMaxWidth="xl"
         typoNoWrap={true}
         menuItems={menuItems}
@@ -40,5 +40,5 @@ export default function Home() {
         onCloseDropdown={handleCloseNavMenu}
       />
     </>
-  )
+  );
 }

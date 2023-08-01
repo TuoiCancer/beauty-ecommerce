@@ -1,37 +1,37 @@
-"use client";
+'use client';
 
-import React from "react";
-import AppBar from "@mui/material/AppBar";
+import React from 'react';
+import AppBar from '@mui/material/AppBar';
 import Container from '@mui/material/Container';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import BaseButton from "./BaseButton";
+import BaseButton from './BaseButton';
 
 interface IBaseNavbarProps {
-  position?: 'static' | 'sticky',
-  containerMaxWidth?: 'sm' | 'md' | 'lg' | 'xl',
-  disableGutters?: boolean,
-  typoVariant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6',
-  typoNoWrap?: boolean,
-  menuItems: IMenuItem[],
-  menuDropdownItems: IMenuDropdownItem[],
-  anchorElNav?: HTMLElement | null,
-  onOpenDropdown?: any,
-  onCloseDropdown?: any,
+  position?: 'static' | 'sticky';
+  containerMaxWidth?: 'sm' | 'md' | 'lg' | 'xl';
+  disableGutters?: boolean;
+  typoVariant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+  typoNoWrap?: boolean;
+  menuItems: IMenuItem[];
+  menuDropdownItems: IMenuDropdownItem[];
+  anchorElNav?: HTMLElement | null;
+  onOpenDropdown?: any;
+  onCloseDropdown?: any;
 }
 
 interface IMenuItem {
-  id: number,
-  label: string,
-  isHasDropdown: boolean
+  id: number;
+  label: string;
+  isHasDropdown: boolean;
 }
 
 interface IMenuDropdownItem {
-  id: number,
-  label: string
+  id: number;
+  label: string;
 }
 
 const BaseNavbar: React.FunctionComponent<IBaseNavbarProps> = ({
@@ -44,7 +44,7 @@ const BaseNavbar: React.FunctionComponent<IBaseNavbarProps> = ({
   anchorElNav,
   menuDropdownItems,
   onOpenDropdown,
-  onCloseDropdown
+  onCloseDropdown,
 }) => {
   return (
     <>
@@ -64,18 +64,21 @@ const BaseNavbar: React.FunctionComponent<IBaseNavbarProps> = ({
                   <span className="text-base m-0">&</span>
                   &nbsp;GRACE
                 </h1>
-                <p className="text-xs font-medium mt-0 text-center w-[95%]">NATURAL SKINCARE</p>
+                <p className="text-xs font-medium mt-0 text-center w-[95%]">
+                  NATURAL SKINCARE
+                </p>
               </div>
             </Typography>
 
             <Box sx={{ flexGrow: 1 }}>
-              {menuItems.map(item => (
+              {menuItems.map((item) =>
                 item.isHasDropdown ? (
-                  <BaseButton 
+                  <BaseButton
+                    bgStyle="color"
                     key={item.id}
-                    label={item.label} 
+                    label={item.label}
                     variant="text"
-                    className="text-black text-2xl capitalize" 
+                    className="text-black text-2xl capitalize"
                   />
                 ) : (
                   <Menu
@@ -93,24 +96,24 @@ const BaseNavbar: React.FunctionComponent<IBaseNavbarProps> = ({
                     open={Boolean(anchorElNav)}
                     onClose={onCloseDropdown}
                   >
-                    {menuDropdownItems.map(dropdownItem => (
+                    {menuDropdownItems.map((dropdownItem) => (
                       <MenuItem key={dropdownItem.id} onClick={onOpenDropdown}>
-                        <Typography textAlign="center">{dropdownItem.label}</Typography>
+                        <Typography textAlign="center">
+                          {dropdownItem.label}
+                        </Typography>
                       </MenuItem>
                     ))}
-                  </Menu> 
+                  </Menu>
                 )
-              ))}
+              )}
             </Box>
 
-            <Box sx={{ flexGrow: 0 }}>
-                
-            </Box>
+            <Box sx={{ flexGrow: 0 }}></Box>
           </Toolbar>
         </Container>
       </AppBar>
     </>
-  )
-}
+  );
+};
 
 export default BaseNavbar;
