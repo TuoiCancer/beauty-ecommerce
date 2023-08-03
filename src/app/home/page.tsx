@@ -1,6 +1,7 @@
 'use client';
 
 import BaseNavbar from '@/components/base/BaseNavbar';
+import { Box } from '@mui/material';
 import React, { useState } from 'react';
 
 const menuItems = [
@@ -27,18 +28,12 @@ export default function Home() {
   };
 
   return (
-    <>
-      <BaseNavbar
-        position="static"
-        disableGutters={true}
-        containerMaxWidth="xl"
-        typoNoWrap={true}
-        menuItems={menuItems}
-        menuDropdownItems={menuDropdownItems}
-        anchorElNav={anchorElNav}
-        onOpenDropdown={handleOpenNavMenu}
-        onCloseDropdown={handleCloseNavMenu}
-      />
-    </>
+    <Box
+      sx={{
+        pb: '1000px',
+      }}
+    >
+      Home page
+    </Box>
   );
 }

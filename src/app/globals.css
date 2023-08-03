@@ -7,6 +7,15 @@
   --bg-signup: #DABEB0;
 }
 
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
 * {
   box-sizing: border-box;
 }
@@ -28,3 +37,4 @@ body {
 .navbar-title span {
   border-bottom: 2px solid black;
 }
+
