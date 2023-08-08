@@ -1,15 +1,9 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
-import Image from 'next/image';
-import { Unica_One } from 'next/font/google';
 import BaseButton from '@/components/base/BaseButton';
 import InfoTag from './InfoTag';
-const unicaOne = Unica_One({
-  subsets: ['latin'],
-  display: 'swap',
-  weight: ['400'],
-  style: ['normal'],
-});
+import ImageItem from '../base/ImageItem';
+import { unicaOne } from '@/assets/font';
 
 const HeaderShopDetail = () => {
   return (
@@ -22,17 +16,17 @@ const HeaderShopDetail = () => {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        '& > img': {
-          zIndex: ' -1',
-        },
       }}
     >
-      <Image
-        alt="bg"
-        src="/img/home-hero-lg 2.png"
-        fill
+      <ImageItem
+        imgSrc="/img/home-hero-lg 2.png"
         style={{
-          objectFit: 'cover',
+          position: 'absolute',
+          width: '100%',
+          height: { md: '100vh' },
+          '& img': {
+            zIndex: ' -1',
+          },
         }}
       />
       <Typography

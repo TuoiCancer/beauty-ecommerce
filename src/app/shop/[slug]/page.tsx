@@ -1,46 +1,17 @@
 'use client';
 import React from 'react';
 import { Box, Typography } from '@mui/material';
-import { Poppins } from 'next/font/google';
 import HeaderShopDetail from '@/components/shop/HeaderShopDetail';
 import CategoryItem from '@/components/shop/CategoryItem';
 import Title from '@/components/shop/Title';
 
 //Icons
-import { listNews, listProduct } from '@/constants';
+import { listCategory, listNews, listProduct } from '@/constants';
 import ProductItem from '@/components/shop/ProductItem';
 import Lefticon from '@/components/icon/Lefticon';
 import Link from 'next/link';
 import BlogItem from '@/components/shop/BlogItem';
-
-const poppins = Poppins({
-  display: 'swap',
-  weight: ['400', '500', '700'],
-  style: ['normal'],
-  subsets: ['latin'],
-});
-
-const listCategory = [
-  {
-    id: 1,
-    pathImg: '/img/body.png',
-    title: 'Body',
-    description: 'Too many products for everyone in your household',
-  },
-  {
-    id: 2,
-    pathImg: '/img/facial.png',
-    title: 'Facial',
-    description:
-      'Caused by seasonal changes, allergies, excessive hand washing',
-  },
-  {
-    id: 3,
-    pathImg: '/img/hair.png',
-    title: 'Hair',
-    description: 'Dry, split ends, brittle, or color damaged',
-  },
-];
+import { poppins } from '@/assets/font';
 
 const ShopPageDetail = () => {
   return (
@@ -73,6 +44,9 @@ const ShopPageDetail = () => {
             }}
           >
             {listCategory.map((item) => {
+              if (item.title === 'All') {
+                return null;
+              }
               return (
                 <CategoryItem
                   key={item.id}

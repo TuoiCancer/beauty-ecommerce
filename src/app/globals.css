@@ -5,6 +5,7 @@
 :root{
   --bg-login:#BED9D4 ;
   --bg-signup: #DABEB0;
+  --main-green: #2C5F23;
 }
 
 @keyframes slideInFromLeft {

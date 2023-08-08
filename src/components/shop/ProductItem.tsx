@@ -1,15 +1,9 @@
+import { poppins } from '@/assets/font';
 import { Box, Typography } from '@mui/material';
-import { Poppins } from 'next/font/google';
+import Link from 'next/link';
 import React from 'react';
 import ImageItem from '../base/ImageItem';
 import Options from './Options';
-
-const poppins = Poppins({
-  display: 'swap',
-  weight: ['300', '400', '500', '700'],
-  style: ['normal'],
-  subsets: ['latin'],
-});
 
 const ProductItem = ({
   imgSrc,
@@ -75,9 +69,11 @@ const ProductItem = ({
             right: '10%',
           }}
         >
-          <Options iconSrc="/img/Cart.png" />
+          <Options iconSrc="/img/Cart_000.png" />
           <Options iconSrc="/img/Heart.png" />
-          <Options iconSrc="/img/Eye.png" />
+          <Link href="/product/1">
+            <Options iconSrc="/img/Eye.png" />
+          </Link>
         </Box>
       </Box>
       <Box

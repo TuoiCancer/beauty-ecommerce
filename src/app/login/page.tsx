@@ -2,17 +2,10 @@
 
 import BaseButton from '@/components/base/BaseButton';
 import { Box, TextField, Typography } from '@mui/material';
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import React from 'react';
-import { Poppins } from 'next/font/google';
 import { useRouter } from 'next/navigation';
-
-const poppins = Poppins({
-  subsets: ['latin'],
-  display: 'swap',
-  weight: ['400', '500', '600', '700'],
-  style: ['normal', 'italic'],
-});
+import { poppins } from '@/assets/font';
 
 const LoginPage = () => {
   const router = useRouter();

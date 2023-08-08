@@ -25,7 +25,7 @@ const HeaderItem = ({ item, sx, textColor }: any) => {
         '& a, p': {
           textDecoration: 'none',
           color: textColor,
-          fontSize: '24px',
+          fontSize: '20px',
           fontWeight: 400,
           textTransform: 'capitalize',
           userSelect: 'none',
@@ -90,11 +90,11 @@ const HeaderItem = ({ item, sx, textColor }: any) => {
             zIndex: 2,
           }}
         >
-          {item.subItem.map((sub: any) => {
+          {item.subItem.map((sub: any, index: number) => {
             return (
               <Box
                 onClick={() => setOpenSubItem(false)}
-                key={item.sub_link}
+                key={index}
                 sx={{
                   display: 'flex',
                   flexDirection: 'column',

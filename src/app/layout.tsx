@@ -9,13 +9,8 @@ import { usePathname } from 'next/navigation';
 
 import VerticalAlignTopIcon from '@mui/icons-material/VerticalAlignTop';
 import Header from '@/components/Header/Header';
-
-const roboto = Roboto({
-  weight: ['400', '700'],
-  style: ['normal', 'italic'],
-  subsets: ['latin'],
-  display: 'swap',
-});
+import Loading from './loading';
+import { roboto } from '@/assets/font';
 
 export const metadata: Metadata = {
   title: 'Glow & Grace',
@@ -42,7 +37,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={roboto.className}>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<Loading />}>
           <Box>
             {x > 500 && (
               <Box
@@ -76,27 +71,11 @@ export default function RootLayout({
               </Box>
             )}
             {/* Header */}
-            {pathname !== '/signup' &&
-              pathname !== '/login' &&
-              pathname.includes('shop') && (
-                <Header
-                  isHaveShadow={false}
-                  isHaveBg={false}
-                  textColor="#fff"
-                  style={{
-                    position: 'absolute',
-                    top: '40px',
-                    left: 0,
-                    right: 0,
-                    zIndex: 999,
-                  }}
-                />
-              )}
-            {pathname === '/home' && (
+            {pathname.includes('/shop') && (
               <Header
-                isHaveShadow={true}
-                isHaveBg={true}
-                textColor="#000"
+                isHaveShadow={false}
+                isHaveBg={false}
+                textColor="#fff"
                 style={{
                   position: 'absolute',
                   top: '40px',
@@ -106,8 +85,27 @@ export default function RootLayout({
                 }}
               />
             )}
+            {pathname !== '/signup' &&
+              pathname !== '/login' &&
+              pathname !== '/' &&
+              !pathname.includes('shop') && (
+                <Header
+                  isHaveShadow={true}
+                  isHaveBg={true}
+                  textColor="#000"
+                  style={{
+                    position: 'absolute',
+                    top: '40px',
+                    left: 0,
+                    right: 0,
+                    zIndex: 999,
+                  }}
+                />
+              )}
             {children}
-            {pathname !== '/signup' && pathname !== '/login' && <Footer />}
+            {pathname !== '/signup' &&
+              pathname !== '/login' &&
+              pathname !== '/' && <Footer />}
           </Box>
         </Suspense>
       </body>

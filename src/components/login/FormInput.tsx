@@ -1,13 +1,6 @@
 import React from 'react';
-import { Poppins } from 'next/font/google';
 import { Box, TextField, Typography } from '@mui/material';
-
-const poppins = Poppins({
-  subsets: ['latin'],
-  display: 'swap',
-  weight: ['400', '500', '600', '700'],
-  style: ['normal', 'italic'],
-});
+import { poppins } from '@/assets/font';
 
 const FormInput = ({
   label, //

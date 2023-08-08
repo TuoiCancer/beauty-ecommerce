@@ -9,19 +9,17 @@ const ibarra = Ibarra_Real_Nova({
   style: 'normal',
 });
 
-// Define the type for the listItem object
-type ListItem = {
-  id: number;
+interface ListItem {
+  id: string;
   label: string;
-  link?: string;
-};
-
+  link: string;
+}
 // Define the type for the component props
-type Props = {
+export interface FooterProps {
   title: string;
   listItems: ListItem[];
-};
-const FooterItem: React.FC<Props> = ({ title, listItems }) => {
+}
+const FooterItem = ({ title, listItems }: FooterProps) => {
   return (
     <Box
       sx={{

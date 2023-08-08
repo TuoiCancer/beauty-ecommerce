@@ -1,17 +1,10 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 
-import { Hind_Madurai } from 'next/font/google';
-import FooterItem from './FooterItem';
+import FooterItem, { FooterProps } from './FooterItem';
 import ImageItem from '../base/ImageItem';
 import ListIcons from './ListIcons';
-
-const hindMadurai = Hind_Madurai({
-  display: 'swap',
-  weight: ['400', '500', '700'],
-  style: ['normal'],
-  subsets: ['latin'],
-});
+import { hindMadurai } from '@/assets/font';
 
 const ListItemFooter = [
   {
@@ -26,7 +19,7 @@ const ListItemFooter = [
       {
         id: '1.1',
         label: 'Our Products',
-        link: '/products',
+        link: '/product',
       },
       {
         id: '1.2',
@@ -126,7 +119,7 @@ const Footer = () => {
       </Box>
       <Box
         sx={{
-          height: { md: '150px' },
+          height: { md: '100px' },
           backgroundColor: '#182E08',
           display: 'flex',
           alignItems: 'center',
@@ -138,7 +131,7 @@ const Footer = () => {
           className={hindMadurai.className}
           sx={{
             color: '#FFF',
-            fontSize: '18px',
+            fontSize: '16px',
             fontWeight: 400,
             lineHeight: '180%',
           }}

@@ -4,17 +4,11 @@ import BaseButton from '@/components/base/BaseButton';
 import FormInput from '@/components/login/FormInput';
 import { Box, Button } from '@mui/material';
 import Typography from '@mui/material/Typography';
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import React from 'react';
-import { Poppins } from 'next/font/google';
 import { useRouter } from 'next/navigation';
+import { poppins } from '@/assets/font';
 
-const poppins = Poppins({
-  subsets: ['latin'],
-  display: 'swap',
-  weight: ['400', '500', '600', '700'],
-  style: ['normal', 'italic'],
-});
 const SignupPage = () => {
   const router = useRouter();
   const [username, setUsername] = React.useState('');
@@ -187,6 +181,7 @@ const SignupPage = () => {
         }}
       >
         <Image
+          priority
           layout="fill"
           src="/img/bg_signup.jpg"
           alt="Picture of the author"

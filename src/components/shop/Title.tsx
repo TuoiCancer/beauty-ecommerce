@@ -1,12 +1,7 @@
+import { unicaOne } from '@/assets/font';
 import { Typography } from '@mui/material';
-import { Unica_One } from 'next/font/google';
 import React from 'react';
-const unicaOne = Unica_One({
-  subsets: ['latin'],
-  display: 'swap',
-  weight: ['400'],
-  style: ['normal'],
-});
+
 const Title = ({ title }: { title: string }) => {
   return (
     <Typography
