@@ -58,9 +58,9 @@ const PaginationItem = ({ setRowPerPage, rowPerPage }: any) => {
           },
           '& .Mui-selected': {
             color: '#fff',
-            backgroundColor: '#417438',
+            backgroundColor: '#417438 !important',
             '&:hover': {
-              backgroundColor: '#417438',
+              backgroundColor: '#417438 !important',
             },
           },
         }}

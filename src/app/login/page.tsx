@@ -1,7 +1,7 @@
 'use client';
 
 import BaseButton from '@/components/base/BaseButton';
-import { Box, TextField, Typography } from '@mui/material';
+import { Box, Checkbox, TextField, Typography } from '@mui/material';
 import Image from 'next/legacy/image';
 import React from 'react';
 import { useRouter } from 'next/navigation';
@@ -179,11 +179,23 @@ const LoginPage = () => {
             >
               Hide
             </Typography>
+
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                pb: '20px',
+                pt: '12px',
+              }}
+            >
+              <Checkbox />
+              <Typography>Remember password</Typography>
+            </Box>
           </Box>
 
           <BaseButton
             styleSx={{
-              mt: '60px',
+              mt: '80px',
               backgroundColor: '#2C8578',
               padding: '12px 80px',
               fontSize: '20px',

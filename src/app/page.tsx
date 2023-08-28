@@ -2,11 +2,18 @@
 
 import React, { use, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import UserSlice from '@/store/UserSlice';
+import { useStore } from '@/store';
 
 const Homepage = () => {
   const route = useRouter();
+  const { UserSlice } = useStore();
   useEffect(() => {
-    return route.push('/signup');
+    if (UserSlice.isLoggedIn) {
+      route.push('/home');
+    } else {
+      route.push('/login');
+    }
   }, []);
 };
 

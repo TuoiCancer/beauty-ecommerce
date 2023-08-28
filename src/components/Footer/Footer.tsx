@@ -75,47 +75,54 @@ const Footer = () => {
           height: '434px',
           width: '100%',
           backgroundColor: '#2C5F23',
-          padding: { md: '50px 60px  100px  140px  ' },
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'flex-start',
         }}
       >
-        <Box>
-          <ImageItem
-            imgSrc="/img/logo/logo_white.png"
-            style={{
-              width: { md: '300px' },
-              height: { md: '62px' },
-              mb: { md: '52px' },
-            }}
-          />
-          <Box
-            sx={{
-              pl: { md: '42px' },
-              '& h4': {
-                color: '#FFF',
-                fontSize: '18px',
-                lineHeight: '180%',
-                fontWeight: 400,
-                marginBottom: '20px',
-              },
-            }}
-          >
-            <Typography variant="h4">xuantuoi@gmail.com</Typography>
-            <Typography variant="h4">0987654321</Typography>
-            <ListIcons />
-          </Box>
-        </Box>
-        {ListItemFooter.map((item) => {
-          return (
-            <FooterItem
-              key={item.id}
-              title={item.title}
-              listItems={item.listItem}
+        <Box
+          sx={{
+            padding: { md: '50px 0' },
+            maxWidth: { md: 'var(--max-width-xl)' },
+            margin: { md: '0 auto' },
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'flex-start',
+          }}
+        >
+          <Box>
+            <ImageItem
+              imgSrc="/img/logo/logo_white.png"
+              style={{
+                width: { md: '300px' },
+                height: { md: '62px' },
+                mb: { md: '52px' },
+              }}
             />
-          );
-        })}
+            <Box
+              sx={{
+                pl: { md: '42px' },
+                '& h4': {
+                  color: '#FFF',
+                  fontSize: '18px',
+                  lineHeight: '180%',
+                  fontWeight: 400,
+                  marginBottom: '20px',
+                },
+              }}
+            >
+              <Typography variant="h4">xuantuoi@gmail.com</Typography>
+              <Typography variant="h4">0987654321</Typography>
+              <ListIcons />
+            </Box>
+          </Box>
+          {ListItemFooter.map((item) => {
+            return (
+              <FooterItem
+                key={item.id}
+                title={item.title}
+                listItems={item.listItem}
+              />
+            );
+          })}
+        </Box>
       </Box>
       <Box
         sx={{

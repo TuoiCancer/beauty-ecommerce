@@ -10,7 +10,7 @@ const HeaderShopDetail = () => {
     <Box
       sx={{
         position: 'relative',
-        height: '100vh',
+        height: '80vh',
         width: '100%',
         display: 'flex',
         flexDirection: 'column',
@@ -35,7 +35,7 @@ const HeaderShopDetail = () => {
         sx={{
           color: '#fff',
           fontSize: { md: '96px' },
-          mb: { md: '24px' },
+          mb: { md: '12px' },
           textTransform: 'uppercase',
         }}
       >
@@ -44,7 +44,7 @@ const HeaderShopDetail = () => {
 
       <Typography
         variant="h3"
-        sx={{ color: '#fff', fontSize: { md: '20px' }, mb: { md: '48px' } }}
+        sx={{ color: '#fff', fontSize: { md: '20px' }, mb: { md: '70px' } }}
       >
         L’Oréal has set itself the mission of offering all women and men
         worldwide the best of cosmetics innovation in terms of quality, efficacy
@@ -56,11 +56,11 @@ const HeaderShopDetail = () => {
         bgStyle="color"
         styleSx={{
           textTransform: 'normal',
-          padding: '28px 88px',
+          padding: '24px 80px',
           color: '#171B1A',
           backgroundColor: '#fff',
-          borderRadius: '0px',
           fontSize: '20px',
+          borderRadius: '8px',
           '&:hover': {
             backgroundColor: '#fff',
             opacity: '0.95',

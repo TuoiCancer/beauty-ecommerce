@@ -4,6 +4,7 @@ export const listProduct = [
     name: 'Acne treatment serum: The ordinary niacinamide 10 + zinc 1 ',
     price: 100,
     originalPrice: 200,
+    thumbnail: '/img/products/ORD-PLP-Category-EyeSerum.webp',
     image: [
       '/img/products/ORD-PLP-Category-EyeSerum.webp',
       '/img/products/ORD-PLP-Category-Moisturizers.jpg',
@@ -30,6 +31,7 @@ export const listProduct = [
     id: 2,
     name: 'Almond Cream',
     price: 146,
+    thumbnail: '/img/products/ORD-PLP-Category-Moisturizers.jpg',
     image: [
       '/img/products/ORD-PLP-Category-EyeSerum.webp',
       '/img/products/ORD-PLP-Category-Moisturizers.jpg',
@@ -56,6 +58,7 @@ export const listProduct = [
     id: 3,
     name: 'Aloe Vera Cream',
     price: 55.65,
+    thumbnail: '/img/products/Screenshot 2023-07-26 222833.png',
     image: [
       '/img/products/ORD-PLP-Category-EyeSerum.webp',
       '/img/products/ORD-PLP-Category-Moisturizers.jpg',
@@ -81,6 +84,7 @@ export const listProduct = [
   {
     id: 4,
     name: 'Aloe Vera Cream',
+    thumbnail: '/img/products/Screenshot 2023-07-26 222833.png',
     price: 345.78,
     image: [
       '/img/products/ORD-PLP-Category-EyeSerum.webp',
@@ -107,6 +111,7 @@ export const listProduct = [
   {
     id: 5,
     name: 'Almond Cream',
+    thumbnail: '/img/products/Screenshot 2023-07-26 222833.png',
     price: 146,
     image: [
       '/img/products/ORD-PLP-Category-EyeSerum.webp',
@@ -133,6 +138,7 @@ export const listProduct = [
   {
     id: 6,
     name: 'Almond Cream',
+    thumbnail: '/img/products/Screenshot 2023-07-26 222833.png',
     price: 146,
     image: [
       '/img/products/ORD-PLP-Category-EyeSerum.webp',
@@ -159,6 +165,7 @@ export const listProduct = [
   {
     id: 7,
     name: 'Almond Cream',
+    thumbnail: '/img/products/Screenshot 2023-07-26 222833.png',
     price: 146,
     image: [
       '/img/products/ORD-PLP-Category-EyeSerum.webp',
@@ -184,6 +191,7 @@ export const listProduct = [
   },
   {
     id: 8,
+    thumbnail: '/img/products/Screenshot 2023-07-26 222833.png',
     name: 'Almond Cream',
     price: 146,
     image: [
@@ -214,15 +222,15 @@ export const listNews = [
   {
     id: 1,
     title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-    image: '/img/news/1.jpg',
+    image: '/img/products/ORD-PLP-Category-EyeSerum.webp',
     date: '2021-07-26',
     content:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget fermentum aliquam, nunc nisl ultrices nunc, quis aliquam nisl nunc vitae nisl. Donec euismod, nisl eget fermentum aliquam, nunc nisl ultrices nunc, quis aliquam nisl nunc vitae nisl.',
+      'For over 25 years, Sensibio H2O has been cleansing and soothing the sensitive skin of millions of women around the world. Internationally recognized by make-up artists and consumers for nisl eget fermentum aliquam, nunc nisl ultrices nunc, quis aliquam nisl nunc vitae nisl...',
   },
   {
     id: 2,
     title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-    image: '/img/news/1.jpg',
+    image: '/img/blog.png',
     date: '2021-07-26',
     content:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget fermentum aliquam, nunc nisl ultrices nunc, quis aliquam nisl nunc vitae nisl. Donec euismod, nisl eget fermentum aliquam, nunc nisl ultrices nunc, quis aliquam nisl nunc vitae nisl.',
@@ -230,7 +238,7 @@ export const listNews = [
   {
     id: 3,
     title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-    image: '/img/news/1.jpg',
+    image: '/img/products/hathuo.png',
     date: '2021-07-26',
     content:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget fermentum aliquam, nunc nisl ultrices nunc, quis aliquam nisl nunc vitae nisl. Donec euismod, nisl eget fermentum aliquam, nunc nisl ultrices nunc, quis aliquam nisl nunc vitae nisl.',
@@ -330,3 +338,222 @@ export const listCategory = [
     description: '',
   },
 ];
+
+export const cart = [
+  {
+    id: 1,
+    shop: {
+      id: 's-01',
+      shopName: 'Shop01',
+    },
+    products: [
+      {
+        id: '01',
+        name: 'Ha Thu O shampoo 1000ml ',
+        price: 100,
+        quantity: 1,
+        thumbnail: '/img/products/hathuo.png',
+      },
+      {
+        id: '02',
+        name: 'Acne treatment serum: The ordinary niacinamide 10 + zinc 1 ',
+        price: 100,
+        quantity: 1,
+        thumbnail: '/img/products/ORD-PLP-Category-EyeSerum.webp',
+      },
+    ],
+  },
+  {
+    id: 2,
+    shop: {
+      id: 's-02',
+      shopName: 'Shop02 ',
+    },
+    products: [
+      {
+        id: '01',
+        name: 'Greentea natural soap',
+        price: 230,
+        quantity: 3,
+        thumbnail: '/img/products/yellow.png',
+      },
+    ],
+  },
+];
+
+export const voucher = [
+  {
+    id: 1,
+    code: 'ABC123',
+    discount: 10,
+    type: 'percent',
+    description: 'Discount 10% for all products',
+    min_order_value: 50,
+  },
+  {
+    id: 2,
+    code: 'XT01',
+    discount: 20,
+    type: 'fixed amount',
+    description: 'Discount  20$ for all products',
+    min_order_value: 50,
+  },
+];
+
+export const listCity = [
+  {
+    id: 1,
+    name: 'Hồ Chí Minh',
+    value: 'HCM',
+  },
+  {
+    id: 2,
+    name: 'Hà Nội',
+    value: 'HN',
+  },
+  {
+    id: 3,
+    name: 'Đà Nẵng',
+    value: 'DN',
+  },
+  {
+    id: 4,
+    name: 'Cần Thơ',
+    value: 'CT',
+  },
+];
+
+export const listDistrict = [
+  {
+    id: 1,
+    name: 'Hoàng Mai',
+    value: 'HM',
+  },
+  {
+    id: 2,
+    name: 'Long Biên',
+    value: 'LB',
+  },
+  {
+    id: 3,
+    name: 'Thanh Xuân',
+    value: 'TX',
+  },
+  {
+    id: 4,
+    name: 'Bắc Từ Liêm',
+    value: 'BTL',
+  },
+  {
+    id: 5,
+    name: 'Ba Đình',
+    value: 'BD',
+  },
+  {
+    id: 6,
+    name: 'Cầu Giấy',
+    value: 'CG',
+  },
+  {
+    id: 7,
+    name: 'Đống Đa',
+    value: 'DD',
+  },
+  {
+    id: 8,
+    name: 'Hai Bà Trưng',
+    value: 'HBT',
+  },
+];
+
+export const listCard = [
+  {
+    id: 1,
+    name: 'Visa',
+    value: 'visa',
+  },
+  {
+    id: 2,
+    name: 'MasterCard',
+    value: 'mastercard',
+  },
+  {
+    id: 3,
+    name: 'Techcombank',
+    value: 'techcombank',
+  },
+  {
+    id: 4,
+    name: 'TPBank',
+    value: 'tpbank',
+  },
+  {
+    id: 5,
+    name: 'Agribank',
+    value: 'agribank',
+  },
+];
+
+export const order = {
+  listProduct: [
+    {
+      id: 1,
+      shop: {
+        id: 'shop-01',
+        shopName: `L'Oreal`,
+      },
+      products: [
+        {
+          id: 1,
+          name: 'Acne treatment serum: The ordinary niacinamide 10 + zinc 1 Acne treatment serum: The ordinary niacinamide 10 + zinc 1 ',
+          price: 100,
+          thumbnail: '/img/products/ORD-PLP-Category-EyeSerum.webp',
+          quantity: 2,
+        },
+        {
+          id: 2,
+          name: 'Acne treatment serum: The ordinary niacinamide 20',
+          price: 146,
+          thumbnail: '/img/products/ORD-PLP-Category-Moisturizers.jpg',
+          quantity: 1,
+        },
+      ],
+    },
+    {
+      id: 2,
+      shop: {
+        id: 'shop-02',
+        shopName: 'The Ordinary',
+      },
+      products: [
+        {
+          id: 5,
+          name: 'Almond Cream',
+          thumbnail: '/img/products/Screenshot 2023-07-26 222833.png',
+          price: 146,
+          quantity: 1,
+        },
+      ],
+    },
+  ],
+  listVoucher: [
+    {
+      id: 'vouvher-01',
+      code: 'ABC123',
+      discount: 10,
+      type: 'percent',
+      description: 'Discount 10% for all products',
+    },
+  ],
+  feeShip: 3,
+  shippingInfo: {
+    username: 'xuan tuoi',
+    phone: '0123456789',
+    address: 'Tòa nhà New Skyline 4, Văn Quán, Nguyễn khuyến, Hà Đông, Hà Nội',
+  },
+  paymentDetail: {
+    type: 'card', //card , payWhenReceive
+    cardName: 'Techcombank',
+    cardNumber: '123456789',
+  },
+};

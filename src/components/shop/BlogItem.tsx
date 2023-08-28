@@ -70,7 +70,7 @@ const BlogItem = () => {
           },
         }}
       >
-        <Link href="#">read blogs </Link>
+        <Link href="/blog">read blogs </Link>
       </Box>
     </Box>
   );

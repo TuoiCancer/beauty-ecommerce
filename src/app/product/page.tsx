@@ -15,7 +15,7 @@ const ProductPage = () => {
   return (
     <Box
       sx={{
-        pb: '1000px',
+        pb: { md: '60px' },
         pt: { md: '300px' },
       }}
     >
@@ -103,7 +103,11 @@ const ProductPage = () => {
       </Box>
       <Box
         sx={{
-          maxWidth: { md: '1600px' },
+          maxWidth: {
+            md: 'var(--max-width-md)',
+            lg: 'var(--max-width-lg)',
+            xl: 'var(--max-width-xl)',
+          },
           margin: '0 auto',
           padding: { md: '160px 0' },
           display: 'flex',
@@ -130,7 +134,7 @@ const ProductPage = () => {
               return (
                 <ProductItem
                   key={item.id}
-                  imgSrc={item.image[0]}
+                  imgSrc={item.thumbnail}
                   productName={item.name}
                   productType={item.type}
                   price={`${item.price}`}

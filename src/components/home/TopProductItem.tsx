@@ -6,7 +6,7 @@ import BaseButton from '../base/BaseButton';
 import ImageItem from '../base/ImageItem';
 import RatingItem from '../base/RatingItem';
 
-const TopProductItem = ({ item }) => {
+const TopProductItem = ({ item }: any) => {
   return (
     <Link href={`product/${item.id}`}>
       <Box
@@ -15,7 +15,7 @@ const TopProductItem = ({ item }) => {
           border: '1px solid #EEE',
           background: '#FFF',
           mr: { md: '30px' },
-          padding: { md: '244px 30px 32px 30px ' },
+          padding: { md: '244px 16px 32px 16px ' },
           transition: 'all 0.2s ease-in-out',
           '&:hover': {
             boxShadow: '0px 18px 36px 0px rgba(0, 0, 0, 0.07)',
@@ -26,16 +26,16 @@ const TopProductItem = ({ item }) => {
         <Box
           sx={{
             position: 'absolute',
-            top: '-10%',
-            left: '8%',
+            top: '-11%',
+            left: '6%',
             zIndex: '1',
             border: '1px solid #EEE',
           }}
         >
           <ImageItem
-            imgSrc={item.image}
+            imgSrc={item.thumbnail}
             style={{
-              width: { md: '316px' },
+              width: { md: '300px' },
               height: { md: '268px' },
               '& img': {
                 objectFit: 'cover !important',

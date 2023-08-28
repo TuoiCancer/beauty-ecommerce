@@ -4,10 +4,11 @@ import { hindMadurai, ibarra, poppins, roboto } from '@/assets/font';
 import BaseButton from '@/components/base/BaseButton';
 import ImageItem from '@/components/base/ImageItem';
 import ReviewItem from '@/components/product/ReviewItem';
+import SimilarProduct from '@/components/product/SimilarProduct';
 import { listComments, listProduct } from '@/constants';
 import { Box, ButtonBase, TextField, Typography } from '@mui/material';
 import React from 'react';
-
+import { toast, ToastContainer } from 'react-toastify';
 const ProductDetail = () => {
   const [activeImg, setActiveImg] = React.useState(0);
   const [quantity, setQuantity] = React.useState(1);
@@ -16,8 +17,8 @@ const ProductDetail = () => {
   return (
     <Box
       sx={{
-        pt: { md: '240px' },
-        pb: '200px',
+        pt: { md: '140px' },
+        pb: '120px',
       }}
     >
       {/* Header */}
@@ -88,9 +89,13 @@ const ProductDetail = () => {
       {/* Info Product Detail  */}
       <Box
         sx={{
-          maxWidth: { md: '1600px' },
+          maxWidth: {
+            md: 'var(--max-width-md)',
+            lg: 'var(--max-width-lg)',
+            xl: 'var(--max-width-xl)',
+          },
           margin: '0 auto',
-          pt: { md: '146px' },
+          pt: { md: '120px' },
         }}
       >
         <Box
@@ -109,8 +114,8 @@ const ProductDetail = () => {
                 key={index}
                 imgSrc={item}
                 style={{
-                  width: { md: '168px' },
-                  height: { md: '188px' },
+                  width: { md: '142px' },
+                  height: { md: '142px' },
                   mb: { md: '64px' },
                   border: index === activeImg ? '3px solid #6BB82F' : 'none',
                 }}
@@ -121,21 +126,22 @@ const ProductDetail = () => {
           <ImageItem
             imgSrc={product.image[activeImg]}
             style={{
-              width: { md: '565px' },
-              height: { md: '692px' },
+              width: { md: '520px' },
+              height: { md: '560px' },
               position: 'relative',
+              boxShadow: '0px 18px 36px 0px rgba(0, 0, 0, 0.12)',
               '&::before': {
                 content: '"On - sale"',
                 fontSize: '20px',
                 textAlign: 'center',
-                lineHeight: '60px',
                 zIndex: '1',
                 position: 'absolute',
                 top: '16px',
                 left: '-46px',
-                width: '200px',
-                height: '60px',
+                width: '140px',
+                height: '40px',
                 backgroundColor: '#6BB82F',
+                boxShadow: '0px 18px 36px 0px rgba(255, 255, 255, 0.12)',
                 borderRadius: '8px',
                 color: '#FFF',
                 transform: 'rotate(-45deg)',
@@ -156,15 +162,14 @@ const ProductDetail = () => {
                 fontSize: '38px',
                 fontWeight: 500,
                 lineHeight: '125.5%',
-                // textOverflow: 'ellipsis',
-                // overflow: 'hidden',
-                // whiteSpace: 'nowrap',
-                // width: '100%',
-                // webkitLineClamp: 2,
-                // webkitBoxOrient: 'vertical',
+                display: ' -webkit-box',
+                WebkitBoxOrient: 'vertical',
+                WebkitLineClamp: 2,
+                overflow: 'hidden',
               }}
             >
-              Acne treatment serum: The ordinary niacinamide 10 + zinc 1
+              Acne treatment serum: The ordinary niacinamide 10 + zinc 1 Acne
+              treatment serum: The ordinary niacinamide 10 + zinc 1
             </Typography>
             <Box
               sx={{
@@ -281,7 +286,7 @@ const ProductDetail = () => {
                     +e.target.value && setQuantity(+e.target.value)
                   }
                   sx={{
-                    width: { md: '132px' },
+                    width: { md: '92px' },
                     margin: { md: '0 16px' },
                     '& input': {
                       pt: { md: '12px' },
@@ -322,10 +327,14 @@ const ProductDetail = () => {
                   lineHeight: '180%',
                   textTransform: 'none',
                 }}
+                onClick={() => {
+                  toast.success('Add to cart successfully');
+                }}
               />
             </Box>
           </Box>
         </Box>
+        {/* Review */}
         <Box
           sx={{
             pt: { md: '120px' },
@@ -369,7 +378,7 @@ const ProductDetail = () => {
           </Box>
           <Box
             sx={{
-              mt: { md: '32px' },
+              mt: { md: '69px' },
             }}
           >
             {isActiveReviews
@@ -400,8 +409,9 @@ const ProductDetail = () => {
                 ))}
           </Box>
         </Box>
+        {/* Similar Product */}
+        <SimilarProduct />
       </Box>
-      {/* Review Section */}
     </Box>
   );
 };

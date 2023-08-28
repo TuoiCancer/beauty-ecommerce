@@ -23,13 +23,16 @@ const ShopPageDetail = () => {
       <Box
         sx={{
           backgroundColor: '#F7F7F7',
-
           padding: { md: '208px 0 108px 0' },
         }}
       >
         <Box
           sx={{
-            maxWidth: { md: '950px', lg: '1500px' },
+            maxWidth: {
+              md: 'var(--max-width-md)',
+              lg: 'var(--max-width-lg)',
+              xl: 'var(--max-width-xl)',
+            },
             margin: '0 auto',
           }}
         >
@@ -62,7 +65,11 @@ const ShopPageDetail = () => {
       {/* Products */}
       <Box
         sx={{
-          maxWidth: { md: '950px', lg: '1500px' },
+          maxWidth: {
+            md: 'var(--max-width-md)',
+            lg: 'var(--max-width-lg)',
+            xl: 'var(--max-width-xl)',
+          },
           margin: '0 auto',
           pt: { md: '149px' },
           pb: { md: '132px' },
@@ -130,7 +137,7 @@ const ShopPageDetail = () => {
             return (
               <ProductItem
                 key={item.id}
-                imgSrc={item.image}
+                imgSrc={item.thumbnail}
                 productName={item.name}
                 productType={item.type}
                 price={item.price.toFixed(2)}
@@ -213,7 +220,11 @@ const ShopPageDetail = () => {
       {/* News and Blogs */}
       <Box
         sx={{
-          maxWidth: { md: '950px', lg: '1500px' },
+          maxWidth: {
+            md: 'var(--max-width-md)',
+            lg: 'var(--max-width-lg)',
+            xl: 'var(--max-width-xl)',
+          },
           margin: '0 auto',
           pt: { md: '180px' },
           pb: { md: '200px' },

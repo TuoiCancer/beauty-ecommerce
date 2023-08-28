@@ -225,7 +225,11 @@ export default function Home() {
       {/* Introduce */}
       <Box
         sx={{
-          maxWidth: { md: '1600px' },
+          maxWidth: {
+            md: 'var(--max-width-md)',
+            lg: 'var(--max-width-lg)',
+            xl: 'var(--max-width-xl)',
+          },
           margin: '0 auto',
           display: 'flex',
           justifyContent: 'center',
@@ -256,7 +260,6 @@ export default function Home() {
         <Box
           sx={{
             flex: 1,
-            pl: { md: '160px' },
           }}
         >
           <Typography
@@ -343,7 +346,11 @@ export default function Home() {
         />
         <Box
           sx={{
-            maxWidth: { md: '1600px' },
+            maxWidth: {
+              md: 'var(--max-width-md)',
+              lg: 'var(--max-width-lg)',
+              xl: 'var(--max-width-xl)',
+            },
             margin: '0 auto',
             py: { md: '136px' },
             display: 'flex',
@@ -408,9 +415,13 @@ export default function Home() {
       {/* Top Products */}
       <Box
         sx={{
-          maxWidth: { md: '1600px' },
+          maxWidth: {
+            md: 'var(--max-width-md)',
+            lg: 'var(--max-width-lg)',
+            xl: 'var(--max-width-xl)',
+          },
           margin: '0 auto',
-          pt: { md: '200px' },
+          pt: { md: '160px' },
         }}
       >
         <Typography

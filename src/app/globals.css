@@ -6,6 +6,11 @@
   --bg-login:#BED9D4 ;
   --bg-signup: #DABEB0;
   --main-green: #2C5F23;
+  --max-width-xl: 1480px;
+  --max-width-lg: 1280px;
+  --max-width-md: 980px;
+  --max-width-sm: 736px;
+  --max-width-xs: 480px;
 }
 
 @keyframes slideInFromLeft {
@@ -23,10 +28,17 @@
 
 body {
   margin: 0;
+  scroll-behavior: smooth;
+}
+body::-webkit-scrollbar {
+  background: #fff;
+  width:4px;
 }
 
-.main::-webkit-scrollbar {
-  display: none;
+body::-webkit-scrollbar-thumb {
+  background-color: #A4C18A;
+  border-radius: 6px;
+  width:4px;
 }
 
 /* Hide scrollbar for IE and Edge */

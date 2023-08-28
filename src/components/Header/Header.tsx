@@ -39,7 +39,7 @@ const listMenu = [
 ];
 
 const Header = ({
-  isFixed = false,
+  isFixed = true,
   isHaveBg = true,
   isHaveShadow = true,
   textColor = '#000',
@@ -52,8 +52,9 @@ const Header = ({
   };
   return (
     <Box
+      // data-aos="fade-down"
       sx={{
-        position: isFixed ? 'fixed' : 'relative',
+        position: 'fixed',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -155,7 +156,7 @@ const Header = ({
         </Box>
 
         <Box>
-          <Link href="#">
+          <Link href="/cart">
             {textColor === '#000' ? (
               <ImageItem
                 imgSrc="/img/Cart_000.png"

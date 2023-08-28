@@ -10,7 +10,7 @@ interface IBaseButtonProps {
   onClick?: any;
   type?: 'button' | 'submit' | 'reset';
   styleSx?: any;
-  bgStyle: 'color' | 'gradient';
+  bgStyle?: 'color' | 'gradient';
 }
 
 const BaseButton: React.FunctionComponent<IBaseButtonProps> = ({

@@ -2,18 +2,88 @@
 
 import BaseButton from '@/components/base/BaseButton';
 import FormInput from '@/components/login/FormInput';
-import { Box, Button } from '@mui/material';
+import {
+  Box,
+  Button,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+  Step,
+  StepLabel,
+  Stepper,
+} from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Image from 'next/legacy/image';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { poppins } from '@/assets/font';
+import WestIcon from '@mui/icons-material/West';
+import { useSignup } from '@/service/react-query/user.query';
+import { toast } from 'react-toastify';
+import { validateSignupForm } from '@/helper/validate';
+import Loading from '../loading';
 
 const SignupPage = () => {
   const router = useRouter();
   const [username, setUsername] = React.useState('');
+  const [role, setRole] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [email, setEmail] = React.useState('');
+  const [phoneNumber, setPhoneNumber] = React.useState('');
+
+  const [infor, setInfor] = React.useState({
+    username: '',
+    role: '',
+    password: '',
+    email: '',
+    phoneNumber: '',
+  });
+
+  useEffect(() => {
+    setInfor({
+      username: username,
+      role: role,
+      password: password,
+      email: email,
+      phoneNumber: phoneNumber,
+    });
+  }, [username, role, password, email, phoneNumber]);
+
+  const steps = ['You are _______? ', 'Fill all information'];
+  const [activeStep, setActiveStep] = React.useState(0);
+
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const { isLoading, error, isError, mutate: signupFn } = useSignup();
+
+  const handleSignup = async () => {
+    const error = validateSignupForm({
+      fullname: username,
+      password: password,
+      email: email,
+      phoneNumber: phoneNumber,
+    });
+    if (error.msg) {
+      console.log('errr', error);
+      toast.warning(error.msg);
+      return;
+    }
+    // alert('Sign up success');
+    signupFn(infor);
+    router.push('/home');
+  };
+
+  if (isLoading) return <Loading />;
+  if (isError) {
+    console.log('error', error.message);
+    toast.error(error.message);
+  }
 
   return (
     <Box
@@ -65,7 +135,7 @@ const SignupPage = () => {
               fontSize: '32px',
               fontStyle: 'normal',
               fontWeight: 400,
-              mb: '76px',
+              mb: '64px',
             }}
           >
             Create your account and get personalized care
@@ -78,37 +148,213 @@ const SignupPage = () => {
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
-            width: { md: '640px' },
+            width: { md: '720px' },
           }}
         >
-          <Box>
-            <FormInput
-              label="Fullname"
-              type="text"
-              typeOfVariant="outlined"
-              placeholder="Xuan Tuoi"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
+          <Stepper
+            activeStep={activeStep}
+            sx={{
+              width: { md: '100%' },
+              justifyContent: 'space-between',
+              '& .MuiStepConnector-root': {
+                display: 'none',
+              },
+            }}
+          >
+            {steps.map((label, index) => {
+              const stepProps: { completed?: boolean } = {};
+              const labelProps: {
+                optional?: React.ReactNode;
+              } = {};
+              return (
+                <Step key={label} {...stepProps}>
+                  <StepLabel
+                    {...labelProps}
+                    sx={{
+                      '& .MuiStepLabel-label': {
+                        fontFamily: poppins,
+                        fontSize: { md: '18px' },
+                        color: '#fff',
+                        '&.Mui-active': {
+                          color: '#fff',
+                        },
+                        '&.Mui-completed': {
+                          color: '#fff',
+                        },
+                      },
+                      '& svg': {
+                        color: '#A77A63 !important',
+                        '& text': {
+                          fill: '#fff !important',
+                        },
+                      },
+                    }}
+                  >
+                    {label}
+                  </StepLabel>
+                </Step>
+              );
+            })}
+          </Stepper>
 
-            <FormInput
-              label="Email"
-              type="text"
-              typeOfVariant="outlined"
-              placeholder="xuantuoi@gmail.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
+          <React.Fragment>
+            <Box
+              sx={{
+                pt: { md: '32px' },
+                width: { md: '100%' },
+                '& .MuiFormControl-root': {
+                  width: { md: '320px' },
+                },
+              }}
+            >
+              {steps[activeStep] === 'You are _______? ' ? (
+                <RadioGroup
+                  aria-labelledby="demo-radio-buttons-group-label"
+                  name="radio-buttons-group"
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'flex-start',
+                    justifyContent: 'flex-start',
+                    mb: { md: '60px' },
+                    mt: { md: '12px' },
+                    '& .MuiFormControlLabel-root': {
+                      '& .MuiButtonBase-root': {
+                        color: '#fff',
+                      },
+                    },
+                  }}
+                  value={role}
+                >
+                  <FormControlLabel
+                    onChange={() => {
+                      setRole('shop');
+                      handleNext();
+                    }}
+                    value="shop"
+                    control={<Radio />}
+                    label="Shop"
+                    sx={{
+                      color: '#fff',
+                      '& .MuiTypography-root': {
+                        fontSize: '20px',
+                        fontWeight: '400',
+                      },
+                      '& .MuiRadio-root': {},
+                    }}
+                  />
+                  <FormControlLabel
+                    onChange={() => {
+                      setRole('user');
+                      handleNext();
+                    }}
+                    value="user"
+                    control={<Radio />}
+                    label="Buyer"
+                    sx={{
+                      color: '#fff',
+                      '& .MuiTypography-root': {
+                        fontSize: '20px',
+                        fontWeight: '400',
+                      },
+                    }}
+                  />
+                </RadioGroup>
+              ) : (
+                <>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <FormInput
+                      label="Fullname"
+                      type="text"
+                      typeOfVariant="outlined"
+                      placeholder="Xuan Tuoi"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                    />
 
-            <FormInput
-              label="Password"
-              type="password"
-              typeOfVariant="outlined"
-              placeholder="********"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </Box>
+                    <FormInput
+                      label="Email"
+                      type="text"
+                      typeOfVariant="outlined"
+                      placeholder="xuantuoi@gmail.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </Box>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <FormInput
+                      label="Password"
+                      type="password"
+                      typeOfVariant="outlined"
+                      placeholder="********"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+
+                    <FormInput
+                      label="Phone number"
+                      type="text"
+                      typeOfVariant="outlined"
+                      placeholder="(+84) 123 456 789"
+                      value={phoneNumber}
+                      onChange={(e) => setPhoneNumber(e.target.value)}
+                    />
+                  </Box>
+
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      margin: '62px 0 20px 0',
+                      alignItems: 'center',
+                      '& svg': {
+                        cursor: 'pointer',
+                        color: '#A77A63',
+                        fontSize: '32px',
+                        transition: 'all 0.3s ease',
+                        '&:hover': {
+                          color: '#DD8D63',
+                          transform: 'translateX(-5px)',
+                        },
+                      },
+                    }}
+                  >
+                    <WestIcon onClick={handleBack} />
+                    <BaseButton
+                      label="Sign up"
+                      variant="contained"
+                      bgStyle="color"
+                      onClick={handleSignup}
+                      styleSx={{
+                        padding: '12px 80px',
+                        fontSize: '20px',
+                        fontWeight: '500',
+                        borderRadius: ' 5px',
+                        background: '#DD8D63',
+                        marginRight: 'auto',
+                        marginLeft: 'auto',
+                        '&:hover': {
+                          background: '#e37c46',
+                        },
+                      }}
+                    />
+                  </Box>
+                </>
+              )}
+            </Box>
+          </React.Fragment>
 
           <Box
             sx={{
@@ -118,22 +364,6 @@ const SignupPage = () => {
               alignItems: 'center',
             }}
           >
-            <BaseButton
-              label="Sign up"
-              variant="contained"
-              bgStyle="color"
-              styleSx={{
-                margin: '42px 0 20px 0',
-                padding: '12px 80px',
-                fontSize: '20px',
-                fontWeight: '500',
-                borderRadius: ' 5px',
-                background: '#DD8D63',
-                '&:hover': {
-                  background: '#e37c46',
-                },
-              }}
-            />
             <Box
               sx={{
                 display: 'flex',
