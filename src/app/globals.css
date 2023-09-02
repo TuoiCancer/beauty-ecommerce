@@ -2,16 +2,45 @@
 @tailwind components;
 @tailwind utilities;
 
+:root{
+  --bg-login:#BED9D4 ;
+  --bg-signup: #DABEB0;
+  --main-green: #2C5F23;
+  --max-width-xl: 1480px;
+  --max-width-lg: 1280px;
+  --max-width-md: 980px;
+  --max-width-sm: 736px;
+  --max-width-xs: 480px;
+}
+
+/* @keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    opacity: 1
+  }
+} */
+
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
+  scroll-behavior: smooth;
+  font-family: 'Montserrat', sans-serif;
 }
 
-.main::-webkit-scrollbar {
-  display: none;
+body::-webkit-scrollbar {
+  background: #fff;
+  width:4px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #A4C18A;
+  border-radius: 6px;
+  width:4px;
 }
 
 /* Hide scrollbar for IE and Edge */
@@ -23,3 +52,4 @@ body {
 .navbar-title span {
   border-bottom: 2px solid black;
 }
+
