@@ -19,7 +19,6 @@ export const useSignup = () => {
     },
     {
       onSuccess: (data: signupResponseI) => {
-        console.log('data-----------------> ', data);
         // set token into local storage
         localStorage.setItem('data', JSON.stringify(data));
         updateStore((state: IStore) => {

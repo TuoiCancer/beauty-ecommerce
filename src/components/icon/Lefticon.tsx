@@ -1,10 +1,18 @@
 import React from 'react';
 
-const Lefticon = ({ sx }: any) => {
+const Lefticon = ({
+  sx,
+  width,
+  height,
+}: {
+  sx?: any;
+  width?: string;
+  height?: string;
+}) => {
   return (
     <svg
-      width="13"
-      height="26"
+      width={width || '13'}
+      height={height || '26'}
       viewBox="0 0 13 26"
       fill="none"
       style={sx}

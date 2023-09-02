@@ -95,7 +95,7 @@ export default function RootLayout({
                   textColor="#fff"
                   style={{
                     position: 'absolute',
-                    top: '40px',
+                    top: { xs: 0, lg: '40px' },
                     left: 0,
                     right: 0,
                     zIndex: 999,
@@ -111,7 +111,6 @@ export default function RootLayout({
                     isHaveBg={true}
                     textColor="#000"
                     style={{
-                      top: '20px',
                       left: 0,
                       right: 0,
                       zIndex: 999,
@@ -119,9 +118,8 @@ export default function RootLayout({
                   />
                 )}
               <motion.div
-                initial={{ x: 300, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                exit={{ x: 300, opacity: 0 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
                 transition={{
                   type: 'spring',
                   stiffness: 260,

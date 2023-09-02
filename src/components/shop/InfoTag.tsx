@@ -6,8 +6,8 @@ const InfoTag = () => {
   return (
     <Box
       sx={{
-        width: { md: '842px' },
-        height: { md: '242px' },
+        width: { xs: '80%', md: '842px' },
+        height: { md: '200px', lg: '242px' },
         backgroundColor: '#fff',
         display: 'flex',
         alignItems: 'center',
@@ -30,7 +30,7 @@ const InfoTag = () => {
       </Box>
       <Box
         sx={{
-          padding: '69px 74px 45px 62px',
+          padding: { md: '24px 32px', lg: '69px 74px 45px 62px' },
           flex: 1,
         }}
       >

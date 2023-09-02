@@ -43,4 +43,12 @@ export class ApiService {
       'Content-Type': 'application/json',
     },
   });
+
+  createProduct = configApi({
+    path: 'v1/products',
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
 }

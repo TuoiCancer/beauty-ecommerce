@@ -1,9 +1,19 @@
-import { Box, Select, MenuItem, Typography } from '@mui/material';
+import {
+  Box,
+  Select,
+  MenuItem,
+  Typography,
+  useMediaQuery,
+} from '@mui/material';
 import React from 'react';
 import ImageItem from '../base/ImageItem';
 import HeaderItem from './HeaderItem';
 import { SelectChangeEvent } from '@mui/material/Select';
 import Link from 'next/link';
+
+import MenuIcon from '@mui/icons-material/Menu';
+import CartHeader from './CartHeader';
+
 const listMenu = [
   {
     id: 1,
@@ -14,11 +24,17 @@ const listMenu = [
   {
     id: 2,
     name: 'Product',
-    link: '/product',
+    link: '/product?page=1&limit=10',
     isHaveSubItem: false,
   },
   {
     id: 3,
+    name: 'Order',
+    link: '/order',
+    isHaveSubItem: false,
+  },
+  {
+    id: 4,
     name: 'Shop',
     isHaveSubItem: true,
     subItem: [
@@ -45,12 +61,15 @@ const Header = ({
   textColor = '#000',
   style = {},
 }) => {
+  const matches = useMediaQuery('(min-width:900px)');
+
   const [language, setLanguage] = React.useState('en');
+  const [isShowMenu, setIsShowMenu] = React.useState(false);
 
   const handleChange = (event: SelectChangeEvent) => {
     setLanguage(event.target.value as string);
   };
-  return (
+  return matches ? (
     <Box
       // data-aos="fade-down"
       sx={{
@@ -60,8 +79,12 @@ const Header = ({
         alignItems: 'center',
         backgroundColor: isHaveBg ? '#fff' : 'transparent',
         borderRadius: '8px',
-        maxWidth: '1500px',
-        margin: '0 auto',
+        maxWidth: {
+          md: 'var(--max-width-md)',
+          lg: 'var(--max-width-lg)',
+          xl: 'var(--max-width-xl)',
+        },
+        margin: '12px auto',
         color: textColor,
         boxShadow: isHaveShadow
           ? '0px 18px 36px 0px rgba(200, 200, 200, 0.25)'
@@ -75,7 +98,7 @@ const Header = ({
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          padding: { md: '30px 0px' },
+          padding: { md: '20px 0px' },
         }}
       >
         {/* Logo */}
@@ -96,87 +119,80 @@ const Header = ({
           return <HeaderItem key={item.id} item={item} textColor={textColor} />;
         })}
       </Box>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          position: 'relative',
+      <CartHeader
+        textColor={textColor}
+        handleChange={handleChange}
+        language={language}
+      />
+    </Box>
+  ) : (
+    <Box
+      sx={{
+        position: 'fixed',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        backgroundColor: isHaveBg ? '#fff' : 'transparent',
+        maxWidth: {
+          xs: '100%',
+          sm: 'var(--max-width-sm)',
+        },
+        margin: '12px auto',
+        color: textColor,
+        boxShadow: isHaveShadow
+          ? '0px 18px 36px 0px rgba(200, 200, 200, 0.25)'
+          : 'none',
+        padding: '12px 16px',
+        ...style,
+      }}
+    >
+      {/* Logo */}
+      <ImageItem
+        imgSrc={
+          textColor === '#000'
+            ? '/img/logo/logo_black.png'
+            : '/img/logo/logo_white.png'
+        }
+        style={{
+          width: '200px',
+          height: '46px',
         }}
-      >
-        <Select
-          id="select language"
-          value={language}
-          onChange={handleChange}
-          sx={{
-            mr: '20px',
-            color: textColor,
-            '& fieldset': {
-              border: 'none',
-            },
-            '& svg': {
-              color: textColor,
-            },
-          }}
-        >
-          <MenuItem value={'en'}>Eng</MenuItem>
-          <MenuItem value={'vn'}>Viet Nam</MenuItem>
-          <MenuItem value={'ko'}>Korean</MenuItem>
-        </Select>
+      />
+      <MenuIcon
+        sx={{
+          cursor: 'pointer',
+          color: textColor,
+        }}
+        onClick={() => {
+          setIsShowMenu(!isShowMenu);
+        }}
+      />
 
+      {isShowMenu && (
         <Box
           sx={{
-            zIndex: 3,
-            cursor: 'pointer',
             position: 'absolute',
-            right: '-16px',
-            top: '-3px',
+            top: '100%',
+            right: '0',
+            backgroundColor: '#fff',
+            zIndex: 2,
+            padding: '12px',
+            boxShadow: '0px 18px 36px 0px rgba(200, 200, 200, 0.25)',
           }}
         >
-          <Box
-            sx={{
-              backgroundColor: '#9E5F00',
-              width: '32px',
-              height: '32px',
-              borderRadius: '50%',
-              textAlign: 'center',
-            }}
-          >
-            <Typography
-              sx={{
-                color: '#fff',
-                fontSze: '16px',
-                fontWeight: 600,
-                lineHeight: '32px',
-              }}
-            >
-              {2}
-            </Typography>
-          </Box>
+          {/* Menu */}
+          {listMenu.map((item) => {
+            return (
+              <HeaderItem key={item.id} item={item} textColor={textColor} />
+            );
+          })}
+          <CartHeader
+            textColor={textColor}
+            handleChange={handleChange}
+            language={language}
+          />
         </Box>
-
-        <Box>
-          <Link href="/cart">
-            {textColor === '#000' ? (
-              <ImageItem
-                imgSrc="/img/Cart_000.png"
-                style={{
-                  width: '39px',
-                  height: '35px',
-                }}
-              />
-            ) : (
-              <ImageItem
-                imgSrc="/img/Cart_fff.png"
-                style={{
-                  width: '39px',
-                  height: '35px',
-                }}
-              />
-            )}
-          </Link>
-        </Box>
-      </Box>
+      )}
     </Box>
   );
 };

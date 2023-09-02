@@ -1,5 +1,6 @@
 import { poppins, roboto } from '@/assets/font';
 import { Box, Checkbox, Typography } from '@mui/material';
+import Link from 'next/link';
 import React from 'react';
 import ImageItem from '../base/ImageItem';
 import Lefticon from '../icon/Lefticon';
@@ -10,33 +11,36 @@ type Product = {
   price: number;
   thumbnail: string;
   quantity: number;
+  link: string;
 };
 
 export interface CartItemProps {
   shopName: string;
+  link: string;
   products: Product[];
 }
 
-const CartItem = ({ shopName, products }: CartItemProps) => {
+const CartItem = ({ shopName, link, products }: CartItemProps) => {
   return (
     <Box
       sx={{
-        mb: { md: '94px' },
+        mb: { xs: '16px', md: '52px', xl: '64px' },
       }}
     >
       {/* Header About Shop */}
-      <Box
-        sx={{
-          display: 'flex',
+      <Link
+        href={link}
+        style={{
+          display: 'inline-flex',
           alignItems: 'center',
-          margin: { md: '24px 0' },
+          textDecoration: 'none',
         }}
       >
         <ImageItem
           imgSrc="/img/store.png"
           style={{
-            width: { md: '42px' },
-            height: { md: '42px' },
+            width: { xs: '24px', md: '28px' },
+            height: { xs: '24px', md: '28px' },
           }}
         />
         <Typography
@@ -44,16 +48,16 @@ const CartItem = ({ shopName, products }: CartItemProps) => {
           variant="h3"
           sx={{
             color: '#626262',
-            fontSize: '28px',
+            fontSize: { xs: '18px', md: '20px', lg: '22px' },
             fontWeight: 500,
             lineHeight: '125.5%',
-            margin: { md: '0 16px' },
+            margin: { xs: '0 8px', lg: '0 16px' },
           }}
         >
           {shopName}
         </Typography>
-        <Lefticon />
-      </Box>
+        <Lefticon width="12px" height="12px" />
+      </Link>
       {/* List Product in cart */}
       {products.map((item, index) => {
         return (
@@ -62,7 +66,7 @@ const CartItem = ({ shopName, products }: CartItemProps) => {
             sx={{
               display: 'flex',
               alignItems: 'center',
-              margin: { md: '48px 0' },
+              margin: { xs: '12px 0', md: '24px 0' },
             }}
           >
             <Box
@@ -77,93 +81,128 @@ const CartItem = ({ shopName, products }: CartItemProps) => {
                   '&.Mui-checked': {
                     color: 'green',
                   },
-                  '& .MuiSvgIcon-root': { fontSize: 28 },
+                  '& .MuiSvgIcon-root': {
+                    fontSize: {
+                      xs: '24px',
+                      md: '32px',
+                    },
+                  },
                 }}
               />
               <ImageItem
                 imgSrc={item.thumbnail}
                 style={{
-                  width: { md: '160px' },
-                  height: { md: '160px' },
+                  width: { xs: '60px', md: '120px', lg: '160px' },
+                  height: { xs: '60px', md: '120px', lg: '160px' },
                   ml: { md: '24px' },
+                  mr: { xs: '12px', md: '18px' },
                 }}
               />
             </Box>
             <Box
               sx={{
                 flex: 1,
-                margin: { md: '0 32px' },
+                mr: { xs: '12px' },
               }}
             >
-              <Typography
-                variant="h3"
-                className={roboto.className}
-                sx={{
-                  color: '#183A12',
-                  fontSize: '26px',
-                  fontWeight: 300,
-                  lineHeight: '125.5%',
-                  mb: { md: '12px' },
+              <Link
+                href={item.link}
+                style={{
+                  flex: 1,
+                  textDecoration: 'none',
+                  color: '#000',
                 }}
               >
-                {item.name}
-              </Typography>
-              <Typography
-                variant="h3"
-                className={poppins.className}
+                <Typography
+                  variant="h3"
+                  className={roboto.className}
+                  sx={{
+                    color: '#183A12',
+                    fontSize: { xs: '18px', md: '22px', xl: '24px' },
+                    fontWeight: 300,
+                    lineHeight: '125.5%',
+                    mb: { md: '12px' },
+                    display: '-webkit-box',
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: 'vertical',
+                    overflow: 'hidden',
+                  }}
+                >
+                  {item.name}
+                </Typography>
+                <Typography
+                  variant="h3"
+                  className={poppins.className}
+                  sx={{
+                    color: '#575757',
+                    fontSize: {
+                      xs: '16px',
+                      md: '20px',
+                    },
+                    fontWeight: '400',
+                    display: { xs: 'none', md: 'block' },
+                  }}
+                >
+                  ${item.price.toFixed(2)}
+                </Typography>
+              </Link>
+              <Box
                 sx={{
-                  color: '#575757',
-                  fontSize: '30px',
-                  fontWeight: '400',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  mt: { xs: '8px' },
                 }}
               >
-                ${item.price.toFixed(2)}
-              </Typography>
+                <Box
+                  className={roboto.className}
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    '& p': {
+                      color: '#737373',
+                      fontSize: '32px',
+                      fontWeight: 500,
+                      lineHeight: '154.5%',
+                      margin: { md: '0 24px' },
+                      cursor: 'pointer',
+                    },
+                  }}
+                >
+                  <Typography> - </Typography>
+                  <Typography
+                    variant="h5"
+                    sx={{
+                      fontSize: '16px',
+                      borderRadius: '4px',
+                      background: '#F2F2F2',
+                      padding: { xs: '6px 12px', md: ' 8px 12px ' },
+                      mx: { xs: '8px' },
+                    }}
+                  >
+                    {item.quantity}
+                  </Typography>
+                  <Typography> + </Typography>
+                </Box>
+                <Typography
+                  className={poppins.className}
+                  sx={{
+                    color: '#575757',
+                    fontSize: { xs: '18px', md: '24px' },
+                    margin: { xs: '0 12px', md: '0 42px' },
+                  }}
+                >
+                  ${(item.quantity * item.price).toFixed(2)}
+                </Typography>
+              </Box>
             </Box>
-            <Box
-              className={roboto.className}
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                '& p': {
-                  color: '#737373',
-                  fontSize: '32px',
-                  fontWeight: 600,
-                  lineHeight: '154.5%',
-                  margin: { md: '0 24px' },
-                  cursor: 'pointer',
-                },
-              }}
-            >
-              <Typography> - </Typography>
-              <Typography
-                variant="h5"
-                sx={{
-                  borderRadius: '4px',
-                  background: '#F2F2F2',
-                  padding: { md: ' 8px 12px ' },
-                }}
-              >
-                {item.quantity}{' '}
-              </Typography>
-              <Typography> + </Typography>
-            </Box>
-            <Typography
-              className={poppins.className}
-              sx={{
-                color: '#575757',
-                fontSize: '30px',
-                margin: { md: '0 42px' },
-              }}
-            >
-              ${item.quantity * item.price}
-            </Typography>
             <ImageItem
               imgSrc="/img/trash.png"
               style={{
-                width: { md: '50px' },
-                height: { md: '50px' },
+                width: { xs: '24px', md: '30px' },
+                height: { xs: '24px', md: '30px' },
                 marginLeft: { md: 'auto' },
+                cursor: 'pointer',
               }}
             />
           </Box>

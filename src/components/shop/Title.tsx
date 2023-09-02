@@ -8,7 +8,7 @@ const Title = ({ title }: { title: string }) => {
       variant="h2"
       className={unicaOne.className}
       sx={{
-        fontSize: { md: '56px' },
+        fontSize: { xs: '38px', md: '42px', lg: '56px' },
         textTransform: 'uppercase',
         color: '#171B1A',
       }}

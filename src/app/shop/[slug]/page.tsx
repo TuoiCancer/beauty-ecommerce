@@ -23,12 +23,18 @@ const ShopPageDetail = () => {
       <Box
         sx={{
           backgroundColor: '#F7F7F7',
-          padding: { md: '208px 0 108px 0' },
+          padding: {
+            xs: '32px 12px',
+            md: '200px 24px 100px 24px',
+            xl: '208px 0 108px 0',
+          },
         }}
       >
         <Box
           sx={{
             maxWidth: {
+              xs: 'var(--max-width-xs)',
+              sm: 'var(--max-width-sm)',
               md: 'var(--max-width-md)',
               lg: 'var(--max-width-lg)',
               xl: 'var(--max-width-xl)',
@@ -40,10 +46,9 @@ const ShopPageDetail = () => {
           <Box
             sx={{
               display: 'flex',
-              flexDirection: 'row',
               alignItems: 'center',
-              flexWrap: 'wrap',
-              mt: { md: '64px' },
+              mt: { xs: '32px', lg: '64px' },
+              flexDirection: { xs: 'column', md: 'row' },
             }}
           >
             {listCategory.map((item) => {
@@ -66,13 +71,16 @@ const ShopPageDetail = () => {
       <Box
         sx={{
           maxWidth: {
+            xs: 'var(--max-width-xs)',
+            sm: 'var(--max-width-sm)',
             md: 'var(--max-width-md)',
             lg: 'var(--max-width-lg)',
             xl: 'var(--max-width-xl)',
           },
           margin: '0 auto',
-          pt: { md: '149px' },
+          pt: { xs: '32px', md: '64px', lg: '149px' },
           pb: { md: '132px' },
+          px: { xs: '12px' },
         }}
       >
         {/* Title */}
@@ -101,6 +109,7 @@ const ShopPageDetail = () => {
               alignItems: 'center',
               cursor: 'pointer',
               transition: 'all 0.3s ease',
+              ml: { xs: '20px' },
               ':hover': {
                 transform: 'translateX(4px)',
               },
@@ -112,9 +121,11 @@ const ShopPageDetail = () => {
               sx={{
                 color: '#000',
                 fontSize: {
+                  xs: '16px',
                   md: '20px',
+                  whiteSpace: 'nowrap',
                 },
-                mr: { md: '24px' },
+                mr: { xs: '12px', md: '24px' },
               }}
             >
               View all
@@ -130,7 +141,7 @@ const ShopPageDetail = () => {
             flexWrap: 'wrap',
             alignItems: 'center',
             justifyContent: 'space-between',
-            mt: { md: '74px' },
+            mt: { xs: '48px', md: '74px' },
           }}
         >
           {listProduct.map((item) => {
@@ -152,12 +163,15 @@ const ShopPageDetail = () => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+          flexDirection: { xs: 'column', lg: 'row' },
+          py: { xs: '32px' },
+          height: { lg: '640px', xl: '720px' },
         }}
       >
         <Box
           sx={{
-            width: { md: '950px' },
-            height: { md: '600px' },
+            width: { xs: '100%', lg: '480px', xl: '950px' },
+            height: { xs: '320px', md: '480px', lg: '100%' },
             position: 'relative',
           }}
         >
@@ -177,9 +191,14 @@ const ShopPageDetail = () => {
 
         <Box
           sx={{
-            padding: { md: '114px  32px 118px 94px' },
+            padding: {
+              xs: '32px 12px',
+              md: '32px ',
+              lg: '114px  32px 118px 94px',
+            },
             flex: 1,
             backgroundColor: '#F7F7F7',
+            height: '100%',
           }}
         >
           <Title title="about L’Oréal " />
@@ -188,7 +207,7 @@ const ShopPageDetail = () => {
             sx={{
               mt: '32px',
               color: '#000',
-              fontSize: '24px',
+              fontSize: { xs: '16px', md: '20px', lg: '24px' },
               fontWeight: 300,
               lineHeight: '187.5%' /* 45px */,
               letterSpacing: '2px',
@@ -200,10 +219,10 @@ const ShopPageDetail = () => {
           </Typography>
           <Box
             sx={{
-              pt: { md: '88px' },
+              pt: { xs: '12px', md: '24px', lg: '88px' },
               '& a': {
                 color: '#000',
-                fontSize: '24px',
+                fontSize: { xs: '16px', md: '20px', lg: '24px' },
                 fontWeight: 600,
                 lineHeight: '187.5%' /* 45px */,
                 letterSpacing: '2px',
@@ -221,13 +240,16 @@ const ShopPageDetail = () => {
       <Box
         sx={{
           maxWidth: {
+            xs: 'var(--max-width-xs)',
+            sm: 'var(--max-width-sm)',
             md: 'var(--max-width-md)',
             lg: 'var(--max-width-lg)',
             xl: 'var(--max-width-xl)',
           },
           margin: '0 auto',
-          pt: { md: '180px' },
-          pb: { md: '200px' },
+          pt: { sm: '32px', md: '64px', lg: '180px' },
+          pb: { xs: '46px', md: '64px', lg: '200px' },
+          px: { xs: '12px' },
         }}
       >
         <Box
@@ -236,6 +258,7 @@ const ShopPageDetail = () => {
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
+            pb: { xs: '32px' },
           }}
         >
           <Title title="Latest news" />
@@ -256,9 +279,11 @@ const ShopPageDetail = () => {
               sx={{
                 color: '#000',
                 fontSize: {
+                  xs: '16px',
                   md: '20px',
+                  whiteSpace: 'nowrap',
                 },
-                mr: { md: '24px' },
+                mr: { xs: '12px', md: '24px' },
               }}
             >
               View all
@@ -269,12 +294,14 @@ const ShopPageDetail = () => {
         {/* List news */}
         <Box
           sx={{
-            pt: { md: '74px' },
-            display: 'flex',
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            alignItems: 'center',
-            justifyContent: 'space-between',
+            pt: { md: '32px', lg: '74px' },
+            display: 'grid',
+            gridTemplateColumns: {
+              xs: 'repeat(1, 1fr)',
+              lg: 'repeat(2, 1fr)',
+              xl: 'repeat(3, 1fr)',
+            },
+            gap: { lg: '32px' },
           }}
         >
           {listNews.map((item) => {

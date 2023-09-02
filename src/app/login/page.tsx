@@ -24,11 +24,15 @@ const LoginPage = () => {
         sx={{
           backgroundColor: 'var(--bg-login)',
           display: 'flex',
+          width: { xs: '90%', sm: '500px', lg: 'auto' },
+          margin: { xs: '0 auto', lg: 0 },
+          paddingTop: { xs: '50%', sm: '20%', md: '32px' },
         }}
       >
         <Box
           sx={{
-            flex: 1,
+            flex: { xl: 1 },
+            display: { xs: 'none', lg: 'block' },
           }}
         >
           {/* Logo Header */}
@@ -51,12 +55,12 @@ const LoginPage = () => {
           </Box>
           <Box
             sx={{
-              width: { md: '385px' },
+              width: { md: '380px' },
               height: { md: '367px' },
               objectFit: 'contain',
               position: 'relative',
               mt: { md: '118px' },
-              ml: { md: '190px' },
+              ml: { lg: '32px', xl: '190px' },
             }}
           >
             <Image
@@ -68,7 +72,7 @@ const LoginPage = () => {
           <Box
             sx={{
               backgroundColor: '#95BFB5',
-              width: { md: '657px' },
+              width: { md: '100%' },
               height: { md: '1px' },
             }}
           />
@@ -76,14 +80,18 @@ const LoginPage = () => {
         {/* Form Login */}
         <Box
           sx={{
-            flex: 1,
+            // flex: 1,
             background: ' #FFF',
             boxShadow: ' 12px 12px 24px -3px rgba(126, 126, 126, 0.22)',
-            width: { md: '545px' },
-            height: { md: '618px' },
-            borderRadius: { md: '40px' },
-            marginTop: { md: '170px' },
-            padding: { md: '56px 26px 72px 40px ' },
+            width: { xs: '100%', md: '545px', lg: '100%', xl: '560px' },
+            // height: { md: '618px' },
+            borderRadius: { xs: '8px', md: '40px' },
+            marginTop: { md: '80px', xl: '170px' },
+            padding: {
+              xs: '24px 12px',
+              md: '32px',
+              lg: '56px 26px 32px 40px ',
+            },
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -93,17 +101,26 @@ const LoginPage = () => {
           <Typography
             variant="h1"
             sx={{
-              fontSize: '52px',
+              fontSize: { xs: '32px', md: '48px', lg: '52px' },
               fontWeight: '600',
               color: ' #004339',
-              mb: { md: '12px' },
+              mb: { xs: '12px' },
             }}
           >
             Login
           </Typography>
           <Typography
             variant="h4"
-            sx={{ fontSize: '18px', fontWeight: '400', color: ' #6D827F' }}
+            sx={{
+              textAlign: 'center',
+              fontSize: {
+                xs: '14px',
+                md: '16px',
+                lg: '18px',
+              },
+              fontWeight: '400',
+              color: ' #6D827F',
+            }}
           >
             Natural cosmetic purity for every skin
           </Typography>
@@ -114,15 +131,16 @@ const LoginPage = () => {
             placeholder="Email"
             onChange={(e) => setEmail(e.target.value)}
             sx={{
-              mt: '75px',
-              width: { md: '100%' },
-              height: { md: '52px' },
+              mt: { xs: '52px', md: '75px' },
+              width: { xs: '100%' },
+              height: { xs: '32px', md: '52px' },
               '& .MuiOutlinedInput-root': {
                 borderRadius: '10px',
                 background: '#F8F8F9',
                 border: '1px solid #EBEBEB',
                 input: {
-                  padding: '16px 24px',
+                  padding: { xs: '12px 18px', md: '16px 24px' },
+                  fontSize: { xs: '14px', md: '16px' },
                 },
                 fieldset: {
                   border: 'none',
@@ -135,7 +153,7 @@ const LoginPage = () => {
             sx={{
               position: 'relative',
               mt: '30px',
-              width: { md: '100%' },
+              width: { xs: '100%' },
               height: { md: '52px' },
             }}
           >
@@ -146,13 +164,14 @@ const LoginPage = () => {
               placeholder="Password"
               onChange={(e) => setPassword(e.target.value)}
               sx={{
-                width: { md: '100%' },
+                width: { xs: '100%' },
                 '& .MuiOutlinedInput-root': {
                   borderRadius: '10px',
                   background: '#F8F8F9',
                   border: '1px solid #EBEBEB',
                   input: {
-                    padding: '16px 24px',
+                    padding: { xs: '12px 18px', md: '16px 24px' },
+                    fontSize: { xs: '14px', md: '16px' },
                   },
                   fieldset: {
                     border: 'none',
@@ -164,10 +183,11 @@ const LoginPage = () => {
               variant="h6"
               sx={{
                 position: 'absolute',
-                top: '32%',
+                top: '50%',
+                transform: 'translateY(-50%)',
                 right: '24px',
                 color: '#9D9D9D',
-                fontSize: '16px',
+                fontSize: { xs: '14px', md: '16px' },
                 fontStyle: 'normal',
                 fontWeight: 300,
                 cursor: 'pointer',
@@ -179,26 +199,32 @@ const LoginPage = () => {
             >
               Hide
             </Typography>
-
-            <Box
+          </Box>
+          <Box
+            sx={{
+              width: { xs: '100%' },
+              display: 'flex',
+              alignItems: 'center',
+              pb: '20px',
+              pt: { xs: '12px', md: '24px' },
+            }}
+          >
+            <Checkbox />
+            <Typography
               sx={{
-                display: 'flex',
-                alignItems: 'center',
-                pb: '20px',
-                pt: '12px',
+                fontSize: { xs: '14px', md: '16px' },
               }}
             >
-              <Checkbox />
-              <Typography>Remember password</Typography>
-            </Box>
+              Remember password
+            </Typography>
           </Box>
 
           <BaseButton
             styleSx={{
-              mt: '80px',
+              my: { xs: '32px', lg: '40px' },
               backgroundColor: '#2C8578',
               padding: '12px 80px',
-              fontSize: '20px',
+              fontSize: { xs: '16px', md: '20px' },
               fontWeight: '500',
               borderRadius: ' 5px',
               '&:hover': { backgroundColor: '#2C8578', opacity: '0.9' },
@@ -223,7 +249,7 @@ const LoginPage = () => {
             <Typography
               className={poppins.className}
               sx={{
-                fontSize: '15px',
+                fontSize: { xs: '12px', md: '15px' },
                 color: '#000',
                 fontWeight: '400',
                 marginRight: '8px',
@@ -234,7 +260,7 @@ const LoginPage = () => {
             <Typography
               className={poppins.className}
               sx={{
-                fontSize: '18px',
+                fontSize: { xs: '14px', md: '18px' },
                 color: '#000',
                 fontWeight: '600',
                 cursor: 'pointer',
@@ -253,12 +279,13 @@ const LoginPage = () => {
         </Box>
         <Box
           sx={{
-            flex: 1,
+            // flex: 1,
+            display: { xs: 'none', lg: 'block' },
           }}
         >
           <Box
             sx={{
-              width: { md: '676px' },
+              width: { md: '440px', xl: '676px' },
               height: { md: '587px' },
               objectFit: 'cover',
               position: 'relative',
@@ -285,8 +312,9 @@ const LoginPage = () => {
         sx={{
           color: '#3F3F3F',
           fontWeight: '500',
-          fontSize: '15px',
+          fontSize: '14px',
           textAlign: 'center',
+          whiteSpace: 'nowrap',
           bottom: '20px',
           position: 'absolute',
           left: '50%',

@@ -79,14 +79,14 @@ export default function Home() {
   return (
     <Box
       sx={{
-        pb: { md: '320px' },
+        pb: { md: '180px' },
       }}
     >
       {/* Header */}
       <Box
         sx={{
           width: { md: '100%' },
-          height: { md: '100vh' },
+          height: { xs: '50vh', md: '80vh', xl: '100vh' },
           background: 'linear-gradient(176deg, #FFF 0%, #F1F1F1 100%)',
           position: 'relative',
           overflow: 'hidden',
@@ -95,10 +95,22 @@ export default function Home() {
         <Box
           sx={{
             position: 'absolute',
-            top: '-60%',
-            right: '-26%',
-            width: { md: '1400px' },
-            height: { md: '1359px' },
+            top: { xs: '0', sm: '0', lg: '-36%', xl: '-58%' },
+            right: { xs: '0', md: '-20%', lg: '-24%', xl: '-29%' },
+            width: {
+              xs: '200px',
+              sm: '400px',
+              md: '520px',
+              lg: '860px',
+              xl: '1400px',
+            },
+            height: {
+              xs: '200px',
+              sm: '400px',
+              md: '520px',
+              lg: '860px',
+              xl: '1359px',
+            },
             borderRadius: '50%',
             border: ' 1px solid rgba(110, 157, 72, 0.80)',
             background: '#A0BE88 ',
@@ -108,11 +120,11 @@ export default function Home() {
             imgSrc="/img/leaf.png"
             style={{
               position: 'absolute',
-              top: '82%',
-              left: '10%',
+              top: { sm: '50%', md: '82%', lg: '50%' },
+              left: { sm: '-30%', md: '10%', lg: '-6%' },
               transform: 'translate(-50%, -50%)',
-              width: { md: '400px' },
-              height: { md: '386px' },
+              width: { sm: '200px', lg: '400px' },
+              height: { sm: '200px', lg: '386px' },
             }}
           />
           <ImageItem
@@ -122,8 +134,8 @@ export default function Home() {
               top: '60%',
               left: '37%',
               transform: 'rotate(45deg)',
-              width: { md: '216px' },
-              height: { md: '206px' },
+              width: { lg: '216px' },
+              height: { lg: '206px' },
             }}
           />
 
@@ -131,10 +143,13 @@ export default function Home() {
             imgSrc="/img/shadow.png"
             style={{
               position: 'absolute',
-              bottom: '-10%',
-              right: ' 30%',
+              bottom: { md: '-20%', lg: '-14%', xl: '-10%' },
+              right: { md: '-70%', lg: '2%', xl: ' 30%' },
               width: { md: '920px' },
               height: { md: '110px' },
+              '& img': {
+                objectFit: 'fill',
+              },
             }}
           />
         </Box>
@@ -142,9 +157,17 @@ export default function Home() {
         <Box
           sx={{
             height: { md: '100%' },
-            margin: { md: '330px 0 0 144px' },
-            maxWidth: { md: '620px' },
+            margin: {
+              xs: '12px',
+              sm: '12px 24px',
+              md: ' 0 24px',
+              lg: '0 64px',
+              xl: '0 120px',
+            },
+            maxWidth: { sm: '520px', md: '620px' },
             position: 'relative',
+            top: { xs: '50%', sm: '60%', md: '50%' },
+            transform: { xs: 'translateY(-50%)', md: 'translateY(-25%)' },
           }}
         >
           <Box
@@ -152,12 +175,13 @@ export default function Home() {
               position: 'absolute',
               top: '16%',
               right: '-20px',
-              width: { md: '100px' },
-              height: { md: '100px' },
+              width: { lg: '40px', xl: '90px' },
+              height: { lg: '40px', xl: '90px' },
               borderRadius: '50%',
               background:
                 'linear-gradient(180deg, rgba(82, 115, 61, 0.80) 25%, rgba(200, 210, 172, 0.00) 100%)',
               backdropFilter: 'blur(20px)',
+              zIndex: '-1',
             }}
           />
           <Typography
@@ -165,7 +189,7 @@ export default function Home() {
             variant="h1"
             sx={{
               color: '#121212',
-              fontSize: '64px',
+              fontSize: { xs: '26px', sm: '36px', md: '48px', lg: '64px' },
               fontWeight: 700,
               lineHeight: '121.5%' /* 77.76px */,
             }}
@@ -177,10 +201,10 @@ export default function Home() {
             variant="h2"
             sx={{
               color: '#3E3E3E',
-              fontSize: '18px',
+              fontSize: { xs: '14px', sm: '16px', md: '18px' },
               fontWeight: 400,
               lineHeight: '180%',
-              padding: { md: '45px 0' },
+              padding: { xs: '12px 0', md: '45px 0' },
             }}
           >
             Products made out of 100% natural ingredients with no side effects
@@ -199,7 +223,7 @@ export default function Home() {
                 color: '#fff',
                 background: 'linear-gradient(146deg, #315316 0%, #72A748 100%)',
                 fontStyle: 'capitalize',
-                mr: { md: '20px' },
+                mr: { xs: '12px', md: '20px' },
               }}
             />
 
@@ -226,15 +250,19 @@ export default function Home() {
       <Box
         sx={{
           maxWidth: {
+            xs: 'var(--max-width-xs)',
+            sm: 'var(--max-width-sm)',
             md: 'var(--max-width-md)',
             lg: 'var(--max-width-lg)',
             xl: 'var(--max-width-xl)',
           },
           margin: '0 auto',
+          px: { sm: '24px' },
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          pt: { md: '136px' },
+          pt: { sm: '62px', md: '80px', lg: '136px' },
+          flexDirection: { xs: 'column', md: 'row' },
         }}
       >
         <Box
@@ -242,8 +270,9 @@ export default function Home() {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            flex: 1,
+            flex: { lg: 2, xl: 1 },
             flexWrap: 'wrap',
+            mb: { xs: '16px' },
           }}
         >
           {listIntroduce.map((item) => {
@@ -259,7 +288,7 @@ export default function Home() {
         </Box>
         <Box
           sx={{
-            flex: 1,
+            flex: { lg: 1 },
           }}
         >
           <Typography
@@ -267,7 +296,7 @@ export default function Home() {
             variant="h1"
             sx={{
               color: '#121212',
-              fontSize: '48px',
+              fontSize: { xs: '24px', md: '48px' },
               fontWeight: 700,
               lineHeight: '125.5%',
             }}
@@ -279,9 +308,9 @@ export default function Home() {
             className={hindMadurai.className}
             sx={{
               color: '#3E3E3E',
-              fontSize: '18px',
+              fontSize: { xs: '16px', md: '18px' },
               lineHeight: '180%',
-              padding: { md: '48px 0' },
+              padding: { xs: '12px 0', md: '48px 0' },
             }}
           >
             Sed ut perspiciatis unde omnis iste natus error sit voluptatem
@@ -296,7 +325,9 @@ export default function Home() {
             className={homemadeApple.className}
             sx={{
               color: '#315316',
-              fontSize: { md: '36px' },
+              fontSize: { xs: '20px', md: '36px' },
+              fontFamily: 'Homemade Apple',
+              margin: { xs: '16px 0' },
             }}
           >
             glow $ grace
@@ -311,7 +342,7 @@ export default function Home() {
             }}
             className={hindMadurai.className}
           >
-            Xuan Tuoi{' '}
+            Xuan Tuoi
           </Typography>
           <Typography
             variant="h4"
@@ -331,12 +362,14 @@ export default function Home() {
         sx={{
           position: 'relative',
           overflow: 'hidden',
+          mb: { xs: '64px' },
+          pt: { sm: '64px' },
         }}
       >
         <Box
           sx={{
             width: { md: '100%' },
-            height: { md: '312px' },
+            height: { md: '200px', lg: '312px' },
             background: 'linear-gradient(176deg, #FFF 0%, #F1F1F1 100%)',
             position: 'absolute',
             bottom: { md: '0%' },
@@ -347,12 +380,15 @@ export default function Home() {
         <Box
           sx={{
             maxWidth: {
+              xs: 'var(--max-width-xs)',
+              sm: 'var(--max-width-sm)',
               md: 'var(--max-width-md)',
               lg: 'var(--max-width-lg)',
               xl: 'var(--max-width-xl)',
             },
             margin: '0 auto',
-            py: { md: '136px' },
+            py: { md: '36px', lg: '136px' },
+            px: { sm: '24px' },
             display: 'flex',
             alignItems: 'center',
             flexDirection: 'column',
@@ -363,7 +399,7 @@ export default function Home() {
             className={ibarra.className}
             sx={{
               color: '#121212',
-              fontSize: '48px',
+              fontSize: { xs: '24px', md: '40px', lg: '48px' },
               fontWeight: 700,
               lineHeight: '125.5%',
             }}
@@ -388,11 +424,12 @@ export default function Home() {
           </Typography>
           <Box
             sx={{
-              width: { md: '100%' },
+              width: '100%',
               pt: { md: '78px' },
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
+              flexDirection: { xs: 'column', md: 'row' },
             }}
           >
             {listBrands.map((item) => {
@@ -416,12 +453,15 @@ export default function Home() {
       <Box
         sx={{
           maxWidth: {
+            xs: 'var(--max-width-xs)',
+            sm: 'var(--max-width-sm)',
             md: 'var(--max-width-md)',
             lg: 'var(--max-width-lg)',
             xl: 'var(--max-width-xl)',
           },
           margin: '0 auto',
-          pt: { md: '160px' },
+          pt: { md: '80px', lg: '120px' },
+          px: { md: '24px' },
         }}
       >
         <Typography
@@ -430,19 +470,25 @@ export default function Home() {
           sx={{
             textAlign: 'center',
             color: '#121212',
-            fontSize: '48px',
+            fontSize: { xs: '24px', md: '40px', lg: '48px' },
             fontWeight: 700,
             lineHeight: '125.5%',
-            pb: { md: '160px' },
+            pb: { md: '82px', lg: '160px' },
           }}
         >
           Beauty Cosmetics Products
         </Typography>
         <Box
           sx={{
-            display: 'flex',
-            justifyContent: 'justify-between',
-            alignItems: 'center',
+            display: 'grid',
+            gridTemplateColumns: {
+              xs: '1fr',
+              sm: '1fr 1fr',
+              md: '1fr',
+              lg: '1fr 1fr 1fr',
+              xl: '1fr 1fr 1fr 1fr',
+            },
+            gap: { xs: '24px', sm: '12px', md: '24px', lg: '0' },
             '& a': {
               textDecoration: 'none',
             },
@@ -456,8 +502,17 @@ export default function Home() {
       {/* Review */}
       <Box
         sx={{
-          pt: { md: '220px' },
-          maxWidth: { md: '1600px' },
+          // display: 'none',
+          overflow: 'hidden',
+          pt: { xs: '54px', md: '160px' },
+          pb: { xs: '54px', md: '0' },
+          maxWidth: {
+            xs: 'var(--max-width-xs)',
+            sm: 'var(--max-width-sm)',
+            md: 'var(--max-width-md)',
+            lg: 'var(--max-width-lg)',
+            xl: 'var(--max-width-xl)',
+          },
           margin: '0 auto',
           display: 'flex',
           flexDirection: 'column',
@@ -470,10 +525,10 @@ export default function Home() {
           imgSrc="/img/leaf.png"
           style={{
             position: 'absolute',
-            top: '30%',
+            top: { xs: '12%', md: '30%' },
             left: '9%',
-            width: { md: '230px' },
-            height: { md: '230px' },
+            width: { xs: '100px', md: '230px' },
+            height: { xs: '100px', md: '230px' },
             transform: 'rotate(250deg)',
             zIndex: 2,
           }}
@@ -485,8 +540,8 @@ export default function Home() {
             position: 'absolute',
             top: '50%',
             right: '9%',
-            width: { md: '230px' },
-            height: { md: '230px' },
+            width: { xs: '100px', md: '230px' },
+            height: { xs: '100px', md: '230px' },
             transform: 'rotate(250deg)',
             zIndex: 2,
           }}
@@ -498,17 +553,17 @@ export default function Home() {
           sx={{
             color: '#121212',
             textAlign: 'center',
-            fontSize: '48px',
+            fontSize: { xs: '24px', md: '40px', lg: '48px' },
             fontWeight: 700,
             lineHeight: '125.5%',
-            pb: { md: '124px' },
+            pb: { xs: '10px', md: '124px' },
           }}
         >
           What People Say About Us
         </Typography>
 
         <AutoPlaySwipeableViews
-          className="w-full"
+          // className="w-full"
           axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
           index={activeStep}
           onChangeIndex={handleStepChange}

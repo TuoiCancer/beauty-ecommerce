@@ -7,6 +7,7 @@ import {
   StepLabel,
   Typography,
   Stepper,
+  CircularProgress,
 } from '@mui/material';
 import React from 'react';
 import ConfirmCheckout from './ConfirmCheckout';
@@ -28,42 +29,23 @@ const steps = [
   },
 ];
 
-const StepperItem = () => {
+const StepperItem = ({ handleClose }: any) => {
   const [activeStep, setActiveStep] = React.useState(0);
-  const [skipped, setSkipped] = React.useState(new Set<number>());
-
-  const isStepSkipped = (step: number) => {
-    return skipped.has(step);
-  };
 
   const handleNext = () => {
-    let newSkipped = skipped;
-    if (isStepSkipped(activeStep)) {
-      newSkipped = new Set(newSkipped.values());
-      newSkipped.delete(activeStep);
+    if (activeStep === steps.length - 1) {
+      handleClose();
     }
-
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped(newSkipped);
   };
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleSkip = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped((prevSkipped) => {
-      const newSkipped = new Set(prevSkipped.values());
-      newSkipped.add(activeStep);
-      return newSkipped;
-    });
-  };
-
   const handleReset = () => {
     setActiveStep(0);
   };
-  console.log('activeStep ----------> ', activeStep);
 
   return (
     <Box>
@@ -72,10 +54,10 @@ const StepperItem = () => {
         className={roboto.className}
         sx={{
           color: '#232323',
-          fontSize: '32px',
-          fontWeight: 400,
+          fontSize: { xs: '24px', md: '32px' },
+          fontWeight: { xs: 500, md: 700 },
           textAlign: 'center',
-          mb: { md: '32px' },
+          mb: { xs: '24px', md: '32px' },
         }}
       >
         Check out
@@ -87,9 +69,6 @@ const StepperItem = () => {
             const labelProps: {
               optional?: React.ReactNode;
             } = {};
-            if (isStepSkipped(index)) {
-              stepProps.completed = false;
-            }
             return (
               <Step key={index} {...stepProps}>
                 <StepLabel
@@ -112,18 +91,12 @@ const StepperItem = () => {
             );
           })}
         </Stepper>
-        {activeStep === steps.length ? (
-          <React.Fragment>
-            <Typography sx={{ mt: 2, mb: 1 }}>
-              All steps completed - you&apos;re finished
-            </Typography>
-            <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-              <Box sx={{ flex: '1 1 auto' }} />
-              <Button onClick={handleReset}>Reset</Button>
-            </Box>
-          </React.Fragment>
-        ) : (
-          <Box>
+        {activeStep !== steps.length && (
+          <Box
+            sx={{
+              pt: { xs: '24px' },
+            }}
+          >
             {/* Start render Body  */}
             {steps.map((item, index) => {
               if (index === activeStep) {
@@ -135,7 +108,7 @@ const StepperItem = () => {
               sx={{
                 display: 'flex',
                 flexDirection: 'row',
-                pt: { md: '32px' },
+                pt: { xs: '24px', md: '32px' },
               }}
             >
               <Button
@@ -158,7 +131,7 @@ const StepperItem = () => {
                   color: '#fff',
                 }}
               >
-                {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                {activeStep === steps.length - 1 ? 'Buy' : 'Next'}
               </Button>
             </Box>
           </Box>

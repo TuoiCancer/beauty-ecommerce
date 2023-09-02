@@ -15,8 +15,16 @@ const ProductPage = () => {
   return (
     <Box
       sx={{
-        pb: { md: '60px' },
-        pt: { md: '300px' },
+        pb: { xs: '42px', md: '60px' },
+        pt: { xs: '100px', md: '200px' },
+        maxWidth: {
+          xs: 'var(--max-width-xs)',
+          sm: 'var(--max-width-sm)',
+          md: 'var(--max-width-md)',
+          lg: 'var(--max-width-lg)',
+          xl: 'var(--max-width-xl)',
+        },
+        margin: '0 auto',
       }}
     >
       {/* Search Box */}
@@ -26,6 +34,7 @@ const ProductPage = () => {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
+          mb: { xs: '42px' },
         }}
       >
         <Typography
@@ -33,7 +42,7 @@ const ProductPage = () => {
           variant="h2"
           sx={{
             color: '#121212',
-            fontSize: { md: '48px' },
+            fontSize: { xs: '32px', md: '48px' },
             fontWeight: 700,
             lineHeight: '125.5%',
           }}
@@ -43,9 +52,9 @@ const ProductPage = () => {
         <Typography
           sx={{
             color: '#898989',
-            fontSize: { md: '24px' },
+            fontSize: { xs: '16px', md: '20px', lg: '24px' },
             fontWeight: 200,
-            padding: { md: '12px 0 90px 0' },
+            padding: { xs: '12px', md: '12px 0 40px 0', lg: '12px 0 60px 0' },
             maxWidth: { md: '1000px' },
             textAlign: 'center',
           }}
@@ -57,7 +66,7 @@ const ProductPage = () => {
         <Box
           sx={{
             position: 'relative',
-            width: { md: '1204px' },
+            width: { xs: '80%', xl: '1080px' },
           }}
         >
           <TextField
@@ -69,34 +78,26 @@ const ProductPage = () => {
               background: '#FFF',
               '& input': {
                 color: '#2D5210',
-                padding: { md: '30px ' },
+                fontSize: { md: '18px' },
+                padding: { md: '20px', lg: '24px' },
               },
               '& fieldset': {
-                border: '1px solid rgba(56, 97, 23, 0.40)',
+                border: '1px solid rgba(56, 97, 23, 0.40) !important',
                 borderRadius: '12px',
-              },
-              '&:hover': {
-                '& fieldset': {
-                  border: '1px solid rgba(56, 97, 23, 0.65)',
-                },
-              },
-              '&:focus': {
-                '& fieldset': {
-                  border: '1px solid rgba(56, 97, 23, 0.40)',
-                },
               },
             }}
           ></TextField>
           <ImageItem
             imgSrc="/img/Search.png"
             style={{
-              width: { md: '52px' },
-              height: { md: '52px' },
+              width: { md: '42px' },
+              height: { md: '42px' },
               position: 'absolute',
-              right: { md: '30px' },
-              top: { md: '16px' },
+              right: { md: '2%' },
+              top: { md: '50%' },
               zIndex: 1,
               cursor: 'pointer',
+              transform: 'translate(0,-50%)',
             }}
           />
         </Box>
@@ -104,30 +105,42 @@ const ProductPage = () => {
       <Box
         sx={{
           maxWidth: {
+            xs: 'var(--max-width-xs)',
+            sm: 'var(--max-width-sm)',
             md: 'var(--max-width-md)',
             lg: 'var(--max-width-lg)',
             xl: 'var(--max-width-xl)',
           },
           margin: '0 auto',
-          padding: { md: '160px 0' },
+          padding: { sm: '0 14px', md: '80px 18px', xl: '100px 18px' },
           display: 'flex',
-          flexDirection: 'row',
+          flexDirection: 'column',
           alignItems: 'flex-start',
         }}
       >
-        {/* Sidebar */}
-        <SidebarProduct />
         <Box
           sx={{
-            ml: { md: '178px' },
+            display: 'flex',
+            alignItems: 'flex-start',
+            justifyContent: 'space-around',
+            flexDirection: { xs: 'column', md: 'row' },
+            width: '100%',
           }}
         >
+          {/* Sidebar */}
+          <SidebarProduct />
           {/* List Product */}
           <Box
             sx={{
               display: 'grid',
-              gridTemplateColumns: { md: 'repeat(3, 1fr)' },
+              gridTemplateColumns: {
+                xs: 'repeat(1, 1fr)',
+                md: 'repeat(2, 1fr)',
+                lg: 'repeat(3, 1fr)',
+                xl: 'repeat(4, 1fr)',
+              },
               gridGap: '32px',
+              mx: { xs: '12px', sm: 0 },
             }}
           >
             {listProduct.map((item) => {
@@ -142,12 +155,9 @@ const ProductPage = () => {
               );
             })}
           </Box>
-          {/* Pagination */}
-          <PaginationItem
-            setRowPerPage={setRowPerPage}
-            rowPerPage={rowPerPage}
-          />
         </Box>
+        {/* Pagination */}
+        <PaginationItem setRowPerPage={setRowPerPage} rowPerPage={rowPerPage} />
       </Box>
     </Box>
   );

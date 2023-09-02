@@ -72,28 +72,36 @@ const Footer = () => {
     <Box>
       <Box
         sx={{
-          height: '434px',
           width: '100%',
           backgroundColor: '#2C5F23',
+          padding: { xs: '50px 0', md: 0 },
         }}
       >
         <Box
           sx={{
-            padding: { md: '50px 0' },
-            maxWidth: { md: 'var(--max-width-xl)' },
+            padding: { md: '50px 12px' },
+            maxWidth: {
+              xs: 'var(--max-width-xs)',
+              sm: 'var(--max-width-sm)',
+              md: 'var(--max-width-md)',
+              lg: 'var(--max-width-lg)',
+              xl: 'var(--max-width-xl)',
+            },
             margin: { md: '0 auto' },
             display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'flex-start',
+            justifyContent: { xs: 'center', md: 'space-between' },
+            alignItems: { xs: 'center', md: 'flex-start' },
+            flexDirection: { xs: 'column', md: 'row' },
+            textAlign: { xs: 'center', md: 'left' },
           }}
         >
           <Box>
             <ImageItem
               imgSrc="/img/logo/logo_white.png"
               style={{
-                width: { md: '300px' },
-                height: { md: '62px' },
-                mb: { md: '52px' },
+                width: { xs: '180px', md: '300px' },
+                height: { xs: '40px', md: '62px' },
+                mb: { xs: '24px', md: '52px' },
               }}
             />
             <Box
@@ -126,11 +134,12 @@ const Footer = () => {
       </Box>
       <Box
         sx={{
-          height: { md: '100px' },
           backgroundColor: '#182E08',
+          padding: { xs: '12px 0', md: '20px 0' },
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+          textAlign: 'center',
         }}
       >
         <Typography
@@ -138,7 +147,7 @@ const Footer = () => {
           className={hindMadurai.className}
           sx={{
             color: '#FFF',
-            fontSize: '16px',
+            fontSize: { xs: '14px', md: '16px' },
             fontWeight: 400,
             lineHeight: '180%',
           }}

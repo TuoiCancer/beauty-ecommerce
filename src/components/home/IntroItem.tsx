@@ -14,20 +14,20 @@ const IntroItem = ({
   return (
     <Box
       sx={{
-        width: { md: '324px' },
+        width: { xs: '100%', lg: '324px' },
         border: '1px solid #EEEEEE',
-        padding: { md: '30px' },
+        padding: { xs: '12px 24px', md: '30px' },
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'flex-start',
-        margin: { md: '0 30px 30px 0' },
+        margin: { xs: '12px 0', md: '0 30px 30px 0' },
       }}
     >
       <Typography
         className={ibarra.className}
         sx={{
           color: '#315316',
-          fontSize: '48px',
+          fontSize: { xs: '24px ', md: '48px' },
           fontWeight: 700,
           lineHeight: '125.5%',
         }}
@@ -38,10 +38,10 @@ const IntroItem = ({
         className={hindMadurai.className}
         sx={{
           color: '#121212',
-          fontSize: '24px',
+          fontSize: { xs: '18px', md: '24px' },
           fontWeight: 600,
           lineHeight: '115.5%',
-          padding: { md: '30px 0 20px 0' },
+          padding: { xs: '8px 0', md: '30px 0 20px 0' },
         }}
       >
         {label}
@@ -52,7 +52,7 @@ const IntroItem = ({
           color: '#3E3E3E',
           fontSize: '18px',
           fontWeight: 400,
-          lineHeight: ' 180% ',
+          lineHeight: { xs: '140%', md: ' 180% ' },
         }}
       >
         {description}

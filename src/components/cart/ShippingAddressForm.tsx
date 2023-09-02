@@ -17,7 +17,8 @@ const ShippingAddressForm = () => {
           fontSize: '16px',
           fontWeight: 300,
           fontFamily: 'Roboto',
-          mb: { md: '36px' },
+          mb: { xs: '12px', md: '36px' },
+          width: '100%',
           flex: 1,
           padding: { md: '16px 24px' },
         },
@@ -36,21 +37,24 @@ const ShippingAddressForm = () => {
       <Box
         sx={{
           display: 'flex',
-          flexDirection: 'row',
+          flexDirection: { xs: 'column', md: 'row' },
           justifyContent: 'space-between',
           alignItems: 'center',
+          width: '100%',
         }}
       >
         <TextField
           sx={{
             flex: 1,
             mr: { md: '56px' },
+            width: '100%',
           }}
           placeholder="First name *"
         />
         <TextField
           sx={{
             flex: 1,
+            width: '100%',
           }}
           placeholder="Last name *"
         />
@@ -87,7 +91,7 @@ const ShippingAddressForm = () => {
         <Select
           label="City *"
           sx={{
-            mr: { md: '56px' },
+            mr: { xs: '32px', md: '56px' },
           }}
         >
           {listCity.map((item, index) => {

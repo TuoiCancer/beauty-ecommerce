@@ -90,6 +90,8 @@ const ProductDetail = () => {
       <Box
         sx={{
           maxWidth: {
+            xs: 'var(--max-width-xs)',
+            sm: 'var(--max-width-sm)',
             md: 'var(--max-width-md)',
             lg: 'var(--max-width-lg)',
             xl: 'var(--max-width-xl)',

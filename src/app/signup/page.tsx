@@ -70,7 +70,6 @@ const SignupPage = () => {
       phoneNumber: phoneNumber,
     });
     if (error.msg) {
-      console.log('errr', error);
       toast.warning(error.msg);
       return;
     }
@@ -81,7 +80,6 @@ const SignupPage = () => {
 
   if (isLoading) return <Loading />;
   if (isError) {
-    console.log('error', error.message);
     toast.error(error.message);
   }
 
@@ -90,7 +88,7 @@ const SignupPage = () => {
       sx={{
         backgroundColor: 'var(--bg-signup)',
         height: '100vh',
-        padding: '42px 0 0 68px',
+        padding: { xs: '0 24px 0 24px', lg: '42px 0 0 68px' },
         display: 'flex',
       }}
     >
@@ -102,11 +100,11 @@ const SignupPage = () => {
         {/* Logo header */}
         <Box
           sx={{
-            width: { md: '240px' },
-            height: { md: '64px' },
+            width: { xs: '200px', sm: '240px' },
+            height: { xs: '160px', sm: '160px' },
             objectFit: 'contain',
             position: 'relative',
-            mb: '52px',
+            mb: { xs: '40px' },
           }}
         >
           <Image
@@ -116,12 +114,16 @@ const SignupPage = () => {
           />
         </Box>
         {/* Text header */}
-        <Box>
+        <Box
+          sx={{
+            textAlign: { xs: 'center' },
+          }}
+        >
           <Typography
             variant="h1"
             sx={{
               color: '#fff',
-              fontSize: '96px',
+              fontSize: { xs: '32px', sm: '46px', lg: '96px' },
               textTransform: 'uppercase',
               fontWeight: '800',
             }}
@@ -132,10 +134,10 @@ const SignupPage = () => {
             variant="h2"
             sx={{
               color: '#FFF',
-              fontSize: '32px',
+              fontSize: { xs: '18px', md: '32px' },
               fontStyle: 'normal',
               fontWeight: 400,
-              mb: '64px',
+              mb: { xs: '32px', md: '64px' },
             }}
           >
             Create your account and get personalized care
@@ -147,7 +149,7 @@ const SignupPage = () => {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
-            alignItems: 'center',
+            alignItems: { xs: 'center' },
             width: { md: '720px' },
           }}
         >
@@ -173,7 +175,7 @@ const SignupPage = () => {
                     sx={{
                       '& .MuiStepLabel-label': {
                         fontFamily: poppins,
-                        fontSize: { md: '18px' },
+                        fontSize: { xs: '16px', md: '18px' },
                         color: '#fff',
                         '&.Mui-active': {
                           color: '#fff',
@@ -200,8 +202,8 @@ const SignupPage = () => {
           <React.Fragment>
             <Box
               sx={{
-                pt: { md: '32px' },
-                width: { md: '100%' },
+                pt: { md: '32px', lg: 0 },
+                width: { xs: '100%' },
                 '& .MuiFormControl-root': {
                   width: { md: '320px' },
                 },
@@ -217,7 +219,7 @@ const SignupPage = () => {
                     alignItems: 'flex-start',
                     justifyContent: 'flex-start',
                     mb: { md: '60px' },
-                    mt: { md: '12px' },
+                    mt: { xs: '12px' },
                     '& .MuiFormControlLabel-root': {
                       '& .MuiButtonBase-root': {
                         color: '#fff',
@@ -237,7 +239,7 @@ const SignupPage = () => {
                     sx={{
                       color: '#fff',
                       '& .MuiTypography-root': {
-                        fontSize: '20px',
+                        fontSize: { xs: '16px', md: '20px' },
                         fontWeight: '400',
                       },
                       '& .MuiRadio-root': {},
@@ -254,19 +256,25 @@ const SignupPage = () => {
                     sx={{
                       color: '#fff',
                       '& .MuiTypography-root': {
-                        fontSize: '20px',
+                        fontSize: { xs: '16px', md: '20px' },
                         fontWeight: '400',
                       },
                     }}
                   />
                 </RadioGroup>
               ) : (
-                <>
+                <Box
+                  sx={{
+                    mt: '32px',
+                  }}
+                >
                   <Box
                     sx={{
                       display: 'flex',
                       justifyContent: 'space-between',
                       alignItems: 'center',
+                      flexDirection: { xs: 'column', md: 'row' },
+                      width: { xs: '100%' },
                     }}
                   >
                     <FormInput
@@ -292,6 +300,11 @@ const SignupPage = () => {
                       display: 'flex',
                       justifyContent: 'space-between',
                       alignItems: 'center',
+                      flexDirection: { xs: 'column', md: 'row' },
+                      width: { xs: '100%' },
+                      '& input': {
+                        width: { xs: '100%' },
+                      },
                     }}
                   >
                     <FormInput
@@ -317,12 +330,12 @@ const SignupPage = () => {
                     sx={{
                       display: 'flex',
                       justifyContent: 'space-between',
-                      margin: '62px 0 20px 0',
+                      margin: { xs: '32px 0 20px 0', md: '62px 0 20px 0' },
                       alignItems: 'center',
                       '& svg': {
                         cursor: 'pointer',
                         color: '#A77A63',
-                        fontSize: '32px',
+                        fontSize: { xs: '24px', md: '32px' },
                         transition: 'all 0.3s ease',
                         '&:hover': {
                           color: '#DD8D63',
@@ -338,8 +351,8 @@ const SignupPage = () => {
                       bgStyle="color"
                       onClick={handleSignup}
                       styleSx={{
-                        padding: '12px 80px',
-                        fontSize: '20px',
+                        padding: { xs: '12px 24px', md: '12px 80px' },
+                        fontSize: { xs: '14px', md: '20px' },
                         fontWeight: '500',
                         borderRadius: ' 5px',
                         background: '#DD8D63',
@@ -351,7 +364,7 @@ const SignupPage = () => {
                       }}
                     />
                   </Box>
-                </>
+                </Box>
               )}
             </Box>
           </React.Fragment>
@@ -408,6 +421,7 @@ const SignupPage = () => {
           objectFit: 'contain',
           position: 'relative',
           flex: 1,
+          display: { xs: 'none', md: 'block' },
         }}
       >
         <Image

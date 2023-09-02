@@ -18,16 +18,20 @@ const FormInput = ({
   placeholder: string;
 }) => {
   return (
-    <Box>
+    <Box
+      sx={{
+        width: { xs: '100%' },
+      }}
+    >
       <Typography
         variant="h6"
         className={poppins.className}
         sx={{
           color: '#A77A63',
-          fontSize: '18px',
+          fontSize: { xs: '14px', md: '18px' },
           fontStyle: 'normal',
           fontWeight: 500,
-          mb: '10px',
+          mb: { xs: '6px', md: '10px' },
         }}
       >
         {label} *
@@ -39,13 +43,14 @@ const FormInput = ({
         onChange={onChange}
         placeholder={placeholder}
         sx={{
-          width: { md: '640px' },
+          width: { xs: '100%', md: '640px' },
           height: { md: '46px' },
-          borderRadius: { md: '10px' },
+          borderRadius: { xs: '4px', md: '10px' },
           mb: '24px',
           background: '#F8F8F9',
           '& .MuiOutlinedInput-root': {
             input: {
+              fontSize: { xs: '14px', md: '16px' },
               padding: '12px',
             },
             fieldset: {

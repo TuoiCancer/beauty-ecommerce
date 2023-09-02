@@ -12,14 +12,18 @@ const ConfirmCheckout = () => {
         variant="h2"
         sx={{
           color: '#000',
-          fontSize: '22px',
+          fontSize: { xs: '20px', md: '22px' },
           fontWeight: 500,
-          margin: { md: '36px 0 36px 0' },
+          margin: { xs: '12px 0', md: '36px 0 36px 0' },
         }}
       >
         Order summary
       </Typography>
-      <Box>
+      <Box
+        sx={{
+          my: { xs: '16px' },
+        }}
+      >
         {order.listProduct.map(
           (productInfo: ReviewListProductProps, index: number) => {
             return <ReviewListProduct key={index} listProduct={productInfo} />;
@@ -41,7 +45,7 @@ const ConfirmCheckout = () => {
             fontSize: '18px',
           },
           '& > .MuiBox-root': {
-            margin: { md: '22px 0' },
+            margin: { xs: '12px 0', md: '22px 0' },
           },
           paddingBottom: { md: '22px' },
         }}
@@ -83,7 +87,7 @@ const ConfirmCheckout = () => {
       <Box
         sx={{
           display: 'flex',
-          flexDirection: 'row',
+          flexDirection: { xs: 'column', md: 'row' },
           justifyContent: 'space-between',
           alignItems: 'flex-start',
           '& h3': {
@@ -91,14 +95,15 @@ const ConfirmCheckout = () => {
             fontFamily: 'Roboto',
             fontSize: '18px',
             fontWeight: 500,
-            paddingBottom: { md: '18px' },
+            paddingBottom: { xs: '8px', md: '18px' },
+            pt: { xs: '8px' },
           },
           '& h4': {
             color: '#343434',
             fontSize: '16px',
             fontWeight: 300,
             lineHeight: '125.5%',
-            paddingBottom: { md: '18px' },
+            paddingBottom: { xs: '8px', md: '18px' },
           },
           '& h5': {
             color: '#626262',
@@ -116,7 +121,10 @@ const ConfirmCheckout = () => {
         }}
       >
         <Box>
-          <Typography variant="h3" sx={{ color: '#000', fontSize: '22px' }}>
+          <Typography
+            variant="h3"
+            sx={{ color: '#000', fontSize: { xs: '18px', md: '22px' } }}
+          >
             Shipping Address
           </Typography>
           <Typography variant="h4">Nguyen Van A</Typography>
@@ -135,7 +143,11 @@ const ConfirmCheckout = () => {
           <Typography variant="h3">Payment details</Typography>
           {order.paymentDetail.type === 'card' ? (
             <>
-              <Box>
+              <Box
+                sx={{
+                  mb: { xs: '8px' },
+                }}
+              >
                 <Typography variant="h5">Card name:</Typography>
                 <Typography variant="h6">Techcombank</Typography>
               </Box>

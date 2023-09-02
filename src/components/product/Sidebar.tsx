@@ -19,10 +19,10 @@ const Title = ({ title }: { title: string }) => {
       className={ibarra.className}
       sx={{
         color: '#121212',
-        fontSize: { md: '32px' },
+        fontSize: { xs: '24px', md: '32px' },
         fontWeight: 700,
         lineHeight: '125.5%',
-        paddingBottom: { md: '32px' },
+        paddingBottom: { md: '18px', lg: '32px' },
       }}
     >
       {title}
@@ -34,13 +34,22 @@ const SidebarProduct = () => {
   const [sorting, setSorting] = React.useState('createdAt');
   const [brand, setBrand] = React.useState('All');
   const [category, setCategory] = React.useState('All');
-  console.log('category', category);
 
   const handleChange = (event: SelectChangeEvent) => {
     setSorting(event.target.value as string);
   };
   return (
-    <Box>
+    <Box
+      sx={{
+        width: '100%',
+        display: 'flex',
+        alignItems: { xs: 'center', sm: 'flex-start' },
+        flexDirection: { xs: 'column', sm: 'row', md: 'column' },
+        justifyContent: { xs: 'center', sm: 'space-between' },
+        textAlign: { xs: 'center', md: 'start' },
+        mb: { xs: '32px', sm: '62px' },
+      }}
+    >
       <Box>
         <Title title="Sorting" />
         <Select
@@ -48,7 +57,8 @@ const SidebarProduct = () => {
           value={sorting}
           onChange={handleChange}
           sx={{
-            padding: { md: '12px 24px' },
+            padding: { xs: '12px', md: '12px 24px' },
+            margin: { xs: '12px 0' },
             '& .MuiSelect-select': {
               padding: 0,
             },
@@ -60,7 +70,7 @@ const SidebarProduct = () => {
       </Box>
       <Box
         sx={{
-          pt: '90px',
+          pt: { xs: '24px', sm: 0, md: '42px', lg: '90px' },
         }}
       >
         <Title title="Category" />
@@ -68,7 +78,7 @@ const SidebarProduct = () => {
           sx={{
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'flex-start',
+            alignItems: { xs: 'center', md: 'flex-start' },
             justifyContent: 'center',
           }}
         >
@@ -79,14 +89,14 @@ const SidebarProduct = () => {
                 variant="h5"
                 sx={{
                   textTransform: 'capitalize',
-                  fontSize: { md: '22px' },
-                  mb: { md: '32px' },
+                  fontSize: { xs: '18px', md: '22px' },
+                  my: { xs: '8px', md: '12px', lg: '16px' },
                   color: category === item.title ? '#fff' : '#000',
                   backgroundColor:
                     category === item.title ? '#A2C18A' : 'transparent',
                   fontWeight: 300,
                   lineHeight: ' 125.5%',
-                  padding: { md: '8px 12px' },
+                  padding: { xs: ' 4px 8px', md: ' 8px 12px' },
                   position: 'relative',
                   cursor: 'pointer',
                   display: 'inline-block',
@@ -114,7 +124,7 @@ const SidebarProduct = () => {
       </Box>
       <Box
         sx={{
-          pt: '90px',
+          pt: { xs: '24px', sm: 0, md: '42px', lg: '90px' },
         }}
       >
         <Title title="Brand" />
@@ -122,7 +132,7 @@ const SidebarProduct = () => {
           sx={{
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'flex-start',
+            alignItems: { xs: 'center', md: 'flex-start' },
             justifyContent: 'center',
           }}
         >
@@ -133,12 +143,12 @@ const SidebarProduct = () => {
                 variant="h5"
                 sx={{
                   textTransform: 'capitalize',
-                  fontSize: { md: '22px' },
-                  mb: { md: '32px' },
+                  fontSize: { xs: '18px', md: '22px' },
+                  my: { xs: '8px', md: '12px', lg: '16px' },
+                  padding: { xs: '4px 8px' },
                   color: brand === item.name ? '#fff' : '#000',
                   backgroundColor:
                     brand === item.name ? '#A2C18A' : 'transparent',
-                  padding: { md: '8px 12px' },
                   fontWeight: 300,
                   lineHeight: ' 125.5%',
                   position: 'relative',
@@ -179,7 +189,7 @@ const SidebarProduct = () => {
           textTransform: 'capitalize',
           borderRadius: '4px',
           border: '1px solid #A2C18A',
-          marginTop: '90px',
+          marginTop: { xs: '32px', md: '42px', lg: '90px' },
           transition: 'all 0.3s ease',
           '&:hover': {
             backgroundColor: '#A2C18A',

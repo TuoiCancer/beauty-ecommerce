@@ -17,16 +17,16 @@ const PaymentDetails = () => {
   return (
     <Box
       sx={{
-        pt: { md: '42px' },
+        pt: { lg: '42px' },
       }}
     >
       <Typography
         variant="h6"
         sx={{
           color: '#000',
-          fontSize: '18px',
+          fontSize: { xs: '16px', md: '18px', lg: '22px' },
           fontWeight: 500,
-          mb: { md: '40px' },
+          mb: { xs: '20px', lg: '24px' },
         }}
       >
         Payment method
@@ -67,6 +67,7 @@ const PaymentDetails = () => {
                     fontSize: '16px',
                     fontWeight: 400,
                     lineHeight: '24px',
+                    mb: { xs: '12px', md: 0 },
                   }}
                 >
                   Credit card
@@ -92,7 +93,7 @@ const PaymentDetails = () => {
                         border: '1px solid #EBEBEB !important',
                       },
                       '&.Mui-focused': {
-                        border: '1px solid #EBEBEB ',
+                        // border: '1px solid #EBEBEB ',
                       },
                       '&:hover': {
                         '& fieldset': {
@@ -105,7 +106,7 @@ const PaymentDetails = () => {
                   <Select
                     id="demo-simple-select-label"
                     sx={{
-                      mr: { md: '56px' },
+                      mr: { xs: '24px', md: '56px' },
                       flex: 1,
                     }}
                     placeholder="Card type *"

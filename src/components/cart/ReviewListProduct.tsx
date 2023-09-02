@@ -26,12 +26,16 @@ const ReviewListProduct = ({
   listProduct: ReviewListProductProps;
 }) => {
   return (
-    <Box>
+    <Box
+      sx={{
+        my: { xs: '12px' },
+      }}
+    >
       <Typography
         variant="h3"
         sx={{
           color: '#626262',
-          fontSize: '18px',
+          fontSize: { xs: '16px', md: '18px' },
           fontWeight: 500,
           lineHeight: '125.5%',
         }}
@@ -47,7 +51,7 @@ const ReviewListProduct = ({
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                margin: { md: '18px 0' },
+                margin: { xs: '4px 0', md: '18px 0' },
                 '& h4': {
                   color: '#343434',
                   fontSize: '16px',

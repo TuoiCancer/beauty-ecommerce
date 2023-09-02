@@ -23,14 +23,14 @@ const FooterItem = ({ title, listItems }: FooterProps) => {
   return (
     <Box
       sx={{
-        pt: { md: '40px' },
+        pt: { xs: '24px', md: '40px' },
       }}
     >
       <Typography
         variant="h2"
         className={ibarra.className}
         sx={{
-          fontSize: '32px',
+          fontSize: { xs: '24px', md: '32px' },
           fontWeight: 600,
           color: '#fff',
         }}
@@ -41,14 +41,14 @@ const FooterItem = ({ title, listItems }: FooterProps) => {
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'flex-start',
-          marginTop: '30px',
+          alignItems: { xs: 'center', md: 'flex-start' },
+          marginTop: { xs: '16px', md: '30px' },
           '& a': {
             color: '#FFF',
-            fontSize: '18px',
+            fontSize: { xs: '16px', md: '18px' },
             lineHeight: '145%',
             textDecoration: 'none',
-            marginBottom: '32px',
+            marginBottom: { xs: '16px', md: '32px' },
           },
         }}
       >

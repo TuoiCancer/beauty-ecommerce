@@ -16,13 +16,16 @@ const BrandItem = ({
     <Box
       sx={{
         backgroundColor: '#fff',
-        borderRadius: { md: '20px' },
-        boxShadow: { md: '0px 4px 4px rgba(0, 0, 0, 0.25)' },
-        width: { md: '372px' },
-        height: { md: '249px' },
-
+        borderRadius: { xs: '12px', md: '20px' },
+        boxShadow: {
+          xs: '0px 4px 4px rgba(155, 155, 155, 0.25)',
+          md: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+        },
+        width: { xs: '50%', md: '260px', lg: '324px' },
+        height: { xs: '180px', md: '200px', lg: '249px' },
+        my: { xs: '24px', md: '0px' },
         '& img': {
-          padding: { md: '30px !important' },
+          padding: { xs: '24px  !important ', md: '30px !important' },
         },
         '&:hover': {
           transform: { md: 'translateX(3px)' },

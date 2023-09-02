@@ -11,7 +11,11 @@ const BlogPage = () => {
   return (
     <Box
       sx={{
-        maxWidth: { md: 'var(--max-width-xl)' },
+        maxWidth: {
+          md: 'var(--max-width-md)',
+          lg: 'var(--max-width-lg)',
+          xl: 'var(--max-width-xl)',
+        },
         margin: { md: '0 auto' },
         padding: { md: '160px 0 ' },
       }}

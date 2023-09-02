@@ -18,14 +18,14 @@ const HeaderItem = ({ item, sx, textColor }: any) => {
       sx={{
         display: 'flex',
         alignItems: 'center',
-
-        marginRight: '64px',
+        marginRight: { xs: '0', md: '24px', lg: '64px' },
         cursor: 'pointer',
         position: 'relative',
+        mb: { xs: '20px', md: 0 },
         '& a, p': {
           textDecoration: 'none',
-          color: textColor,
-          fontSize: '20px',
+          fontSize: { xs: '16px', md: '20px' },
+          color: { xs: '#000', md: textColor },
           fontWeight: 400,
           textTransform: 'capitalize',
           userSelect: 'none',
@@ -84,9 +84,10 @@ const HeaderItem = ({ item, sx, textColor }: any) => {
             borderRadius: '8px',
             background: '#FFF',
             boxShadow: '0px 4px 20px 0px rgba(166, 166, 166, 0.25)',
-            padding: { md: '14px 40px 0 30px' },
+            padding: { xs: '24px 12px', md: '14px 40px 0 30px' },
             position: 'absolute',
             top: '130%',
+            left: { xs: '-100%' },
             zIndex: 2,
           }}
         >

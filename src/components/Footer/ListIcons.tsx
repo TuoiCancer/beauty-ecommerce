@@ -11,6 +11,7 @@ const ListIcons = () => {
       sx={{
         display: 'flex',
         alignItems: 'center',
+        justifyContent: { xs: 'center', md: 'flex-start' },
         '& svg': {
           color: '#fff',
           fontSize: '32px',

@@ -4,20 +4,36 @@ import BaseButton from '@/components/base/BaseButton';
 import CartItem from '@/components/cart/CartItem';
 import StepperItem from '@/components/cart/StepperItem';
 import { cart } from '@/constants';
-import { Box, Modal, TextField, Typography } from '@mui/material';
+import {
+  Box,
+  Modal,
+  TextField,
+  Typography,
+  CircularProgress,
+} from '@mui/material';
 import React from 'react';
 
 const CartPage = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  // call api order
+
+  // loading progess
+
   return (
     <Box
       sx={{
-        maxWidth: { md: '1600px' },
+        maxWidth: {
+          md: 'var(--max-width-md)',
+          lg: 'var(--max-width-lg)',
+          xl: 'var(--max-width-xl)',
+        },
         margin: { md: '0 auto' },
-        mt: { md: '240px' },
-        mb: { md: '120px' },
+        pt: { xs: '100px', md: '160px' },
+        mb: { xs: '32px', md: '120px' },
+        px: { xs: '8px', lg: '48px' },
       }}
     >
       <Typography
@@ -25,22 +41,27 @@ const CartPage = () => {
         variant="h1"
         sx={{
           color: '#000',
-          fontSize: '48px',
+          fontSize: { xs: '28px', md: '48px' },
           fontWeight: 500,
           lineHeight: '125.5%',
           textAlign: 'center',
-          mb: { md: '92px' },
+          mb: { xs: '32px', lg: '92px' },
         }}
       >
         Shopping Cart
       </Typography>
       {/* Items in cart */}
-      <Box>
+      <Box
+        sx={{
+          mb: { xs: '32px', md: '94px' },
+        }}
+      >
         {cart.map((item, index) => {
           return (
             <CartItem
               key={index}
               shopName={item.shop.shopName}
+              link={item.shop.link}
               products={item.products}
             />
           );
@@ -50,7 +71,7 @@ const CartPage = () => {
       <Box
         sx={{
           display: 'flex',
-          flexDirection: 'row',
+          flexDirection: { xs: 'column', lg: 'row' },
           justifyContent: 'space-between',
           alignItems: 'flex-start',
         }}
@@ -58,8 +79,11 @@ const CartPage = () => {
         <Box
           sx={{
             display: 'flex',
-            flexDirection: 'row',
+            flexDirection: 'roww',
             alignItems: 'center',
+            mb: { xs: '32px', md: '0' },
+            justifyContent: { xs: 'space-between', sm: 'flex-start' },
+            width: '100%',
           }}
         >
           <Typography
@@ -67,7 +91,7 @@ const CartPage = () => {
             variant="h5"
             sx={{
               color: '#000',
-              fontSize: '20px',
+              fontSize: { xs: '16px', md: '20px' },
               fontWeight: 300,
               lineHeight: '125.5%',
               mr: { md: '24px' },
@@ -79,6 +103,9 @@ const CartPage = () => {
             id="outlined-basic"
             variant="outlined"
             sx={{
+              flex: { xs: 1, md: '0 0 auto' },
+              width: { md: '300px' },
+              mx: { xs: '12px' },
               '& fieldset': {
                 borderColor: '#A2C18A !important',
               },
@@ -90,11 +117,11 @@ const CartPage = () => {
             variant="contained"
             styleSx={{
               ml: { md: '42px' },
-              p: { md: '8px 30px' },
+              p: { xs: '8px 16px', md: '8px 30px' },
               borderRadius: '8px',
               background: '#204700',
               color: '#fff',
-              fontSize: '20px',
+              fontSize: { xs: '14px', md: '20px' },
               '&:hover': {
                 background: '#2b5c02',
               },
@@ -105,7 +132,7 @@ const CartPage = () => {
           sx={{
             '& h5': {
               color: '#000',
-              fontSize: '28px',
+              fontSize: { xs: '18px', lg: '20px', xl: '22px' },
               fontWeight: 300,
               lineHeight: '125.5%',
             },
@@ -116,7 +143,8 @@ const CartPage = () => {
               display: 'flex',
               flexDirection: 'row',
               justifyContent: 'space-between',
-              mb: { md: '32px' },
+              alignItems: 'center',
+              mb: { md: '24px' },
             }}
           >
             <Typography variant="h5">Voucher: </Typography>
@@ -139,6 +167,7 @@ const CartPage = () => {
               flexDirection: 'row',
               alignItems: 'center',
               justifyContent: 'space-between',
+              whiteSpace: 'nowrap',
             }}
           >
             <Typography variant="h5">Sub total:</Typography>
@@ -147,8 +176,8 @@ const CartPage = () => {
               sx={{
                 color: '#575757',
                 fontFamily: 'Poppins',
-                fontSize: '32px',
-                ml: { md: '12px' },
+                fontSize: { xs: '24px', md: '28px' },
+                ml: { xs: '12px', md: '12px' },
               }}
             >
               $0
@@ -162,11 +191,12 @@ const CartPage = () => {
         label="Checkout"
         variant="contained"
         styleSx={{
+          mt: { xs: '24px' },
           padding: { md: '8px 30px' },
           background: 'linear-gradient(146deg, #315316 0%, #72A748 100%)',
           textTransform: 'none',
           borderRadius: '0',
-          fontSize: '20px',
+          fontSize: { xs: '16px', md: '20px' },
           fontWeight: 400,
           marginLeft: 'auto',
           '&:hover': {
@@ -178,11 +208,11 @@ const CartPage = () => {
         <Box
           sx={{
             width: { md: '776px' },
-            height: { md: '780px' },
+            height: { xs: '620px', md: '780px' },
             borderRadius: '4px',
             background: '#FFF',
-            margin: { md: '80px auto' },
-            padding: { md: '50px 45px 70px 45px' },
+            margin: { xs: '92px 8px', md: '80px auto' },
+            padding: { xs: '32px 12px', md: '50px 45px 70px 45px' },
             overflowY: 'scroll',
             scrollBehavior: 'smooth',
             '&::-webkit-scrollbar': {
@@ -197,7 +227,7 @@ const CartPage = () => {
             },
           }}
         >
-          <StepperItem />
+          <StepperItem handleClose={handleClose} />
         </Box>
       </Modal>
     </Box>

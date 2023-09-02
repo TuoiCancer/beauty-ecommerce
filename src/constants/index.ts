@@ -8,7 +8,7 @@ export const listProduct = [
     image: [
       '/img/products/ORD-PLP-Category-EyeSerum.webp',
       '/img/products/ORD-PLP-Category-Moisturizers.jpg',
-      '/img/products/Screenshot 2023-07-26 222833.png',
+      '/img/products/hathuo.png',
     ],
     type: 'Skincare',
     rate: 5,
@@ -35,7 +35,7 @@ export const listProduct = [
     image: [
       '/img/products/ORD-PLP-Category-EyeSerum.webp',
       '/img/products/ORD-PLP-Category-Moisturizers.jpg',
-      '/img/products/Screenshot 2023-07-26 222833.png',
+      '/img/products/hathuo.png',
     ],
     type: 'Creams',
     rate: 4,
@@ -58,11 +58,11 @@ export const listProduct = [
     id: 3,
     name: 'Aloe Vera Cream',
     price: 55.65,
-    thumbnail: '/img/products/Screenshot 2023-07-26 222833.png',
+    thumbnail: '/img/products/hathuo.png',
     image: [
       '/img/products/ORD-PLP-Category-EyeSerum.webp',
       '/img/products/ORD-PLP-Category-Moisturizers.jpg',
-      '/img/products/Screenshot 2023-07-26 222833.png',
+      '/img/products/hathuo.png',
     ],
     type: 'Creams',
     rate: 5,
@@ -84,12 +84,12 @@ export const listProduct = [
   {
     id: 4,
     name: 'Aloe Vera Cream',
-    thumbnail: '/img/products/Screenshot 2023-07-26 222833.png',
+    thumbnail: '/img/products/blue.png',
     price: 345.78,
     image: [
       '/img/products/ORD-PLP-Category-EyeSerum.webp',
       '/img/products/ORD-PLP-Category-Moisturizers.jpg',
-      '/img/products/Screenshot 2023-07-26 222833.png',
+      '/img/products/blue.png',
     ],
     type: 'Creams',
     rate: 5,
@@ -111,12 +111,12 @@ export const listProduct = [
   {
     id: 5,
     name: 'Almond Cream',
-    thumbnail: '/img/products/Screenshot 2023-07-26 222833.png',
+    thumbnail: '/img/products/pink.png',
     price: 146,
     image: [
       '/img/products/ORD-PLP-Category-EyeSerum.webp',
       '/img/products/ORD-PLP-Category-Moisturizers.jpg',
-      '/img/products/Screenshot 2023-07-26 222833.png',
+      '/img/products/pink.png',
     ],
     type: 'Creams',
     rate: 5,
@@ -138,12 +138,12 @@ export const listProduct = [
   {
     id: 6,
     name: 'Almond Cream',
-    thumbnail: '/img/products/Screenshot 2023-07-26 222833.png',
+    thumbnail: '/img/products/yellow.png',
     price: 146,
     image: [
       '/img/products/ORD-PLP-Category-EyeSerum.webp',
       '/img/products/ORD-PLP-Category-Moisturizers.jpg',
-      '/img/products/Screenshot 2023-07-26 222833.png',
+      '/img/products/yellow.png',
     ],
     type: 'Creams',
     rate: 5,
@@ -165,12 +165,12 @@ export const listProduct = [
   {
     id: 7,
     name: 'Almond Cream',
-    thumbnail: '/img/products/Screenshot 2023-07-26 222833.png',
+    thumbnail: '/img/products/originals-ha-skincare-plp-top-slot.webp',
     price: 146,
     image: [
       '/img/products/ORD-PLP-Category-EyeSerum.webp',
       '/img/products/ORD-PLP-Category-Moisturizers.jpg',
-      '/img/products/Screenshot 2023-07-26 222833.png',
+      '/img/products/originals-ha-skincare-plp-top-slot.webp',
     ],
     type: 'Creams',
     rate: 5,
@@ -191,13 +191,67 @@ export const listProduct = [
   },
   {
     id: 8,
-    thumbnail: '/img/products/Screenshot 2023-07-26 222833.png',
+    thumbnail: '/img/products/hathuo.png',
     name: 'Almond Cream',
     price: 146,
     image: [
       '/img/products/ORD-PLP-Category-EyeSerum.webp',
       '/img/products/ORD-PLP-Category-Moisturizers.jpg',
-      '/img/products/Screenshot 2023-07-26 222833.png',
+      '/img/products/hathuo.png',
+    ],
+    type: 'Creams',
+    rate: 5,
+    inventory: 10,
+    description:
+      'Here is some tips for new job seekars who want to get a dream job and want to shine in his career.',
+    moreInfo: ['Mile: 300 ml', 'Product_code: 1001'],
+    details: [
+      'Niacinamide là một dạng Vitamin B3, Niacinamide có nhiều lợi ích cho sức khỏe làn da, bao gồm khả năng giảm sự xuất hiện của nếp nhăn và tăng cường độ đàn hồi của da. Nó cũng có khả năng giảm bớt mụn trứng cá, cải thiện tình trạng da dầu và làm giảm đốm sạm da',
+      'Bên cạnh đó, Niacinamide cũng có tác dụng làm giảm sự xuất hiện của dấu hiệu lão hóa trên da, đặc biệt là tác động của tia UV. Nó cũng có khả năng giúp cải thiện độ đàn hồi và sự mịn màng của da.',
+      'Tinh chất trị mụn và giảm thâm The Ordinary Niacinamide 10% + Zinc 1% giúp làm dịu da, làm dịu các nốt mụn sưng, mụn viêm và ngăn ngừa mụn trứng cá. Điều tiết dầu thừa và bã nhờn. Chống lão hóa, làm sáng và đều màu da.',
+      ' Ingredient : Aqua (Water), Niacinamide, Pentylene Glycol, Zinc PCA, Dimethyl Isosorbide, Tam Meus Indica Seed Gum, Xanthan gum, Isoceteth-20, Ethoxydiglycol, Phenoxyethanol, Chlorphenesin.',
+      'Instructions for using Niacinamide 10% + Zinc 1%:',
+      ' Use Niacinamide 2 times a day in the morning and evening',
+      'Use the dropper to take an appropriate amount of product into the palm of your hand.',
+      'Apply the serum evenly all over the face, paying attention to pat gently so that the serum can be absorbed into the skin faster.',
+    ],
+  },
+  {
+    id: 7,
+    name: 'Almond Cream',
+    thumbnail: '/img/products/originals-ha-skincare-plp-top-slot.webp',
+    price: 146,
+    image: [
+      '/img/products/ORD-PLP-Category-EyeSerum.webp',
+      '/img/products/ORD-PLP-Category-Moisturizers.jpg',
+      '/img/products/originals-ha-skincare-plp-top-slot.webp',
+    ],
+    type: 'Creams',
+    rate: 5,
+    inventory: 10,
+    description:
+      'Here is some tips for new job seekars who want to get a dream job and want to shine in his career.',
+    moreInfo: ['Mile: 300 ml', 'Product_code: 1001'],
+    details: [
+      'Niacinamide là một dạng Vitamin B3, Niacinamide có nhiều lợi ích cho sức khỏe làn da, bao gồm khả năng giảm sự xuất hiện của nếp nhăn và tăng cường độ đàn hồi của da. Nó cũng có khả năng giảm bớt mụn trứng cá, cải thiện tình trạng da dầu và làm giảm đốm sạm da',
+      'Bên cạnh đó, Niacinamide cũng có tác dụng làm giảm sự xuất hiện của dấu hiệu lão hóa trên da, đặc biệt là tác động của tia UV. Nó cũng có khả năng giúp cải thiện độ đàn hồi và sự mịn màng của da.',
+      'Tinh chất trị mụn và giảm thâm The Ordinary Niacinamide 10% + Zinc 1% giúp làm dịu da, làm dịu các nốt mụn sưng, mụn viêm và ngăn ngừa mụn trứng cá. Điều tiết dầu thừa và bã nhờn. Chống lão hóa, làm sáng và đều màu da.',
+      ' Ingredient : Aqua (Water), Niacinamide, Pentylene Glycol, Zinc PCA, Dimethyl Isosorbide, Tam Meus Indica Seed Gum, Xanthan gum, Isoceteth-20, Ethoxydiglycol, Phenoxyethanol, Chlorphenesin.',
+      'Instructions for using Niacinamide 10% + Zinc 1%:',
+      ' Use Niacinamide 2 times a day in the morning and evening',
+      'Use the dropper to take an appropriate amount of product into the palm of your hand.',
+      'Apply the serum evenly all over the face, paying attention to pat gently so that the serum can be absorbed into the skin faster.',
+    ],
+  },
+  {
+    id: 8,
+    thumbnail: '/img/products/hathuo.png',
+    name: 'Almond Cream',
+    price: 146,
+    image: [
+      '/img/products/ORD-PLP-Category-EyeSerum.webp',
+      '/img/products/ORD-PLP-Category-Moisturizers.jpg',
+      '/img/products/hathuo.png',
     ],
     type: 'Creams',
     rate: 5,
@@ -345,11 +399,13 @@ export const cart = [
     shop: {
       id: 's-01',
       shopName: 'Shop01',
+      link: '/shop/loreal',
     },
     products: [
       {
         id: '01',
         name: 'Ha Thu O shampoo 1000ml ',
+        link: '/product/01',
         price: 100,
         quantity: 1,
         thumbnail: '/img/products/hathuo.png',
@@ -357,6 +413,7 @@ export const cart = [
       {
         id: '02',
         name: 'Acne treatment serum: The ordinary niacinamide 10 + zinc 1 ',
+        link: '/product/02',
         price: 100,
         quantity: 1,
         thumbnail: '/img/products/ORD-PLP-Category-EyeSerum.webp',
@@ -368,6 +425,7 @@ export const cart = [
     shop: {
       id: 's-02',
       shopName: 'Shop02 ',
+      link: '/shop/loreal',
     },
     products: [
       {
@@ -375,6 +433,7 @@ export const cart = [
         name: 'Greentea natural soap',
         price: 230,
         quantity: 3,
+        link: '/product/03',
         thumbnail: '/img/products/yellow.png',
       },
     ],
@@ -529,7 +588,7 @@ export const order = {
         {
           id: 5,
           name: 'Almond Cream',
-          thumbnail: '/img/products/Screenshot 2023-07-26 222833.png',
+          thumbnail: '/img/products/hathuo.png',
           price: 146,
           quantity: 1,
         },

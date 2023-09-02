@@ -10,33 +10,28 @@ const HeaderShopDetail = () => {
     <Box
       sx={{
         position: 'relative',
-        height: '80vh',
+        height: { xs: '60vh', lg: '80vh' },
         width: '100%',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundImage: 'url(/img/home-hero-lg.png)',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed',
       }}
     >
-      <ImageItem
-        imgSrc="/img/home-hero-lg 2.png"
-        style={{
-          position: 'absolute',
-          width: '100%',
-          height: { md: '100vh' },
-          '& img': {
-            zIndex: ' -1',
-          },
-        }}
-      />
       <Typography
         variant="h1"
         className={unicaOne.className}
         sx={{
           color: '#fff',
-          fontSize: { md: '96px' },
-          mb: { md: '12px' },
+          fontSize: { xs: '46px', md: '62px', lg: '96px' },
+          mb: { xs: '24px', md: '12px' },
           textTransform: 'uppercase',
+          textAlign: 'center',
         }}
       >
         A Deep Dive Into Beauty
@@ -44,7 +39,19 @@ const HeaderShopDetail = () => {
 
       <Typography
         variant="h3"
-        sx={{ color: '#fff', fontSize: { md: '20px' }, mb: { md: '70px' } }}
+        sx={{
+          color: '#fff',
+          fontSize: { xs: '18px', lg: '20px' },
+          textAlign: 'center',
+          mb: { xs: '32px', lg: '70px' },
+          maxWidth: {
+            xs: 'var(--max-width-xs)',
+            sm: 'var(--max-width-sm)',
+            md: '700px',
+            lg: '900px',
+            xl: '1080px',
+          },
+        }}
       >
         L’Oréal has set itself the mission of offering all women and men
         worldwide the best of cosmetics innovation in terms of quality, efficacy
@@ -56,21 +63,23 @@ const HeaderShopDetail = () => {
         bgStyle="color"
         styleSx={{
           textTransform: 'normal',
-          padding: '24px 80px',
-          color: '#171B1A',
+          padding: { xs: '12px 24px', lg: '24px 80px' },
+          color: '#C0335D',
           backgroundColor: '#fff',
-          fontSize: '20px',
+          fontSize: { xs: '14px', md: '16px', lg: '20px' },
           borderRadius: '8px',
+          transition: 'all 0.3s',
           '&:hover': {
-            backgroundColor: '#fff',
-            opacity: '0.95',
+            backgroundColor: '#C0335D',
+            color: '#fff',
           },
         }}
       />
       <Box
         sx={{
-          position: 'absolute',
-          bottom: '-80px',
+          position: { xs: 'relative', md: 'absolute' },
+          bottom: { md: '-120px', lg: '-100px' },
+          display: { xs: 'none', md: 'block' },
         }}
       >
         <InfoTag />

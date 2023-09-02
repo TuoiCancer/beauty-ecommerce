@@ -3,10 +3,12 @@ import React from 'react';
 
 import { Box, TextField, Button } from '@mui/material';
 import Image from 'next/image';
+import { useCreateProduct } from '@/service/react-query/product.query';
 
 const CreateProductTest = () => {
   const [name, setName] = React.useState('');
   const [imgSrc, setImgSrc] = React.useState('');
+  const { isLoading, mutate: createProduct } = useCreateProduct();
 
   const showPreview = (event: any) => {
     if (event.target.files.length > 0) {
@@ -52,7 +54,7 @@ const CreateProductTest = () => {
       <Button
         variant="contained"
         onClick={() => {
-          console.log(imgSrc);
+          createProduct({ name, imgSrc });
         }}
       >
         Submit

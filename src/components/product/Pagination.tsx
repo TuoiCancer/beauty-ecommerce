@@ -5,6 +5,7 @@ import {
   Select,
   SelectChangeEvent,
   Pagination,
+  Typography,
 } from '@mui/material';
 
 const PaginationItem = ({ setRowPerPage, rowPerPage }: any) => {
@@ -14,37 +15,65 @@ const PaginationItem = ({ setRowPerPage, rowPerPage }: any) => {
   return (
     <Box
       sx={{
+        width: { xs: '100%' },
         display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
+        flexDirection: { xs: 'column', sm: 'row' },
+        alignItems: { xs: 'center' },
         justifyContent: 'space-between',
+        margin: { xs: '12px 0', sm: '24px 0 0 0' },
+        flex: { sm: 2, lg: 1 },
       }}
     >
-      <Select
-        id="pagination"
-        value={rowPerPage}
-        onChange={handleChange}
+      <Box
         sx={{
-          color: '#1C4A14',
-          '& fieldset': {
-            borderColor: '#A2C18A !important',
-            borderWidth: '1px !important',
-          },
-          '& svg': {
-            color: '#417438',
-          },
+          flex: { sm: 1 },
+          display: 'flex',
+          alignItems: 'center',
+          mb: { xs: '24px', sm: '0' },
         }}
       >
-        <MenuItem value={12}>12</MenuItem>
-        <MenuItem value={20}>20</MenuItem>
-        <MenuItem value={50}>50</MenuItem>
-      </Select>
+        <Typography
+          sx={{
+            color: '#1C4A14',
+            fontSize: '16px',
+            fontWeight: 400,
+            marginRight: '12px',
+          }}
+        >
+          Showing
+        </Typography>
+        <Select
+          value={rowPerPage}
+          onChange={handleChange}
+          sx={{
+            color: '#1C4A14',
+            '& fieldset': {
+              borderColor: '#A2C18A !important',
+              borderWidth: '1px !important',
+            },
+            '& svg': {
+              color: '#417438',
+            },
+          }}
+        >
+          <MenuItem value={12}>12</MenuItem>
+          <MenuItem value={20}>20</MenuItem>
+          <MenuItem value={50}>50</MenuItem>
+        </Select>
+      </Box>
       <Pagination
-        count={10}
+        count={20}
         color="primary"
         sx={{
+          flex: { xs: 1, sm: 2, lg: 1 },
+
+          '& ul': {
+            width: { xs: '100%', lg: '600px' },
+            marginLeft: { xs: '0', lg: 'auto' },
+            justifyContent: 'space-between',
+          },
           '& .MuiPaginationItem-root': {
-            fontSize: '20px',
+            fontSize: { xs: '14px', md: '20px' },
           },
           '& button': {
             padding: { md: '12px' },
