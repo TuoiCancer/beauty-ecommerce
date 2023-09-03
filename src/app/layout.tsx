@@ -6,8 +6,6 @@ import './globals.css';
 import { ToastContainer } from 'react-toastify';
 import { Suspense } from 'react';
 import Loading from './loading';
-// import { QueryClientProvider } from '@tanstack/react-query';
-// import { queryClient } from '@/service/react-query/client';
 
 export const metadata: Metadata = {
   title: 'Glow & Grace',
@@ -23,12 +21,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {/* <QueryClientProvider client={queryClient}> */}
         <Suspense fallback={<Loading />}>
           {children}
           <ToastContainer />
         </Suspense>
-        {/* </QueryClientProvider> */}
       </body>
     </html>
   );

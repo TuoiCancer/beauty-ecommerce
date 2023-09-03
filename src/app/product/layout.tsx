@@ -1,6 +1,9 @@
-// 'use client';
+'use client';
 import Footer from '@/components/Footer/Footer';
 import Header from '@/components/Header/Header';
+
+import { QueryClientProvider } from '@tanstack/react-query';
+import { queryClient } from '@/service/react-query/client';
 
 export default function HomeLayout({
   children,
@@ -9,18 +12,20 @@ export default function HomeLayout({
 }) {
   return (
     <>
-      <Header
-        isHaveShadow={true}
-        isHaveBg={true}
-        textColor="#000"
-        style={{
-          left: 0,
-          right: 0,
-          zIndex: 999,
-        }}
-      />
-      {children}
-      <Footer />
+      <QueryClientProvider client={queryClient}>
+        <Header
+          isHaveShadow={true}
+          isHaveBg={true}
+          textColor="#000"
+          style={{
+            left: 0,
+            right: 0,
+            zIndex: 999,
+          }}
+        />
+        {children}
+        <Footer />
+      </QueryClientProvider>
     </>
   );
 }
