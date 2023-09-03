@@ -121,7 +121,7 @@ const Header = ({
               key={index}
               item={item}
               textColor={textColor}
-              isPathNameMatch={pathname.includes(item?.link)}
+              isPathNameMatch={pathname.includes(item?.link || '')}
             />
           );
         })}
