@@ -22,6 +22,7 @@ import { useStore } from '@/store';
 export const metadata: Metadata = {
   title: 'Glow & Grace',
   description: 'Beauty Ecommerce',
+  keywords: ['Glow & Grace', 'Beauty Ecommerce'],
 };
 
 export default function RootLayout({
