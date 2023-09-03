@@ -192,6 +192,7 @@ export default function Home() {
               fontSize: { xs: '26px', sm: '36px', md: '48px', lg: '64px' },
               fontWeight: 700,
               lineHeight: '121.5%' /* 77.76px */,
+              fontFamily: 'Ibarra Real Nova',
             }}
           >
             Beauty Has A Purpose and Purpose Is You
