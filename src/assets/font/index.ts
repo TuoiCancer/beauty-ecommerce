@@ -6,7 +6,15 @@ import {
   Homemade_Apple,
   Inter,
   Unica_One,
+  Montserrat,
 } from 'next/font/google';
+
+export const montserrat = Montserrat({
+  weight: ['400', '500', '600', '700'],
+  style: ['normal', 'italic'],
+  subsets: ['latin'],
+  display: 'swap',
+});
 
 export const ibarra = Ibarra_Real_Nova({
   weight: ['400', '700'],

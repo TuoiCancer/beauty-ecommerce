@@ -2,8 +2,8 @@
 
 import React, { use, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import UserSlice from '@/store/UserSlice';
 import { useStore } from '@/store';
+import Loading from './loading';
 
 const Homepage = () => {
   const route = useRouter();
@@ -15,6 +15,7 @@ const Homepage = () => {
       route.push('/login');
     }
   }, []);
+  return <Loading />;
 };
 
 export default Homepage;
