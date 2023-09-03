@@ -1,18 +1,13 @@
-import {
-  Box,
-  Select,
-  MenuItem,
-  Typography,
-  useMediaQuery,
-} from '@mui/material';
+'use client';
+import { Box, useMediaQuery } from '@mui/material';
 import React from 'react';
 import ImageItem from '../base/ImageItem';
 import HeaderItem from './HeaderItem';
 import { SelectChangeEvent } from '@mui/material/Select';
-import Link from 'next/link';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import CartHeader from './CartHeader';
+import { usePathname } from 'next/navigation';
 
 const listMenu = [
   {
@@ -24,7 +19,7 @@ const listMenu = [
   {
     id: 2,
     name: 'Product',
-    link: '/product?page=1&limit=10',
+    link: '/product',
     isHaveSubItem: false,
   },
   {
@@ -69,6 +64,11 @@ const Header = ({
   const handleChange = (event: SelectChangeEvent) => {
     setLanguage(event.target.value as string);
   };
+
+  const pathname = usePathname();
+
+  console.log('pathname ----------> ', pathname);
+
   return matches ? (
     <Box
       // data-aos="fade-down"
@@ -115,8 +115,15 @@ const Header = ({
         />
 
         {/* Menu */}
-        {listMenu.map((item) => {
-          return <HeaderItem key={item.id} item={item} textColor={textColor} />;
+        {listMenu.map((item, index) => {
+          return (
+            <HeaderItem
+              key={index}
+              item={item}
+              textColor={textColor}
+              isPathNameMatch={pathname.includes(item?.link || '')}
+            />
+          );
         })}
       </Box>
       <CartHeader

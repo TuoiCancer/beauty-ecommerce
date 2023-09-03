@@ -217,7 +217,7 @@ export const listProduct = [
     ],
   },
   {
-    id: 7,
+    id: 9,
     name: 'Almond Cream',
     thumbnail: '/img/products/originals-ha-skincare-plp-top-slot.webp',
     price: 146,
@@ -244,7 +244,7 @@ export const listProduct = [
     ],
   },
   {
-    id: 8,
+    id: 10,
     thumbnail: '/img/products/hathuo.png',
     name: 'Almond Cream',
     price: 146,
