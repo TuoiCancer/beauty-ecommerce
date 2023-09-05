@@ -1,16 +1,16 @@
-'use client';
+'use client'
 
-import { QueryClientProvider } from '@tanstack/react-query';
-import { queryClient } from '@/service/react-query/client';
+import { QueryClientProvider } from '@tanstack/react-query'
+import { queryClient } from '@/service/react-query/client'
 
 export default function HomeLayout({
-  children,
+	children
 }: {
-  children: React.ReactNode;
+	children: React.ReactNode
 }) {
-  return (
-    <section>
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-    </section>
-  );
+	return (
+		<section>
+			<QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+		</section>
+	)
 }

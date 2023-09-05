@@ -1,15 +1,15 @@
-import axios from 'axios';
+import axios from 'axios'
 
-export const BASE_URL = 'http://localhost:3003/api';
+export const BASE_URL = 'http://localhost:3003/api'
 
 const apiClient = axios.create({
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  baseURL: BASE_URL,
-  responseType: 'json',
-  withCredentials: true,
-});
+	headers: {
+		'Content-Type': 'application/json'
+	},
+	baseURL: BASE_URL,
+	responseType: 'json',
+	withCredentials: true
+})
 
 // apiClient.interceptors.request.use(
 //   async (config: any) => {
@@ -45,62 +45,62 @@ const apiClient = axios.create({
 // });
 
 const fetchApi = async (url: string, config: any) => {
-  return new Promise((resolve, reject) => {
-    apiClient
-      .request({
-        url,
-        ...config,
-      })
-      .then((response) => {
-        resolve(response.data);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-};
+	return new Promise((resolve, reject) => {
+		apiClient
+			.request({
+				url,
+				...config
+			})
+			.then(response => {
+				resolve(response.data)
+			})
+			.catch(error => {
+				reject(error)
+			})
+	})
+}
 
 const configApi: any = ({ path, method, headers }: any) => {
-  const config: any = {
-    method: '',
-    headers: '',
-    data: '',
-  };
+	const config: any = {
+		method: '',
+		headers: '',
+		data: ''
+	}
 
-  if (headers) {
-    config.headers = headers;
-  }
+	if (headers) {
+		config.headers = headers
+	}
 
-  if (method) {
-    config.method = method;
-  }
+	if (method) {
+		config.method = method
+	}
 
-  return ({ data, pathParams, queryParams }: any) => {
-    let url = '';
-    let params = '';
-    let query = '';
-    if (path) {
-      url += `/${path}`;
-    }
-    if (pathParams) {
-      Object.keys(pathParams).forEach((key) => {
-        params = path.replace(`{${key}}`, pathParams[key]);
-      });
-      url += params;
-    }
-    if (queryParams) {
-      query = Object.keys(queryParams)
-        .map((key) => `${key}=${queryParams[key]}`)
-        .join('&');
+	return ({ data, pathParams, queryParams }: any) => {
+		let url = ''
+		let params = ''
+		let query = ''
+		if (path) {
+			url += `/${path}`
+		}
+		if (pathParams) {
+			Object.keys(pathParams).forEach(key => {
+				params = path.replace(`{${key}}`, pathParams[key])
+			})
+			url += params
+		}
+		if (queryParams) {
+			query = Object.keys(queryParams)
+				.map(key => `${key}=${queryParams[key]}`)
+				.join('&')
 
-      url += `?${query}`;
-    }
+			url += `?${query}`
+		}
 
-    if (data) {
-      config.data = data;
-    }
-    return fetchApi(url, config);
-  };
-};
+		if (data) {
+			config.data = data
+		}
+		return fetchApi(url, config)
+	}
+}
 
-export default configApi;
+export default configApi

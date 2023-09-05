@@ -1,21 +1,21 @@
-import ls from 'localstorage-slim';
+import ls from 'localstorage-slim'
 
-ls.config.encrypt = true;
+ls.config.encrypt = true
 
 export const encryptStorage: any = {
-  getItem: async (name: any) => {
-    return ls.get(name);
-  },
+	getItem: async (name: any) => {
+		return ls.get(name)
+	},
 
-  setItem: async (name: any, value: any) => {
-    ls.set(name, value);
-  },
+	setItem: async (name: any, value: any) => {
+		ls.set(name, value)
+	},
 
-  removeItem: async (name: any) => {
-    ls.remove(name);
-  },
+	removeItem: async (name: any) => {
+		ls.remove(name)
+	},
 
-  clear: async () => {
-    return ls.clear();
-  },
-};
+	clear: async () => {
+		return ls.clear()
+	}
+}
