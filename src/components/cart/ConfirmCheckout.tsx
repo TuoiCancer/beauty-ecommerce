@@ -1,5 +1,5 @@
 import { roboto } from '@/assets/font'
-import { order } from '@/constants'
+import { checkout } from '@/constants'
 import { Box, Typography } from '@mui/material'
 import React from 'react'
 import ReviewListProduct, { ReviewListProductProps } from './ReviewListProduct'
@@ -24,7 +24,7 @@ const ConfirmCheckout = () => {
 					my: { xs: '16px' }
 				}}
 			>
-				{order.listProduct.map(
+				{checkout.listProduct.map(
 					(productInfo: ReviewListProductProps, index: number) => {
 						return <ReviewListProduct key={index} listProduct={productInfo} />
 					}
@@ -59,7 +59,7 @@ const ConfirmCheckout = () => {
 					}}
 				>
 					<Typography variant='h3'>Shipping</Typography>
-					<Typography variant='h4'>${order.feeShip.toFixed(2)}</Typography>
+					<Typography variant='h4'>${checkout.feeShip.toFixed(2)}</Typography>
 				</Box>
 				<Box
 					sx={{
@@ -70,7 +70,7 @@ const ConfirmCheckout = () => {
 					}}
 				>
 					<Typography variant='h3'>Voucher</Typography>
-					<Typography variant='h4'>${order.feeShip.toFixed(2)}</Typography>
+					<Typography variant='h4'>${checkout.feeShip.toFixed(2)}</Typography>
 				</Box>
 				<Box
 					sx={{
@@ -81,7 +81,7 @@ const ConfirmCheckout = () => {
 					}}
 				>
 					<Typography variant='h3'>Total</Typography>
-					<Typography variant='h4'>${order.feeShip.toFixed(2)}</Typography>
+					<Typography variant='h4'>${checkout.feeShip.toFixed(2)}</Typography>
 				</Box>
 			</Box>
 			<Box
@@ -141,7 +141,7 @@ const ConfirmCheckout = () => {
 					}}
 				>
 					<Typography variant='h3'>Payment details</Typography>
-					{order.paymentDetail.type === 'card' ? (
+					{checkout.paymentDetail.type === 'card' ? (
 						<>
 							<Box
 								sx={{

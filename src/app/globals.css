@@ -11,6 +11,12 @@
 	--max-width-md: 980px;
 	--max-width-sm: 736px;
 	--max-width-xs: 480px;
+	--packed-button: #FDB140;
+	--shipping-button: #204700;
+	--delivered-button: #E3631B;
+	--cancelled-button: #ACACAC;
+	--pending-button: #598683;
+	--completed-button: #319E48;
 }
 
 /* @keyframes slideInFromLeft {

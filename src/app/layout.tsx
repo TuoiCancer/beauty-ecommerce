@@ -6,6 +6,7 @@ import './globals.css'
 import { ToastContainer } from 'react-toastify'
 import { Suspense } from 'react'
 import Loading from './loading'
+import ScrollToTop from '@/components/base/ScrollToTop'
 
 export const metadata: Metadata = {
 	title: 'Glow & Grace',
@@ -22,6 +23,7 @@ export default function RootLayout({
 		<html lang='en'>
 			<body>
 				<Suspense fallback={<Loading />}>
+					<ScrollToTop />
 					{children}
 					<ToastContainer />
 				</Suspense>

@@ -552,7 +552,7 @@ export const listCard = [
 	}
 ]
 
-export const order = {
+export const checkout = {
 	listProduct: [
 		{
 			id: 1,
@@ -615,3 +615,97 @@ export const order = {
 		cardNumber: '123456789'
 	}
 }
+
+export const listOrder = [
+	{
+		id: 'order-01',
+		order_userId: 'user-01',
+		order_checkout: {
+			totalPrice: 2000,
+			totalDiscount: 200,
+			feeShip: 10
+		},
+
+		order_shipping: {
+			address:
+				'Tòa nhà New Skyline 4, Văn Quán, Nguyễn khuyến, Hà Đông, Hà Nội',
+			note: 'Giao hàng giúp mình vào buổi tối nhé'
+		},
+		order_payment: {
+			type: 'card',
+			cardName: 'Techcombank',
+			cardNumber: '123456789'
+		},
+		order_status: 'pending',
+		order_products: [
+			{
+				id: '1',
+				name: 'Acne treatment serum: The ordinary niacinamide 10 + zinc 1 Acne treatment serum: The ordinary niacinamide 10 + zinc 1 Acne treatment serum: The ordinary niacinamide 10 + zinc 1 Acne treatment serum: The ordinary niacinamide 10 + zinc 1 ',
+				price: 100,
+				thumbnail: '/img/products/ORD-PLP-Category-EyeSerum.webp',
+				quantity: 2,
+				order_shop: {
+					id: 'shop-01',
+					shopName: `L'Oreal`
+				}
+			},
+			{
+				id: '2',
+				name: 'Acne treatment serum: The ordinary niacinamide 20',
+				price: 146,
+				thumbnail: '/img/products/ORD-PLP-Category-Moisturizers.jpg',
+				quantity: 1,
+				order_shop: {
+					id: 'shop-01',
+					shopName: `L'Oreal`
+				}
+			},
+			{
+				id: '3',
+				name: 'Acne treatment serum: The ordinary niacinamide 10 + zinc 1 Acne treatment serum: The ordinary niacinamide 10 + zinc 1 ',
+				price: 100,
+				thumbnail: '/img/products/ORD-PLP-Category-EyeSerum.webp',
+				quantity: 2,
+				order_shop: {
+					id: 'shop-01',
+					shopName: `L'Oreal`
+				}
+			},
+			{
+				id: '4',
+				name: 'Acne treatment serum: The ordinary niacinamide 20',
+				price: 146,
+				thumbnail: '/img/products/ORD-PLP-Category-Moisturizers.jpg',
+				quantity: 1,
+				order_shop: {
+					id: 'shop-01',
+					shopName: `L'Oreal`
+				}
+			},
+			{
+				id: '5',
+				name: 'Acne treatment serum: The ordinary niacinamide 10 + zinc 1 Acne treatment serum: The ordinary niacinamide 10 + zinc 1 ',
+				price: 100,
+				thumbnail: '/img/products/ORD-PLP-Category-EyeSerum.webp',
+				quantity: 2,
+				order_shop: {
+					id: 'shop-01',
+					shopName: `L'Oreal`
+				}
+			},
+			{
+				id: '6',
+				name: 'Acne treatment serum: The ordinary niacinamide 20',
+				price: 146,
+				thumbnail: '/img/products/ORD-PLP-Category-Moisturizers.jpg',
+				quantity: 1,
+				order_shop: {
+					id: 'shop-01',
+					shopName: `L'Oreal`
+				}
+			}
+		],
+		order_trackingNumber: '123456789',
+		createdAt: '2021-05-01T00:00:00.000Z'
+	}
+]
