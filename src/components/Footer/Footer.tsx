@@ -1,10 +1,12 @@
+'use client'
 import React from 'react'
 import { Box, Typography } from '@mui/material'
 
-import FooterItem, { FooterProps } from './FooterItem'
+import FooterItem from './FooterItem'
 import ImageItem from '../base/ImageItem'
 import ListIcons from './ListIcons'
 import { hindMadurai } from '@/assets/font'
+import { usePathname } from 'next/navigation'
 
 const ListItemFooter = [
 	{
@@ -68,6 +70,12 @@ const ListItemFooter = [
 ]
 
 const Footer = () => {
+	const pathname = usePathname()
+
+	if (pathname === '/login' || pathname === '/signup') {
+		return null
+	}
+
 	return (
 		<Box>
 			<Box

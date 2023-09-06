@@ -6,7 +6,6 @@ import React from 'react'
 import ImageItem from '../base/ImageItem'
 
 const HeaderItem = ({ item, sx, textColor, isPathNameMatch }: any) => {
-	console.log('isPathNameMatch', isPathNameMatch)
 	const [openSubItem, setOpenSubItem] = React.useState(false)
 
 	const handleClickOpenSubItem = () => {
@@ -104,7 +103,7 @@ const HeaderItem = ({ item, sx, textColor, isPathNameMatch }: any) => {
 						position: 'absolute',
 						top: '130%',
 						left: { xs: '-100%' },
-						zIndex: 2
+						zIndex: 4
 					}}
 				>
 					{item.subItem.map((sub: any, index: number) => {

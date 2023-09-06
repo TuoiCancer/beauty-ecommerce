@@ -8,6 +8,7 @@ import { SelectChangeEvent } from '@mui/material/Select'
 import MenuIcon from '@mui/icons-material/Menu'
 import CartHeader from './CartHeader'
 import { usePathname } from 'next/navigation'
+import { text } from 'node:stream/consumers'
 
 const listMenu = [
 	{
@@ -66,6 +67,24 @@ const Header = ({
 	}
 
 	const pathname = usePathname()
+
+	if (pathname === '/login' || pathname === '/signup') {
+		return null
+	}
+
+	if (pathname.includes('/shop/')) {
+		textColor = '#fff'
+		isHaveBg = false
+		isHaveShadow = false
+		style = {
+			...style,
+			position: 'absolute',
+			top: { xs: 0, lg: '40px' },
+			left: 0,
+			right: 0,
+			zIndex: 999
+		}
+	}
 
 	return matches ? (
 		<Box
