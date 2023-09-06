@@ -1,54 +1,54 @@
-import { AxiosRequestConfig } from 'axios';
+import { AxiosRequestConfig } from 'axios'
 
 // eslint-disable-next-line import/no-named-as-default
-import configApi from './client';
+import configApi from './client'
 
 export class ApiService {
-  config: AxiosRequestConfig = {};
+	config: AxiosRequestConfig = {}
 
-  private controller = new AbortController();
+	private controller = new AbortController()
 
-  static createInstance(): ApiService {
-    const activeInstance = new ApiService();
+	static createInstance(): ApiService {
+		const activeInstance = new ApiService()
 
-    activeInstance.controller = new AbortController();
+		activeInstance.controller = new AbortController()
 
-    return activeInstance;
-  }
+		return activeInstance
+	}
 
-  cancelRequest() {
-    this.controller.abort();
-  }
+	cancelRequest() {
+		this.controller.abort()
+	}
 
-  login = configApi({
-    path: 'v1/auth/login',
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
+	login = configApi({
+		path: 'v1/auth/login',
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
 
-  logout = configApi({
-    path: 'v1/auth/logout',
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
+	logout = configApi({
+		path: 'v1/auth/logout',
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
 
-  signup = configApi({
-    path: 'v1/auth/signup',
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
+	signup = configApi({
+		path: 'v1/auth/signup',
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
 
-  createProduct = configApi({
-    path: 'v1/products',
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
+	createProduct = configApi({
+		path: 'v1/products',
+		method: 'PUT',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
 }

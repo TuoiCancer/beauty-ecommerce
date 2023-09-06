@@ -2,15 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
-:root{
-  --bg-login:#BED9D4 ;
-  --bg-signup: #DABEB0;
-  --main-green: #2C5F23;
-  --max-width-xl: 1480px;
-  --max-width-lg: 1280px;
-  --max-width-md: 980px;
-  --max-width-sm: 736px;
-  --max-width-xs: 480px;
+:root {
+	--bg-login: #bed9d4;
+	--bg-signup: #dabeb0;
+	--main-green: #2c5f23;
+	--max-width-xl: 1480px;
+	--max-width-lg: 1280px;
+	--max-width-md: 980px;
+	--max-width-sm: 736px;
+	--max-width-xs: 480px;
+	--packed-button: #FDB140;
+	--shipping-button: #204700;
+	--delivered-button: #E3631B;
+	--cancelled-button: #ACACAC;
+	--pending-button: #598683;
+	--completed-button: #319E48;
 }
 
 /* @keyframes slideInFromLeft {
@@ -23,33 +29,32 @@
 } */
 
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  scroll-behavior: smooth;
-  font-family: 'Montserrat', sans-serif;
+	margin: 0;
+	scroll-behavior: smooth;
+	font-family: 'Montserrat', sans-serif;
 }
 
 body::-webkit-scrollbar {
-  background: #fff;
-  width:4px;
+	background: #fff;
+	width: 4px;
 }
 
 body::-webkit-scrollbar-thumb {
-  background-color: #A4C18A;
-  border-radius: 6px;
-  width:4px;
+	background-color: #a4c18a;
+	border-radius: 6px;
+	width: 4px;
 }
 
 /* Hide scrollbar for IE and Edge */
 .main {
-  -ms-overflow-style: none;
-  overflow: unset;
+	-ms-overflow-style: none;
+	overflow: unset;
 }
 
 .navbar-title span {
-  border-bottom: 2px solid black;
+	border-bottom: 2px solid black;
 }
-
