@@ -37,3 +37,27 @@ export const validateSignupForm = ({
 	}
 	return errors
 }
+
+export const validateSigninForm = ({
+	email,
+	password
+}: {
+	email: string
+	password: string
+}) => {
+	const errors: any = {}
+	//regex email must have contain @ and .com
+	const regex = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/
+	if (!email) {
+		errors.msg = 'Email is required'
+		return errors
+	} else if (!regex.test(email)) {
+		errors.msg = 'Email must contain @ and .com'
+		return errors
+	}
+
+	if (!password) {
+		errors.msg = 'Password is required'
+		return errors
+	}
+}

@@ -12,6 +12,7 @@ export interface IUserSlice {
 	isRefresh: boolean
 	setIsRefresh: (value: boolean) => void
 	user: any
+	rememberPassword: boolean
 }
 
 const UserSlice: StateCreator<
@@ -26,6 +27,7 @@ const UserSlice: StateCreator<
 > = set => ({
 	isLoggedIn: false,
 	isError: false,
+	rememberPassword: false,
 	errorMess: '',
 	username: '',
 	password: '',

@@ -11,38 +11,36 @@ const apiClient = axios.create({
 	withCredentials: true
 })
 
-// apiClient.interceptors.request.use(
-//   async (config: any) => {
-//     if (
-//       config.url?.indexOf('login') >= 0 ||
-//       config.url?.indexOf('refreshToken') >= 0
-//     ) {
-//       return config;
-//     }
-//     // get token from localStorage
-//     const { token } = JSON.parse(localStorage.getItem('data') || 'null');
-//     const { user } = JSON.parse(localStorage.getItem('data') || 'null');
-//     const { access, maxAge } = token;
-//     const now = new Date().getTime();
-//     const timeExpired = new Date(maxAge).getTime();
-//     const isRemember = localStorage.getItem('isRemember') === 'true';
+apiClient.interceptors.request.use(
+	async (config: any) => {
+		if (
+			config.url?.indexOf('login') >= 0 ||
+			config.url?.indexOf('refreshToken') >= 0
+		) {
+			return config
+		}
+		// get token from localStorage
+		const { token } = JSON.parse(localStorage.getItem('data') || 'null')
+		const { accessToken, maxAge } = token
+		const now = new Date().getTime()
+		const timeExpired = new Date(maxAge).getTime()
+		const isRemember = localStorage.getItem('rememberPassword') === 'true'
+		console.log('timeExpired', timeExpired)
+		console.log('isRemember', isRemember)
+		if (now > timeExpired && !isRemember) {
+			// redirect to login page
+			window.location.replace('/login')
+		}
+		return config
+	},
+	err => {
+		return Promise.reject(err)
+	}
+)
 
-//     if (now > timeExpired && !isRemember) {
-//       // set isLoggin trong localStorage false
-//       localStorage.setItem('isRedirectToLoginPage', 'true');
-//       // redirect to login page
-//       window.location.replace('/login');
-//     }
-//     return config;
-//   },
-//   (err) => {
-//     return Promise.reject(err);
-//   }
-// );
-
-// apiClient.interceptors.response.use((response) => {
-//   return response;
-// });
+apiClient.interceptors.response.use(response => {
+	return response
+})
 
 const fetchApi = async (url: string, config: any) => {
 	return new Promise((resolve, reject) => {

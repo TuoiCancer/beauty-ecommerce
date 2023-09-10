@@ -8,25 +8,19 @@ import { SelectChangeEvent } from '@mui/material/Select'
 import MenuIcon from '@mui/icons-material/Menu'
 import CartHeader from './CartHeader'
 import { usePathname } from 'next/navigation'
-import { text } from 'node:stream/consumers'
+import { useStore } from '@/store'
 
 const listMenu = [
 	{
 		id: 1,
 		name: 'Home',
-		link: '/home',
+		link: '/user/home',
 		isHaveSubItem: false
 	},
 	{
 		id: 2,
 		name: 'Product',
-		link: '/product',
-		isHaveSubItem: false
-	},
-	{
-		id: 3,
-		name: 'Order',
-		link: '/order',
+		link: '/user/product',
 		isHaveSubItem: false
 	},
 	{
@@ -36,15 +30,15 @@ const listMenu = [
 		subItem: [
 			{
 				sub_name: `L'oréal`,
-				sub_link: '/shop/loreal'
+				sub_link: '/user/shop/loreal'
 			},
 			{
 				sub_name: `The Ordinary`,
-				sub_link: '/shop/oridinary'
+				sub_link: '/user/shop/oridinary'
 			},
 			{
 				sub_name: `Bioderma`,
-				sub_link: '/shop/bioderma'
+				sub_link: '/user/shop/bioderma'
 			}
 		]
 	}
@@ -57,6 +51,7 @@ const Header = ({
 	textColor = '#000',
 	style = {}
 }) => {
+	const { UserSlice } = useStore()
 	const matches = useMediaQuery('(min-width:900px)')
 
 	const [language, setLanguage] = React.useState('en')
@@ -68,10 +63,6 @@ const Header = ({
 
 	const pathname = usePathname()
 
-	if (pathname === '/login' || pathname === '/signup') {
-		return null
-	}
-
 	if (pathname.includes('/shop/')) {
 		textColor = '#fff'
 		isHaveBg = false
@@ -79,7 +70,7 @@ const Header = ({
 		style = {
 			...style,
 			position: 'absolute',
-			top: { xs: 0, lg: '40px' },
+			top: { xs: 0 },
 			left: 0,
 			right: 0,
 			zIndex: 999

@@ -9,11 +9,12 @@ import IntroItem from '@/components/home/IntroItem'
 import TopProductItem from '@/components/home/TopProductItem'
 import { listBrands, listComments, listProduct } from '@/constants'
 import SwipeableViews from 'react-swipeable-views'
-// import BaseNavbar from '@/components/base/BaseNavbar';
 import { Box, MobileStepper, Typography, useThemeProps } from '@mui/material'
 import React, { useState } from 'react'
 import { useTheme } from '@mui/material/styles'
 import { autoPlay } from 'react-swipeable-views-utils'
+import { useRouter } from 'next/navigation'
+import { useStore } from '@/store'
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews)
 
 const menuItems = [
@@ -63,6 +64,9 @@ export default function Home() {
 	const theme = useTheme()
 	const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
 	const [activeStep, setActiveStep] = useState(0)
+
+	const route = useRouter()
+	const { UserSlice } = useStore()
 
 	const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorElNav(event.currentTarget)

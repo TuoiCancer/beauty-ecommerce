@@ -1,7 +1,14 @@
-import { Box, MenuItem, Select, Typography } from '@mui/material'
+import { stringAvatar } from '@/helper'
+import { useStore } from '@/store'
+import { Box, MenuItem, Popper, Select, Typography } from '@mui/material'
+import Avatar from '@mui/material/Avatar/Avatar'
 import Link from 'next/link'
 import React from 'react'
 import ImageItem from '../base/ImageItem'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import LogoutIcon from '@mui/icons-material/Logout'
+import AvatarPoper from './AvatarPoper'
+import LocalMallIcon from '@mui/icons-material/LocalMall'
 
 const CartHeader = ({
 	textColor,
@@ -12,6 +19,43 @@ const CartHeader = ({
 	language: string
 	handleChange: (event: any) => void
 }) => {
+	const { UserSlice } = useStore()
+	const [openPoper, setOpenPoper] = React.useState(false)
+
+	const handleClick = () => {
+		setOpenPoper(!openPoper)
+	}
+
+	const handleLogout = () => {
+		UserSlice.setIsLoggedIn(false)
+		localStorage.removeItem('data')
+		localStorage.removeItem('rememberPassword')
+		setOpenPoper(false)
+		//reload page
+		window.location.reload()
+	}
+
+	const listAvatarPoper = [
+		{
+			id: '1',
+			icon: <AccountCircleIcon />,
+			href: '/profile', // for both admin and user
+			text: 'Infor'
+		},
+		{
+			id: '2',
+			icon: <LocalMallIcon />,
+			href: '/profile', // for both admin and user
+			text: 'Order'
+		},
+		{
+			id: '3',
+			icon: <LogoutIcon />,
+			text: 'Logout',
+			onClick: handleLogout
+		}
+	]
+
 	return (
 		<Box
 			sx={{
@@ -47,7 +91,8 @@ const CartHeader = ({
 			<Box
 				sx={{
 					position: 'relative',
-					mt: { xs: '24px', md: '0' }
+					mt: { xs: '24px', md: '0' },
+					mr: '36px'
 				}}
 			>
 				<Box
@@ -80,7 +125,7 @@ const CartHeader = ({
 						</Typography>
 					</Box>
 				</Box>
-				<Link href='/cart'>
+				<Link href='/user/cart'>
 					{textColor === '#000' ? (
 						<ImageItem
 							imgSrc='/img/Cart_000.png'
@@ -100,6 +145,56 @@ const CartHeader = ({
 					)}
 				</Link>
 			</Box>
+			{UserSlice.isLoggedIn && (
+				<Box
+					sx={{
+						cursor: 'pointer'
+					}}
+				>
+					<Avatar {...stringAvatar('Xuan Tuoi')} onClick={handleClick} />
+					{openPoper && (
+						<Box
+							sx={{
+								position: 'absolute',
+								top: '110%',
+								right: '0',
+								zIndex: 2,
+								backgroundColor: '#fff',
+								boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+								borderRadius: '4px',
+								padding: { xs: '8px 12px' },
+								'& a': {
+									textDecoration: 'none',
+									color: '#000'
+								}
+							}}
+						>
+							{listAvatarPoper.map((item, index) => {
+								return (
+									<AvatarPoper
+										key={index}
+										href={item?.href}
+										icon={item.icon}
+										text={item.text}
+										onClick={item?.onClick}
+									/>
+								)
+							})}
+						</Box>
+					)}
+				</Box>
+			)}
+			{!UserSlice.isLoggedIn && (
+				<Link
+					href='/login'
+					style={{
+						textDecoration: 'none',
+						color: '#000'
+					}}
+				>
+					Login
+				</Link>
+			)}
 		</Box>
 	)
 }

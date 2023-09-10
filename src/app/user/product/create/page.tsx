@@ -7,16 +7,16 @@ import { useCreateProduct } from '@/service/react-query/product.query'
 
 const CreateProductTest = () => {
 	const [name, setName] = React.useState('')
-	const [imgSrc, setImgSrc] = React.useState('')
+	const [imgSrc, setImgSrc] = React.useState(null)
 	const { isLoading, mutate: createProduct } = useCreateProduct()
 
-	const showPreview = (event: any) => {
+	const showPreview = async (event: any) => {
 		if (event.target.files.length > 0) {
 			const file = event.target.files[0]
 			const reader = new FileReader()
 			reader.readAsDataURL(file)
 			reader.onloadend = () => {
-				setImgSrc(reader.result as string)
+				setImgSrc(reader.result)
 			}
 		}
 	}

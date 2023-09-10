@@ -8,9 +8,11 @@ import Loading from './loading'
 const Homepage = () => {
 	const route = useRouter()
 	const { UserSlice } = useStore()
+
+	// check maxAge of token and refresh if needed
 	useEffect(() => {
 		if (UserSlice.isLoggedIn) {
-			route.push('/home')
+			route.push('/user/home')
 		} else {
 			route.push('/login')
 		}

@@ -8,6 +8,12 @@ interface signupResponseI {
 	refreshToken: string
 }
 
+interface loginTypes {
+	email: string
+	password: string
+	rememberPassword: boolean
+}
+
 export const useSignup = () => {
 	const signupRequestService = ApiService.createInstance()
 
@@ -39,7 +45,7 @@ export const useSignup = () => {
 export const useLogin = () => {
 	const loginRequestService = ApiService.createInstance()
 	return useMutation(
-		payload => {
+		(payload: loginTypes) => {
 			return loginRequestService.login({
 				data: payload
 			})
@@ -48,9 +54,21 @@ export const useLogin = () => {
 			onSuccess: (data: signupResponseI) => {
 				// set token into local storage
 				localStorage.setItem('data', JSON.stringify(data))
+				localStorage.setItem(
+					'rememberPassword',
+					JSON.stringify(data.user.rememberPassword)
+				)
 				updateStore((state: IStore) => {
 					state.UserSlice.isLoggedIn = true
 					state.UserSlice.user = data.user
+					state.UserSlice.rememberPassword = data.user.rememberPassword
+				})
+			},
+			onError: (error: any) => {
+				updateStore((state: IStore) => {
+					console.log('error', error)
+					state.UserSlice.isError = true
+					state.UserSlice.errorMess = error.response.data.message
 				})
 			}
 		}
