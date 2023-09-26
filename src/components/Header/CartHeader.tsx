@@ -9,6 +9,8 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import LogoutIcon from '@mui/icons-material/Logout'
 import AvatarPoper from './AvatarPoper'
 import LocalMallIcon from '@mui/icons-material/LocalMall'
+import Loading from '@/app/loading'
+import { useLogin, useLogout } from '@/service/react-query/user.query'
 
 const CartHeader = ({
 	textColor,
@@ -21,41 +23,50 @@ const CartHeader = ({
 }) => {
 	const { UserSlice } = useStore()
 	const [openPoper, setOpenPoper] = React.useState(false)
+	const { isLoading, mutate: logout } = useLogout()
 
 	const handleClick = () => {
 		setOpenPoper(!openPoper)
 	}
 
 	const handleLogout = () => {
-		UserSlice.setIsLoggedIn(false)
-		localStorage.removeItem('data')
-		localStorage.removeItem('rememberPassword')
+		logout()
 		setOpenPoper(false)
 		//reload page
-		window.location.reload()
+		// window.location.reload()
 	}
 
 	const listAvatarPoper = [
 		{
 			id: '1',
 			icon: <AccountCircleIcon />,
-			href: '/profile', // for both admin and user
-			text: 'Infor'
+			// href: '/user/infor', // for both admin and user
+			text: 'Infor',
+			onClick: handleClick
 		},
 		{
 			id: '2',
 			icon: <LocalMallIcon />,
-			href: '/profile', // for both admin and user
-			text: 'Order'
+			// href: '/user/order', // for both admin and user
+			text: 'Order',
+			onClick: handleClick
 		},
 		{
 			id: '3',
 			icon: <LogoutIcon />,
 			text: 'Logout',
 			onClick: handleLogout
+		},
+		{
+			id: '4',
+			icon: <LogoutIcon />,
+			href: '/user/product/create',
+			text: 'create',
+			onClick: handleClick
 		}
 	]
 
+	// if (isLoading) return <Loading />
 	return (
 		<Box
 			sx={{
@@ -121,7 +132,7 @@ const CartHeader = ({
 								lineHeight: { xs: '24px', md: '28px' }
 							}}
 						>
-							{2}
+							{UserSlice.totalProductInCart || 0}
 						</Typography>
 					</Box>
 				</Box>
@@ -151,7 +162,14 @@ const CartHeader = ({
 						cursor: 'pointer'
 					}}
 				>
-					<Avatar {...stringAvatar('Xuan Tuoi')} onClick={handleClick} />
+					<Avatar
+						{...stringAvatar('Xuan Tuoi')}
+						onClick={e => {
+							e.stopPropagation()
+							// handleClick()
+							setOpenPoper(!openPoper)
+						}}
+					/>
 					{openPoper && (
 						<Box
 							sx={{
@@ -160,6 +178,7 @@ const CartHeader = ({
 								right: '0',
 								zIndex: 2,
 								backgroundColor: '#fff',
+								color: '#000',
 								boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
 								borderRadius: '4px',
 								padding: { xs: '8px 12px' },

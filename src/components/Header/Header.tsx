@@ -93,7 +93,7 @@ const Header = ({
 					xl: 'var(--max-width-xl)'
 				},
 				margin: '12px auto',
-				color: textColor,
+				color: `${textColor} !important`,
 				boxShadow: isHaveShadow
 					? '0px 18px 36px 0px rgba(200, 200, 200, 0.25)'
 					: 'none',

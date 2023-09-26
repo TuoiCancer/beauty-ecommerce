@@ -7,14 +7,18 @@ import BrandItem from '@/components/home/BrandItem'
 import ImageSliderItem, { Comment } from '@/components/home/ImageSliderItem'
 import IntroItem from '@/components/home/IntroItem'
 import TopProductItem from '@/components/home/TopProductItem'
-import { listBrands, listComments, listProduct } from '@/constants'
+import { listBrands, listComments } from '@/constants'
 import SwipeableViews from 'react-swipeable-views'
 import { Box, MobileStepper, Typography, useThemeProps } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTheme } from '@mui/material/styles'
 import { autoPlay } from 'react-swipeable-views-utils'
 import { useRouter } from 'next/navigation'
 import { useStore } from '@/store'
+import Loading from '@/app/loading'
+import { useGetProductByPage } from '@/service/react-query/product.query'
+import { ProductInterface } from '@/utils/product.interface'
+import { useGetCartByUserId } from '@/service/react-query/cart.query'
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews)
 
 const menuItems = [
@@ -68,6 +72,16 @@ export default function Home() {
 	const route = useRouter()
 	const { UserSlice } = useStore()
 
+	const { refetch: getCartByUserId } = useGetCartByUserId({
+		userId: UserSlice.user?.id
+	})
+
+	const {
+		isLoading: gettingProducts,
+		mutate: getProductByPage,
+		data: dataGetListProduct
+	} = useGetProductByPage()
+
 	const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorElNav(event.currentTarget)
 	}
@@ -80,6 +94,11 @@ export default function Home() {
 		setActiveStep(step)
 	}
 
+	useEffect(() => {
+		getProductByPage({ page: 1, limit: 4 })
+	}, [])
+
+	if (gettingProducts) return <Loading />
 	return (
 		<Box
 			sx={{
@@ -122,6 +141,7 @@ export default function Home() {
 				>
 					<ImageItem
 						imgSrc='/img/leaf.png'
+						priority={true}
 						style={{
 							position: 'absolute',
 							top: { sm: '50%', md: '82%', lg: '50%' },
@@ -133,6 +153,7 @@ export default function Home() {
 					/>
 					<ImageItem
 						imgSrc='/img/leaf.png'
+						priority={true}
 						style={{
 							position: 'absolute',
 							top: '60%',
@@ -230,6 +251,7 @@ export default function Home() {
 								fontStyle: 'capitalize',
 								mr: { xs: '12px', md: '20px' }
 							}}
+							onClick={() => route.push('/user/product')}
 						/>
 
 						<BaseButton
@@ -499,9 +521,12 @@ export default function Home() {
 						}
 					}}
 				>
-					{listProduct.slice(0, 4).map(item => {
-						return <TopProductItem key={item.id} item={item} />
-					})}
+					{dataGetListProduct?.result[0]?.data &&
+						dataGetListProduct?.result[0]?.data
+							.slice(0, 4)
+							.map((item: ProductInterface) => {
+								return <TopProductItem key={item.id} item={item} />
+							})}
 				</Box>
 			</Box>
 			{/* Review */}
@@ -528,6 +553,7 @@ export default function Home() {
 			>
 				<ImageItem
 					imgSrc='/img/leaf.png'
+					priority={true}
 					style={{
 						position: 'absolute',
 						top: { xs: '12%', md: '30%' },
@@ -541,6 +567,7 @@ export default function Home() {
 
 				<ImageItem
 					imgSrc='/img/leaf.png'
+					priority={true}
 					style={{
 						position: 'absolute',
 						top: '50%',

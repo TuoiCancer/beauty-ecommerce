@@ -1,23 +1,57 @@
 'use client'
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Box, Typography } from '@mui/material'
 import HeaderShopDetail from '@/components/shop/HeaderShopDetail'
 import CategoryItem from '@/components/shop/CategoryItem'
 import Title from '@/components/shop/Title'
 
 //Icons
-import { listCategory, listNews, listProduct } from '@/constants'
+import { listCategory, listNews, listShop } from '@/constants'
 import ProductItem from '@/components/shop/ProductItem'
 import Lefticon from '@/components/icon/Lefticon'
 import Link from 'next/link'
 import BlogItem from '@/components/shop/BlogItem'
 import { poppins } from '@/assets/font'
+import { useGetProductByPage } from '@/service/react-query/product.query'
+import Loading from '@/app/loading'
+import { usePathname } from 'next/navigation'
+import { ProductInterface } from '@/utils/product.interface'
+import { useAddToCart } from '@/service/react-query/cart.query'
 
 const ShopPageDetail = () => {
+	const productListRef = useRef<HTMLDivElement | null>(null)
+	const pathname = usePathname()
+	const shopId = pathname.split('/')[3] // loreal,"oridinary" ,"bioderma"
+	const shopName = listShop.find(item => item.id === shopId)?.name
+
+	const {
+		isLoading: gettingProducts,
+		mutate: getProductByPage,
+		data: dataGetListProduct
+	} = useGetProductByPage()
+
+	const { mutate: addToCart } = useAddToCart()
+
+	useEffect(() => {
+		getProductByPage({
+			page: 1,
+			limit: 10,
+			sort: 'createdAt',
+			product_shop: shopName
+		})
+	}, [pathname])
+
+	const scrollToProducts = () => {
+		if (productListRef.current) {
+			productListRef.current.scrollIntoView({ behavior: 'smooth' })
+		}
+	}
+
+	if (gettingProducts) return <Loading />
 	return (
 		<Box>
 			{/* Header */}
-			<HeaderShopDetail />
+			<HeaderShopDetail onClick={scrollToProducts} />
 
 			{/* Category */}
 			<Box
@@ -61,6 +95,7 @@ const ShopPageDetail = () => {
 									pathImg={item.pathImg}
 									title={item.title}
 									description={item.description}
+									shopName={shopName || ''}
 								/>
 							)
 						})}
@@ -85,6 +120,7 @@ const ShopPageDetail = () => {
 			>
 				{/* Title */}
 				<Box
+					ref={productListRef}
 					sx={{
 						display: 'flex',
 						flexDirection: 'row',
@@ -99,39 +135,46 @@ const ShopPageDetail = () => {
 							variant='body1'
 							sx={{ mt: '10px', color: '#000', fontSize: { md: '16px' } }}
 						>
-							women made purely natural ingredients, taken from the earth’s
+							Women made purely natural ingredients, taken from the earth’s
 							crust.
 						</Typography>
 					</Box>
-					<Box
-						sx={{
-							display: 'flex',
-							alignItems: 'center',
-							cursor: 'pointer',
-							transition: 'all 0.3s ease',
-							ml: { xs: '20px' },
-							':hover': {
-								transform: 'translateX(4px)'
-							}
+					<Link
+						href={`/user/product?shopName=${shopName}`}
+						style={{
+							textDecoration: 'none'
 						}}
 					>
-						<Typography
-							variant='h3'
-							className={poppins.className}
+						<Box
 							sx={{
-								color: '#000',
-								fontSize: {
-									xs: '16px',
-									md: '20px',
-									whiteSpace: 'nowrap'
-								},
-								mr: { xs: '12px', md: '24px' }
+								display: 'flex',
+								alignItems: 'center',
+								cursor: 'pointer',
+								transition: 'all 0.3s ease',
+								marginLeft: { xs: '20px' },
+								':hover': {
+									transform: 'translateX(4px)'
+								}
 							}}
 						>
-							View all
-						</Typography>
-						<Lefticon />
-					</Box>
+							<Typography
+								variant='h3'
+								className={poppins.className}
+								sx={{
+									color: '#000',
+									fontSize: {
+										xs: '16px',
+										md: '20px',
+										whiteSpace: 'nowrap'
+									},
+									mr: { xs: '12px', md: '24px' }
+								}}
+							>
+								View all
+							</Typography>
+							<Lefticon />
+						</Box>
+					</Link>
 				</Box>
 				{/* List products */}
 				<Box
@@ -144,17 +187,23 @@ const ShopPageDetail = () => {
 						mt: { xs: '48px', md: '74px' }
 					}}
 				>
-					{listProduct.map(item => {
-						return (
-							<ProductItem
-								key={item.id}
-								imgSrc={item.thumbnail}
-								productName={item.name}
-								productType={item.type}
-								price={item.price.toFixed(2)}
-							/>
-						)
-					})}
+					{dataGetListProduct?.result[0]?.data &&
+						dataGetListProduct?.result[0]?.data.map(
+							(item: ProductInterface) => {
+								return (
+									<ProductItem
+										productId={item.id}
+										key={item.id}
+										imgSrc={item.product_thumbnail}
+										productName={item.product_name}
+										productType={item.product_category}
+										price={item.product_price.toFixed(2)}
+										shopId={item.user.id}
+										addToCart={addToCart}
+									/>
+								)
+							}
+						)}
 				</Box>
 			</Box>
 			{/* Video */}

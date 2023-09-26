@@ -20,9 +20,7 @@ const LoginPage = () => {
 	const { UserSlice } = useStore()
 
 	const { isLoading, mutate: LoginFunc, isSuccess } = useLogin()
-	if (UserSlice.isLoggedIn) {
-		router.push('/user/home')
-	}
+
 	const handleLogin = () => {
 		const err = validateSigninForm({ email, password })
 		if (err?.msg) {
@@ -35,7 +33,6 @@ const LoginPage = () => {
 
 	React.useEffect(() => {
 		if (isSuccess) {
-			console.log('isSuccess ------------>', isSuccess)
 			router.push('/user/home')
 		}
 	}, [isSuccess])
@@ -71,7 +68,7 @@ const LoginPage = () => {
 							objectFit: 'contain',
 							position: 'relative',
 							mb: '52px',
-							ml: { md: '68px' },
+							marginLeft: { md: '68px' },
 							mt: { md: '42px' }
 						}}
 					>
@@ -88,7 +85,7 @@ const LoginPage = () => {
 							objectFit: 'contain',
 							position: 'relative',
 							mt: { md: '118px' },
-							ml: { lg: '32px', xl: '190px' }
+							marginLeft: { lg: '32px', xl: '190px' }
 						}}
 					>
 						<Image

@@ -34,18 +34,18 @@ const ReviewItem = ({
 	return (
 		<Box
 			sx={{
-				mb: { md: '48px' },
+				mb: { xs: '18px', md: '48px' },
 				display: 'flex',
 				alignItems: 'center',
-				justifyContent: 'flex-start'
+				justifyContent: { xs: 'space-between', md: 'flex-start' }
 			}}
 		>
 			{/* Avatar */}
 			<ImageItem
 				imgSrc={img}
 				style={{
-					width: { md: '90px' },
-					height: { md: '90px' },
+					width: { xs: '60px', md: '90px' },
+					height: { xs: '60px', md: '90px' },
 					borderRadius: '50%',
 					border: '1px solid var(--main-green)',
 					'& img': {
@@ -55,7 +55,8 @@ const ReviewItem = ({
 			/>
 			<Box
 				sx={{
-					ml: { md: '36px' }
+					marginLeft: { xs: '12px', md: '36px' },
+					flex: 1
 				}}
 			>
 				<Box
@@ -79,10 +80,10 @@ const ReviewItem = ({
 						sx={{
 							color: '#478515',
 							fontFamily: 'Roboto',
-							fontSize: '20px',
-							fontWeight: 500,
+							fontSize: { xs: '18px', md: '20px' },
+							fontWeight: { xs: 400, md: 500 },
 							lineHeight: '125.5%',
-							mx: { md: '12px' },
+							mx: { xs: '12px' },
 							textTransform: 'capitalize'
 						}}
 					>
@@ -92,8 +93,8 @@ const ReviewItem = ({
 						sx={{
 							color: '#BBB',
 							fontFamily: 'Roboto',
-							fontSize: '18px',
-							fontWeight: 500,
+							fontSize: { xs: '14px', md: '18px' },
+							fontWeight: { xs: 400, md: 500 },
 							lineHeight: '154.5%'
 						}}
 					>
@@ -102,12 +103,12 @@ const ReviewItem = ({
 				</Box>
 				<Typography
 					sx={{
-						color: '#000',
+						color: '#737373',
 						fontFamily: 'Roboto',
-						fontSize: '18px',
+						fontSize: { xs: '16px', md: '18px' },
 						fontWeight: 300,
 						lineHeight: '154.5%',
-						my: { md: '12px' }
+						my: { xs: '8px', md: '12px' }
 					}}
 				>
 					{content}
@@ -119,10 +120,10 @@ const ReviewItem = ({
 						'& h5': {
 							color: '#BBB',
 							fontFamily: 'Roboto',
-							fontSize: '18px',
+							fontSize: { xs: '16px', md: '18px' },
 							fontWeight: 500,
 							lineHeight: '154.5%',
-							mr: { md: '24px' },
+							mr: { xs: '12px', md: '24px' },
 							cursor: 'pointer'
 						}
 					}}

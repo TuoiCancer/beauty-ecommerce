@@ -1,11 +1,14 @@
 import { IStore, updateStore } from '@/store'
+import { useAuthStore } from '@/store/authStore'
 import { useMutation } from '@tanstack/react-query'
 import { ApiService } from '../api/ApiClient'
 
 interface signupResponseI {
 	user: any
-	accessToken: string
-	refreshToken: string
+	token: {
+		accessToken: string
+		refreshToken: string
+	}
 }
 
 interface loginTypes {
@@ -44,6 +47,10 @@ export const useSignup = () => {
 
 export const useLogin = () => {
 	const loginRequestService = ApiService.createInstance()
+	const setAuthToken = useAuthStore(state => state.setAuthToken)
+	const setXClientId = useAuthStore(state => state.setXClientId)
+	const setXRtokenId = useAuthStore(state => state.setXRtokenId)
+
 	return useMutation(
 		(payload: loginTypes) => {
 			return loginRequestService.login({
@@ -52,6 +59,14 @@ export const useLogin = () => {
 		},
 		{
 			onSuccess: (data: signupResponseI) => {
+				const token = data.token.accessToken // Thay 'token' bằng tên field chứa token trong dữ liệu trả về
+				const refreshToken = data.token.refreshToken
+				const user = data.user
+
+				// Lưu token vào store Zustand
+				setAuthToken(token)
+				setXClientId(user.id)
+				setXRtokenId(refreshToken)
 				// set token into local storage
 				localStorage.setItem('data', JSON.stringify(data))
 				localStorage.setItem(
@@ -66,7 +81,74 @@ export const useLogin = () => {
 			},
 			onError: (error: any) => {
 				updateStore((state: IStore) => {
-					console.log('error', error)
+					state.UserSlice.isError = true
+					state.UserSlice.errorMess = error.response.data.message
+				})
+			}
+		}
+	)
+}
+
+export const useLogout = () => {
+	const logoutService = ApiService.createInstance()
+
+	return useMutation(
+		() =>
+			logoutService.logout({
+				data: {}
+			}),
+		{
+			onSuccess: () => {
+				// remove data in localStorage
+				localStorage.removeItem('data')
+				updateStore((state: IStore) => {
+					state.UserSlice.isLoggedIn = false
+					state.UserSlice.user = null
+				})
+			}
+		}
+	)
+}
+
+export const useRefreshToken = () => {
+	const refreshTokenService = ApiService.createInstance()
+
+	const setAuthToken = useAuthStore(state => state.setAuthToken)
+	const setXClientId = useAuthStore(state => state.setXClientId)
+	const setXRtokenId = useAuthStore(state => state.setXRtokenId)
+
+	return useMutation(
+		(payload: any) => {
+			console.log('======================CALL REFRESH TOKEN ===============')
+
+			return refreshTokenService.refreshToken({
+				data: payload
+			})
+		},
+		{
+			onSuccess: (data: signupResponseI) => {
+				const token = data.token.accessToken // Thay 'token' bằng tên field chứa token trong dữ liệu trả về
+				const refreshToken = data.token.refreshToken
+				const user = data.user
+
+				// Lưu token vào store Zustand
+				setAuthToken(token)
+				setXClientId(user.id)
+				setXRtokenId(refreshToken)
+				// set token into local storage
+				localStorage.setItem('data', JSON.stringify(data))
+				localStorage.setItem(
+					'rememberPassword',
+					JSON.stringify(data.user.rememberPassword)
+				)
+				updateStore((state: IStore) => {
+					state.UserSlice.isLoggedIn = true
+					state.UserSlice.user = data.user
+					state.UserSlice.rememberPassword = data.user.rememberPassword
+				})
+			},
+			onError: (error: any) => {
+				updateStore((state: IStore) => {
 					state.UserSlice.isError = true
 					state.UserSlice.errorMess = error.response.data.message
 				})

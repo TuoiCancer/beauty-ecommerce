@@ -7,6 +7,11 @@ const ShowErr = () => {
 	const { UserSlice } = useStore()
 	if (UserSlice.isError) {
 		toast.error(UserSlice.errorMess)
+		UserSlice.setIsError(false)
+	}
+	if (UserSlice.isSuccess) {
+		toast.success(UserSlice.successMess)
+		UserSlice.setIsSuccess(false)
 	}
 	return <ToastContainer />
 }

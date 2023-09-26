@@ -5,7 +5,7 @@ import InfoTag from './InfoTag'
 import ImageItem from '../base/ImageItem'
 import { unicaOne } from '@/assets/font'
 
-const HeaderShopDetail = () => {
+const HeaderShopDetail = ({ onClick }: any) => {
 	return (
 		<Box
 			sx={{
@@ -74,6 +74,7 @@ const HeaderShopDetail = () => {
 						color: '#fff'
 					}
 				}}
+				onClick={onClick}
 			/>
 			<Box
 				sx={{

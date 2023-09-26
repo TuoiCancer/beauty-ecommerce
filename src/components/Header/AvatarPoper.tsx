@@ -17,6 +17,7 @@ const AvatarPoper = ({
 		return (
 			<Link href={href}>
 				<Box
+					onClick={onClick}
 					sx={{
 						alignItems: 'center',
 						paddingBottom: '8px',

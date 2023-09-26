@@ -3,15 +3,159 @@
 import { ibarra } from '@/assets/font'
 import ImageItem from '@/components/base/ImageItem'
 import PaginationItem from '@/components/product/Pagination'
-import Pagination from '@/components/product/Pagination'
+import ProductSearchWrapper from '@/components/product/ProductSearchWrapper'
 import SidebarProduct from '@/components/product/Sidebar'
 import ProductItem from '@/components/shop/ProductItem'
-import { listProduct } from '@/constants'
+import { useAddToCart } from '@/service/react-query/cart.query'
+import { useGetProductByPage } from '@/service/react-query/product.query'
+import { IFilterOption } from '@/utils/filterOption.interface'
 import { Box, TextField, Typography } from '@mui/material'
-import React from 'react'
+import { usePathname, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/router'
+import React, { useEffect } from 'react'
 
 const ProductPage = () => {
+	const searchParams = useSearchParams()
+	const search = searchParams.get('shopName')
+	const categoryPath = searchParams.get('category')
+
+	const [page, setPage] = React.useState(1)
 	const [rowPerPage, setRowPerPage] = React.useState(12)
+	const [sorting, setSorting] = React.useState('createdAt')
+	const [brand, setBrand] = React.useState(search || 'All')
+	const [category, setCategory] = React.useState(categoryPath || 'All')
+	const [searchKey, setSearchKey] = React.useState('')
+
+	const [listProduct, setListProduct] = React.useState<any>([])
+
+	const [filterOptions, setFilterOptions] = React.useState<IFilterOption>({
+		searchKey: '',
+		brand: 'All',
+		category: 'All',
+		sort: 'createdAt'
+	})
+
+	const [paginationMeta, setPaginationMeta] = React.useState({
+		pageCount: 0, // tổng số page
+		page: 1,
+		limit: 12,
+		itemCount: 0 // tổng số product get được từ api
+	})
+
+	const {
+		isLoading: gettingProducts,
+		mutate: getProductByPage,
+		data: dataGetListProduct
+	} = useGetProductByPage()
+
+	const { isLoading: isAddingToCart, mutate: addToCart } = useAddToCart()
+
+	useEffect(() => {
+		if (rowPerPage) {
+			getProductByPage({
+				page: 1,
+				limit: rowPerPage,
+				sort: filterOptions.sort,
+				product_shop: filterOptions.brand,
+				product_category: filterOptions.category,
+				search_key: filterOptions.searchKey
+			})
+		}
+	}, [rowPerPage])
+
+	useEffect(() => {
+		if (dataGetListProduct !== undefined) {
+			setPaginationMeta(dataGetListProduct.pageMetaDto)
+
+			const oldData = listProduct || []
+			const newData = [...dataGetListProduct.result, ...oldData]
+
+			const dataFilter = newData.filter((item, index) => {
+				return newData.findIndex(item2 => item2.page === item.page) === index
+			})
+			// sắp xếp từ bé đến lớn của page
+			dataFilter.sort((a, b) => {
+				return a.page - b.page
+			})
+
+			setListProduct(dataFilter)
+		}
+	}, [dataGetListProduct])
+
+	useEffect(() => {
+		if (page >= 5 && page - 5 >= 0) {
+			if (page === paginationMeta?.pageCount) {
+				// nếu là page cuối cùng -> load 5 page trước đấy
+				getProductByPage({
+					page: page - 5,
+					limit: rowPerPage,
+					sort: filterOptions.sort,
+					product_shop: filterOptions.brand,
+					product_category: filterOptions.category,
+					search_key: filterOptions.searchKey
+				})
+			} else {
+				// load 5 page previous current page
+				const start = page - 4
+				const isExsitStart = listProduct.find(
+					(item: any) => item.page === start
+				)
+				if (!isExsitStart && page % 5 === 0) {
+					getProductByPage({
+						page: page - 5,
+						limit: rowPerPage,
+						sort: filterOptions.sort,
+						product_shop: filterOptions.brand,
+						product_category: filterOptions.category,
+						search_key: filterOptions.searchKey
+					})
+				}
+
+				// load 5 page after current page
+				const end = page + 5
+				const isExsitEnd = listProduct.find((item: any) => item.page === end)
+				if (!isExsitEnd && page % 5 === 0 && end <= paginationMeta.pageCount) {
+					getProductByPage({
+						page: page,
+						limit: rowPerPage,
+						sort: filterOptions.sort,
+						product_shop: filterOptions.brand,
+						product_category: filterOptions.category,
+						search_key: filterOptions.searchKey
+					})
+				}
+
+				const isNearPageEnd = paginationMeta.pageCount - page
+				// check current page đã có data hay chưa
+				const isExsit = listProduct.find((item: any) => item.page === page)
+				if (
+					isNearPageEnd <= 5 &&
+					isNearPageEnd > 0 &&
+					page % 5 === 0 &&
+					!isExsit
+				) {
+					getProductByPage({
+						page: page,
+						limit: rowPerPage,
+						sort: filterOptions.sort,
+						product_shop: filterOptions.brand,
+						product_category: filterOptions.category,
+						search_key: filterOptions.searchKey
+					})
+				}
+			}
+		} else {
+			// const isFirstPage = listProduct.find((item: any) => item.page === 1)
+			// if (!isFirstPage) {
+			// 	getProductByPage({
+			// 		page: 1,
+			// 		limit: rowPerPage,
+			// 		sort: sort
+			// 	})
+			// }
+		}
+	}, [page])
+
 	return (
 		<Box
 			sx={{
@@ -73,6 +217,26 @@ const ProductPage = () => {
 						id='outlined-basic'
 						variant='outlined'
 						placeholder='Search for... '
+						onKeyDown={e => {
+							if (e.code === 'Enter') {
+								setPage(1)
+								getProductByPage({
+									page: 1,
+									limit: rowPerPage,
+									sort: filterOptions.sort,
+									product_shop: filterOptions.brand,
+									product_category: filterOptions.category,
+									search_key: searchKey
+								})
+								setFilterOptions({
+									...filterOptions,
+									searchKey: searchKey
+								})
+							}
+						}}
+						onChange={e => {
+							setSearchKey(e.target.value)
+						}}
 						sx={{
 							width: '100%',
 							background: '#FFF',
@@ -86,8 +250,23 @@ const ProductPage = () => {
 								borderRadius: '12px'
 							}
 						}}
-					></TextField>
+					/>
 					<ImageItem
+						onClick={() => {
+							setPage(1)
+							getProductByPage({
+								page: 1,
+								limit: rowPerPage,
+								sort: filterOptions.sort,
+								product_shop: filterOptions.brand,
+								product_category: filterOptions.category,
+								search_key: searchKey
+							})
+							setFilterOptions({
+								...filterOptions,
+								searchKey: searchKey
+							})
+						}}
 						imgSrc='/img/Search.png'
 						style={{
 							width: { md: '42px' },
@@ -128,36 +307,55 @@ const ProductPage = () => {
 					}}
 				>
 					{/* Sidebar */}
-					<SidebarProduct />
+					<SidebarProduct
+						page={page}
+						rowPerPage={rowPerPage}
+						category={category}
+						setCategory={setCategory}
+						brand={brand}
+						searchKey={searchKey}
+						setBrand={setBrand}
+						setPage={setPage}
+						sorting={sorting}
+						setSorting={setSorting}
+						getProductByPage={getProductByPage}
+						setFilterOptions={setFilterOptions}
+						filterOptions={filterOptions}
+					/>
 					{/* List Product */}
 					<Box
 						sx={{
 							display: 'grid',
 							gridTemplateColumns: {
 								xs: 'repeat(1, 1fr)',
-								md: 'repeat(2, 1fr)',
-								lg: 'repeat(3, 1fr)',
+								md: 'repeat(3, 1fr)',
+								lg: 'repeat(4, 1fr)',
 								xl: 'repeat(4, 1fr)'
 							},
-							gridGap: '32px',
+							gridGap: { xs: '12px', md: '20px', lg: '32px' },
 							mx: { xs: '12px', sm: 0 }
 						}}
 					>
-						{listProduct.map(item => {
-							return (
-								<ProductItem
-									key={item.id}
-									imgSrc={item.thumbnail}
-									productName={item.name}
-									productType={item.type}
-									price={`${item.price}`}
-								/>
-							)
-						})}
+						{listProduct.length !== 0 && (
+							<ProductSearchWrapper
+								listProduct={listProduct}
+								page={page}
+								rowPerPage={rowPerPage}
+								addToCart={addToCart}
+							/>
+						)}
+
+						{listProduct.length === 0 && <>Empty product</>}
 					</Box>
 				</Box>
 				{/* Pagination */}
-				<PaginationItem setRowPerPage={setRowPerPage} rowPerPage={rowPerPage} />
+				<PaginationItem
+					page={page}
+					setPage={setPage}
+					setRowPerPage={setRowPerPage}
+					rowPerPage={rowPerPage}
+					paginationMeta={paginationMeta}
+				/>
 			</Box>
 		</Box>
 	)

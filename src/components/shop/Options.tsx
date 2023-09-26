@@ -2,9 +2,11 @@ import { Box } from '@mui/material'
 import React from 'react'
 import ImageItem from '../base/ImageItem'
 
-const Options = ({ iconSrc }: { iconSrc: string }) => {
+const Options = ({ iconSrc, onClick }: { iconSrc: string; onClick?: any }) => {
 	return (
 		<Box
+			onClick={onClick}
+			id='option-item'
 			sx={{
 				backgroundColor: '#fff',
 				borderRadius: '50%',
@@ -25,8 +27,8 @@ const Options = ({ iconSrc }: { iconSrc: string }) => {
 			<ImageItem
 				imgSrc={iconSrc}
 				style={{
-					width: { xs: '16px', md: '25px' },
-					height: { xs: '16px', md: '23px' }
+					width: { xs: '16px', lg: '18px', xl: '25px' },
+					height: { xs: '16px', lg: '18px', xl: '23px' }
 				}}
 			/>
 		</Box>

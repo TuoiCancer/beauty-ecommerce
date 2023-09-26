@@ -116,7 +116,7 @@ const CartPage = () => {
 						label='Apply'
 						variant='contained'
 						styleSx={{
-							ml: { md: '42px' },
+							marginLeft: { md: '42px' },
 							p: { xs: '8px 16px', md: '8px 30px' },
 							borderRadius: '8px',
 							background: '#204700',
@@ -155,7 +155,7 @@ const CartPage = () => {
 								color: '#575757',
 								fontFamily: 'Poppins',
 								fontSize: '24px',
-								ml: { md: '24px' }
+								marginLeft: { md: '24px' }
 							}}
 						>
 							$0
@@ -177,7 +177,7 @@ const CartPage = () => {
 								color: '#575757',
 								fontFamily: 'Poppins',
 								fontSize: { xs: '24px', md: '28px' },
-								ml: { xs: '12px', md: '12px' }
+								marginLeft: { xs: '12px', md: '12px' }
 							}}
 						>
 							$0

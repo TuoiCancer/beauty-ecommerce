@@ -9,6 +9,7 @@ import {
 	Typography,
 	ButtonGroup
 } from '@mui/material'
+import { useRouter } from 'next/navigation'
 import React from 'react'
 import BaseButton from '../base/BaseButton'
 
@@ -19,7 +20,7 @@ const Title = ({ title }: { title: string }) => {
 			className={ibarra.className}
 			sx={{
 				color: '#121212',
-				fontSize: { xs: '24px', md: '32px' },
+				fontSize: { xs: '24px', lg: '32px' },
 				fontWeight: 700,
 				lineHeight: '125.5%',
 				paddingBottom: { md: '18px', lg: '32px' }
@@ -30,14 +31,52 @@ const Title = ({ title }: { title: string }) => {
 	)
 }
 
-const SidebarProduct = () => {
-	const [sorting, setSorting] = React.useState('createdAt')
-	const [brand, setBrand] = React.useState('All')
-	const [category, setCategory] = React.useState('All')
-
+const SidebarProduct = ({
+	page,
+	rowPerPage,
+	category,
+	setCategory,
+	brand,
+	searchKey,
+	setBrand,
+	sorting,
+	setSorting,
+	getProductByPage,
+	setPage,
+	filterOptions,
+	setFilterOptions
+}: any) => {
+	const router = useRouter()
 	const handleChange = (event: SelectChangeEvent) => {
 		setSorting(event.target.value as string)
 	}
+
+	const handleFilter = () => {
+		setPage(1)
+
+		getProductByPage({
+			page: 1,
+			limit: rowPerPage,
+			sort: sorting,
+			search_key: searchKey,
+			product_category: category,
+			product_shop: brand
+		})
+		setFilterOptions({
+			searchKey: searchKey,
+			category: category,
+			brand: brand,
+			sort: sorting
+		})
+		// router.push({
+		// 	pathname: '/user/product',
+		// 	query: {
+		// 		shopName: brand,
+		// 		category: category
+		// 	}
+		// })
+	}
+
 	return (
 		<Box
 			sx={{
@@ -47,7 +86,8 @@ const SidebarProduct = () => {
 				flexDirection: { xs: 'column', sm: 'row', md: 'column' },
 				justifyContent: { xs: 'center', sm: 'space-between' },
 				textAlign: { xs: 'center', md: 'start' },
-				mb: { xs: '32px', sm: '62px' }
+				mb: { xs: '32px', sm: '62px' },
+				mr: { md: '12px' }
 			}}
 		>
 			<Box>
@@ -57,7 +97,7 @@ const SidebarProduct = () => {
 					value={sorting}
 					onChange={handleChange}
 					sx={{
-						padding: { xs: '12px', md: '12px 24px' },
+						padding: { xs: '12px', lg: '12px 24px' },
 						margin: { xs: '12px 0' },
 						'& .MuiSelect-select': {
 							padding: 0
@@ -89,7 +129,7 @@ const SidebarProduct = () => {
 								variant='h5'
 								sx={{
 									textTransform: 'capitalize',
-									fontSize: { xs: '18px', md: '22px' },
+									fontSize: { xs: '18px', lg: '22px' },
 									my: { xs: '8px', md: '12px', lg: '16px' },
 									color: category === item.title ? '#fff' : '#000',
 									backgroundColor:
@@ -177,6 +217,7 @@ const SidebarProduct = () => {
 				</Box>
 			</Box>
 			<BaseButton
+				onClick={handleFilter}
 				variant='outlined'
 				bgStyle='color'
 				label='Filter'

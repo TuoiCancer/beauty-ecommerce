@@ -1,15 +1,27 @@
 import { poppins } from '@/assets/font'
-import { listProduct } from '@/constants'
+import { classifyCategoryByType, listProduct } from '@/constants'
+import { useStore } from '@/store'
+import { ProductInterface } from '@/utils/product.interface'
 import { Box, Typography } from '@mui/material'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import React from 'react'
 import Lefticon from '../icon/Lefticon'
 import ProductItem from '../shop/ProductItem'
 
-const SimilarProduct = () => {
+const SimilarProduct = ({
+	listSimilarProduct,
+	productData,
+	addToCart
+}: any) => {
+	const category = classifyCategoryByType.find(item =>
+		item.type.includes(productData?.product_category)
+	)
+	if (!listSimilarProduct) return <></>
 	return (
 		<Box
 			sx={{
-				mt: { md: '140px' }
+				mt: { xs: '60px', md: '80px' }
 			}}
 		>
 			<Box
@@ -25,61 +37,72 @@ const SimilarProduct = () => {
 					variant='h3'
 					sx={{
 						color: '#000',
-						fontSize: '36px',
+						fontSize: { xs: '24px', md: '36px' },
 						fontWeight: 500,
 						lineHeight: '125.5%'
 					}}
 				>
 					Similar Product
 				</Typography>
-				<Box
-					sx={{
-						display: 'flex',
-						alignItems: 'center',
-						cursor: 'pointer',
-						transition: 'all 0.3s ease',
-						':hover': {
-							transform: 'translateX(4px)'
-						}
+				<Link
+					href={`/user/product?shopName=${productData?.user?.username}&category=${category?.category}`}
+					style={{
+						textDecoration: 'none'
 					}}
 				>
-					<Typography
-						variant='h3'
-						className={poppins.className}
+					<Box
 						sx={{
-							color: '#000',
-							fontSize: {
-								md: '20px'
-							},
-							mr: { md: '24px' }
+							display: 'flex',
+							alignItems: 'center',
+							cursor: 'pointer',
+							transition: 'all 0.3s ease',
+							':hover': {
+								transform: 'translateX(4px)'
+							}
 						}}
 					>
-						View all
-					</Typography>
-					<Lefticon />
-				</Box>
+						<Typography
+							variant='h3'
+							className={poppins.className}
+							sx={{
+								color: '#000',
+								fontSize: {
+									xs: '18px',
+									md: '20px'
+								},
+								mr: { xs: '18px', md: '24px' }
+							}}
+						>
+							View all
+						</Typography>
+						<Lefticon />
+					</Box>
+				</Link>
 			</Box>
 			{/* List product */}
 			<Box
 				sx={{
 					display: 'flex',
 					justifyContent: 'space-between',
-					alignItems: 'center'
+					flexWrap: 'wrap',
+					alignItems: 'center',
+					paddingTop: '20px'
 				}}
 			>
-				{listProduct
-					.filter((item, index) => index < 4)
-					.map(item => {
-						return (
-							<ProductItem
-								key={item.id}
-								imgSrc={item.thumbnail}
-								price={`${item.price}`}
-								productName={item.name}
-								productType={item.type}
-							/>
-						)
-					})}
+				{listSimilarProduct.map((item: ProductInterface) => {
+					return (
+						<ProductItem
+							productId={item.id}
+							key={item.id}
+							imgSrc={item.product_thumbnail}
+							price={`${item.product_price}`}
+							productName={item.product_name}
+							productType={item.product_category}
+							shopId={item.user.id}
+							addToCart={addToCart}
+						/>
+					)
+				})}
 			</Box>
 		</Box>
 	)

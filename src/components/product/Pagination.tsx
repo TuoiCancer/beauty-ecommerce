@@ -8,7 +8,13 @@ import {
 	Typography
 } from '@mui/material'
 
-const PaginationItem = ({ setRowPerPage, rowPerPage }: any) => {
+const PaginationItem = ({
+	page,
+	setPage,
+	setRowPerPage,
+	rowPerPage,
+	paginationMeta
+}: any) => {
 	const handleChange = (event: SelectChangeEvent) => {
 		setRowPerPage(event.target.value as string)
 	}
@@ -62,15 +68,16 @@ const PaginationItem = ({ setRowPerPage, rowPerPage }: any) => {
 				</Select>
 			</Box>
 			<Pagination
-				count={20}
+				count={paginationMeta?.pageCount || 1}
+				page={page}
+				onChange={(event, value) => setPage(value)}
 				color='primary'
 				sx={{
 					flex: { xs: 1, sm: 2, lg: 1 },
-
 					'& ul': {
 						width: { xs: '100%', lg: '600px' },
 						marginLeft: { xs: '0', lg: 'auto' },
-						justifyContent: 'space-between'
+						justifyContent: { xs: 'center', md: 'flex-end' }
 					},
 					'& .MuiPaginationItem-root': {
 						fontSize: { xs: '14px', md: '20px' }
