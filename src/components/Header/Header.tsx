@@ -53,6 +53,7 @@ const Header = ({
 }) => {
 	const { UserSlice } = useStore()
 	const matches = useMediaQuery('(min-width:900px)')
+	const [openPoper, setOpenPoper] = React.useState(false)
 
 	const [language, setLanguage] = React.useState('en')
 	const [isShowMenu, setIsShowMenu] = React.useState(false)
@@ -68,12 +69,12 @@ const Header = ({
 		isHaveBg = false
 		isHaveShadow = false
 		style = {
-			...style,
-			position: 'absolute',
-			top: { xs: 0 },
-			left: 0,
-			right: 0,
-			zIndex: 999
+			...style
+			// position: 'absolute',
+			// top: { xs: 0 },
+			// left: 0,
+			// right: 0,
+			// zIndex: 999
 		}
 	}
 
@@ -98,7 +99,23 @@ const Header = ({
 					? '0px 18px 36px 0px rgba(200, 200, 200, 0.25)'
 					: 'none',
 				pr: '30px',
+				'&::after': {
+					content: '""',
+					position: 'absolute',
+					display: openPoper ? 'block' : 'none',
+					top: '-15px',
+					right: '0',
+					bottom: '0',
+					left: '-16%',
+					width: '120vw',
+					height: '100vh',
+					backgroundColor: 'rgba(200, 200, 200, 0.25)',
+					zIndex: -1
+				},
 				...style
+			}}
+			onClick={e => {
+				setOpenPoper(false)
 			}}
 		>
 			<Box
@@ -135,6 +152,8 @@ const Header = ({
 				})}
 			</Box>
 			<CartHeader
+				openPoper={openPoper}
+				setOpenPoper={setOpenPoper}
 				textColor={textColor}
 				handleChange={handleChange}
 				language={language}
@@ -205,6 +224,8 @@ const Header = ({
 						textColor={textColor}
 						handleChange={handleChange}
 						language={language}
+						openPoper={openPoper}
+						setOpenPoper={setOpenPoper}
 					/>
 				</Box>
 			)}

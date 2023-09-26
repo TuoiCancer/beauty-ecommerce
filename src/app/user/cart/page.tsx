@@ -4,6 +4,7 @@ import BaseButton from '@/components/base/BaseButton'
 import CartItem from '@/components/cart/CartItem'
 import StepperItem from '@/components/cart/StepperItem'
 import { cart } from '@/constants'
+import { useStore } from '@/store'
 import {
 	Box,
 	Modal,
@@ -11,12 +12,14 @@ import {
 	Typography,
 	CircularProgress
 } from '@mui/material'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 const CartPage = () => {
 	const [open, setOpen] = React.useState(false)
 	const handleOpen = () => setOpen(true)
 	const handleClose = () => setOpen(false)
+
+	const { UserSlice } = useStore()
 
 	// call api order
 

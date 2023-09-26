@@ -76,7 +76,6 @@ const UserSlice: StateCreator<
 		}),
 	setIsReloadPage: isReloadPage =>
 		set(({ UserSlice }: any) => {
-			console.log('isReloadPage in userSlice is ==========> ', isReloadPage)
 			UserSlice.isReloadPage = isReloadPage
 		})
 })

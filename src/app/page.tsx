@@ -8,6 +8,7 @@ const ContainerComponent = () => {
 	useEffect(() => {
 		route.push('/user/home')
 	}, [])
+
 	return <Loading />
 }
 

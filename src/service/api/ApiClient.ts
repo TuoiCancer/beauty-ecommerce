@@ -1,4 +1,4 @@
-import { useAuthStore } from '@/store/authStore'
+import { useStore } from '@/store'
 import { AxiosRequestConfig } from 'axios'
 
 // eslint-disable-next-line import/no-named-as-default
@@ -29,9 +29,20 @@ export class ApiService {
 	// private re_token = JSON.parse(localStorage.getItem('data') || '{}')?.token
 	// 	?.refreshToken
 
-	private authToken = useAuthStore(state => state.authToken)
-	private xClientId = useAuthStore(state => state.xClientId)
-	private XRtokenId = useAuthStore(state => state.XRtokenId)
+	private getAccessToken = () => {
+		const { AuthSlice } = useStore()
+		return AuthSlice.accessToken
+	}
+
+	private getRefreshToken = () => {
+		const { AuthSlice } = useStore()
+		return AuthSlice.refreshToken
+	}
+
+	private getXClientId = () => {
+		const { AuthSlice } = useStore()
+		return AuthSlice.xClientId
+	}
 
 	login = configApi({
 		path: 'v1/auth/login',
@@ -46,8 +57,8 @@ export class ApiService {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			'X-Client-Id': this.xClientId,
-			Authorization: `${this.authToken}`
+			'X-Client-Id': this.getXClientId(),
+			Authorization: this.getAccessToken()
 		}
 	})
 
@@ -64,8 +75,8 @@ export class ApiService {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			'X-Client-Id': this.xClientId,
-			'X-Rtoken-Id': `${this.XRtokenId}`
+			'X-Client-Id': this.getXClientId(),
+			'X-Rtoken-Id': this.getRefreshToken()
 		}
 	})
 
