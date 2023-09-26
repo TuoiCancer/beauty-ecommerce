@@ -26,7 +26,7 @@ const BlogItem = () => {
 				sx={{
 					flex: 1,
 					width: '100%',
-					ml: { sm: '12px', md: '32px', lg: 0 },
+					marginLeft: { sm: '12px', md: '32px', lg: 0 },
 					padding: { lg: '0 0 0 20px' }
 				}}
 			>

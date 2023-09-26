@@ -272,6 +272,21 @@ export const listProduct = [
 	}
 ]
 
+export const listShop = [
+	{
+		id: 'loreal',
+		name: `L'Oréal`
+	},
+	{
+		id: 'oridinary',
+		name: 'The Ordinary'
+	},
+	{
+		id: 'bioderma',
+		name: 'Bioderma'
+	}
+]
+
 export const listNews = [
 	{
 		id: 1,
@@ -304,19 +319,19 @@ export const listBrands = [
 		id: 1,
 		name: `L'Oréal`,
 		imgSrc: '/img/logo/loreal.jpg',
-		link: '/shop/loreal'
+		link: '/user/shop/loreal'
 	},
 	{
 		id: 2,
 		name: 'The Ordinary',
 		imgSrc: '/img/logo/the-ordinary-logo-vector.png',
-		link: '/shop/oridinary'
+		link: '/user/shop/oridinary'
 	},
 	{
 		id: 3,
 		name: 'Bioderma',
 		imgSrc: '/img/logo/bioderma.png',
-		link: '/shop/bioderma'
+		link: '/user/shop/bioderma'
 	},
 	{
 		id: 4,
@@ -707,5 +722,40 @@ export const listOrder = [
 		],
 		order_trackingNumber: '123456789',
 		createdAt: '2021-05-01T00:00:00.000Z'
+	}
+]
+
+export const classifyCategoryByType = [
+	{
+		category: 'Body',
+		type: [
+			'Exfoliator',
+			'Bath Oil',
+			'Bath Salts',
+			'Body Wash',
+			'Mist',
+			'Sun protect'
+		]
+	},
+	{
+		category: 'Hair',
+		type: ['']
+	},
+	{
+		category: 'Facial',
+		type: [
+			'Moisturiser',
+			'Balm',
+			'Eye Care',
+			'Eye cream',
+			'Cleanser',
+			'Treatment',
+			'Toner',
+			'Mask',
+			'Oil',
+			'Peel',
+			'Serum',
+			'Face Mask'
+		]
 	}
 ]

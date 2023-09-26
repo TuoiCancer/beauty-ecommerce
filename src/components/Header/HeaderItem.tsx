@@ -6,7 +6,6 @@ import React from 'react'
 import ImageItem from '../base/ImageItem'
 
 const HeaderItem = ({ item, sx, textColor, isPathNameMatch }: any) => {
-	console.log('isPathNameMatch', isPathNameMatch)
 	const [openSubItem, setOpenSubItem] = React.useState(false)
 
 	const handleClickOpenSubItem = () => {
@@ -31,7 +30,10 @@ const HeaderItem = ({ item, sx, textColor, isPathNameMatch }: any) => {
 					fontSize: { xs: '16px', md: '20px' },
 					fontWeight: 400,
 					textTransform: 'capitalize',
-					userSelect: 'none'
+					userSelect: 'none',
+					'&:hover': {
+						color: textColor === '#000' ? '#A2C18A' : '#fff'
+					}
 				},
 				'&::after': {
 					content: '""',
@@ -43,6 +45,7 @@ const HeaderItem = ({ item, sx, textColor, isPathNameMatch }: any) => {
 					backgroundColor: '#A2C18A',
 					transition: 'all 0.3s ease'
 				},
+
 				'&:hover::after': {
 					width: '100%'
 				},
@@ -78,7 +81,7 @@ const HeaderItem = ({ item, sx, textColor, isPathNameMatch }: any) => {
 					<ImageItem
 						imgSrc='/img/down_000.png'
 						style={{
-							'margin-left': '12px',
+							marginLeft: '12px',
 							width: '20px',
 							height: '16px'
 						}}
@@ -87,7 +90,7 @@ const HeaderItem = ({ item, sx, textColor, isPathNameMatch }: any) => {
 					<ImageItem
 						imgSrc='/img/down_fff.png'
 						style={{
-							'margin-left': '12px',
+							marginLeft: '12px',
 							width: '18px',
 							height: '10px'
 						}}
@@ -104,7 +107,7 @@ const HeaderItem = ({ item, sx, textColor, isPathNameMatch }: any) => {
 						position: 'absolute',
 						top: '130%',
 						left: { xs: '-100%' },
-						zIndex: 2
+						zIndex: 4
 					}}
 				>
 					{item.subItem.map((sub: any, index: number) => {

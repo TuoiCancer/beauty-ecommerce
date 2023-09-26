@@ -94,7 +94,7 @@ const CartItem = ({ shopName, link, products }: CartItemProps) => {
 								style={{
 									width: { xs: '60px', md: '120px', lg: '160px' },
 									height: { xs: '60px', md: '120px', lg: '160px' },
-									ml: { md: '24px' },
+									marginLeft: { md: '24px' },
 									mr: { xs: '12px', md: '18px' }
 								}}
 							/>

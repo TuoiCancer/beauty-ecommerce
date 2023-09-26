@@ -1,16 +1,19 @@
 import { Box, Typography } from '@mui/material'
 import Image from 'next/legacy/image'
+import Link from 'next/link'
 import React from 'react'
 import ImageItem from '../base/ImageItem'
 
 const CategoryItem = ({
 	pathImg,
 	title,
-	description
+	description,
+	shopName
 }: {
 	pathImg: string
 	title: string
 	description: string
+	shopName: string
 }) => {
 	return (
 		<Box
@@ -33,34 +36,41 @@ const CategoryItem = ({
 				}
 			}}
 		>
-			<ImageItem
-				imgSrc={pathImg}
+			<Link
+				href={`/user/product?shopName=${shopName}&category=${title}`}
 				style={{
-					width: { xs: '40px', md: '60px' },
-					height: { xs: '40px', md: '60px' }
-				}}
-			/>
-			<Typography
-				variant='h3'
-				sx={{
-					mt: { xs: '16px', md: '24px' },
-					mb: { xs: '8px', md: '16px' },
-					color: '#171B1A',
-					fontSize: { xs: '24px', md: '30px' }
+					textDecoration: 'none'
 				}}
 			>
-				{title}
-			</Typography>
-			<Typography
-				variant='body1'
-				sx={{
-					fontSize: { md: '16px' },
-					color: '#6D6D6D',
-					lineHeight: { md: '125%' }
-				}}
-			>
-				{description}
-			</Typography>
+				<ImageItem
+					imgSrc={pathImg}
+					style={{
+						width: { xs: '40px', md: '60px' },
+						height: { xs: '40px', md: '60px' }
+					}}
+				/>
+				<Typography
+					variant='h3'
+					sx={{
+						mt: { xs: '16px', md: '24px' },
+						mb: { xs: '8px', md: '16px' },
+						color: '#171B1A',
+						fontSize: { xs: '24px', md: '30px' }
+					}}
+				>
+					{title}
+				</Typography>
+				<Typography
+					variant='body1'
+					sx={{
+						fontSize: { md: '16px' },
+						color: '#6D6D6D',
+						lineHeight: { md: '125%' }
+					}}
+				>
+					{description}
+				</Typography>
+			</Link>
 		</Box>
 	)
 }

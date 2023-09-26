@@ -1,10 +1,12 @@
+'use client'
 import React from 'react'
 import { Box, Typography } from '@mui/material'
 
-import FooterItem, { FooterProps } from './FooterItem'
+import FooterItem from './FooterItem'
 import ImageItem from '../base/ImageItem'
 import ListIcons from './ListIcons'
 import { hindMadurai } from '@/assets/font'
+import { usePathname } from 'next/navigation'
 
 const ListItemFooter = [
 	{
@@ -14,17 +16,17 @@ const ListItemFooter = [
 			{
 				id: '1.0',
 				label: 'Blog',
-				link: '/blog'
+				link: '/user/blog'
 			},
 			{
 				id: '1.1',
 				label: 'Our Products',
-				link: '/product'
+				link: '/user/product'
 			},
 			{
 				id: '1.2',
 				label: 'Account',
-				link: '/account'
+				link: '/user/account'
 			}
 		]
 	},
@@ -35,12 +37,12 @@ const ListItemFooter = [
 			{
 				id: '2.0',
 				label: 'Privacy Policy',
-				link: '/privacy-policy'
+				link: '/user/privacy-policy'
 			},
 			{
 				id: '2.1',
 				label: 'FAQs',
-				link: '/faqs'
+				link: '/user/faqs'
 			}
 		]
 	},
@@ -51,23 +53,29 @@ const ListItemFooter = [
 			{
 				id: '3.0',
 				label: `L'Oréal`,
-				link: '/loreal'
+				link: '/user/shop/loreal'
 			},
 			{
 				id: '3.1',
 				label: 'The Ordinary',
-				link: '/ordinary'
+				link: '/user/shop/ordinary'
 			},
 			{
 				id: '3.2',
 				label: 'Bioderma',
-				link: '/bioderma'
+				link: '/user/shop/bioderma'
 			}
 		]
 	}
 ]
 
 const Footer = () => {
+	const pathname = usePathname()
+
+	if (pathname === '/login' || pathname === '/signup') {
+		return null
+	}
+
 	return (
 		<Box>
 			<Box

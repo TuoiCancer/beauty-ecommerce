@@ -26,7 +26,7 @@ const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
 
 const TopProductItem = ({ item }: any) => {
 	return (
-		<Link href={`/product/${item.id}?page=1&limit=10`}>
+		<Link href={`/user/product/${item.id}`}>
 			<Box
 				sx={{
 					position: 'relative',
@@ -36,7 +36,7 @@ const TopProductItem = ({ item }: any) => {
 					mb: { xs: '24px', lg: '80px', xl: '0' },
 					mt: { xs: '30px', md: '0px' },
 					mr: { xs: '12px' },
-					ml: { xs: '12px', sm: '0' },
+					marginLeft: { xs: '12px', sm: '0' },
 					padding: { xs: '12px', sm: '16px 24px', lg: '244px 16px 32px 16px ' },
 					transition: 'all 0.2s ease-in-out',
 					boxShadow: {
@@ -53,6 +53,7 @@ const TopProductItem = ({ item }: any) => {
 			>
 				<Box
 					sx={{
+						background: '#FFF',
 						position: { xs: 'relative', lg: 'absolute' },
 						top: { lg: '-11%' },
 						left: { lg: '6%' },
@@ -62,18 +63,18 @@ const TopProductItem = ({ item }: any) => {
 					}}
 				>
 					<ImageItem
-						imgSrc={item.thumbnail}
+						imgSrc={item.product_thumbnail}
 						style={{
 							width: { xs: '100%', md: '300px' },
 							height: { xs: '260px', md: '268px' },
 							'& img': {
-								objectFit: 'cover !important'
+								objectFit: 'contain !important'
 							}
 						}}
 					/>
 				</Box>
 				<Box>
-					<LightTooltip title={item.name}>
+					<LightTooltip title={item.product_name}>
 						<Typography
 							className={hindMadurai.className}
 							variant='h5'
@@ -90,7 +91,7 @@ const TopProductItem = ({ item }: any) => {
 								WebkitBoxOrient: 'vertical'
 							}}
 						>
-							{item.name}
+							{item.product_name}
 						</Typography>
 					</LightTooltip>
 					<Typography
@@ -103,7 +104,7 @@ const TopProductItem = ({ item }: any) => {
 							padding: { xs: '0 0 12px 0', md: '12px 0' }
 						}}
 					>
-						from {item.price}$ /item
+						from {item.product_price}$ /item
 					</Typography>
 					<Typography
 						sx={{
@@ -119,7 +120,7 @@ const TopProductItem = ({ item }: any) => {
 						}}
 						className={hindMadurai.className}
 					>
-						{item.description}
+						{item.product_description}
 					</Typography>
 					<Box
 						sx={{
@@ -134,7 +135,7 @@ const TopProductItem = ({ item }: any) => {
 								alignItems: 'center'
 							}}
 						>
-							<RatingItem numberOfRate={item.rate} />
+							<RatingItem numberOfRate={item?.product_ratingsAverage} />
 							<Typography
 								className={hindMadurai.className}
 								sx={{
@@ -142,10 +143,10 @@ const TopProductItem = ({ item }: any) => {
 									fontSize: '16px',
 									lineHeight: '180%',
 									fontWeight: 400,
-									ml: '10px'
+									marginLeft: '10px'
 								}}
 							>
-								({item.inventory})
+								({item.product_quantity})
 							</Typography>
 						</Box>
 						<BaseButton
@@ -153,7 +154,7 @@ const TopProductItem = ({ item }: any) => {
 							bgStyle='gradient'
 							label='Shop now'
 							styleSx={{
-								ml: { md: '32px' },
+								marginLeft: { md: '32px' },
 								padding: { md: '8px 36px' },
 								borderRadius: '50px',
 								background: 'linear-gradient(146deg, #315316 0%, #72A748 100%)',

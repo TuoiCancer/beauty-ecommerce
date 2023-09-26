@@ -31,26 +31,16 @@ const SignupPage = () => {
 	const [email, setEmail] = React.useState('')
 	const [phoneNumber, setPhoneNumber] = React.useState('')
 
-	const [infor, setInfor] = React.useState({
-		username: '',
-		role: '',
-		password: '',
-		email: '',
-		phoneNumber: ''
-	})
-
-	useEffect(() => {
-		setInfor({
-			username: username,
-			role: role,
-			password: password,
-			email: email,
-			phoneNumber: phoneNumber
-		})
-	}, [username, role, password, email, phoneNumber])
-
 	const steps = ['You are _______? ', 'Fill all information']
 	const [activeStep, setActiveStep] = React.useState(0)
+
+	const { isLoading, error, isError, mutate: signupFn, isSuccess } = useSignup()
+
+	useEffect(() => {
+		if (isSuccess) {
+			router.push('/user/home')
+		}
+	}, [isSuccess])
 
 	const handleNext = () => {
 		setActiveStep(prevActiveStep => prevActiveStep + 1)
@@ -59,8 +49,6 @@ const SignupPage = () => {
 	const handleBack = () => {
 		setActiveStep(prevActiveStep => prevActiveStep - 1)
 	}
-
-	const { isLoading, error, isError, mutate: signupFn } = useSignup()
 
 	const handleSignup = async () => {
 		const error = validateSignupForm({
@@ -73,9 +61,16 @@ const SignupPage = () => {
 			toast.warning(error.msg)
 			return
 		}
+		const infor = {
+			role,
+			username,
+			password,
+			email,
+			phoneNumber
+		}
 		// alert('Sign up success');
 		signupFn(infor)
-		router.push('/home')
+		// router.push('/home')
 	}
 
 	if (isLoading) return <Loading />

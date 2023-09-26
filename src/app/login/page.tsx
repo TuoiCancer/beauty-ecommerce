@@ -6,12 +6,37 @@ import Image from 'next/legacy/image'
 import React from 'react'
 import { useRouter } from 'next/navigation'
 import { poppins } from '@/assets/font'
+import { validateSigninForm } from '@/helper/validate'
+import { toast } from 'react-toastify'
+import { useLogin } from '@/service/react-query/user.query'
+import { useStore } from '@/store'
 
 const LoginPage = () => {
 	const router = useRouter()
 	const [email, setEmail] = React.useState('')
 	const [password, setPassword] = React.useState('')
+	const [rememberPassword, setRememberPassword] = React.useState(false)
 	const [typeInputPassword, setTypeInputPassword] = React.useState(true)
+	const { UserSlice } = useStore()
+
+	const { isLoading, mutate: LoginFunc, isSuccess } = useLogin()
+
+	const handleLogin = () => {
+		const err = validateSigninForm({ email, password })
+		if (err?.msg) {
+			toast.warning(err.msg)
+			return
+		}
+		LoginFunc({ email, password, rememberPassword })
+		UserSlice.setIsError(false)
+	}
+
+	React.useEffect(() => {
+		if (isSuccess) {
+			router.push('/user/home')
+		}
+	}, [isSuccess])
+
 	return (
 		<Box
 			sx={{
@@ -43,7 +68,7 @@ const LoginPage = () => {
 							objectFit: 'contain',
 							position: 'relative',
 							mb: '52px',
-							ml: { md: '68px' },
+							marginLeft: { md: '68px' },
 							mt: { md: '42px' }
 						}}
 					>
@@ -60,7 +85,7 @@ const LoginPage = () => {
 							objectFit: 'contain',
 							position: 'relative',
 							mt: { md: '118px' },
-							ml: { lg: '32px', xl: '190px' }
+							marginLeft: { lg: '32px', xl: '190px' }
 						}}
 					>
 						<Image
@@ -209,7 +234,7 @@ const LoginPage = () => {
 							pt: { xs: '12px', md: '24px' }
 						}}
 					>
-						<Checkbox />
+						<Checkbox onClick={() => setRememberPassword(!rememberPassword)} />
 						<Typography
 							sx={{
 								fontSize: { xs: '14px', md: '16px' }
@@ -233,9 +258,7 @@ const LoginPage = () => {
 						variant='contained'
 						bgStyle='color'
 						type='button'
-						onClick={() => {
-							router.push('/home')
-						}}
+						onClick={handleLogin}
 					/>
 					<Box
 						sx={{
@@ -295,6 +318,7 @@ const LoginPage = () => {
 							layout='fill'
 							src='/img/bg_login.png'
 							alt='Picture of the author'
+							priority
 						/>
 					</Box>
 

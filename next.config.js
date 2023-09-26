@@ -1,7 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	images: {
-		domains: ['phutungnhapkhauchinhhang.com']
+		domains: [
+			'phutungnhapkhauchinhhang.com',
+			'static.thcdn.com',
+			'encrypted-tbn3.gstatic.com'
+		]
 	}
 	// webpack: (config, { isServer }) => {
 	//   if (!isServer) {

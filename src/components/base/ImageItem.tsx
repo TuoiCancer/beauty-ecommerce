@@ -8,16 +8,21 @@ const ImageItem = ({
 	width,
 	height,
 	style,
-	onClick
+	onClick,
+	priority,
+	idBox
 }: {
 	imgSrc: string
 	width?: string
 	height?: string
 	style?: any
 	onClick?: any
+	priority?: boolean
+	idBox?: string
 }) => {
 	return (
 		<Box
+			id={idBox}
 			onClick={onClick}
 			sx={{
 				position: 'relative',
@@ -31,6 +36,7 @@ const ImageItem = ({
 		>
 			<Image
 				src={imgSrc}
+				priority={priority}
 				layout='fill'
 				alt='image'
 				style={{

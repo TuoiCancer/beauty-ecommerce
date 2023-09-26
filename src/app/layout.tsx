@@ -3,10 +3,12 @@ import { Metadata } from 'next'
 import 'react-toastify/dist/ReactToastify.css'
 import './globals.css'
 
-import { ToastContainer } from 'react-toastify'
 import { Suspense } from 'react'
 import Loading from './loading'
+import QueryClientProviderComponent from '@/components/base/QueryClientProviderComp'
 import ScrollToTop from '@/components/base/ScrollToTop'
+import ShowErr from '@/components/base/ShowErr'
+import HandleRoute from '@/components/base/HandleRoute'
 
 export const metadata: Metadata = {
 	title: 'Glow & Grace',
@@ -22,11 +24,14 @@ export default function RootLayout({
 	return (
 		<html lang='en'>
 			<body>
-				<Suspense fallback={<Loading />}>
-					<ScrollToTop />
-					{children}
-					<ToastContainer />
-				</Suspense>
+				<QueryClientProviderComponent>
+					<Suspense fallback={<Loading />}>
+						<HandleRoute />
+						<ScrollToTop />
+						{children}
+						<ShowErr />
+					</Suspense>
+				</QueryClientProviderComponent>
 			</body>
 		</html>
 	)
