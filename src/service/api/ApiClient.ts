@@ -129,4 +129,28 @@ export class ApiService {
 			'Content-Type': 'application/json'
 		}
 	})
+
+	getCartDetailByUserId = configApi({
+		path: 'v1/carts/detail',
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
+
+	updateCartUser = configApi({
+		path: 'v1/carts/update',
+		method: 'PATCH',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
+
+	deleteCartUser = configApi({
+		path: 'v1/carts',
+		method: 'DELETE',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
 }

@@ -2,8 +2,12 @@
 import React, { useEffect } from 'react'
 import { useStore } from '@/store'
 import { useRefreshToken } from '@/service/react-query/user.query'
+import { useGetCartByUserId } from '@/service/react-query/cart.query'
 const HandleRoute = ({ children }: { children: React.ReactNode }) => {
 	const { UserSlice, AuthSlice } = useStore()
+	const { refetch: getCartByUserId } = useGetCartByUserId({
+		userId: UserSlice.user?.id
+	})
 
 	const { mutate: refreshToken } = useRefreshToken()
 	useEffect(() => {

@@ -69,12 +69,12 @@ const Header = ({
 		isHaveBg = false
 		isHaveShadow = false
 		style = {
-			...style
-			// position: 'absolute',
-			// top: { xs: 0 },
-			// left: 0,
-			// right: 0,
-			// zIndex: 999
+			...style,
+			position: 'absolute',
+			top: { xs: 0 },
+			left: 0,
+			right: 0,
+			zIndex: 999
 		}
 	}
 

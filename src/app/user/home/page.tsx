@@ -72,10 +72,6 @@ export default function Home() {
 	const route = useRouter()
 	const { UserSlice } = useStore()
 
-	const { refetch: getCartByUserId } = useGetCartByUserId({
-		userId: UserSlice.user?.id
-	})
-
 	const {
 		isLoading: gettingProducts,
 		mutate: getProductByPage,

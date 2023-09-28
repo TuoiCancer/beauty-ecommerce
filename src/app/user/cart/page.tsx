@@ -1,30 +1,59 @@
 'use client'
 import { poppins, roboto } from '@/assets/font'
 import BaseButton from '@/components/base/BaseButton'
+import ImageItem from '@/components/base/ImageItem'
 import CartItem from '@/components/cart/CartItem'
 import StepperItem from '@/components/cart/StepperItem'
-import { cart } from '@/constants'
-import { useStore } from '@/store'
 import {
-	Box,
-	Modal,
-	TextField,
-	Typography,
-	CircularProgress
-} from '@mui/material'
+	useDeleteCartUser,
+	useGetCartDetailByUserId,
+	useUpdateCartUser
+} from '@/service/react-query/cart.query'
+import { useStore } from '@/store'
+import { Box, Modal, TextField, Typography } from '@mui/material'
 import React, { useEffect } from 'react'
 
 const CartPage = () => {
+	const { UserSlice } = useStore()
+	const { data: cartDetail, refetch: getCartDetail } = useGetCartDetailByUserId(
+		{
+			userId: UserSlice.user?.id
+		}
+	)
+	const { mutate: updateCartUser, isLoading, isSuccess } = useUpdateCartUser()
+	const { mutate: deleteCartUser, isSuccess: isDeleted } = useDeleteCartUser()
+
+	const [isRefetchFn, setIsRefetchFn] = React.useState(false)
 	const [open, setOpen] = React.useState(false)
 	const handleOpen = () => setOpen(true)
 	const handleClose = () => setOpen(false)
+	useEffect(() => {
+		getCartDetail()
+	}, [])
+	useEffect(() => {
+		if (isSuccess || isDeleted) {
+			console.log('refetch')
+			getCartDetail()
+			setIsRefetchFn(false)
+		}
+	}, [isRefetchFn, isSuccess, isDeleted])
 
-	const { UserSlice } = useStore()
-
-	// call api order
+	const shopList = [
+		{
+			name: `L'Oreal`,
+			link: '/user/shop/loreal'
+		},
+		{
+			name: `The Ordinary`,
+			link: '/user/shop/oridinary'
+		},
+		{
+			name: `Bioderma`,
+			link: '/user/shop/bioderma'
+		}
+	]
 
 	// loading progess
-
 	return (
 		<Box
 			sx={{
@@ -59,16 +88,37 @@ const CartPage = () => {
 					mb: { xs: '32px', md: '94px' }
 				}}
 			>
-				{cart.map((item, index) => {
-					return (
-						<CartItem
-							key={index}
-							shopName={item.shop.shopName}
-							link={item.shop.link}
-							products={item.products}
+				{!cartDetail ||
+					(cartDetail?.cart_count_product === 0 && (
+						<ImageItem
+							imgSrc='/img/empty_cart.png'
+							style={{
+								margin: { xs: '0 auto', md: '0 auto' },
+								width: { xs: '100%', md: '60%' },
+								height: '500px',
+								'& img': {
+									objectFit: 'contain'
+								}
+							}}
 						/>
-					)
-				})}
+					))}
+				{cartDetail &&
+					Object.keys(cartDetail.cart_products).length > 0 &&
+					Object.keys(cartDetail.cart_products).map(
+						(key: string, index: number) => {
+							const shop = shopList.find(item => item.name === key)
+							return (
+								<CartItem
+									key={index}
+									shopName={key}
+									link={shop?.link || ''}
+									products={cartDetail.cart_products[key].products}
+									updateFn={updateCartUser}
+									deleteCartUser={deleteCartUser}
+								/>
+							)
+						}
+					)}
 			</Box>
 			{/* Sub total */}
 			<Box
@@ -233,6 +283,7 @@ const CartPage = () => {
 					<StepperItem handleClose={handleClose} />
 				</Box>
 			</Modal>
+			{/* {isLoading && <ProgressLoading />} */}
 		</Box>
 	)
 }
