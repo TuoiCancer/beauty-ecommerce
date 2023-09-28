@@ -65,6 +65,16 @@ const ProductPage = () => {
 
 	useEffect(() => {
 		if (dataGetListProduct !== undefined) {
+			if (dataGetListProduct.result.length === 0) {
+				setListProduct([])
+				setPaginationMeta({
+					pageCount: 0,
+					page: 1,
+					limit: 12,
+					itemCount: 0
+				})
+				return
+			}
 			setPaginationMeta(dataGetListProduct.pageMetaDto)
 
 			const oldData = listProduct || []
@@ -345,7 +355,17 @@ const ProductPage = () => {
 							/>
 						)}
 
-						{listProduct.length === 0 && <>Empty product</>}
+						{listProduct.length === 0 && (
+							<Typography
+								sx={{
+									fontSize: { xs: '14px', md: '18px' },
+									whiteSpace: 'nowrap',
+									fontFamily: 'Montserrat'
+								}}
+							>
+								Empty product
+							</Typography>
+						)}
 					</Box>
 				</Box>
 				{/* Pagination */}

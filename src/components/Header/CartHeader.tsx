@@ -11,18 +11,23 @@ import AvatarPoper from './AvatarPoper'
 import LocalMallIcon from '@mui/icons-material/LocalMall'
 import Loading from '@/app/loading'
 import { useLogin, useLogout } from '@/service/react-query/user.query'
+import { useRouter } from 'next/navigation'
 
 const CartHeader = ({
 	textColor,
 	language,
-	handleChange
+	handleChange,
+	openPoper,
+	setOpenPoper
 }: {
 	textColor: string
 	language: string
 	handleChange: (event: any) => void
+	openPoper: boolean
+	setOpenPoper: (value: boolean) => void
 }) => {
 	const { UserSlice } = useStore()
-	const [openPoper, setOpenPoper] = React.useState(false)
+	const router = useRouter()
 	const { isLoading, mutate: logout } = useLogout()
 
 	const handleClick = () => {
@@ -132,11 +137,22 @@ const CartHeader = ({
 								lineHeight: { xs: '24px', md: '28px' }
 							}}
 						>
-							{UserSlice.totalProductInCart || 0}
+							{UserSlice.isLoggedIn ? UserSlice.totalProductInCart : 0}
 						</Typography>
 					</Box>
 				</Box>
-				<Link href='/user/cart'>
+				<Link
+					href='/user/cart'
+					onClick={(e: any) => {
+						e.preventDefault()
+						if (!UserSlice.isLoggedIn) {
+							// push ro login page
+							router.push('/login')
+							return
+						}
+						router.push('/user/cart')
+					}}
+				>
 					{textColor === '#000' ? (
 						<ImageItem
 							imgSrc='/img/Cart_000.png'
@@ -176,7 +192,7 @@ const CartHeader = ({
 								position: 'absolute',
 								top: '110%',
 								right: '0',
-								zIndex: 2,
+								zIndex: 5,
 								backgroundColor: '#fff',
 								color: '#000',
 								boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',

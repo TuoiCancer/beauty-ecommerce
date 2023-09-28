@@ -5,12 +5,18 @@ import { StoreApi, create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
 import createUserSlice, { IUserSlice } from './UserSlice'
+import createAuthSlice, { IAuthSlice } from './AuthSlice'
 
 const store = (set: any, get: any, api: StoreApi<any>) => ({
 	UserSlice: createUserSlice(
 		set as unknown as StoreApi<IUserSlice>['setState'],
 		get as StoreApi<IUserSlice>['getState'],
 		api as unknown as StoreApi<IUserSlice>
+	),
+	AuthSlice: createAuthSlice(
+		set as unknown as StoreApi<IAuthSlice>['setState'],
+		get as StoreApi<IAuthSlice>['getState'],
+		api as unknown as StoreApi<IAuthSlice>
 	)
 })
 
