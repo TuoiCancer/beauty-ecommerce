@@ -1,12 +1,30 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { poppins, roboto } from '@/assets/font'
 
 import { Box, Checkbox, Typography } from '@mui/material'
 import ImageItem from '../base/ImageItem'
 import Link from 'next/link'
 import { useStore } from '@/store'
-const ProductCartItem = ({ item, updateFn, deleteCartUser }: any) => {
+import { formatCurrency, getPriceFormat } from '@/helper'
+const ProductCartItem = ({
+	item,
+	updateFn,
+	deleteCartUser,
+	setProductSelected,
+	setListSelected,
+	listSelected
+}: any) => {
 	const { UserSlice } = useStore()
+	const [isSelected, setIsSelected] = useState(false)
+
+	useEffect(() => {
+		if (listSelected.find((product: any) => product.id === item.id)) {
+			setIsSelected(true)
+		} else {
+			setIsSelected(false)
+		}
+	}, [listSelected])
+
 	const handleIncreaseCartUser = () => {
 		updateFn({
 			userId: UserSlice.user.id,
@@ -29,6 +47,23 @@ const ProductCartItem = ({ item, updateFn, deleteCartUser }: any) => {
 			})
 		}
 	}
+
+	const handleSelectProduct = (event: React.ChangeEvent<HTMLInputElement>) => {
+		if (event.target.checked) {
+			setProductSelected((prev: any[]) => [...prev, item])
+			setListSelected((prev: any[]) => [...prev, item])
+			setIsSelected(true)
+		} else {
+			setIsSelected(false)
+			setProductSelected((prev: any[]) => {
+				return prev.filter(id => id.id !== item.id)
+			})
+			setListSelected((prev: any[]) => {
+				return prev.filter(id => id.id !== item.id)
+			})
+		}
+	}
+
 	return (
 		<Box
 			sx={{
@@ -44,6 +79,8 @@ const ProductCartItem = ({ item, updateFn, deleteCartUser }: any) => {
 				}}
 			>
 				<Checkbox
+					checked={isSelected}
+					onChange={handleSelectProduct}
 					sx={{
 						color: 'green',
 						'&.Mui-checked': {
@@ -105,13 +142,13 @@ const ProductCartItem = ({ item, updateFn, deleteCartUser }: any) => {
 							color: '#575757',
 							fontSize: {
 								xs: '16px',
-								md: '20px'
+								md: '18px'
 							},
 							fontWeight: '400',
 							display: { xs: 'none', md: 'block' }
 						}}
 					>
-						${(item.product_price && item.product_price.toFixed(2)) || 0}
+						{formatCurrency(item.product_price) || 0}
 					</Typography>
 				</Link>
 				<Box
@@ -156,11 +193,13 @@ const ProductCartItem = ({ item, updateFn, deleteCartUser }: any) => {
 						className={poppins.className}
 						sx={{
 							color: '#575757',
-							fontSize: { xs: '18px', md: '22px' },
+							fontSize: { xs: '18px', md: '20px' },
 							margin: { xs: '0 12px', md: '0 42px' }
 						}}
 					>
-						${(+item.quantityToBuy * item.product_price).toFixed(2) || 0}
+						{formatCurrency(
+							+item.quantityToBuy * +getPriceFormat(item.product_price)
+						) || 0}
 					</Typography>
 				</Box>
 			</Box>

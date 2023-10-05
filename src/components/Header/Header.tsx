@@ -34,7 +34,7 @@ const listMenu = [
 			},
 			{
 				sub_name: `The Ordinary`,
-				sub_link: '/user/shop/oridinary'
+				sub_link: '/user/shop/ordinary'
 			},
 			{
 				sub_name: `Bioderma`,

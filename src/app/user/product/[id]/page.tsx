@@ -8,7 +8,7 @@ import BaseButton from '@/components/base/BaseButton'
 import ImageItem from '@/components/base/ImageItem'
 import ReviewItem from '@/components/product/ReviewItem'
 import SimilarProduct from '@/components/product/SimilarProduct'
-import { listComments } from '@/constants'
+import { listComments, priceSale } from '@/constants'
 import {
 	useGetProductById,
 	useGetSimilarProduct
@@ -19,9 +19,9 @@ import React, { useEffect } from 'react'
 import { toast } from 'react-toastify'
 import { useAddToCart } from '@/service/react-query/cart.query'
 import { useStore } from '@/store'
+import { formatCurrency } from '@/helper'
 
 const ProductDetail = () => {
-	const [listImgpreview, setListImgpreview] = React.useState<any>([])
 	const [activeImg, setActiveImg] = React.useState(0)
 	const [quantity, setQuantity] = React.useState(1)
 	const [isActiveReviews, setIsActiveReviews] = React.useState(false)
@@ -69,9 +69,8 @@ const ProductDetail = () => {
 			router.push('/login')
 			return
 		}
-		const user = UserSlice.user
 		addToCart({
-			userId: user.id,
+			userId: UserSlice.user.id,
 			product: {
 				productId: id,
 				shopId: productData?.user.id,
@@ -202,7 +201,10 @@ const ProductDetail = () => {
 						)}
 					</Box>
 					<ImageItem
-						imgSrc={productData?.product_thumbnail || ''}
+						imgSrc={
+							productData?.product_listImages[activeImg] ||
+							productData?.product_thumbnail
+						}
 						style={{
 							width: { xs: '80%', md: '540px', lg: '400px' },
 							height: { xs: '200px', md: '560px' },
@@ -274,7 +276,11 @@ const ProductDetail = () => {
 									textDecoration: 'line-through'
 								}}
 							>
-								${productData?.product_price + 10}
+								{formatCurrency(
+									productData?.product_price > 800000
+										? productData?.product_price + 300000
+										: productData?.product_price + priceSale
+								)}
 							</Typography>
 							<Typography
 								variant='h3'
@@ -287,10 +293,13 @@ const ProductDetail = () => {
 								}}
 							>
 								{(
-									(productData?.product_price /
-										(productData?.product_price + 10 ||
-											productData?.product_price * 2)) *
-									100
+									(productData?.product_price > 800000
+										? 300000 /
+										  (productData?.product_price + 300000 ||
+												productData?.product_price * 2)
+										: priceSale /
+										  (productData?.product_price + priceSale ||
+												productData?.product_price * 2)) * 100
 								).toFixed(1)}
 								%
 							</Typography>
@@ -303,7 +312,7 @@ const ProductDetail = () => {
 									fontWeight: 500
 								}}
 							>
-								${productData?.product_price}
+								{formatCurrency(productData?.product_price)}
 							</Typography>
 						</Box>
 						<Box
@@ -503,10 +512,12 @@ const ProductDetail = () => {
 														mt: { md: '24px' }
 													}}
 												>
-													{index === 0
+													{key === 'size'
 														? 'Size:'
-														: index === 1
+														: key === 'useage'
 														? 'How to use: '
+														: key === 'benefits'
+														? 'Benefits:'
 														: 'Ingredients:'}
 												</Typography>
 												{listUseage.map((useage: string, idx: number) => {

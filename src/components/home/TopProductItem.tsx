@@ -1,4 +1,5 @@
 import { hindMadurai } from '@/assets/font'
+import { formatCurrency } from '@/helper'
 import {
 	Box,
 	styled,
@@ -104,7 +105,7 @@ const TopProductItem = ({ item }: any) => {
 							padding: { xs: '0 0 12px 0', md: '12px 0' }
 						}}
 					>
-						from {item.product_price}$ /item
+						from {formatCurrency(item.product_price)} /item
 					</Typography>
 					<Typography
 						sx={{

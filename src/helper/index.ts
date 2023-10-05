@@ -1,3 +1,5 @@
+import { letterSpacing } from '@mui/system'
+
 export const formatDate = (date: string) => {
 	const dateObj = new Date(date)
 	const day =
@@ -39,4 +41,43 @@ export function stringAvatar(name: string) {
 		},
 		children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`
 	}
+}
+
+export const formatCurrency = (value: any) => {
+	// vd: 213000 => 213.000đ
+	// money = 435472 -> 435.500đ
+	// 1234000 -> 1.234.000đ
+	const money = Math.ceil(value / 1000) * 1000 // ceil: làm tròn lên
+	let moneyString = money.toString()
+	let length = moneyString.length
+
+	const result = []
+	while (length > 3) {
+		const tmp = moneyString.slice(length - 3, length)
+		moneyString = moneyString.slice(0, length - 3)
+		result.unshift(tmp)
+		length -= 3
+	}
+	if (moneyString) {
+		result.unshift(moneyString)
+	}
+	return result.join('.') + 'đ'
+}
+
+export const getPriceFormat = (value: any) => {
+	const money = Math.ceil(value / 1000) * 1000 // ceil: làm tròn lên
+	let moneyString = money.toString()
+	let length = moneyString.length
+
+	const result = []
+	while (length > 3) {
+		const tmp = moneyString.slice(length - 3, length)
+		moneyString = moneyString.slice(0, length - 3)
+		result.unshift(tmp)
+		length -= 3
+	}
+	if (moneyString) {
+		result.unshift(moneyString)
+	}
+	return result.join('')
 }

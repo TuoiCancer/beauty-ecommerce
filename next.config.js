@@ -6,6 +6,9 @@ const nextConfig = {
 			'static.thcdn.com',
 			'encrypted-tbn3.gstatic.com'
 		]
+	},
+	experimental: {
+		appDir: true
 	}
 	// webpack: (config, { isServer }) => {
 	//   if (!isServer) {

@@ -1,4 +1,5 @@
 import { poppins } from '@/assets/font'
+import { formatCurrency } from '@/helper'
 import { useStore } from '@/store'
 import { Box, Tooltip, Typography } from '@mui/material'
 import Link from 'next/link'
@@ -205,7 +206,7 @@ const ProductItem = ({
 							fontWeight: '400'
 						}}
 					>
-						${price}
+						{formatCurrency(price)}
 					</Typography>
 				</Box>
 			</Link>

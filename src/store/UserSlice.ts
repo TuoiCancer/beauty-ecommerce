@@ -21,6 +21,10 @@ export interface IUserSlice {
 	setTotalProductInCart: (value: number) => void
 	isReloadPage: boolean
 	setIsReloadPage: (value: boolean) => void
+	shippingInfor: any
+	setShippingInfor: (value: any) => void
+	paymentInfor: any
+	setPaymentInfor: (value: any) => void
 }
 
 const UserSlice: StateCreator<
@@ -44,6 +48,21 @@ const UserSlice: StateCreator<
 	username: '',
 	password: '',
 	isRefresh: false,
+	shippingInfor: {
+		firstName: '',
+		lastName: '',
+		address: '',
+		phone: '',
+		city: '',
+		district: ''
+	},
+	paymentInfor: {
+		paymentMethod: 'card',
+		paymentData: {
+			cardNumber: '',
+			cardName: ''
+		}
+	},
 	user: {},
 	setIsRefresh: isRefresh =>
 		set(({ UserSlice }: any) => {
@@ -77,7 +96,17 @@ const UserSlice: StateCreator<
 	setIsReloadPage: isReloadPage =>
 		set(({ UserSlice }: any) => {
 			UserSlice.isReloadPage = isReloadPage
+		}),
+	setShippingInfor: cbFunction => {
+		set(({ UserSlice }: any) => {
+			UserSlice.shippingInfor = cbFunction(UserSlice.shippingInfor)
 		})
+	},
+	setPaymentInfor: cbFunction => {
+		set(({ UserSlice }: any) => {
+			UserSlice.paymentInfor = cbFunction(UserSlice.paymentInfor)
+		})
+	}
 })
 
 export default UserSlice as (

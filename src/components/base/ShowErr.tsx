@@ -11,7 +11,9 @@ const ShowErr = () => {
 			UserSlice.setIsError(false)
 		}
 		if (UserSlice.isSuccess) {
-			toast.success(UserSlice.successMess)
+			toast.success(UserSlice.successMess, {
+				position: 'top-center'
+			})
 			UserSlice.setIsSuccess(false)
 		}
 	}, [UserSlice])

@@ -1,10 +1,24 @@
 import { roboto } from '@/assets/font'
 import { checkout } from '@/constants'
-import { Box, Typography } from '@mui/material'
+import { useStore } from '@/store'
+import { Box, Button, Typography } from '@mui/material'
 import React from 'react'
 import ReviewListProduct, { ReviewListProductProps } from './ReviewListProduct'
 
-const ConfirmCheckout = () => {
+const ConfirmCheckout = ({
+	activeStep,
+	steps,
+	handleBack,
+	setActiveStep,
+	productSelected,
+	handleClose
+}: any) => {
+	const { UserSlice } = useStore()
+	console.log('productSelected', productSelected)
+	const handleNext = () => {
+		setActiveStep((prevActiveStep: number) => prevActiveStep + 1)
+		handleClose()
+	}
 	return (
 		<Box>
 			<Typography
@@ -160,6 +174,36 @@ const ConfirmCheckout = () => {
 						<Typography variant='h6'>Payment when recieve</Typography>
 					)}
 				</Box>
+			</Box>
+
+			<Box
+				sx={{
+					display: 'flex',
+					flexDirection: 'row',
+					pt: { xs: '24px', md: '32px' }
+				}}
+			>
+				<Button
+					color='inherit'
+					disabled={activeStep === 0}
+					onClick={handleBack}
+					sx={{ mr: 1 }}
+				>
+					Back
+				</Button>
+				<Box sx={{ flex: '1 1 auto' }} />
+				<Button
+					onClick={handleNext}
+					sx={{
+						borderRadius: '12px',
+						background: 'linear-gradient(146deg, #315316 0%, #72A748 100%)',
+						padding: { md: '8px 30px' },
+						textTransform: 'capitalize',
+						color: '#fff'
+					}}
+				>
+					{activeStep === steps.length - 1 ? 'Buy' : 'Next'}
+				</Button>
 			</Box>
 		</Box>
 	)
