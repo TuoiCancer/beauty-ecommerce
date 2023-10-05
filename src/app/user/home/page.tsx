@@ -9,7 +9,7 @@ import IntroItem from '@/components/home/IntroItem'
 import TopProductItem from '@/components/home/TopProductItem'
 import { listBrands, listComments } from '@/constants'
 import SwipeableViews from 'react-swipeable-views'
-import { Box, MobileStepper, Typography, useThemeProps } from '@mui/material'
+import { Box, MobileStepper, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useTheme } from '@mui/material/styles'
 import { autoPlay } from 'react-swipeable-views-utils'
@@ -18,7 +18,7 @@ import { useStore } from '@/store'
 import Loading from '@/app/loading'
 import { useGetProductByPage } from '@/service/react-query/product.query'
 import { ProductInterface } from '@/utils/product.interface'
-import { useGetCartByUserId } from '@/service/react-query/cart.query'
+
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews)
 
 const menuItems = [

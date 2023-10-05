@@ -153,4 +153,28 @@ export class ApiService {
 			'Content-Type': 'application/json'
 		}
 	})
+
+	getListVoucher = configApi({
+		path: 'v1/vouchers',
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
+
+	collectVoucher = configApi({
+		path: 'v1/vouchers/collect',
+		method: 'Post',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
+
+	applyVoucher = configApi({
+		path: 'v1/vouchers/apply-voucher',
+		method: 'Post',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
 }

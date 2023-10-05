@@ -1,12 +1,14 @@
 'use client'
-import React, { useEffect, useRef } from 'react'
-import { Box, Typography } from '@mui/material'
+import React, { useEffect, useRef, useState } from 'react'
+import { Box, MobileStepper, Typography } from '@mui/material'
 import HeaderShopDetail from '@/components/shop/HeaderShopDetail'
 import CategoryItem from '@/components/shop/CategoryItem'
 import Title from '@/components/shop/Title'
-
+import { autoPlay } from 'react-swipeable-views-utils'
+import { useTheme } from '@mui/material/styles'
+import SwipeableViews from 'react-swipeable-views'
 //Icons
-import { listCategory, listNews, listShop } from '@/constants'
+import { listCategory, listImgURL, listNews, listShop } from '@/constants'
 import ProductItem from '@/components/shop/ProductItem'
 import Lefticon from '@/components/icon/Lefticon'
 import Link from 'next/link'
@@ -17,34 +19,72 @@ import Loading from '@/app/loading'
 import { usePathname } from 'next/navigation'
 import { ProductInterface } from '@/utils/product.interface'
 import { useAddToCart } from '@/service/react-query/cart.query'
+// import ImageSliderItem from '@/components/home/ImageSliderItem'
+import ImageItem from '@/components/base/ImageItem'
+import {
+	useCollectVoucher,
+	useGetListVoucher
+} from '@/service/react-query/voucher.query'
+import VoucherItem from '@/components/shop/VoucherItem'
+import { useStore } from '@/store'
+
+const AutoPlaySwipeableViews = autoPlay(SwipeableViews)
 
 const ShopPageDetail = () => {
+	const theme = useTheme()
+	const { UserSlice } = useStore()
 	const productListRef = useRef<HTMLDivElement | null>(null)
 	const pathname = usePathname()
 	const shopId = pathname.split('/')[3] // loreal,"oridinary" ,"bioderma"
-	const shopName = listShop.find(item => item.id === shopId)?.name
+	const shop = listShop.find(item => item.id === shopId)
+	const shopName = shop?.name
+	const idShop = shop?.shopId || ''
 
+	const [listImg, setListImg] = useState<string[]>([])
+	const [activeStep, setActiveStep] = useState(0)
+
+	const [isRefetchFn, setIsRefetchFn] = React.useState(false)
 	const {
 		isLoading: gettingProducts,
 		mutate: getProductByPage,
 		data: dataGetListProduct
 	} = useGetProductByPage()
 
+	const { mutate: collectVoucherFn, isSuccess } = useCollectVoucher()
+
 	const { mutate: addToCart } = useAddToCart()
 
+	const { data: listVoucher, refetch: getListVoucher } = useGetListVoucher({
+		shopId: idShop,
+		userId: UserSlice.user.id
+	})
+
 	useEffect(() => {
+		setListImg(listImgURL.find(item => item.shopId === shopId)?.urls || [])
 		getProductByPage({
 			page: 1,
 			limit: 10,
 			sort: 'createdAt',
 			product_shop: shopName
 		})
+		getListVoucher()
 	}, [pathname])
+
+	useEffect(() => {
+		if (isSuccess) {
+			getListVoucher()
+			setIsRefetchFn(false)
+		}
+	}, [isRefetchFn, isSuccess])
 
 	const scrollToProducts = () => {
 		if (productListRef.current) {
 			productListRef.current.scrollIntoView({ behavior: 'smooth' })
 		}
+	}
+
+	const handleStepChange = (step: number) => {
+		setActiveStep(step)
 	}
 
 	if (gettingProducts) return <Loading />
@@ -102,6 +142,91 @@ const ShopPageDetail = () => {
 					</Box>
 				</Box>
 			</Box>
+
+			{/* Voucher Banner */}
+			<Box
+				sx={{
+					maxWidth: {
+						xs: '100%',
+						sm: 'var(--max-width-sm)',
+						md: 'var(--max-width-md)',
+						lg: 'var(--max-width-lg)',
+						xl: 'var(--max-width-xl)'
+					},
+					margin: '0 auto'
+				}}
+			>
+				<AutoPlaySwipeableViews
+					// className="w-full"
+					axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+					index={activeStep}
+					onChangeIndex={handleStepChange}
+					enableMouseEvents
+				>
+					{listImg.map((item: any, index: number) => {
+						return (
+							<div key={index}>
+								<ImageItem
+									imgSrc={item}
+									style={{
+										width: '100%',
+										height: { xs: '300px', md: '500px' },
+										'& img': {
+											objectFit: 'contain'
+										}
+									}}
+								/>
+							</div>
+						)
+					})}
+				</AutoPlaySwipeableViews>
+				{/* <MobileStepper
+					variant='dots'
+					steps={listImgURL.length}
+					position='static'
+					activeStep={activeStep}
+					sx={{ flexGrow: 1 }}
+					backButton={false}
+					nextButton={false}
+				/> */}
+			</Box>
+
+			{/* List Voucher */}
+			<Box
+				sx={{
+					pt: { xs: '32px', md: '64px', lg: '64px' },
+					maxWidth: {
+						xs: '100%',
+						sm: 'var(--max-width-sm)',
+						md: 'var(--max-width-md)',
+						lg: 'var(--max-width-lg)',
+						xl: 'var(--max-width-xl)'
+					},
+					margin: '0 auto',
+					px: { xs: '12px' }
+				}}
+			>
+				<Box
+					sx={{
+						display: 'flex',
+						flexDirection: { xs: 'column', sm: 'row' },
+						alignItems: 'center',
+						flexWrap: 'wrap',
+						justifyContent: { xs: 'center', md: 'flex-start' }
+					}}
+				>
+					{listVoucher &&
+						listVoucher.map((item: any, index: number) => {
+							return (
+								<VoucherItem
+									key={index}
+									voucher={item}
+									collectVoucherFn={collectVoucherFn}
+								/>
+							)
+						})}
+				</Box>
+			</Box>
 			{/* Products */}
 			<Box
 				sx={{
@@ -113,7 +238,7 @@ const ShopPageDetail = () => {
 						xl: 'var(--max-width-xl)'
 					},
 					margin: '0 auto',
-					pt: { xs: '32px', md: '64px', lg: '149px' },
+					pt: { xs: '32px', md: '64px', lg: '80px' },
 					pb: { md: '132px' },
 					px: { xs: '12px' }
 				}}
@@ -353,8 +478,8 @@ const ShopPageDetail = () => {
 						gap: { lg: '32px' }
 					}}
 				>
-					{listNews.map(item => {
-						return <BlogItem key={item.id} />
+					{listNews.map((item, index) => {
+						return <BlogItem key={index} />
 					})}
 				</Box>
 			</Box>

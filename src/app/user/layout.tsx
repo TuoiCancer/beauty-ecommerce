@@ -1,6 +1,5 @@
 import Header from '@/components/Header/Header'
 import Footer from '@/components/Footer/Footer'
-import HandleRoute from '@/components/base/HandleRoute'
 
 export default function RootLayout({
 	children

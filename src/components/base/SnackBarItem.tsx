@@ -14,31 +14,28 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
 const SnackBarItem = () => {
 	const [open, setOpen] = React.useState(false)
 
-	const handleClick = () => {
-		setOpen(true)
-	}
+	// const handleClick = () => {
+	// 	setOpen(true)
 
-	const handleClose = (
-		event?: React.SyntheticEvent | Event,
-		reason?: string
-	) => {
-		if (reason === 'clickaway') {
-			return
-		}
+	// const handleClose = (
+	// 	event?: React.SyntheticEvent | Event,
+	// 	reason?: string
+	// ) => {
+	// 	if (reason === 'clickaway') {
+	// 		return
+	// 	}
 
-		setOpen(false)
-	}
+	// 	setOpen(false)
+	// }
 
 	return (
 		<Box>
-			<Button variant='outlined' onClick={handleClick}>
-				Open success snackbar
-			</Button>
-			<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+			<Button variant='outlined'>Open success snackbar</Button>
+			{/* <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
 				<Alert onClose={handleClose} severity='success' sx={{ width: '100%' }}>
 					This is a success message!
 				</Alert>
-			</Snackbar>
+			</Snackbar> */}
 		</Box>
 	)
 }

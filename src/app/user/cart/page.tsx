@@ -1,9 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 import { poppins, roboto } from '@/assets/font'
 import BaseButton from '@/components/base/BaseButton'
 import ImageItem from '@/components/base/ImageItem'
 import CartItem from '@/components/cart/CartItem'
 import StepperItem from '@/components/cart/StepperItem'
+import { formatCurrency, getPriceFormat } from '@/helper'
 import {
 	useDeleteCartUser,
 	useGetCartDetailByUserId,
@@ -11,7 +13,8 @@ import {
 } from '@/service/react-query/cart.query'
 import { useStore } from '@/store'
 import { Box, Modal, TextField, Typography } from '@mui/material'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 
 const CartPage = () => {
 	const { UserSlice } = useStore()
@@ -23,20 +26,105 @@ const CartPage = () => {
 	const { mutate: updateCartUser, isLoading, isSuccess } = useUpdateCartUser()
 	const { mutate: deleteCartUser, isSuccess: isDeleted } = useDeleteCartUser()
 
-	const [isRefetchFn, setIsRefetchFn] = React.useState(false)
-	const [open, setOpen] = React.useState(false)
-	const handleOpen = () => setOpen(true)
+	const [isRefetchFn, setIsRefetchFn] = useState(false)
+	const [open, setOpen] = useState(false)
+
+	const [subTotal, setSubTotal] = useState(0)
+
+	const [productSelected, setProductSelected] = useState<any[]>([]) // danh sách id của các sản phẩm trong từng shop được chọn sẽ được push vào
+
+	const [listCheckout, setListCheckout] = useState<any[]>([]) // giống với productSelected nhưng chứa thông tin của product và của shop -> dùng để hiển thị trong component Confirm Checkout
+
+	console.log('listCheckout', listCheckout)
+
+	const handleOpen = () => {
+		if (!productSelected.length) {
+			toast.warn('Please select at least one product', {
+				position: 'top-center'
+			})
+		} else {
+			setOpen(true)
+		}
+	}
 	const handleClose = () => setOpen(false)
+
 	useEffect(() => {
 		getCartDetail()
 	}, [])
+
 	useEffect(() => {
 		if (isSuccess || isDeleted) {
-			console.log('refetch')
 			getCartDetail()
 			setIsRefetchFn(false)
 		}
 	}, [isRefetchFn, isSuccess, isDeleted])
+
+	useEffect(() => {
+		// khi user xóa sản phẩm trong cart thì cũng phải xóa sản phẩm đó trong danh sách các sản phẩm được chọn
+		if (cartDetail) {
+			// từ id lấy ra thông tin sản phẩm và shop của sản phẩm đó
+			const listProduct = Object.keys(cartDetail?.cart_products).map(key => {
+				return cartDetail?.cart_products[key]
+			})
+
+			const newListProduct = listProduct
+				.map(item => {
+					const shopInfo = {
+						shopId: item.shop.id,
+						shopName: item.shop.username
+					}
+					return item.products.map((product: any) => {
+						return {
+							...product,
+							...shopInfo
+						}
+					})
+				})
+				.flat()
+
+			if (productSelected.length > 0) {
+				// nếu user đã chọn sản phẩm  , rồi xóa sản phẩm trong cart thì cũng phải xóa sản phẩm đó trong danh sách các sản phẩm được chọn
+				const newProductSelected = newListProduct.filter(item => {
+					return productSelected.find(product => product.id === item.id)
+				})
+				setProductSelected(newProductSelected)
+			}
+		}
+	}, [cartDetail])
+
+	useEffect(() => {
+		if (productSelected.length > 0) {
+			const total = productSelected.reduce((acc, item) => {
+				return acc + +getPriceFormat(item.product_price) * item.quantityToBuy
+			}, 0)
+			setSubTotal(total)
+			// từ id lấy ra thông tin sản phẩm và shop của sản phẩm đó
+			const listProduct = Object.keys(cartDetail?.cart_products).map(key => {
+				return cartDetail?.cart_products[key]
+			})
+
+			const newListProduct = listProduct
+				.map(item => {
+					const shopInfo = {
+						shopId: item.shop.id,
+						shopName: item.shop.username
+					}
+					return item.products.map((product: any) => {
+						return {
+							...product,
+							...shopInfo
+						}
+					})
+				})
+				.flat()
+			const items = newListProduct.filter(item => {
+				return productSelected.find(product => product.id === item.id)
+			})
+			setListCheckout(items)
+		} else {
+			setSubTotal(0)
+		}
+	}, [productSelected])
 
 	const shopList = [
 		{
@@ -45,7 +133,7 @@ const CartPage = () => {
 		},
 		{
 			name: `The Ordinary`,
-			link: '/user/shop/oridinary'
+			link: '/user/shop/ordinary'
 		},
 		{
 			name: `Bioderma`,
@@ -77,7 +165,7 @@ const CartPage = () => {
 					fontWeight: 500,
 					lineHeight: '125.5%',
 					textAlign: 'center',
-					mb: { xs: '32px', lg: '92px' }
+					mb: { xs: '24px', lg: '52px' }
 				}}
 			>
 				Shopping Cart
@@ -85,7 +173,15 @@ const CartPage = () => {
 			{/* Items in cart */}
 			<Box
 				sx={{
-					mb: { xs: '32px', md: '94px' }
+					mb: { xs: '32px', md: '94px' },
+					maxHeight: { xs: '100%', md: '70vh' },
+					overflowY: 'auto',
+					'&::-webkit-scrollbar': {
+						width: '0px'
+					},
+					'&::-webkit-scrollbar-thumb': {
+						width: '0px'
+					}
 				}}
 			>
 				{!cartDetail ||
@@ -113,8 +209,11 @@ const CartPage = () => {
 									shopName={key}
 									link={shop?.link || ''}
 									products={cartDetail.cart_products[key].products}
+									cartDetail={cartDetail}
 									updateFn={updateCartUser}
 									deleteCartUser={deleteCartUser}
+									setProductSelected={setProductSelected}
+									productSelected={productSelected}
 								/>
 							)
 						}
@@ -211,7 +310,7 @@ const CartPage = () => {
 								marginLeft: { md: '24px' }
 							}}
 						>
-							$0
+							0
 						</Typography>
 					</Box>
 					<Box
@@ -223,17 +322,32 @@ const CartPage = () => {
 							whiteSpace: 'nowrap'
 						}}
 					>
-						<Typography variant='h5'>Sub total:</Typography>
+						<Typography variant='h5'>
+							Sub total
+							<Typography
+								variant='h6'
+								component='span'
+								sx={{
+									color: '#575757',
+									fontFamily: 'Poppins',
+									fontSize: '16px',
+									marginLeft: { md: '8px' },
+									fontWeight: 400
+								}}
+							>
+								({productSelected?.length || 0} items) :
+							</Typography>
+						</Typography>
 						<Typography
 							variant='h3'
 							sx={{
 								color: '#575757',
 								fontFamily: 'Poppins',
-								fontSize: { xs: '24px', md: '28px' },
+								fontSize: { xs: '20px', md: '24px' },
 								marginLeft: { xs: '12px', md: '12px' }
 							}}
 						>
-							$0
+							{formatCurrency(subTotal)}
 						</Typography>
 					</Box>
 				</Box>
@@ -280,7 +394,10 @@ const CartPage = () => {
 						}
 					}}
 				>
-					<StepperItem handleClose={handleClose} />
+					<StepperItem
+						handleClose={handleClose}
+						productSelected={listCheckout}
+					/>
 				</Box>
 			</Modal>
 			{/* {isLoading && <ProgressLoading />} */}

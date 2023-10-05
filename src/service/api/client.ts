@@ -85,7 +85,7 @@ const configApi: any = ({ path, method, headers }: any) => {
 		}
 		if (pathParams) {
 			Object.keys(pathParams).forEach(key => {
-				params = path.replace(`{${key}}`, pathParams[key])
+				params = '/' + pathParams[key]
 			})
 			url += params
 		}

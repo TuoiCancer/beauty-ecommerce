@@ -275,15 +275,18 @@ export const listProduct = [
 export const listShop = [
 	{
 		id: 'loreal',
-		name: `L'Oréal`
+		name: `L'Oréal`,
+		shopId: 'db7c6b7e-8e2f-42ee-a63b-332656d82ca2'
 	},
 	{
-		id: 'oridinary',
-		name: 'The Ordinary'
+		id: 'ordinary',
+		name: 'The Ordinary',
+		shopId: '9a420be2-4df3-4595-a500-2211de5a9701'
 	},
 	{
 		id: 'bioderma',
-		name: 'Bioderma'
+		name: 'Bioderma',
+		shopId: '85a26cd1-4f5f-4468-b0ce-41118681234b'
 	}
 ]
 
@@ -325,7 +328,7 @@ export const listBrands = [
 		id: 2,
 		name: 'The Ordinary',
 		imgSrc: '/img/logo/the-ordinary-logo-vector.png',
-		link: '/user/shop/oridinary'
+		link: '/user/shop/ordinary'
 	},
 	{
 		id: 3,
@@ -756,6 +759,117 @@ export const classifyCategoryByType = [
 			'Peel',
 			'Serum',
 			'Face Mask'
+		]
+	}
+]
+
+/**
+ *  id: string;
+  createdAt: Date;
+  updatedAt: Date;
+  voucher_name: string;
+  voucher_status: string;
+  voucher_code: string;
+  voucher_description: string;
+  voucher_type: string;
+  voucher_value: number;
+  voucher_start_date: Date;
+  voucher_end_date: Date;
+  voucher_max_use: number;
+  voucher_uses_count: number;
+  voucher_max_use_per_user: number;
+  voucher_min_order_value: number;
+  buyer: any;
+  voucher_scope: string;
+ */
+export const listVoucher = [
+	{
+		id: '1',
+		voucher_name: 'Voucher 1',
+		voucher_status: 'active',
+		voucher_code: '123456',
+		voucher_description: 'Voucher 1',
+		voucher_type: 'percent',
+		voucher_value: 10,
+		voucher_start_date: '2023-10-01T00:00:00.000Z',
+		voucher_end_date: '2023-10-30T00:00:00.000Z',
+		voucher_max_use: 100,
+		voucher_uses_count: 0,
+		voucher_max_use_per_user: 1,
+		voucher_min_order_value: 100,
+		voucher_scope: 'storewide',
+		isCollected: false
+	},
+	{
+		id: '2',
+		voucher_name: 'Voucher 2',
+		voucher_status: 'active',
+		voucher_code: 'csdasd',
+		voucher_description: 'Voucher 02',
+		voucher_type: 'fixed_amount',
+		voucher_value: 25,
+		voucher_start_date: '2023-10-01T00:00:00.000Z',
+		voucher_end_date: '2023-10-30T00:00:00.000Z',
+		voucher_max_use: 10,
+		voucher_uses_count: 0,
+		voucher_max_use_per_user: 1,
+		voucher_min_order_value: 0,
+		voucher_scope: 'storewide',
+		isCollected: false
+	},
+	{
+		id: '3',
+		voucher_name: 'Voucher 3',
+		voucher_status: 'active',
+		voucher_code: 'csdasd',
+		voucher_description: 'Voucher 03',
+		voucher_type: 'fixed_amount',
+		voucher_value: 15,
+		voucher_start_date: '2023-10-01T00:00:00.000Z',
+		voucher_end_date: '2023-10-30T00:00:00.000Z',
+		voucher_max_use: 10,
+		voucher_uses_count: 0,
+		voucher_max_use_per_user: 1,
+		voucher_min_order_value: 0,
+		voucher_scope: 'freeship',
+		isCollected: true
+	}
+]
+
+export const priceSale: number = 30000
+
+export const listImgURL = [
+	{
+		id: 1,
+		shopId: 'loreal',
+		urls: [
+			'/img/vouchers/loreal/02.png',
+			'/img/vouchers/loreal/01.jpg',
+			'/img/vouchers/loreal/voucher_banner01.webp',
+			'/img/vouchers/loreal/voucher_banner02.webp',
+			'/img/vouchers/loreal/voucher_banner03.webp'
+		]
+	},
+	{
+		id: 2,
+		shopId: 'ordinary',
+		urls: [
+			// '/img/vouchers/ordinary/01.webp',
+			'/img/vouchers/ordinary/02.png',
+			'/img/vouchers/ordinary/voucher_banner01.webp',
+			'/img/vouchers/ordinary/voucher_banner02.webp',
+			'/img/vouchers/ordinary/voucher_banner03.webp'
+		]
+	},
+	{
+		id: 3,
+		shopId: 'bioderma',
+		urls: [
+			'/img/vouchers/bioderma/02.webp',
+			'/img/vouchers/bioderma/01.jpg',
+			'/img/vouchers/bioderma/voucher_banner01.webp',
+			'/img/vouchers/bioderma/voucher_banner02.webp',
+			'/img/vouchers/bioderma/voucher_banner03.webp'
 		]
 	}
 ]
