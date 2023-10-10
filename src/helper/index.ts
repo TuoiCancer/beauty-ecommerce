@@ -35,11 +35,21 @@ export function stringToColor(string: string) {
 }
 
 export function stringAvatar(name: string) {
-	return {
-		sx: {
-			bgcolor: stringToColor(name)
-		},
-		children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`
+	const nameArr = name.split(' ')
+	if (nameArr.length === 1) {
+		return {
+			sx: {
+				bgcolor: stringToColor(name)
+			},
+			children: `${name[0].toUpperCase()}`
+		}
+	} else {
+		return {
+			sx: {
+				bgcolor: stringToColor(name)
+			},
+			children: `${nameArr[0][0]}${nameArr[nameArr.length - 1][0]}`
+		}
 	}
 }
 
@@ -62,6 +72,24 @@ export const formatCurrency = (value: any) => {
 		result.unshift(moneyString)
 	}
 	return result.join('.') + 'đ'
+}
+
+export const formatCurrencyV2 = (value: any) => {
+	const money = Math.ceil(value / 1000) * 1000 // ceil: làm tròn lên
+	let moneyString = money.toString()
+	let length = moneyString.length
+
+	const result = []
+	while (length > 3) {
+		const tmp = moneyString.slice(length - 3, length)
+		moneyString = moneyString.slice(0, length - 3)
+		result.unshift(tmp)
+		length -= 3
+	}
+	if (moneyString) {
+		result.unshift(moneyString)
+	}
+	return result.join('.')
 }
 
 export const getPriceFormat = (value: any) => {

@@ -7,6 +7,7 @@ interface querySearchProduct {
 	page: number
 	limit: number
 	sort?: string
+	order?: string
 	product_shop?: string
 	product_category?: string
 	search_key?: string
@@ -38,11 +39,19 @@ export const useGetProductByPage = () => {
 	const getProductByPageService = ApiService.createInstance()
 	return useMutation(
 		(payload: querySearchProduct) => {
-			const { page, limit, product_shop, sort, product_category, search_key } =
-				payload
+			const {
+				page,
+				limit,
+				product_shop,
+				sort,
+				product_category,
+				search_key,
+				order
+			} = payload
 			const filter: querySearchProduct = {
 				page,
 				limit,
+				order,
 				...(search_key && { search_key }),
 				...(product_category &&
 					product_category !== 'All' && { product_category })
@@ -69,23 +78,6 @@ export const useGetProductByPage = () => {
 			onError: (error: any) => {}
 		}
 	)
-	// return useQuery(
-	// 	['getProductByPage', payload],
-	// 	() => {
-	// 		return getProductByPageService.getProductByPage({
-	// 			queryParams: {
-	// 				...payload,
-	// 				product_shop:
-	// 					payload.product_shop === `L'Oréal` ? `Oreal` : payload.product_shop
-	// 			}
-	// 		})
-	// 	},
-	// 	{
-	// 		onError: (error: any) => {
-	// 			console.log('error useGetProductByPage -----------------> ', error)
-	// 		}
-	// 	}
-	// )
 }
 
 export const useGetProductById = ({ id }: { id: string }) => {

@@ -15,12 +15,19 @@ const ShippingAddressForm = ({
 	const { UserSlice } = useStore()
 
 	const handleNext = () => {
+		const regex = /(84|0[3|2|8|9])+([0-9]{8})\b/
+
 		if (
 			UserSlice.shippingInfor.city === '' ||
 			UserSlice.shippingInfor.district === '' ||
-			UserSlice.shippingInfor.address === ''
+			UserSlice.shippingInfor.address === '' ||
+			UserSlice.shippingInfor.phone === ''
 		) {
 			toast.warning('Please fill in all fields', {
+				position: 'top-center'
+			})
+		} else if (!regex.test(UserSlice.shippingInfor.phone)) {
+			toast.warning('Phone number is not valid', {
 				position: 'top-center'
 			})
 		} else {
@@ -106,16 +113,12 @@ const ShippingAddressForm = ({
 					value={UserSlice.shippingInfor.phone}
 					placeholder='Phone number *'
 					onChange={e => {
-						//regex phone number
-						const regex = /(84|0[3|2|8|9])+([0-9]{8})\b/
-						if (e.target.value !== '' || regex.test(e.target.value)) {
-							UserSlice.setShippingInfor((prev: any) => {
-								return {
-									...prev,
-									phone: e.target.value
-								}
-							})
-						}
+						UserSlice.setShippingInfor((prev: any) => {
+							return {
+								...prev,
+								phone: e.target.value
+							}
+						})
 					}}
 				/>
 				<TextField
@@ -153,12 +156,19 @@ const ShippingAddressForm = ({
 						sx={{
 							mr: { xs: '32px', md: '56px' }
 						}}
-						value={UserSlice.shippingInfor.city}
+						value={
+							listCity.find(
+								(item: any) => item.name === UserSlice.shippingInfor.city
+							)?.value || ''
+						}
 						onChange={e => {
+							const tmpCity = listCity.find(
+								(item: any) => item.value === e.target.value
+							)?.name
 							UserSlice.setShippingInfor((prev: any) => {
 								return {
 									...prev,
-									city: e.target.value
+									city: tmpCity
 								}
 							})
 						}}
@@ -173,12 +183,19 @@ const ShippingAddressForm = ({
 					</Select>
 					<Select
 						label='State/Provine/Region *'
-						value={UserSlice.shippingInfor.district}
+						value={
+							listDistrict.find((item: any) => {
+								return item.name === UserSlice.shippingInfor.district
+							})?.value || ''
+						}
 						onChange={e => {
+							const tmpDistrict = listDistrict.find(
+								(item: any) => item.value === e.target.value
+							)?.name
 							UserSlice.setShippingInfor((prev: any) => {
 								return {
 									...prev,
-									district: e.target.value
+									district: tmpDistrict
 								}
 							})
 						}}

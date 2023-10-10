@@ -11,13 +11,20 @@ import {
 	useGetCartDetailByUserId,
 	useUpdateCartUser
 } from '@/service/react-query/cart.query'
+import { useCreateOrder } from '@/service/react-query/order.query'
+import {
+	useGetVoucherByVoucherCode,
+	useGetVoucherOfUser
+} from '@/service/react-query/voucher.query'
 import { useStore } from '@/store'
 import { Box, Modal, TextField, Typography } from '@mui/material'
+import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 
 const CartPage = () => {
 	const { UserSlice } = useStore()
+	const route = useRouter()
 	const { data: cartDetail, refetch: getCartDetail } = useGetCartDetailByUserId(
 		{
 			userId: UserSlice.user?.id
@@ -26,16 +33,33 @@ const CartPage = () => {
 	const { mutate: updateCartUser, isLoading, isSuccess } = useUpdateCartUser()
 	const { mutate: deleteCartUser, isSuccess: isDeleted } = useDeleteCartUser()
 
+	// get voucher by voucher code
+	const { mutate: getVoucherByVoucherCode, data: voucherCodeFound } =
+		useGetVoucherByVoucherCode()
+
+	const { data: listVoucherCollectedByUser } = useGetVoucherOfUser({
+		userId: UserSlice.user?.id
+	})
+
+	const { mutate: createOrderFn, isSuccess: isCreateOrderDone } =
+		useCreateOrder()
+
 	const [isRefetchFn, setIsRefetchFn] = useState(false)
 	const [open, setOpen] = useState(false)
+
+	const [voucherCode, setVoucherCode] = useState('')
+	const [voucherShipping, setVoucherShipping] = useState(0)
+	const [voucherDiscount, setVoucherDiscount] = useState(0)
+
+	// state to save id of voucher discount and voucher freeship of user
+	const [voucherFreeShipId, setVoucherFreeShipId] = useState('')
+	const [voucherDiscountId, setVoucherDiscountId] = useState('')
 
 	const [subTotal, setSubTotal] = useState(0)
 
 	const [productSelected, setProductSelected] = useState<any[]>([]) // danh sách id của các sản phẩm trong từng shop được chọn sẽ được push vào
 
 	const [listCheckout, setListCheckout] = useState<any[]>([]) // giống với productSelected nhưng chứa thông tin của product và của shop -> dùng để hiển thị trong component Confirm Checkout
-
-	console.log('listCheckout', listCheckout)
 
 	const handleOpen = () => {
 		if (!productSelected.length) {
@@ -47,17 +71,16 @@ const CartPage = () => {
 		}
 	}
 	const handleClose = () => setOpen(false)
-
 	useEffect(() => {
 		getCartDetail()
 	}, [])
 
 	useEffect(() => {
-		if (isSuccess || isDeleted) {
+		if (isSuccess || isDeleted || isCreateOrderDone) {
 			getCartDetail()
 			setIsRefetchFn(false)
 		}
-	}, [isRefetchFn, isSuccess, isDeleted])
+	}, [isRefetchFn, isSuccess, isDeleted, isCreateOrderDone])
 
 	useEffect(() => {
 		// khi user xóa sản phẩm trong cart thì cũng phải xóa sản phẩm đó trong danh sách các sản phẩm được chọn
@@ -126,6 +149,90 @@ const CartPage = () => {
 		}
 	}, [productSelected])
 
+	useEffect(() => {
+		if (
+			voucherCodeFound &&
+			listVoucherCollectedByUser?.freeShipMaxValueVoucher
+		) {
+			// value = max of 2 voucher
+			const tmp1 =
+				voucherCodeFound?.voucher_scope === 'freeship' &&
+				voucherCodeFound.voucher_min_order_value < subTotal
+					? voucherCodeFound.voucher_value
+					: 0
+			const tmp2 =
+				listVoucherCollectedByUser.freeShipMaxValueVoucher
+					.voucher_min_order_value < subTotal
+					? listVoucherCollectedByUser.freeShipMaxValueVoucher.voucher_value
+					: 0
+			setVoucherShipping(Math.max(tmp1, tmp2))
+
+			if (tmp1 > tmp2) {
+				setVoucherFreeShipId(voucherCodeFound.id)
+			} else {
+				setVoucherFreeShipId(
+					listVoucherCollectedByUser.freeShipMaxValueVoucher.id
+				)
+			}
+		} else if (voucherCodeFound) {
+			if (voucherCodeFound?.voucher_scope === 'freeship') {
+				// check total price is valid for voucher
+				if (voucherCodeFound.voucher_min_order_value > subTotal) {
+					toast.warn(
+						`This voucher is only valid for orders over ${formatCurrency(
+							voucherCodeFound.voucher_min_order_value
+						)}`,
+						{
+							position: 'top-center'
+						}
+					)
+				} else {
+					setVoucherShipping(voucherCodeFound.voucher_value)
+					setVoucherFreeShipId(voucherCodeFound.id)
+				}
+			}
+		} else if (listVoucherCollectedByUser?.freeShipMaxValueVoucher) {
+			if (
+				subTotal >
+				listVoucherCollectedByUser.freeShipMaxValueVoucher
+					.voucher_min_order_value
+			) {
+				setVoucherShipping(
+					listVoucherCollectedByUser.freeShipMaxValueVoucher.voucher_value
+				)
+				setVoucherFreeShipId(
+					listVoucherCollectedByUser?.freeShipMaxValueVoucher?.id
+				)
+			} else {
+				setVoucherShipping(0)
+				setVoucherFreeShipId('')
+			}
+		}
+		if (listVoucherCollectedByUser?.storewideMaxValueVoucher) {
+			if (
+				subTotal >
+				listVoucherCollectedByUser.storewideMaxValueVoucher
+					.voucher_min_order_value
+			) {
+				setVoucherDiscount(
+					listVoucherCollectedByUser.storewideMaxValueVoucher.voucher_value
+				)
+				setVoucherDiscountId(
+					listVoucherCollectedByUser?.storewideMaxValueVoucher?.id
+				)
+			} else {
+				setVoucherDiscount(0)
+				setVoucherDiscountId('')
+			}
+		}
+	}, [listVoucherCollectedByUser, voucherCodeFound, subTotal])
+
+	useEffect(() => {
+		if (!UserSlice.user) {
+			route.push('/user/home')
+		}
+	}, [UserSlice])
+
 	const shopList = [
 		{
 			name: `L'Oreal`,
@@ -161,7 +268,7 @@ const CartPage = () => {
 				variant='h1'
 				sx={{
 					color: '#000',
-					fontSize: { xs: '28px', md: '48px' },
+					fontSize: { xs: '28px', md: '32px', lg: '40px' },
 					fontWeight: 500,
 					lineHeight: '125.5%',
 					textAlign: 'center',
@@ -233,7 +340,7 @@ const CartPage = () => {
 						display: 'flex',
 						flexDirection: 'roww',
 						alignItems: 'center',
-						mb: { xs: '32px', md: '0' },
+						mb: { xs: '32px', md: '12px' },
 						justifyContent: { xs: 'space-between', sm: 'flex-start' },
 						width: '100%'
 					}}
@@ -249,7 +356,7 @@ const CartPage = () => {
 							mr: { md: '24px' }
 						}}
 					>
-						Voucher code
+						Voucher code:
 					</Typography>
 					<TextField
 						id='outlined-basic'
@@ -262,8 +369,20 @@ const CartPage = () => {
 								borderColor: '#A2C18A !important'
 							}
 						}}
+						onChange={e => {
+							setVoucherCode(e.target.value)
+						}}
 					/>
 					<BaseButton
+						onClick={() => {
+							if (!voucherCode) {
+								toast.warn('Please enter voucher code', {
+									position: 'top-center'
+								})
+							} else {
+								getVoucherByVoucherCode(voucherCode)
+							}
+						}}
 						bgStyle='color'
 						label='Apply'
 						variant='contained'
@@ -280,46 +399,94 @@ const CartPage = () => {
 						}}
 					/>
 				</Box>
-				<Box
-					sx={{
-						'& h5': {
-							color: '#000',
-							fontSize: { xs: '18px', lg: '20px', xl: '22px' },
-							fontWeight: 300,
-							lineHeight: '125.5%'
-						}
-					}}
-				>
-					<Box
-						sx={{
-							display: 'flex',
-							flexDirection: 'row',
-							justifyContent: 'space-between',
-							alignItems: 'center',
-							mb: { md: '24px' }
-						}}
-					>
-						<Typography variant='h5'>Voucher: </Typography>
-						<Typography
-							variant='h6'
-							className={poppins.className}
+				<Box>
+					{voucherShipping !== 0 && (
+						<Box
 							sx={{
-								color: '#575757',
-								fontFamily: 'Poppins',
-								fontSize: '24px',
-								marginLeft: { md: '24px' }
+								display: 'flex',
+								flexDirection: 'row',
+								justifyContent: 'space-between',
+								alignItems: 'center',
+								mb: { xs: '12px', md: '24px' },
+								'& h5': {
+									color: '#000',
+									fontSize: { xs: '16px', md: '20px', xl: '22px' },
+									fontWeight: 300,
+									lineHeight: '125.5%',
+									whiteSpace: 'nowrap'
+								}
 							}}
 						>
-							0
-						</Typography>
-					</Box>
+							<Typography
+								variant='h5'
+								sx={{
+									color: '#000'
+								}}
+							>
+								{voucherShipping ? 'Shipping Fee Voucher: ' : ''}
+							</Typography>
+							<Typography
+								variant='h6'
+								className={poppins.className}
+								sx={{
+									color: '#575757',
+									fontFamily: 'Poppins',
+									fontSize: { xs: '16px', md: '20px' },
+									marginLeft: '12px'
+								}}
+							>
+								{`-${formatCurrency(voucherShipping)}`}
+							</Typography>
+						</Box>
+					)}
+
+					{voucherDiscount !== 0 && (
+						<Box
+							sx={{
+								display: 'flex',
+								flexDirection: 'row',
+								justifyContent: 'space-between',
+								alignItems: 'center',
+								mb: { md: '24px' },
+								'& h5': {
+									color: '#000',
+									fontSize: { xs: '16px', md: '20px', xl: '22px' },
+									fontWeight: 300,
+									lineHeight: '125.5%',
+									whiteSpace: 'nowrap'
+								}
+							}}
+						>
+							<Typography variant='h5'>
+								{voucherDiscount ? 'Voucher for entire products: ' : ''}
+							</Typography>
+							<Typography
+								variant='h6'
+								className={poppins.className}
+								sx={{
+									color: '#575757',
+									fontFamily: 'Poppins',
+									fontSize: { xs: '16px', md: '20px' },
+									marginLeft: '12px'
+								}}
+							>
+								{`-${formatCurrency(voucherDiscount)}`}
+							</Typography>
+						</Box>
+					)}
 					<Box
 						sx={{
 							display: 'flex',
 							flexDirection: 'row',
 							alignItems: 'center',
 							justifyContent: 'space-between',
-							whiteSpace: 'nowrap'
+							whiteSpace: 'nowrap',
+							'& h5': {
+								color: '#000',
+								fontSize: { xs: '16px', md: '20px', xl: '22px' },
+								fontWeight: 300,
+								lineHeight: '125.5%'
+							}
 						}}
 					>
 						<Typography variant='h5'>
@@ -347,7 +514,7 @@ const CartPage = () => {
 								marginLeft: { xs: '12px', md: '12px' }
 							}}
 						>
-							{formatCurrency(subTotal)}
+							{formatCurrency(subTotal - voucherDiscount)}
 						</Typography>
 					</Box>
 				</Box>
@@ -397,6 +564,11 @@ const CartPage = () => {
 					<StepperItem
 						handleClose={handleClose}
 						productSelected={listCheckout}
+						voucherShipping={voucherShipping}
+						voucherDiscount={voucherDiscount}
+						createOrderFn={createOrderFn}
+						voucherFreeShipId={voucherFreeShipId}
+						voucherDiscountId={voucherDiscountId}
 					/>
 				</Box>
 			</Modal>

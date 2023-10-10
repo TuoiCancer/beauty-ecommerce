@@ -16,7 +16,8 @@ const ProductItem = ({
 	style,
 	productId,
 	addToCart,
-	shopId
+	shopId,
+	quantity
 }: {
 	imgSrc: string
 	productName: string
@@ -26,6 +27,7 @@ const ProductItem = ({
 	productId: string
 	addToCart: any
 	shopId: string
+	quantity?: number
 }) => {
 	const { UserSlice } = useStore()
 	const router = useRouter()
@@ -88,6 +90,20 @@ const ProductItem = ({
 						overflow: 'hidden'
 					}}
 				>
+					{/* SOLD OUT IMAGE */}
+					{quantity === 0 && (
+						<ImageItem
+							imgSrc='/img/soldout.png'
+							style={{
+								position: 'absolute',
+								top: '0',
+								left: '0',
+								width: '64px',
+								height: { xs: '40px', md: '40px' },
+								zIndex: '3'
+							}}
+						/>
+					)}
 					<Box
 						id='layer_product'
 						sx={{
@@ -202,7 +218,7 @@ const ProductItem = ({
 						className={poppins.className}
 						sx={{
 							color: '#406D1C',
-							fontSize: { lg: '30px' },
+							fontSize: { lg: '20px' },
 							fontWeight: '400'
 						}}
 					>

@@ -34,7 +34,7 @@ const SignupPage = () => {
 	const steps = ['You are _______? ', 'Fill all information']
 	const [activeStep, setActiveStep] = React.useState(0)
 
-	const { isLoading, error, isError, mutate: signupFn, isSuccess } = useSignup()
+	const { isLoading, mutate: signupFn, isSuccess } = useSignup()
 
 	useEffect(() => {
 		if (isSuccess) {
@@ -58,7 +58,9 @@ const SignupPage = () => {
 			phoneNumber: phoneNumber
 		})
 		if (error.msg) {
-			toast.warning(error.msg)
+			toast.warning(error.msg, {
+				position: 'top-center'
+			})
 			return
 		}
 		const infor = {
@@ -74,9 +76,6 @@ const SignupPage = () => {
 	}
 
 	if (isLoading) return <Loading />
-	if (isError) {
-		toast.error(error.message)
-	}
 
 	return (
 		<Box

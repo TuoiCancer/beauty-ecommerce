@@ -7,7 +7,7 @@ export const useGetListVoucher = ({
 	userId
 }: {
 	shopId: string
-	userId: string
+	userId?: string
 }) => {
 	const getVoucherService = ApiService.createInstance()
 
@@ -15,7 +15,7 @@ export const useGetListVoucher = ({
 		return getVoucherService.getListVoucher({
 			queryParams: {
 				shopId: shopId,
-				userId: userId
+				...(userId && { userId: userId })
 			}
 		})
 	})
@@ -34,9 +34,42 @@ export const useCollectVoucher = () => {
 			onError: (error: any) => {
 				updateStore((state: IStore) => {
 					state.UserSlice.isError = true
-					state.UserSlice.errorMess = error.message
+					state.UserSlice.errorMess = error.response.data.message
 				})
 			}
 		}
 	)
+}
+
+export const useGetVoucherByVoucherCode = () => {
+	const getVoucherByVoucherCodeService = ApiService.createInstance()
+	return useMutation(
+		(voucherCode: string) => {
+			return getVoucherByVoucherCodeService.getVoucherByVoucherCode({
+				pathParams: {
+					voucherCode: voucherCode
+				}
+			})
+		},
+		{
+			onSuccess: (data: any) => {},
+			onError: (error: any) => {
+				updateStore((state: IStore) => {
+					state.UserSlice.isError = true
+					state.UserSlice.errorMess = error.response.data.message
+				})
+			}
+		}
+	)
+}
+
+export const useGetVoucherOfUser = ({ userId }: { userId: string }) => {
+	const getVoucherOfUserService = ApiService.createInstance()
+	return useQuery(['get voucher of user'], () => {
+		return getVoucherOfUserService.getAllVoucherOfUser({
+			pathParams: {
+				userId: userId
+			}
+		})
+	})
 }

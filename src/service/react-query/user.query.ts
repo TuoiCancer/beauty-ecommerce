@@ -31,7 +31,6 @@ export const useSignup = () => {
 				const token = data.token.accessToken // Thay 'token' bằng tên field chứa token trong dữ liệu trả về
 				const refreshToken = data.token.refreshToken
 				const user = data.user
-
 				// set token into local storage
 				localStorage.setItem('data', JSON.stringify(data))
 				updateStore((state: IStore) => {
@@ -41,6 +40,9 @@ export const useSignup = () => {
 					state.AuthSlice.accessToken = token
 					state.AuthSlice.refreshToken = refreshToken
 					state.AuthSlice.xClientId = user.id
+					//
+					state.UserSlice.shippingInfor = {}
+					state.UserSlice.paymentInfor = {}
 				})
 			},
 			onError: (error: any) => {
@@ -82,6 +84,9 @@ export const useLogin = () => {
 					state.AuthSlice.accessToken = token
 					state.AuthSlice.refreshToken = refreshToken
 					state.AuthSlice.xClientId = user.id
+					//
+					state.UserSlice.shippingInfor = {}
+					state.UserSlice.paymentInfor = {}
 				})
 			},
 			onError: (error: any) => {
@@ -113,6 +118,12 @@ export const useLogout = () => {
 					state.AuthSlice.clearAccessToken()
 					state.AuthSlice.clearRefreshToken()
 				})
+			},
+			onError: (error: any) => {
+				updateStore((state: IStore) => {
+					state.UserSlice.isLoggedIn = false
+					state.UserSlice.user = null
+				})
 			}
 		}
 	)
@@ -143,6 +154,9 @@ export const useRefreshToken = () => {
 			},
 			onError: (error: any) => {
 				updateStore((state: IStore) => {
+					localStorage.removeItem('data')
+					state.UserSlice.isLoggedIn = false
+					state.UserSlice.user = null
 					state.UserSlice.isError = true
 					state.UserSlice.errorMess = error.response.data.message
 				})

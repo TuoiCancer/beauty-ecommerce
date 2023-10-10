@@ -24,7 +24,9 @@ const LoginPage = () => {
 	const handleLogin = () => {
 		const err = validateSigninForm({ email, password })
 		if (err?.msg) {
-			toast.warning(err.msg)
+			toast.warning(err.msg, {
+				position: 'top-center'
+			})
 			return
 		}
 		LoginFunc({ email, password, rememberPassword })
@@ -187,7 +189,14 @@ const LoginPage = () => {
 							variant='outlined'
 							value={password}
 							placeholder='Password'
-							onChange={e => setPassword(e.target.value)}
+							onChange={e => {
+								setPassword(e.target.value)
+							}}
+							onKeyDown={e => {
+								if (e.key === 'Enter') {
+									handleLogin()
+								}
+							}}
 							sx={{
 								width: { xs: '100%' },
 								'& .MuiOutlinedInput-root': {

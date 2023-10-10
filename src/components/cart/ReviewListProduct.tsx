@@ -1,23 +1,11 @@
+import { formatCurrency } from '@/helper'
 import { Box, Typography } from '@mui/material'
 import React from 'react'
 
-type Shop = {
-	id: string
-	shopName: string
-}
-
-type Product = {
-	id: number
-	name: string
-	price: number
-	quantity: number
-	thumbnail: string
-}
-
 export interface ReviewListProductProps {
-	id: number
-	shop: Shop
-	products: Product[]
+	shopId: string
+	shopName: string
+	products: any[]
 }
 
 const ReviewListProduct = ({
@@ -25,6 +13,7 @@ const ReviewListProduct = ({
 }: {
 	listProduct: ReviewListProductProps
 }) => {
+	const [shippingFee, setShippingFee] = React.useState(15000)
 	return (
 		<Box
 			sx={{
@@ -40,10 +29,10 @@ const ReviewListProduct = ({
 					lineHeight: '125.5%'
 				}}
 			>
-				{listProduct.shop.shopName}
+				{listProduct.shopName}
 			</Typography>
 			<Box>
-				{listProduct.products.map((product: Product) => {
+				{listProduct.products.map((product: any) => {
 					return (
 						<Box
 							key={product.id}
@@ -79,7 +68,7 @@ const ReviewListProduct = ({
 									// maxWidth: { md: '300px' },
 								}}
 							>
-								{product.name}
+								{product.product_name}
 							</Typography>
 							<Typography
 								variant='h4'
@@ -87,9 +76,11 @@ const ReviewListProduct = ({
 									mr: { md: '24px' }
 								}}
 							>
-								x {product.quantity}
+								x {product.quantityToBuy}
 							</Typography>
-							<Typography variant='h5'>${product.price.toFixed(2)}</Typography>
+							<Typography variant='h5'>
+								{formatCurrency(product.product_price).split('đ')[0]}
+							</Typography>
 						</Box>
 					)
 				})}

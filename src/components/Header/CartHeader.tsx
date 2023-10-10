@@ -179,7 +179,7 @@ const CartHeader = ({
 					}}
 				>
 					<Avatar
-						{...stringAvatar('Xuan Tuoi')}
+						{...stringAvatar(UserSlice.user?.username || 'U')}
 						onClick={e => {
 							e.stopPropagation()
 							// handleClick()
@@ -224,7 +224,7 @@ const CartHeader = ({
 					href='/login'
 					style={{
 						textDecoration: 'none',
-						color: '#000'
+						color: textColor
 					}}
 				>
 					Login

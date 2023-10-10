@@ -3,4 +3,5 @@ export interface IFilterOption {
 	category: string
 	brand: string
 	sort: string
+	order: string
 }

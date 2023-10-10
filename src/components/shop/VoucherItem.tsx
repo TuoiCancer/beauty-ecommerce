@@ -3,10 +3,16 @@ import { Box, Typography } from '@mui/material'
 import BaseButton from '../base/BaseButton'
 import { formatCurrency } from '@/helper'
 import { useStore } from '@/store'
+import { useRouter } from 'next/navigation'
 const VoucherItem = ({ voucher, collectVoucherFn }: any) => {
 	const { UserSlice } = useStore()
+	const route = useRouter()
 
 	const handleCollectVoucher = () => {
+		if (!UserSlice.user) {
+			route.push('/login')
+			return
+		}
 		const userId = UserSlice.user.id
 		const voucherId = voucher.id
 		collectVoucherFn({
