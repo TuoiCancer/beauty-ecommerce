@@ -30,6 +30,7 @@ const ProductSearchWrapper = ({
 						productId={item.id}
 						price={`${item.product_price}`}
 						shopId={item.user.id}
+						quantity={item.product_quantity}
 						style={{
 							width: { md: '200px', xl: '260px' },
 							height: { md: '300px', xl: '420px' },

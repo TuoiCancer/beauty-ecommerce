@@ -200,39 +200,62 @@ const ProductDetail = () => {
 							)
 						)}
 					</Box>
-					<ImageItem
-						imgSrc={
-							productData?.product_listImages[activeImg] ||
-							productData?.product_thumbnail
-						}
-						style={{
-							width: { xs: '80%', md: '540px', lg: '400px' },
-							height: { xs: '200px', md: '560px' },
+					<Box
+						sx={{
 							position: 'relative',
-							borderRadius: '8px',
-							boxShadow: '0px 18px 36px 0px rgba(0, 0, 0, 0.12)',
-							'&::before': {
-								content: '"On - sale"',
-								fontSize: { xs: '14px', md: '16px', lg: '18px' },
-								textAlign: 'center',
-								zIndex: '1',
-								position: 'absolute',
-								lineHeight: '40px',
-								top: '16px',
-								left: '-46px',
-								width: { xs: '100px', md: '140px' },
-								height: { xs: '40px', md: '40px' },
-								backgroundColor: '#6BB82F',
-								boxShadow: '0px 18px 36px 0px rgba(255, 255, 255, 0.12)',
-								borderRadius: '8px',
-								color: '#FFF',
-								transform: 'rotate(-45deg)'
-							},
-							'& img': {
-								objectFit: 'contain'
-							}
+							width: { xs: '80%', md: '540px', lg: '400px' },
+							height: { xs: '200px', md: '560px' }
 						}}
-					/>
+					>
+						<ImageItem
+							imgSrc={
+								productData?.product_listImages[activeImg] ||
+								productData?.product_thumbnail
+							}
+							style={{
+								width: '100%',
+								height: '100%',
+								position: 'relative',
+								borderRadius: '8px',
+								boxShadow: '0px 18px 36px 0px rgba(0, 0, 0, 0.12)',
+								'&::before': {
+									content: '"On - sale"',
+									fontSize: { xs: '14px', md: '16px', lg: '18px' },
+									textAlign: 'center',
+									zIndex: '1',
+									position: 'absolute',
+									lineHeight: '40px',
+									top: '16px',
+									left: '-46px',
+									width: { xs: '100px', md: '140px' },
+									height: { xs: '40px', md: '40px' },
+									backgroundColor: '#6BB82F',
+									boxShadow: '0px 18px 36px 0px rgba(255, 255, 255, 0.12)',
+									borderRadius: '8px',
+									color: '#FFF',
+									transform: 'rotate(-45deg)',
+									display: productData.product_quantity ? 'block' : 'none'
+								},
+								'& img': {
+									objectFit: 'contain'
+								}
+							}}
+						/>
+						{productData.product_quantity === 0 && (
+							<ImageItem
+								imgSrc='/img/soldout.png'
+								style={{
+									position: 'absolute',
+									top: '10px',
+									left: '12px',
+									width: '90px',
+									height: { xs: '40px', md: '60px' },
+									zIndex: '3'
+								}}
+							/>
+						)}
+					</Box>
+
 					<Box
 						sx={{
 							marginLeft: { lg: '32px', xl: '110px' },

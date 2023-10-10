@@ -4,7 +4,8 @@ const nextConfig = {
 		domains: [
 			'phutungnhapkhauchinhhang.com',
 			'static.thcdn.com',
-			'encrypted-tbn3.gstatic.com'
+			'encrypted-tbn3.gstatic.com',
+			'cdn-icons-png.flaticon.com'
 		]
 	},
 	experimental: {

@@ -3,7 +3,13 @@ import { checkout } from '@/constants'
 import { useStore } from '@/store'
 import { Box, Button, Typography } from '@mui/material'
 import React from 'react'
+import ImageItem from '../base/ImageItem'
 import ReviewListProduct, { ReviewListProductProps } from './ReviewListProduct'
+
+import PersonIcon from '@mui/icons-material/Person'
+import LocalPhoneIcon from '@mui/icons-material/LocalPhone'
+import PlaceIcon from '@mui/icons-material/Place'
+import { formatCurrency, formatCurrencyV2, getPriceFormat } from '@/helper'
 
 const ConfirmCheckout = ({
 	activeStep,
@@ -11,14 +17,54 @@ const ConfirmCheckout = ({
 	handleBack,
 	setActiveStep,
 	productSelected,
-	handleClose
+	handleClose,
+	voucherShipping,
+	voucherDiscount,
+	createOrderFn,
+	voucherFreeShipId,
+	voucherDiscountId
 }: any) => {
 	const { UserSlice } = useStore()
-	console.log('productSelected', productSelected)
+
+	const listProductSelectedByShop = productSelected.reduce(
+		(acc: any, cur: any) => {
+			const shopName = cur.shopName
+			if (acc[shopName]) {
+				acc[shopName].products.push(cur)
+			} else {
+				acc[shopName] = {
+					shopName: shopName,
+					shopId: cur.shopId,
+					products: [cur]
+				}
+			}
+			return acc
+		},
+		{}
+	)
+
+	const totalProductPrice =
+		productSelected.reduce((acc: any, item: any) => {
+			return acc + +getPriceFormat(item.product_price) * item.quantityToBuy
+		}, 0) -
+		voucherDiscount +
+		(15000 - voucherShipping > 0 ? 15000 - voucherShipping : 0)
+
 	const handleNext = () => {
-		setActiveStep((prevActiveStep: number) => prevActiveStep + 1)
+		createOrderFn({
+			userId: UserSlice.user.id,
+			products: productSelected,
+			orderShipping: UserSlice.shippingInfor,
+			orderPayment: UserSlice.paymentInfor,
+			orderCheckout: {
+				totalPrice: totalProductPrice
+				// voucherFreeShipId,
+				// voucherId: voucherDiscountId
+			}
+		})
 		handleClose()
 	}
+
 	return (
 		<Box>
 			<Typography
@@ -38,9 +84,19 @@ const ConfirmCheckout = ({
 					my: { xs: '16px' }
 				}}
 			>
-				{checkout.listProduct.map(
+				{/* {checkout.listProduct.map(
 					(productInfo: ReviewListProductProps, index: number) => {
 						return <ReviewListProduct key={index} listProduct={productInfo} />
+					}
+				)} */}
+				{Object.keys(listProductSelectedByShop).map(
+					(key: any, index: number) => {
+						return (
+							<ReviewListProduct
+								key={index}
+								listProduct={listProductSelectedByShop[key]}
+							/>
+						)
 					}
 				)}
 			</Box>
@@ -73,7 +129,11 @@ const ConfirmCheckout = ({
 					}}
 				>
 					<Typography variant='h3'>Shipping</Typography>
-					<Typography variant='h4'>${checkout.feeShip.toFixed(2)}</Typography>
+					<Typography variant='h4'>
+						{formatCurrencyV2(
+							15000 - voucherShipping > 0 ? 15000 - voucherShipping : 0
+						)}
+					</Typography>
 				</Box>
 				<Box
 					sx={{
@@ -84,7 +144,9 @@ const ConfirmCheckout = ({
 					}}
 				>
 					<Typography variant='h3'>Voucher</Typography>
-					<Typography variant='h4'>${checkout.feeShip.toFixed(2)}</Typography>
+					<Typography variant='h4'>{`-${formatCurrency(
+						voucherDiscount
+					)}`}</Typography>
 				</Box>
 				<Box
 					sx={{
@@ -95,7 +157,9 @@ const ConfirmCheckout = ({
 					}}
 				>
 					<Typography variant='h3'>Total</Typography>
-					<Typography variant='h4'>${checkout.feeShip.toFixed(2)}</Typography>
+					<Typography variant='h4'>
+						{formatCurrency(totalProductPrice)}
+					</Typography>
 				</Box>
 			</Box>
 			<Box
@@ -134,15 +198,50 @@ const ConfirmCheckout = ({
 					}
 				}}
 			>
-				<Box>
+				<Box
+					sx={{
+						flex: 1,
+						'& .shipping-wrapper': {
+							display: 'flex',
+							flexDirection: 'row',
+							alignItems: 'flex-start',
+							marginBottom: '12px',
+							// alignItems: 'center',
+							'& h4': {
+								padding: 0
+							},
+							'& svg': {
+								marginRight: '8px',
+								color: '#777'
+							}
+						}
+					}}
+				>
 					<Typography
 						variant='h3'
 						sx={{ color: '#000', fontSize: { xs: '18px', md: '22px' } }}
 					>
 						Shipping Address
 					</Typography>
-					<Typography variant='h4'>Nguyen Van A</Typography>
-					<Typography variant='h4'>0123456789</Typography>
+					<Box className='shipping-wrapper'>
+						<PersonIcon />
+						<Typography variant='h4'>{`${UserSlice.shippingInfor?.firstName} ${UserSlice.shippingInfor?.lastName}`}</Typography>
+					</Box>
+					<Box className='shipping-wrapper'>
+						<LocalPhoneIcon />
+						<Typography variant='h4'>
+							{UserSlice.shippingInfor?.phone}
+						</Typography>
+					</Box>
+					<Box className='shipping-wrapper'>
+						<PlaceIcon />
+						<Typography variant='h4'>
+							{/* {UserSlice.shippingInfor?.address}, */}
+							4th floor - 8 Ton That Thuyet - My Dinh 2 - Nam Tu Liem - Ha Noi
+							{UserSlice.shippingInfor?.district} -{' '}
+							{UserSlice.shippingInfor?.city}
+						</Typography>
+					</Box>
 				</Box>
 				<Box
 					sx={{
@@ -155,7 +254,7 @@ const ConfirmCheckout = ({
 					}}
 				>
 					<Typography variant='h3'>Payment details</Typography>
-					{checkout.paymentDetail.type === 'card' ? (
+					{UserSlice.paymentInfor?.paymentMethod === 'card' ? (
 						<>
 							<Box
 								sx={{
@@ -171,7 +270,23 @@ const ConfirmCheckout = ({
 							</Box>
 						</>
 					) : (
-						<Typography variant='h6'>Payment when recieve</Typography>
+						<Box
+							sx={{
+								display: 'flex',
+								flexDirection: 'row',
+								alignItems: 'center'
+							}}
+						>
+							<Typography variant='h6'>Payment when recieve</Typography>
+							<ImageItem
+								imgSrc='https://cdn-icons-png.flaticon.com/128/1570/1570917.png'
+								width='32px'
+								height='32px'
+								style={{
+									marginLeft: '12px'
+								}}
+							/>
+						</Box>
 					)}
 				</Box>
 			</Box>

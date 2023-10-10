@@ -177,4 +177,28 @@ export class ApiService {
 			'Content-Type': 'application/json'
 		}
 	})
+
+	getVoucherByVoucherCode = configApi({
+		path: 'v1/vouchers',
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
+
+	getAllVoucherOfUser = configApi({
+		path: 'v1/vouchers/user',
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
+
+	createOrder = configApi({
+		path: 'v1/orders/create',
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
 }

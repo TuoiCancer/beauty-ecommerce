@@ -56,7 +56,7 @@ const ShopPageDetail = () => {
 
 	const { data: listVoucher, refetch: getListVoucher } = useGetListVoucher({
 		shopId: idShop,
-		userId: UserSlice.user.id
+		userId: UserSlice.user?.id
 	})
 
 	useEffect(() => {

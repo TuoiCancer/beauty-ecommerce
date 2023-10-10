@@ -6,13 +6,12 @@ import {
 	MenuItem,
 	Select,
 	SelectChangeEvent,
-	Typography,
-	ButtonGroup
+	Typography
 } from '@mui/material'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 import BaseButton from '../base/BaseButton'
-
+import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp'
 const Title = ({ title }: { title: string }) => {
 	return (
 		<Typography
@@ -20,7 +19,7 @@ const Title = ({ title }: { title: string }) => {
 			className={ibarra.className}
 			sx={{
 				color: '#121212',
-				fontSize: { xs: '24px', lg: '32px' },
+				fontSize: { xs: '20px', lg: '28px' },
 				fontWeight: 700,
 				lineHeight: '125.5%',
 				paddingBottom: { md: '18px', lg: '32px' }
@@ -44,7 +43,9 @@ const SidebarProduct = ({
 	getProductByPage,
 	setPage,
 	filterOptions,
-	setFilterOptions
+	setFilterOptions,
+	orderBy,
+	setOrderBy
 }: any) => {
 	const router = useRouter()
 	const handleChange = (event: SelectChangeEvent) => {
@@ -60,21 +61,16 @@ const SidebarProduct = ({
 			sort: sorting,
 			search_key: searchKey,
 			product_category: category,
+			order: orderBy,
 			product_shop: brand
 		})
 		setFilterOptions({
 			searchKey: searchKey,
 			category: category,
 			brand: brand,
-			sort: sorting
+			sort: sorting,
+			orderBy: orderBy
 		})
-		// router.push({
-		// 	pathname: '/user/product',
-		// 	query: {
-		// 		shopName: brand,
-		// 		category: category
-		// 	}
-		// })
 	}
 
 	return (
@@ -92,21 +88,48 @@ const SidebarProduct = ({
 		>
 			<Box>
 				<Title title='Sorting' />
-				<Select
-					id='demo-simple-select'
-					value={sorting}
-					onChange={handleChange}
+				<Box
 					sx={{
-						padding: { xs: '12px', lg: '12px 24px' },
-						margin: { xs: '12px 0' },
-						'& .MuiSelect-select': {
-							padding: 0
-						}
+						display: 'flex',
+						alignItems: 'center'
 					}}
 				>
-					<MenuItem value={'createdAt'}>Created At</MenuItem>
-					<MenuItem value={'price'}>Price</MenuItem>
-				</Select>
+					<Select
+						id='demo-simple-select'
+						value={sorting}
+						onChange={handleChange}
+						sx={{
+							padding: { xs: '12px', lg: '12px 0 12px 0' },
+							'& .MuiSelect-select': {
+								padding: 0
+							},
+							'& fieldset': {
+								border: 'none'
+							}
+						}}
+					>
+						<MenuItem value={'createdAt'}>Created At</MenuItem>
+						<MenuItem value={'price'}>Price</MenuItem>
+					</Select>
+					<Box
+						onClick={() => {
+							if (orderBy === 'ASC') {
+								setOrderBy('DESC')
+							} else {
+								setOrderBy('ASC')
+							}
+						}}
+					>
+						<ArrowCircleUpIcon
+							sx={{
+								fontSize: '30px',
+								color: '#78bf40',
+								cursor: 'pointer',
+								transform: orderBy === 'ASC' ? 'rotate(0deg)' : 'rotate(180deg)'
+							}}
+						/>
+					</Box>
+				</Box>
 			</Box>
 			<Box
 				sx={{

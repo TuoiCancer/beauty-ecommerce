@@ -22,17 +22,18 @@ const ProductPage = () => {
 	const [page, setPage] = React.useState(1)
 	const [rowPerPage, setRowPerPage] = React.useState(12)
 	const [sorting, setSorting] = React.useState('createdAt')
+	const [orderBy, setOrderBy] = React.useState('ASC')
 	const [brand, setBrand] = React.useState(search || 'All')
 	const [category, setCategory] = React.useState(categoryPath || 'All')
 	const [searchKey, setSearchKey] = React.useState('')
-
 	const [listProduct, setListProduct] = React.useState<any>([])
 
 	const [filterOptions, setFilterOptions] = React.useState<IFilterOption>({
 		searchKey: '',
 		brand: 'All',
 		category: 'All',
-		sort: 'createdAt'
+		sort: 'createdAt',
+		order: 'ASC'
 	})
 
 	const [paginationMeta, setPaginationMeta] = React.useState({
@@ -56,6 +57,7 @@ const ProductPage = () => {
 				page: 1,
 				limit: rowPerPage,
 				sort: filterOptions.sort,
+				order: orderBy,
 				product_shop: filterOptions.brand,
 				product_category: filterOptions.category,
 				search_key: filterOptions.searchKey
@@ -331,6 +333,8 @@ const ProductPage = () => {
 						getProductByPage={getProductByPage}
 						setFilterOptions={setFilterOptions}
 						filterOptions={filterOptions}
+						orderBy={orderBy}
+						setOrderBy={setOrderBy}
 					/>
 					{/* List Product */}
 					<Box

@@ -21,7 +21,7 @@ export const useAddToCart = () => {
 			onError: (error: any) => {
 				updateStore((state: IStore) => {
 					state.UserSlice.isError = true
-					state.UserSlice.errorMess = error.message
+					state.UserSlice.errorMess = error.response.data.message
 				})
 			}
 		}
@@ -32,11 +32,10 @@ export const useAddToCart = () => {
  * @param payload userId: string
  * @returns cart_count, cart_status
  */
-export const useGetCartByUserId = (payload: any) => {
+export const useGetCartByUserId = () => {
 	const getCartByUserIdService = ApiService.createInstance()
-	return useQuery(
-		['getCartByUserId', payload],
-		() => {
+	return useMutation(
+		(payload: any) => {
 			return getCartByUserIdService.getCartByUserId({
 				queryParams: payload
 			})
@@ -47,7 +46,12 @@ export const useGetCartByUserId = (payload: any) => {
 					state.UserSlice.totalProductInCart = data.cart_count_product
 				})
 			},
-			onError: (error: any) => {}
+			onError: (error: any) => {
+				updateStore((state: IStore) => {
+					state.UserSlice.isError = true
+					state.UserSlice.errorMess = error.response.data.message
+				})
+			}
 		}
 	)
 }

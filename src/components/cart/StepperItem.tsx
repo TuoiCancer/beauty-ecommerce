@@ -30,7 +30,15 @@ const steps = [
 	}
 ]
 
-const StepperItem = ({ handleClose, productSelected }: any) => {
+const StepperItem = ({
+	handleClose,
+	productSelected,
+	voucherShipping,
+	voucherDiscount,
+	createOrderFn,
+	voucherFreeShipId,
+	voucherDiscountId
+}: any) => {
 	const [activeStep, setActiveStep] = React.useState(0)
 
 	const handleBack = () => {
@@ -99,6 +107,11 @@ const StepperItem = ({ handleClose, productSelected }: any) => {
 										setActiveStep={setActiveStep}
 										productSelected={productSelected}
 										handleClose={handleClose}
+										voucherShipping={voucherShipping}
+										voucherDiscount={voucherDiscount}
+										createOrderFn={createOrderFn}
+										voucherFreeShipId={voucherFreeShipId}
+										voucherDiscountId={voucherDiscountId}
 									/>
 								)
 							}

@@ -18,6 +18,7 @@ import { useStore } from '@/store'
 import Loading from '@/app/loading'
 import { useGetProductByPage } from '@/service/react-query/product.query'
 import { ProductInterface } from '@/utils/product.interface'
+import { useGetCartByUserId } from '@/service/react-query/cart.query'
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews)
 
@@ -91,7 +92,7 @@ export default function Home() {
 	}
 
 	useEffect(() => {
-		getProductByPage({ page: 1, limit: 4 })
+		getProductByPage({ page: 1, limit: 4, order: 'ASC' })
 	}, [])
 
 	if (gettingProducts) return <Loading />

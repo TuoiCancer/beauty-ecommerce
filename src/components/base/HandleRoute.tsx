@@ -5,24 +5,30 @@ import { useRefreshToken } from '@/service/react-query/user.query'
 import { useGetCartByUserId } from '@/service/react-query/cart.query'
 const HandleRoute = ({ children }: { children: React.ReactNode }) => {
 	const { UserSlice, AuthSlice } = useStore()
-	const { refetch: getCartByUserId } = useGetCartByUserId({
-		userId: UserSlice.user?.id
-	})
 
 	const { mutate: refreshToken } = useRefreshToken()
+
+	const { mutate: getCartByUserId } = useGetCartByUserId()
+
 	useEffect(() => {
 		const data = localStorage.getItem('data')
 		const isRemember = localStorage.getItem('rememberPassword') === 'true'
 
 		if (!data) {
-			if (!isRemember) {
-				UserSlice.setTotalProductInCart(0)
-				UserSlice.setIsLoggedIn(false)
-				UserSlice.setIsReloadPage(true)
-				// set token to null
-				AuthSlice.setAccessToken(null)
-				AuthSlice.setRefreshToken(null)
-			}
+			UserSlice.setTotalProductInCart(0)
+			UserSlice.setIsLoggedIn(false)
+			UserSlice.setIsReloadPage(true)
+			// set token to null
+			AuthSlice.setAccessToken(null)
+			AuthSlice.setRefreshToken(null)
+			// if (!isRemember) {
+			// 	UserSlice.setTotalProductInCart(0)
+			// 	UserSlice.setIsLoggedIn(false)
+			// 	UserSlice.setIsReloadPage(true)
+			// 	// set token to null
+			// 	AuthSlice.setAccessToken(null)
+			// 	AuthSlice.setRefreshToken(null)
+			// }
 		} else {
 			// check token is expired or not
 			const { maxAge } = JSON.parse(data)?.token
@@ -43,6 +49,14 @@ const HandleRoute = ({ children }: { children: React.ReactNode }) => {
 			}
 		}
 	}, [])
+
+	useEffect(() => {
+		if (UserSlice.user) {
+			getCartByUserId({
+				userId: UserSlice.user?.id
+			})
+		}
+	}, [UserSlice.user])
 
 	useEffect(() => {
 		if (UserSlice.isReloadPage) {
