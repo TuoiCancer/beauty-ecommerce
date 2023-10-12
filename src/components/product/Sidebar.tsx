@@ -12,6 +12,7 @@ import { useRouter } from 'next/navigation'
 import React from 'react'
 import BaseButton from '../base/BaseButton'
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp'
+import { useStore } from '@/store'
 const Title = ({ title }: { title: string }) => {
 	return (
 		<Typography
@@ -48,6 +49,7 @@ const SidebarProduct = ({
 	setOrderBy
 }: any) => {
 	const router = useRouter()
+	const { UserSlice } = useStore()
 	const handleChange = (event: SelectChangeEvent) => {
 		setSorting(event.target.value as string)
 	}
@@ -62,7 +64,8 @@ const SidebarProduct = ({
 			search_key: searchKey,
 			product_category: category,
 			order: orderBy,
-			product_shop: brand
+			product_shop: brand,
+			user_id: UserSlice.user?.id
 		})
 		setFilterOptions({
 			searchKey: searchKey,

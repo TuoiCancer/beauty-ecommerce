@@ -37,7 +37,9 @@ const StepperItem = ({
 	voucherDiscount,
 	createOrderFn,
 	voucherFreeShipId,
-	voucherDiscountId
+	voucherDiscountId,
+	isApplyVoucher,
+	isApplyVoucherShipping
 }: any) => {
 	const [activeStep, setActiveStep] = React.useState(0)
 
@@ -112,6 +114,8 @@ const StepperItem = ({
 										createOrderFn={createOrderFn}
 										voucherFreeShipId={voucherFreeShipId}
 										voucherDiscountId={voucherDiscountId}
+										isApplyVoucher={isApplyVoucher}
+										isApplyVoucherShipping={isApplyVoucherShipping}
 									/>
 								)
 							}

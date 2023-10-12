@@ -11,6 +11,7 @@ interface querySearchProduct {
 	product_shop?: string
 	product_category?: string
 	search_key?: string
+	user_id: string
 }
 
 type similarProductPayload = {
@@ -46,11 +47,13 @@ export const useGetProductByPage = () => {
 				sort,
 				product_category,
 				search_key,
-				order
+				order,
+				user_id
 			} = payload
 			const filter: querySearchProduct = {
 				page,
 				limit,
+				user_id,
 				order,
 				...(search_key && { search_key }),
 				...(product_category &&
@@ -123,5 +126,19 @@ export const useGetSimilarProduct = (payload: similarProductPayload) => {
 		// 		})
 		// 	}
 		// }
+	)
+}
+
+export const useGetBestSellerProduct = () => {
+	const getBestSellerProductService = ApiService.createInstance()
+	return useQuery(
+		['Get best seller product'],
+		() => {
+			return getBestSellerProductService.getTopBestSeller({})
+		},
+		{
+			onSuccess: (data: any) => {},
+			onError: (error: any) => {}
+		}
 	)
 }

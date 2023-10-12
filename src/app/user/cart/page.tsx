@@ -4,7 +4,9 @@ import { poppins, roboto } from '@/assets/font'
 import BaseButton from '@/components/base/BaseButton'
 import ImageItem from '@/components/base/ImageItem'
 import CartItem from '@/components/cart/CartItem'
+import SelectVoucherModal from '@/components/cart/SelectVoucherModal'
 import StepperItem from '@/components/cart/StepperItem'
+import Lefticon from '@/components/icon/Lefticon'
 import { formatCurrency, getPriceFormat } from '@/helper'
 import {
 	useDeleteCartUser,
@@ -55,11 +57,16 @@ const CartPage = () => {
 	const [voucherFreeShipId, setVoucherFreeShipId] = useState('')
 	const [voucherDiscountId, setVoucherDiscountId] = useState('')
 
+	const [isApplyVoucher, setIsApplyVoucher] = useState(true)
+	const [isApplyVoucherShipping, setIsApplyVoucherShipping] = useState(true)
+
 	const [subTotal, setSubTotal] = useState(0)
 
 	const [productSelected, setProductSelected] = useState<any[]>([]) // danh sách id của các sản phẩm trong từng shop được chọn sẽ được push vào
 
 	const [listCheckout, setListCheckout] = useState<any[]>([]) // giống với productSelected nhưng chứa thông tin của product và của shop -> dùng để hiển thị trong component Confirm Checkout
+
+	const [openPopup, setOpenPopup] = useState(false)
 
 	const handleOpen = () => {
 		if (!productSelected.length) {
@@ -248,6 +255,10 @@ const CartPage = () => {
 		}
 	]
 
+	const handleSelectVoucher = () => {
+		setOpenPopup(true)
+	}
+
 	// loading progess
 	return (
 		<Box
@@ -400,7 +411,7 @@ const CartPage = () => {
 					/>
 				</Box>
 				<Box>
-					{voucherShipping !== 0 && (
+					{isApplyVoucherShipping && voucherShipping !== 0 && (
 						<Box
 							sx={{
 								display: 'flex',
@@ -437,10 +448,18 @@ const CartPage = () => {
 							>
 								{`-${formatCurrency(voucherShipping)}`}
 							</Typography>
+							<Lefticon
+								width='12px'
+								height='12px'
+								sx={{
+									cursor: 'pointer'
+								}}
+								onClick={handleSelectVoucher}
+							/>
 						</Box>
 					)}
 
-					{voucherDiscount !== 0 && (
+					{isApplyVoucher && voucherDiscount !== 0 && (
 						<Box
 							sx={{
 								display: 'flex',
@@ -467,11 +486,19 @@ const CartPage = () => {
 									color: '#575757',
 									fontFamily: 'Poppins',
 									fontSize: { xs: '16px', md: '20px' },
-									marginLeft: '12px'
+									margin: '0 12px'
 								}}
 							>
 								{`-${formatCurrency(voucherDiscount)}`}
 							</Typography>
+							<Lefticon
+								width='12px'
+								height='12px'
+								sx={{
+									cursor: 'pointer'
+								}}
+								onClick={handleSelectVoucher}
+							/>
 						</Box>
 					)}
 					<Box
@@ -481,6 +508,7 @@ const CartPage = () => {
 							alignItems: 'center',
 							justifyContent: 'space-between',
 							whiteSpace: 'nowrap',
+							mt: '12px',
 							'& h5': {
 								color: '#000',
 								fontSize: { xs: '16px', md: '20px', xl: '22px' },
@@ -514,7 +542,9 @@ const CartPage = () => {
 								marginLeft: { xs: '12px', md: '12px' }
 							}}
 						>
-							{formatCurrency(subTotal - voucherDiscount)}
+							{isApplyVoucher
+								? formatCurrency(subTotal - voucherDiscount)
+								: formatCurrency(subTotal)}
 						</Typography>
 					</Box>
 				</Box>
@@ -569,8 +599,26 @@ const CartPage = () => {
 						createOrderFn={createOrderFn}
 						voucherFreeShipId={voucherFreeShipId}
 						voucherDiscountId={voucherDiscountId}
+						isApplyVoucher={isApplyVoucher}
+						isApplyVoucherShipping={isApplyVoucherShipping}
 					/>
 				</Box>
+			</Modal>
+			<Modal
+				open={openPopup}
+				onClose={() => {
+					setOpenPopup(false)
+				}}
+			>
+				<SelectVoucherModal
+					listVoucherCollectedByUser={listVoucherCollectedByUser}
+					voucherCodeFound={voucherCodeFound}
+					subTotal={subTotal}
+					isApplyVoucher={isApplyVoucher}
+					setIsApplyVoucher={setIsApplyVoucher}
+					isApplyVoucherShipping={isApplyVoucherShipping}
+					setIsApplyVoucherShipping={setIsApplyVoucherShipping}
+				/>
 			</Modal>
 			{/* {isLoading && <ProgressLoading />} */}
 		</Box>

@@ -5,6 +5,8 @@ const ProgressLoading = () => {
 	return (
 		<Box
 			sx={{
+				width: '100%',
+				height: '100%',
 				'& span': {
 					color: 'var(--main-green)',
 					position: 'fixed',

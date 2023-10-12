@@ -1,5 +1,5 @@
 import { IStore, updateStore } from '@/store'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { ApiService } from '../api/ApiClient'
 
 export const useCreateOrder = () => {
@@ -20,4 +20,15 @@ export const useCreateOrder = () => {
 			}
 		}
 	)
+}
+
+export const useGetAllOrder = (payload: any) => {
+	const getAllOrderService = ApiService.createInstance()
+	return useQuery(['getAllOrder', payload], () => {
+		return getAllOrderService.getAllOrderOfUser({
+			pathParams: {
+				userId: payload.userId
+			}
+		})
+	})
 }

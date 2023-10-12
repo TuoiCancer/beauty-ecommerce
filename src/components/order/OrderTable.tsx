@@ -8,15 +8,16 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 
-import { listOrder } from '@/constants'
 import RowItem from './RowItem'
 import { toast } from 'react-toastify'
+import { OrderInterface } from '@/utils/order.interface'
 
-export default function OrderTable() {
+export default function OrderTable({
+	listOrder
+}: {
+	listOrder: OrderInterface[]
+}) {
 	const [anchorEl, setAnchorEl] = React.useState(null)
-	const [openColaspe, setOpenColapse] = React.useState(false)
-
-	const openPopover = Boolean(anchorEl)
 
 	const handleClick = (event: any) => {
 		setAnchorEl(event.currentTarget)
@@ -76,8 +77,6 @@ export default function OrderTable() {
 							handleClick={handleClick}
 							handleClose={handleClose}
 							handleCancelOrder={handleCancelOrder}
-							openColaspe={openColaspe}
-							setOpenColapse={setOpenColapse}
 							anchorEl={anchorEl}
 						/>
 					))}

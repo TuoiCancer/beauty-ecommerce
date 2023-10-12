@@ -16,4 +16,5 @@ export interface ProductInterface {
 	product_name: string
 	product_description: string
 	user: UserInterface
+	quantityToBuy: number
 }

@@ -54,6 +54,7 @@ const CartHeader = ({
 			icon: <LocalMallIcon />,
 			// href: '/user/order', // for both admin and user
 			text: 'Order',
+			href: '/user/order',
 			onClick: handleClick
 		},
 		{
@@ -61,14 +62,14 @@ const CartHeader = ({
 			icon: <LogoutIcon />,
 			text: 'Logout',
 			onClick: handleLogout
-		},
-		{
-			id: '4',
-			icon: <LogoutIcon />,
-			href: '/user/product/create',
-			text: 'create',
-			onClick: handleClick
 		}
+		// {
+		// 	id: '4',
+		// 	icon: <LogoutIcon />,
+		// 	href: '/user/product/create',
+		// 	text: 'create',
+		// 	onClick: handleClick
+		// }
 	]
 
 	// if (isLoading) return <Loading />
