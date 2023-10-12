@@ -65,7 +65,8 @@ const ShopPageDetail = () => {
 			page: 1,
 			limit: 10,
 			sort: 'createdAt',
-			product_shop: shopName
+			product_shop: shopName,
+			user_id: UserSlice.user?.id
 		})
 		getListVoucher()
 	}, [pathname])

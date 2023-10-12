@@ -1,8 +1,18 @@
+'use client'
+import Loading from '@/app/loading'
 import OrderTable from '@/components/order/OrderTable'
+import { useGetAllOrder } from '@/service/react-query/order.query'
+import { useStore } from '@/store'
 import { Box, Typography } from '@mui/material'
 import React from 'react'
 
 const OrderPage = () => {
+	const { UserSlice } = useStore()
+
+	const { data: listOrder, isLoading } = useGetAllOrder({
+		userId: UserSlice.user?.id
+	})
+	if (isLoading) return <Loading />
 	return (
 		<Box
 			sx={{
@@ -17,7 +27,8 @@ const OrderPage = () => {
 				margin: '0 auto'
 			}}
 		>
-			<OrderTable />
+			<Typography>Orders</Typography>
+			<OrderTable listOrder={listOrder.data} />
 		</Box>
 	)
 }

@@ -3,11 +3,13 @@ import React from 'react'
 const Lefticon = ({
 	sx,
 	width,
-	height
+	height,
+	onClick
 }: {
 	sx?: any
 	width?: string
 	height?: string
+	onClick?: any
 }) => {
 	return (
 		<svg
@@ -16,6 +18,7 @@ const Lefticon = ({
 			viewBox='0 0 13 26'
 			fill='none'
 			style={sx}
+			onClick={onClick}
 			xmlns='http://www.w3.org/2000/svg'
 		>
 			<path

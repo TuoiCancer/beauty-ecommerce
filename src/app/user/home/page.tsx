@@ -16,7 +16,10 @@ import { autoPlay } from 'react-swipeable-views-utils'
 import { useRouter } from 'next/navigation'
 import { useStore } from '@/store'
 import Loading from '@/app/loading'
-import { useGetProductByPage } from '@/service/react-query/product.query'
+import {
+	useGetBestSellerProduct,
+	useGetProductByPage
+} from '@/service/react-query/product.query'
 import { ProductInterface } from '@/utils/product.interface'
 import { useGetCartByUserId } from '@/service/react-query/cart.query'
 
@@ -71,13 +74,15 @@ export default function Home() {
 	const [activeStep, setActiveStep] = useState(0)
 
 	const route = useRouter()
-	const { UserSlice } = useStore()
-
 	const {
 		isLoading: gettingProducts,
-		mutate: getProductByPage,
-		data: dataGetListProduct
-	} = useGetProductByPage()
+		data: dataGetListProduct,
+		refetch
+	} = useGetBestSellerProduct()
+
+	useEffect(() => {
+		refetch()
+	}, [])
 
 	const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorElNav(event.currentTarget)
@@ -90,10 +95,6 @@ export default function Home() {
 	const handleStepChange = (step: number) => {
 		setActiveStep(step)
 	}
-
-	useEffect(() => {
-		getProductByPage({ page: 1, limit: 4, order: 'ASC' })
-	}, [])
 
 	if (gettingProducts) return <Loading />
 	return (
@@ -518,12 +519,10 @@ export default function Home() {
 						}
 					}}
 				>
-					{dataGetListProduct?.result[0]?.data &&
-						dataGetListProduct?.result[0]?.data
-							.slice(0, 4)
-							.map((item: ProductInterface) => {
-								return <TopProductItem key={item.id} item={item} />
-							})}
+					{dataGetListProduct &&
+						dataGetListProduct.map((item: ProductInterface) => {
+							return <TopProductItem key={item.id} item={item} />
+						})}
 				</Box>
 			</Box>
 			{/* Review */}

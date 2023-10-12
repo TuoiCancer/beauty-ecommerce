@@ -2,12 +2,14 @@
 
 import { ibarra } from '@/assets/font'
 import ImageItem from '@/components/base/ImageItem'
+import ProgressLoading from '@/components/base/ProgressLoading'
 import PaginationItem from '@/components/product/Pagination'
 import ProductSearchWrapper from '@/components/product/ProductSearchWrapper'
 import SidebarProduct from '@/components/product/Sidebar'
 import ProductItem from '@/components/shop/ProductItem'
 import { useAddToCart } from '@/service/react-query/cart.query'
 import { useGetProductByPage } from '@/service/react-query/product.query'
+import { useStore } from '@/store'
 import { IFilterOption } from '@/utils/filterOption.interface'
 import { Box, TextField, Typography } from '@mui/material'
 import { usePathname, useSearchParams } from 'next/navigation'
@@ -18,6 +20,8 @@ const ProductPage = () => {
 	const searchParams = useSearchParams()
 	const search = searchParams.get('shopName')
 	const categoryPath = searchParams.get('category')
+
+	const { UserSlice } = useStore()
 
 	const [page, setPage] = React.useState(1)
 	const [rowPerPage, setRowPerPage] = React.useState(12)
@@ -60,6 +64,7 @@ const ProductPage = () => {
 				order: orderBy,
 				product_shop: filterOptions.brand,
 				product_category: filterOptions.category,
+				user_id: UserSlice.user?.id,
 				search_key: filterOptions.searchKey
 			})
 		}
@@ -67,7 +72,7 @@ const ProductPage = () => {
 
 	useEffect(() => {
 		if (dataGetListProduct !== undefined) {
-			if (dataGetListProduct.result.length === 0) {
+			if (dataGetListProduct?.result?.length === 0) {
 				setListProduct([])
 				setPaginationMeta({
 					pageCount: 0,
@@ -80,7 +85,7 @@ const ProductPage = () => {
 			setPaginationMeta(dataGetListProduct.pageMetaDto)
 
 			const oldData = listProduct || []
-			const newData = [...dataGetListProduct.result, ...oldData]
+			const newData = [...dataGetListProduct?.result, ...oldData]
 
 			const dataFilter = newData.filter((item, index) => {
 				return newData.findIndex(item2 => item2.page === item.page) === index
@@ -104,7 +109,9 @@ const ProductPage = () => {
 					sort: filterOptions.sort,
 					product_shop: filterOptions.brand,
 					product_category: filterOptions.category,
-					search_key: filterOptions.searchKey
+					search_key: filterOptions.searchKey,
+					user_id: UserSlice.user?.id,
+					order: orderBy
 				})
 			} else {
 				// load 5 page previous current page
@@ -119,7 +126,9 @@ const ProductPage = () => {
 						sort: filterOptions.sort,
 						product_shop: filterOptions.brand,
 						product_category: filterOptions.category,
-						search_key: filterOptions.searchKey
+						search_key: filterOptions.searchKey,
+						user_id: UserSlice.user?.id,
+						order: orderBy
 					})
 				}
 
@@ -128,12 +137,14 @@ const ProductPage = () => {
 				const isExsitEnd = listProduct.find((item: any) => item.page === end)
 				if (!isExsitEnd && page % 5 === 0 && end <= paginationMeta.pageCount) {
 					getProductByPage({
-						page: page,
+						page: page + 1,
 						limit: rowPerPage,
 						sort: filterOptions.sort,
 						product_shop: filterOptions.brand,
 						product_category: filterOptions.category,
-						search_key: filterOptions.searchKey
+						search_key: filterOptions.searchKey,
+						user_id: UserSlice.user?.id,
+						order: orderBy
 					})
 				}
 
@@ -152,7 +163,9 @@ const ProductPage = () => {
 						sort: filterOptions.sort,
 						product_shop: filterOptions.brand,
 						product_category: filterOptions.category,
-						search_key: filterOptions.searchKey
+						search_key: filterOptions.searchKey,
+						user_id: UserSlice.user?.id,
+						order: orderBy
 					})
 				}
 			}
@@ -238,7 +251,8 @@ const ProductPage = () => {
 									sort: filterOptions.sort,
 									product_shop: filterOptions.brand,
 									product_category: filterOptions.category,
-									search_key: searchKey
+									search_key: searchKey,
+									user_id: UserSlice.user?.id
 								})
 								setFilterOptions({
 									...filterOptions,
@@ -272,7 +286,8 @@ const ProductPage = () => {
 								sort: filterOptions.sort,
 								product_shop: filterOptions.brand,
 								product_category: filterOptions.category,
-								search_key: searchKey
+								search_key: searchKey,
+								user_id: UserSlice.user?.id
 							})
 							setFilterOptions({
 								...filterOptions,
@@ -370,6 +385,7 @@ const ProductPage = () => {
 								Empty product
 							</Typography>
 						)}
+						{gettingProducts && <ProgressLoading />}
 					</Box>
 				</Box>
 				{/* Pagination */}

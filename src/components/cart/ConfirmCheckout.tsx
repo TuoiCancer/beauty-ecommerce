@@ -22,7 +22,9 @@ const ConfirmCheckout = ({
 	voucherDiscount,
 	createOrderFn,
 	voucherFreeShipId,
-	voucherDiscountId
+	voucherDiscountId,
+	isApplyVoucher,
+	isApplyVoucherShipping
 }: any) => {
 	const { UserSlice } = useStore()
 
@@ -47,8 +49,12 @@ const ConfirmCheckout = ({
 		productSelected.reduce((acc: any, item: any) => {
 			return acc + +getPriceFormat(item.product_price) * item.quantityToBuy
 		}, 0) -
-		voucherDiscount +
-		(15000 - voucherShipping > 0 ? 15000 - voucherShipping : 0)
+		(isApplyVoucher ? voucherDiscount : 0) +
+		(isApplyVoucherShipping
+			? 15000 - voucherShipping > 0
+				? 15000 - voucherShipping
+				: 0
+			: 15000)
 
 	const handleNext = () => {
 		createOrderFn({
@@ -57,9 +63,11 @@ const ConfirmCheckout = ({
 			orderShipping: UserSlice.shippingInfor,
 			orderPayment: UserSlice.paymentInfor,
 			orderCheckout: {
-				totalPrice: totalProductPrice
-				// voucherFreeShipId,
-				// voucherId: voucherDiscountId
+				totalPrice: totalProductPrice,
+				...(isApplyVoucher && {
+					voucherId: voucherDiscountId
+				}),
+				...(isApplyVoucherShipping && { voucherFreeShipId })
 			}
 		})
 		handleClose()
@@ -130,9 +138,11 @@ const ConfirmCheckout = ({
 				>
 					<Typography variant='h3'>Shipping</Typography>
 					<Typography variant='h4'>
-						{formatCurrencyV2(
-							15000 - voucherShipping > 0 ? 15000 - voucherShipping : 0
-						)}
+						{isApplyVoucherShipping
+							? formatCurrencyV2(
+									15000 - voucherShipping > 0 ? 15000 - voucherShipping : 0
+							  )
+							: formatCurrencyV2(15000)}
 					</Typography>
 				</Box>
 				<Box
@@ -144,9 +154,9 @@ const ConfirmCheckout = ({
 					}}
 				>
 					<Typography variant='h3'>Voucher</Typography>
-					<Typography variant='h4'>{`-${formatCurrency(
-						voucherDiscount
-					)}`}</Typography>
+					<Typography variant='h4'>
+						{isApplyVoucher ? `-${formatCurrency(voucherDiscount)}` : 0}
+					</Typography>
 				</Box>
 				<Box
 					sx={{

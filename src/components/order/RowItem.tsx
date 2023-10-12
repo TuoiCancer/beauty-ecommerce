@@ -11,21 +11,28 @@ import TableCell from '@mui/material/TableCell'
 import IconButton from '@mui/material/IconButton'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
-import { formatDate } from '@/helper'
+import { formatCurrency, formatCurrencyV2, formatDate } from '@/helper'
 import ImageItem from '../base/ImageItem'
 import BaseButton from '../base/BaseButton'
 
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
+import { OrderInterface } from '@/utils/order.interface'
+import { ProductInterface } from '@/utils/product.interface'
 
 const RowItem = ({
 	row,
 	handleClose,
 	handleCancelOrder,
 	handleClick,
-	openColaspe,
-	setOpenColapse,
 	anchorEl
-}: any) => {
+}: {
+	row: OrderInterface
+	handleClose: () => void
+	handleCancelOrder: () => void
+	handleClick: (event: any) => void
+	anchorEl: any
+}) => {
+	const [openColaspe, setOpenColapse] = React.useState(false)
 	return (
 		<React.Fragment>
 			<TableRow
@@ -37,7 +44,8 @@ const RowItem = ({
 						fontFamily: 'Montserrat',
 						fontSize: '14px',
 						whiteSpace: 'nowrap',
-						py: '20px'
+						py: '20px',
+						fontWeight: '500'
 					}
 				}}
 			>
@@ -55,8 +63,18 @@ const RowItem = ({
 				</TableCell>
 				<TableCell align='left'>{formatDate(row.createdAt)}</TableCell>
 				<TableCell align='left'>{formatDate(row.createdAt)}</TableCell>
-				<TableCell align='left'>{row.order_shipping.address}</TableCell>
-				<TableCell align='left'>{row.order_checkout.totalPrice}</TableCell>
+				<TableCell align='left'>
+					{`${row.order_shipping.address} - ${row.order_shipping.district} - ${row.order_shipping.city}`
+						.length < 50
+						? `${row.order_shipping.address} - ${row.order_shipping.district} - ${row.order_shipping.city}`
+						: ` ${`${row.order_shipping.address} - ${row.order_shipping.district} - ${row.order_shipping.city}`.slice(
+								0,
+								50
+						  )}...`}
+				</TableCell>
+				<TableCell align='left'>
+					{formatCurrencyV2(row.order_checkout.totalPrice)}
+				</TableCell>
 				<TableCell align='left'>
 					<Typography
 						sx={{
@@ -97,33 +115,53 @@ const RowItem = ({
 								vertical: 'bottom',
 								horizontal: 'left'
 							}}
+							sx={{
+								'& .MuiPopover-paper': {
+									boxShadow: '0px 4px 16px rgba(0, 0, 0, 0.1)'
+								}
+							}}
 						>
 							<Box
 								sx={{
-									padding: '16px 20px 8px 20px',
-									color: 'var(--main-green)'
+									padding: '16px 20px 8px 20px'
+									// color: 'var(--main-green)'
 								}}
 							>
-								<Typography>Are you sure to cancel this order</Typography>
+								<Typography
+									sx={{
+										fontFamily: 'Montserrat',
+										fontSize: '14px'
+									}}
+								>
+									Are you sure to cancel this order
+								</Typography>
 								<Box
 									sx={{
 										marginTop: '12px',
 										display: 'flex',
-										justifyContent: 'flex-end',
-										'& > button': {
-											color: 'var(--main-green)'
-										}
+										justifyContent: 'flex-end'
 									}}
 								>
 									<BaseButton
 										onClick={handleClose}
 										label='Cancel'
 										variant='text'
+										styleSx={{
+											color: '#ccc',
+											fontFamily: 'Montserrat',
+											fontSize: '12px'
+										}}
 									/>
 									<BaseButton
 										onClick={handleCancelOrder}
 										label='OK'
 										variant='text'
+										styleSx={{
+											color: 'var(--main-green)',
+											fontFamily: 'Montserrat',
+											fontSize: '14px',
+											fontWeight: '600'
+										}}
 									/>
 								</Box>
 							</Box>
@@ -167,67 +205,76 @@ const RowItem = ({
 										overflowY: 'scroll'
 									}}
 								>
-									{row.order_products.map((product: any, index: number) => (
-										<TableRow
-											key={product.createdAt}
-											sx={{
-												'& .MuiTableCell-root': {
-													fontFamily: 'Montserrat',
-													fontSize: '14px',
-													margin: '0',
-													whiteSpace: 'nowrap',
-													padding: '12px 0'
-												}
-											}}
-										>
-											<TableCell component='th' scope='row' align='center'>
-												{index + 1}
-											</TableCell>
-											<TableCell>
-												<ImageItem
-													imgSrc={product.thumbnail}
-													style={{
-														width: '60px',
-														height: '60px'
-													}}
-												/>
-											</TableCell>
-
-											<TableCell align='left'>
-												<Typography
-													sx={{
+									{row.products.map(
+										(product: ProductInterface, index: number) => (
+											<TableRow
+												key={product.createdAt}
+												sx={{
+													'& .MuiTableCell-root': {
 														fontFamily: 'Montserrat',
-														margin: '8px',
-														display: '-webkit-box',
-														WebkitLineClamp: 2,
-														WebkitBoxOrient: 'vertical',
-														overflow: 'hidden',
 														fontSize: '14px',
-														whiteSpace: 'normal'
-													}}
-												>
-													{product.name}
-												</Typography>
-											</TableCell>
-											<TableCell align='center'>
-												{product.order_shop.shopName}
-											</TableCell>
-											<TableCell align='center'>{product.quantity}</TableCell>
-											<TableCell align='center'>{product.price}</TableCell>
-											<TableCell align='center'>
-												{Math.round(product.quantity * product.price * 100) /
-													100}
-											</TableCell>
-											<TableCell align='center'>
-												<MoreHorizIcon
-													sx={{
-														cursor: 'pointer',
-														color: '#000'
-													}}
-												/>
-											</TableCell>
-										</TableRow>
-									))}
+														margin: '0',
+														whiteSpace: 'nowrap',
+														padding: '12px 0',
+														fontWeight: '500'
+													}
+												}}
+											>
+												<TableCell component='th' scope='row' align='center'>
+													{index + 1}
+												</TableCell>
+												<TableCell>
+													<ImageItem
+														imgSrc={product.product_thumbnail}
+														style={{
+															width: '60px',
+															height: '60px'
+														}}
+													/>
+												</TableCell>
+
+												<TableCell align='left'>
+													<Typography
+														sx={{
+															fontFamily: 'Montserrat',
+															margin: '8px',
+															display: '-webkit-box',
+															WebkitLineClamp: 2,
+															WebkitBoxOrient: 'vertical',
+															overflow: 'hidden',
+															fontSize: '14px',
+															whiteSpace: 'normal',
+															fontWeight: '500'
+														}}
+													>
+														{product.product_name}
+													</Typography>
+												</TableCell>
+												<TableCell align='center'>
+													{product?.user?.username}
+												</TableCell>
+												<TableCell align='center'>
+													{product.quantityToBuy}
+												</TableCell>
+												<TableCell align='center'>
+													{formatCurrencyV2(product.product_price)}
+												</TableCell>
+												<TableCell align='center'>
+													{formatCurrencyV2(
+														product.product_quantity * product.product_price
+													)}
+												</TableCell>
+												<TableCell align='center'>
+													<MoreHorizIcon
+														sx={{
+															cursor: 'pointer',
+															color: '#000'
+														}}
+													/>
+												</TableCell>
+											</TableRow>
+										)
+									)}
 								</TableBody>
 							</Table>
 						</Box>

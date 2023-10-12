@@ -201,4 +201,28 @@ export class ApiService {
 			'Content-Type': 'application/json'
 		}
 	})
+
+	getAllOrderOfUser = configApi({
+		path: 'v1/orders',
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
+
+	updateOrder = configApi({
+		path: 'v1/orders/update',
+		method: 'PATCH',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
+
+	getTopBestSeller = configApi({
+		path: 'v1/products/best-seller',
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
 }
