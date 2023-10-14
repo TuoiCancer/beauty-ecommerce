@@ -1,8 +1,9 @@
-import { unicaOne } from '@/assets/font'
 import { Typography } from '@mui/material'
 import React from 'react'
+import { unicaOne } from '../../../public/font'
 
-const Title = ({ title }: { title: string }) => {
+const Title = ({ title, dictionary }: { title: string; dictionary: any }) => {
+	console.log('title', title)
 	return (
 		<Typography
 			variant='h2'
@@ -13,7 +14,7 @@ const Title = ({ title }: { title: string }) => {
 				color: '#171B1A'
 			}}
 		>
-			{title}
+			{dictionary.Title[title]}
 		</Typography>
 	)
 }

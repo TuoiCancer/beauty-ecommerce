@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react'
-import { poppins, roboto } from '@/assets/font'
 
 import { Box, Checkbox, Typography } from '@mui/material'
 import ImageItem from '../base/ImageItem'
 import Link from 'next/link'
 import { useStore } from '@/store'
 import { formatCurrency, getPriceFormat } from '@/helper'
+import { poppins, roboto } from '../../../public/font'
 const ProductCartItem = ({
 	item,
 	updateFn,
 	deleteCartUser,
 	setProductSelected,
 	setListSelected,
-	listSelected
+	listSelected,
+	dictionary
 }: any) => {
 	const { UserSlice } = useStore()
 	const [isSelected, setIsSelected] = useState(false)
@@ -111,7 +112,7 @@ const ProductCartItem = ({
 				}}
 			>
 				<Link
-					href={`/user/product/${item.id}`}
+					href={`/${UserSlice.lang}/user/product/${item.id}`}
 					style={{
 						flex: 1,
 						textDecoration: 'none',

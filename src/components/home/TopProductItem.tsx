@@ -1,5 +1,5 @@
-import { hindMadurai } from '@/assets/font'
 import { formatCurrency } from '@/helper'
+import { useStore } from '@/store'
 import {
 	Box,
 	styled,
@@ -10,6 +10,7 @@ import {
 } from '@mui/material'
 import Link from 'next/link'
 import React from 'react'
+import { hindMadurai } from '../../../public/font'
 import BaseButton from '../base/BaseButton'
 import ImageItem from '../base/ImageItem'
 import RatingItem from '../base/RatingItem'
@@ -25,9 +26,11 @@ const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
 	}
 }))
 
-const TopProductItem = ({ item }: any) => {
+const TopProductItem = ({ item, dictionary }: any) => {
+	const { UserSlice } = useStore()
+
 	return (
-		<Link href={`/user/product/${item.id}`}>
+		<Link href={`/${UserSlice.lang}/user/product/${item.id}`}>
 			<Box
 				sx={{
 					position: 'relative',
@@ -105,7 +108,9 @@ const TopProductItem = ({ item }: any) => {
 							padding: { xs: '0 0 12px 0', md: '12px 0' }
 						}}
 					>
-						from {formatCurrency(item.product_price)} /item
+						{dictionary['Home']['topproduct'].from}{' '}
+						{formatCurrency(item.product_price)} /
+						{dictionary['Home']['topproduct'].item}
 					</Typography>
 					<Typography
 						sx={{

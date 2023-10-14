@@ -6,12 +6,14 @@ const AvatarPoper = ({
 	icon,
 	text,
 	href,
-	onClick
+	onClick,
+	dictionary
 }: {
 	icon: React.ReactNode
 	text: string
 	href?: string
 	onClick?: () => void
+	dictionary: any
 }) => {
 	if (href) {
 		return (
@@ -36,7 +38,7 @@ const AvatarPoper = ({
 							fontFamily: 'Montserrat'
 						}}
 					>
-						{text}
+						{dictionary['navbar'][text]}
 					</Typography>
 				</Box>
 			</Link>
@@ -63,7 +65,7 @@ const AvatarPoper = ({
 					fontFamily: 'Montserrat'
 				}}
 			>
-				{text}
+				{dictionary['navbar'][text]}
 			</Typography>
 		</Box>
 	)

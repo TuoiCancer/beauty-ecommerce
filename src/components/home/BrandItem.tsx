@@ -1,3 +1,4 @@
+import { useStore } from '@/store'
 import { Box } from '@mui/material'
 import Link from 'next/link'
 import React from 'react'
@@ -12,6 +13,7 @@ const BrandItem = ({
 	imgSrc: string
 	link: string
 }) => {
+	const { UserSlice } = useStore()
 	return (
 		<Box
 			sx={{
@@ -32,7 +34,7 @@ const BrandItem = ({
 				}
 			}}
 		>
-			<Link href={link}>
+			<Link href={`/${UserSlice.lang}${link}`}>
 				<ImageItem
 					imgSrc={imgSrc}
 					style={{

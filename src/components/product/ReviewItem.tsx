@@ -4,8 +4,8 @@ import { Box, Rating, Typography } from '@mui/material'
 import Image from 'next/image'
 import ImageItem from '../base/ImageItem'
 import { styled } from '@mui/material/styles'
-import StarIcon from '@/assets/icon/Star'
 import EmptyStar from '../icon/EmptyStar'
+import StarIcon from '../../../assets/icon/Star'
 
 export interface ReviewItemProps {
 	img: string

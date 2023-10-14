@@ -2,7 +2,7 @@ import { Box, Typography } from '@mui/material'
 import Image from 'next/legacy/image'
 import React from 'react'
 
-const InfoTag = () => {
+const InfoTag = ({ dictionary }: any) => {
 	return (
 		<Box
 			sx={{
@@ -43,8 +43,7 @@ const InfoTag = () => {
 						lineHeight: '145%'
 					}}
 				>
-					“Our four Divisions play a major strategic role as they enable L’Oréal
-					to cover all the aspects of beauty.”
+					&quot;{`${dictionary.Shop.Header.Tag.quote}`}&quot;
 				</Typography>
 				<Box
 					sx={{
@@ -69,7 +68,7 @@ const InfoTag = () => {
 							textTransform: 'uppercase'
 						}}
 					>
-						Nicolas Hieronimus
+						{dictionary.Shop.Header.Tag.author}
 					</Typography>
 				</Box>
 				<Typography
@@ -81,7 +80,7 @@ const InfoTag = () => {
 						mt: '10px'
 					}}
 				>
-					Chief Executive Officer
+					{dictionary.Shop.Header.Tag.position}
 				</Typography>
 			</Box>
 		</Box>

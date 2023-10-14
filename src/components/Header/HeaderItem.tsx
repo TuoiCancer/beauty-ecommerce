@@ -1,11 +1,17 @@
-import { montserrat } from '@/assets/font'
 import { Box, Typography } from '@mui/material'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 import React from 'react'
+import { montserrat } from '../../../public/font'
 import ImageItem from '../base/ImageItem'
 
-const HeaderItem = ({ item, sx, textColor, isPathNameMatch }: any) => {
+const HeaderItem = ({
+	item,
+	sx,
+	textColor,
+	isPathNameMatch,
+	dictionary,
+	language
+}: any) => {
 	const [openSubItem, setOpenSubItem] = React.useState(false)
 
 	const handleClickOpenSubItem = () => {
@@ -64,15 +70,23 @@ const HeaderItem = ({ item, sx, textColor, isPathNameMatch }: any) => {
 			>
 				{item.link ? (
 					<Link
-						href={item.link}
+						href={`/${language}${item.link}`}
 						style={{
 							fontWeight: isPathNameMatch ? 600 : 400
 						}}
 					>
-						{item?.name}
+						{dictionary['navbar'][item?.name]}
 					</Link>
 				) : (
-					<Typography className={montserrat.className}>{item?.name}</Typography>
+					<Typography
+						className={montserrat.className}
+						sx={{
+							fontWeight: isPathNameMatch ? 600 : 400,
+							fontSize: { xs: '16px', md: '18px' }
+						}}
+					>
+						{dictionary['navbar'][item?.name]}
+					</Typography>
 				)}
 			</Box>
 
@@ -134,7 +148,7 @@ const HeaderItem = ({ item, sx, textColor, isPathNameMatch }: any) => {
 								}}
 							>
 								<Link
-									href={sub.sub_link}
+									href={`/${language}${sub.sub_link}`}
 									style={{
 										fontWeight: 500
 									}}

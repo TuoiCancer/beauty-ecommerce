@@ -13,13 +13,10 @@ import ProductItem from '@/components/shop/ProductItem'
 import Lefticon from '@/components/icon/Lefticon'
 import Link from 'next/link'
 import BlogItem from '@/components/shop/BlogItem'
-import { poppins } from '@/assets/font'
 import { useGetProductByPage } from '@/service/react-query/product.query'
-import Loading from '@/app/loading'
 import { usePathname } from 'next/navigation'
 import { ProductInterface } from '@/utils/product.interface'
 import { useAddToCart } from '@/service/react-query/cart.query'
-// import ImageSliderItem from '@/components/home/ImageSliderItem'
 import ImageItem from '@/components/base/ImageItem'
 import {
 	useCollectVoucher,
@@ -27,15 +24,17 @@ import {
 } from '@/service/react-query/voucher.query'
 import VoucherItem from '@/components/shop/VoucherItem'
 import { useStore } from '@/store'
+import Loading from '@/app/[lang]/loading'
+import { poppins } from '../../../../../../public/font'
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews)
 
-const ShopPageDetail = () => {
+const ShopPageDetail = ({ dictionary }: any) => {
 	const theme = useTheme()
 	const { UserSlice } = useStore()
 	const productListRef = useRef<HTMLDivElement | null>(null)
 	const pathname = usePathname()
-	const shopId = pathname.split('/')[3] // loreal,"oridinary" ,"bioderma"
+	const shopId = pathname.split('/')[4] // loreal,"oridinary" ,"bioderma"
 	const shop = listShop.find(item => item.id === shopId)
 	const shopName = shop?.name
 	const idShop = shop?.shopId || ''
@@ -66,7 +65,8 @@ const ShopPageDetail = () => {
 			limit: 10,
 			sort: 'createdAt',
 			product_shop: shopName,
-			user_id: UserSlice.user?.id
+			user_id: UserSlice.user?.id,
+			order: 'DESC'
 		})
 		getListVoucher()
 	}, [pathname])
@@ -92,7 +92,7 @@ const ShopPageDetail = () => {
 	return (
 		<Box>
 			{/* Header */}
-			<HeaderShopDetail onClick={scrollToProducts} />
+			<HeaderShopDetail onClick={scrollToProducts} dictionary={dictionary} />
 
 			{/* Category */}
 			<Box
@@ -117,7 +117,7 @@ const ShopPageDetail = () => {
 						margin: '0 auto'
 					}}
 				>
-					<Title title='Shop' />
+					<Title title='Shop' dictionary={dictionary} />
 					<Box
 						sx={{
 							display: 'flex',
@@ -137,6 +137,7 @@ const ShopPageDetail = () => {
 									title={item.title}
 									description={item.description}
 									shopName={shopName || ''}
+									dictionary={dictionary}
 								/>
 							)
 						})}
@@ -181,15 +182,6 @@ const ShopPageDetail = () => {
 						)
 					})}
 				</AutoPlaySwipeableViews>
-				{/* <MobileStepper
-					variant='dots'
-					steps={listImgURL.length}
-					position='static'
-					activeStep={activeStep}
-					sx={{ flexGrow: 1 }}
-					backButton={false}
-					nextButton={false}
-				/> */}
 			</Box>
 
 			{/* List Voucher */}
@@ -223,6 +215,7 @@ const ShopPageDetail = () => {
 									key={index}
 									voucher={item}
 									collectVoucherFn={collectVoucherFn}
+									dictionary={dictionary}
 								/>
 							)
 						})}
@@ -255,14 +248,13 @@ const ShopPageDetail = () => {
 					}}
 				>
 					<Box>
-						<Title title='Products' />
+						<Title title='Products' dictionary={dictionary} />
 						<Typography
 							className={poppins.className}
 							variant='body1'
 							sx={{ mt: '10px', color: '#000', fontSize: { md: '16px' } }}
 						>
-							Women made purely natural ingredients, taken from the earth’s
-							crust.
+							{dictionary.Shop.Product.description}
 						</Typography>
 					</Box>
 					<Link
@@ -296,7 +288,7 @@ const ShopPageDetail = () => {
 									mr: { xs: '12px', md: '24px' }
 								}}
 							>
-								View all
+								{dictionary.Shop.Product.all}
 							</Typography>
 							<Lefticon />
 						</Box>
@@ -376,7 +368,7 @@ const ShopPageDetail = () => {
 						height: '100%'
 					}}
 				>
-					<Title title='about L’Oréal ' />
+					<Title title='about L’Oréal ' dictionary={dictionary} />
 					<Typography
 						variant='body1'
 						sx={{
@@ -436,7 +428,7 @@ const ShopPageDetail = () => {
 						pb: { xs: '32px' }
 					}}
 				>
-					<Title title='Latest news' />
+					<Title title='Latest news' dictionary={dictionary} />
 					<Box
 						sx={{
 							display: 'flex',
@@ -461,7 +453,7 @@ const ShopPageDetail = () => {
 								mr: { xs: '12px', md: '24px' }
 							}}
 						>
-							View all
+							{dictionary.Shop.Product.all}
 						</Typography>
 						<Lefticon />
 					</Box>

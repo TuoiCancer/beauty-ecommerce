@@ -3,9 +3,9 @@ import { Box, Typography } from '@mui/material'
 import BaseButton from '@/components/base/BaseButton'
 import InfoTag from './InfoTag'
 import ImageItem from '../base/ImageItem'
-import { unicaOne } from '@/assets/font'
+import { unicaOne } from '../../../public/font'
 
-const HeaderShopDetail = ({ onClick }: any) => {
+const HeaderShopDetail = ({ onClick, dictionary }: any) => {
 	return (
 		<Box
 			sx={{
@@ -34,7 +34,7 @@ const HeaderShopDetail = ({ onClick }: any) => {
 					textAlign: 'center'
 				}}
 			>
-				A Deep Dive Into Beauty
+				{dictionary.Shop.Header.title}
 			</Typography>
 
 			<Typography
@@ -53,12 +53,10 @@ const HeaderShopDetail = ({ onClick }: any) => {
 					}
 				}}
 			>
-				L’Oréal has set itself the mission of offering all women and men
-				worldwide the best of cosmetics innovation in terms of quality, efficacy
-				and safety
+				{dictionary.Shop.Header.description}
 			</Typography>
 			<BaseButton
-				label='Buy Now'
+				label={dictionary.Shop.Header.button}
 				variant='contained'
 				bgStyle='color'
 				styleSx={{
@@ -83,7 +81,7 @@ const HeaderShopDetail = ({ onClick }: any) => {
 					display: { xs: 'none', md: 'block' }
 				}}
 			>
-				<InfoTag />
+				<InfoTag dictionary={dictionary} />
 			</Box>
 		</Box>
 	)

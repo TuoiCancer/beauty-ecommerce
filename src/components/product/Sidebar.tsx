@@ -1,5 +1,4 @@
 'use client'
-import { ibarra, roboto } from '@/assets/font'
 import { listBrands, listCategory } from '@/constants'
 import {
 	Box,
@@ -13,7 +12,8 @@ import React from 'react'
 import BaseButton from '../base/BaseButton'
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp'
 import { useStore } from '@/store'
-const Title = ({ title }: { title: string }) => {
+import { ibarra } from '../../../public/font'
+const Title = ({ title, dictionary }: { title: string; dictionary: any }) => {
 	return (
 		<Typography
 			variant='h3'
@@ -26,7 +26,7 @@ const Title = ({ title }: { title: string }) => {
 				paddingBottom: { md: '18px', lg: '32px' }
 			}}
 		>
-			{title}
+			{dictionary.Product[title]}
 		</Typography>
 	)
 }
@@ -46,7 +46,8 @@ const SidebarProduct = ({
 	filterOptions,
 	setFilterOptions,
 	orderBy,
-	setOrderBy
+	setOrderBy,
+	dictionary
 }: any) => {
 	const router = useRouter()
 	const { UserSlice } = useStore()
@@ -90,7 +91,7 @@ const SidebarProduct = ({
 			}}
 		>
 			<Box>
-				<Title title='Sorting' />
+				<Title title='Sorting' dictionary={dictionary} />
 				<Box
 					sx={{
 						display: 'flex',
@@ -111,8 +112,8 @@ const SidebarProduct = ({
 							}
 						}}
 					>
-						<MenuItem value={'createdAt'}>Created At</MenuItem>
-						<MenuItem value={'price'}>Price</MenuItem>
+						<MenuItem value={'createdAt'}>{dictionary.Product.create}</MenuItem>
+						<MenuItem value={'price'}>{dictionary.Product.price}</MenuItem>
 					</Select>
 					<Box
 						onClick={() => {
@@ -139,7 +140,7 @@ const SidebarProduct = ({
 					pt: { xs: '24px', sm: 0, md: '42px', lg: '90px' }
 				}}
 			>
-				<Title title='Category' />
+				<Title title='Category' dictionary={dictionary} />
 				<Box
 					sx={{
 						display: 'flex',
@@ -182,7 +183,7 @@ const SidebarProduct = ({
 								}}
 								onClick={() => setCategory(item.title)}
 							>
-								{item.title}
+								{dictionary.Product[item.title]}
 							</Typography>
 						)
 					})}
@@ -193,7 +194,7 @@ const SidebarProduct = ({
 					pt: { xs: '24px', sm: 0, md: '42px', lg: '90px' }
 				}}
 			>
-				<Title title='Brand' />
+				<Title title='Brand' dictionary={dictionary} />
 				<Box
 					sx={{
 						display: 'flex',
@@ -236,7 +237,7 @@ const SidebarProduct = ({
 								}}
 								onClick={() => setBrand(item.name)}
 							>
-								{item.name}
+								{item.name === 'All' ? dictionary.Product.All : item.name}
 							</Typography>
 						)
 					})}
@@ -246,7 +247,7 @@ const SidebarProduct = ({
 				onClick={handleFilter}
 				variant='outlined'
 				bgStyle='color'
-				label='Filter'
+				label={dictionary.Product.filter}
 				styleSx={{
 					padding: '16px  34px ',
 					color: '#171B1A',

@@ -1,6 +1,5 @@
 'use client'
 
-import { hindMadurai, homemadeApple, ibarra } from '@/assets/font'
 import BaseButton from '@/components/base/BaseButton'
 import ImageItem from '@/components/base/ImageItem'
 import BrandItem from '@/components/home/BrandItem'
@@ -15,13 +14,19 @@ import { useTheme } from '@mui/material/styles'
 import { autoPlay } from 'react-swipeable-views-utils'
 import { useRouter } from 'next/navigation'
 import { useStore } from '@/store'
-import Loading from '@/app/loading'
-import {
-	useGetBestSellerProduct,
-	useGetProductByPage
-} from '@/service/react-query/product.query'
+import { useGetBestSellerProduct } from '@/service/react-query/product.query'
 import { ProductInterface } from '@/utils/product.interface'
-import { useGetCartByUserId } from '@/service/react-query/cart.query'
+import Loading from '../../loading'
+import { hindMadurai, homemadeApple, ibarra } from '../../../../../public/font'
+
+// import { Ibarra_Real_Nova } from 'next/font/google'
+
+// const ibarra = Ibarra_Real_Nova({
+// 	weight: ['400', '700'],
+// 	style: ['normal', 'italic'],
+// 	subsets: ['latin'],
+// 	display: 'swap'
+// })
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews)
 
@@ -68,7 +73,8 @@ const listIntroduce = [
 	}
 ]
 
-export default function Home() {
+export default function Home({ dictionary }: { dictionary: any }) {
+	const { UserSlice } = useStore()
 	const theme = useTheme()
 	const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
 	const [activeStep, setActiveStep] = useState(0)
@@ -214,11 +220,11 @@ export default function Home() {
 							color: '#121212',
 							fontSize: { xs: '26px', sm: '36px', md: '48px', lg: '64px' },
 							fontWeight: 700,
-							lineHeight: '121.5%' /* 77.76px */,
-							fontFamily: 'Ibarra Real Nova'
+							lineHeight: '121.5%' /* 77.76px */
+							// fontFamily: 'Ibarra Real Nova'
 						}}
 					>
-						Beauty Has A Purpose and Purpose Is You
+						{dictionary['header'].title}
 					</Typography>
 					<Typography
 						className={hindMadurai.className}
@@ -231,14 +237,12 @@ export default function Home() {
 							padding: { xs: '12px 0', md: '45px 0' }
 						}}
 					>
-						Products made out of 100% natural ingredients with no side effects
-						unlike their competitors. Lorem Ipsum as their default model text,
-						and many web sites.
+						{dictionary['header'].description}
 					</Typography>
 					<Box>
 						<BaseButton
 							bgStyle='gradient'
-							label='Shop Now'
+							label={dictionary['header'].button}
 							variant='contained'
 							type='button'
 							styleSx={{
@@ -249,12 +253,12 @@ export default function Home() {
 								fontStyle: 'capitalize',
 								mr: { xs: '12px', md: '20px' }
 							}}
-							onClick={() => route.push('/user/product')}
+							onClick={() => route.push(`/${UserSlice.lang}/user/product`)}
 						/>
 
 						<BaseButton
 							bgStyle='gradient'
-							label='Learn more'
+							label={dictionary['header'].button02}
 							variant='outlined'
 							type='button'
 							styleSx={{
@@ -300,13 +304,15 @@ export default function Home() {
 						mb: { xs: '16px' }
 					}}
 				>
-					{listIntroduce.map(item => {
+					{listIntroduce.map((item, index: number) => {
 						return (
 							<IntroItem
 								key={item.id}
 								title={item.title}
 								label={item.lable}
 								description={item.description}
+								index={index}
+								dictionary={dictionary}
 							/>
 						)
 					})}
@@ -326,7 +332,7 @@ export default function Home() {
 							lineHeight: '125.5%'
 						}}
 					>
-						We make your daily routine more sustainable with products
+						{dictionary['Home']['introduce'].title}
 					</Typography>
 					<Typography
 						variant='h2'
@@ -338,12 +344,7 @@ export default function Home() {
 							padding: { xs: '12px 0', md: '48px 0' }
 						}}
 					>
-						Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-						accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-						quae ab illo inventore veritatis et quasi architecto beatae vitae
-						dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-						aspernatur aut odit aut fugit, sed quia consequuntur magni dolores
-						eos qui ratione voluptatem sequi nesciunt
+						{dictionary['Home']['introduce'].description}
 					</Typography>
 					<Typography
 						variant='h3'
@@ -378,7 +379,7 @@ export default function Home() {
 						}}
 						className={hindMadurai.className}
 					>
-						Founder
+						{dictionary['Home']['introduce'].founder}
 					</Typography>
 				</Box>
 			</Box>
@@ -429,7 +430,7 @@ export default function Home() {
 							lineHeight: '125.5%'
 						}}
 					>
-						Our local brands
+						{dictionary['Home']['brands'].title}
 					</Typography>
 					<Typography
 						variant='h2'
@@ -443,9 +444,7 @@ export default function Home() {
 							margin: { md: '12px 0' }
 						}}
 					>
-						Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-						accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-						quae ab illo inventore.{' '}
+						{dictionary['Home']['brands'].description}
 					</Typography>
 					<Box
 						sx={{
@@ -501,7 +500,7 @@ export default function Home() {
 						pb: { md: '82px', lg: '160px' }
 					}}
 				>
-					Beauty Cosmetics Products
+					{dictionary['Home']['topproduct'].title}
 				</Typography>
 				<Box
 					sx={{
@@ -521,7 +520,13 @@ export default function Home() {
 				>
 					{dataGetListProduct &&
 						dataGetListProduct.map((item: ProductInterface) => {
-							return <TopProductItem key={item.id} item={item} />
+							return (
+								<TopProductItem
+									key={item.id}
+									item={item}
+									dictionary={dictionary}
+								/>
+							)
 						})}
 				</Box>
 			</Box>
@@ -587,7 +592,7 @@ export default function Home() {
 						pb: { xs: '10px', md: '124px' }
 					}}
 				>
-					What People Say About Us
+					{dictionary['Home']['review'].title}
 				</Typography>
 
 				<AutoPlaySwipeableViews

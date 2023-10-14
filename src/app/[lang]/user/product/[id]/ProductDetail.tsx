@@ -1,7 +1,5 @@
 'use client'
 
-import Loading from '@/app/loading'
-import { hindMadurai, ibarra, poppins, roboto } from '@/assets/font'
 import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule'
 import AddIcon from '@mui/icons-material/Add'
 import BaseButton from '@/components/base/BaseButton'
@@ -16,12 +14,19 @@ import {
 import { Box, ButtonBase, TextField, Typography } from '@mui/material'
 import { usePathname, useRouter } from 'next/navigation'
 import React, { useEffect } from 'react'
-import { toast } from 'react-toastify'
 import { useAddToCart } from '@/service/react-query/cart.query'
 import { useStore } from '@/store'
 import { formatCurrency } from '@/helper'
+import Loading from '@/app/[lang]/loading'
 
-const ProductDetail = () => {
+import {
+	roboto,
+	hindMadurai,
+	ibarra,
+	poppins
+} from '../../../../../../public/font'
+
+const ProductDetail = ({ dictionary }: any) => {
 	const [activeImg, setActiveImg] = React.useState(0)
 	const [quantity, setQuantity] = React.useState(1)
 	const [isActiveReviews, setIsActiveReviews] = React.useState(false)
@@ -441,7 +446,7 @@ const ProductDetail = () => {
 							<BaseButton
 								variant='contained'
 								bgStyle='color'
-								label='Add to cart'
+								label={dictionary['Product']['button']}
 								className={hindMadurai.className}
 								styleSx={{
 									padding: { md: '8px 30px' },
@@ -488,7 +493,7 @@ const ProductDetail = () => {
 							}}
 							onClick={() => setIsActiveReviews(false)}
 						>
-							Description
+							{dictionary['Product']['description']}
 						</Typography>
 						<Typography
 							variant='h4'
@@ -499,7 +504,7 @@ const ProductDetail = () => {
 							}}
 							onClick={() => setIsActiveReviews(true)}
 						>
-							Reviews
+							{dictionary['Product']['review']}
 						</Typography>
 					</Box>
 					<Box
@@ -571,6 +576,7 @@ const ProductDetail = () => {
 					listSimilarProduct={listSimilarProduct}
 					productData={productData}
 					addToCart={addToCart}
+					dictionary={dictionary}
 				/>
 			</Box>
 		</Box>

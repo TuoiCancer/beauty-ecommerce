@@ -5,8 +5,8 @@ import { Box, Typography } from '@mui/material'
 import FooterItem from './FooterItem'
 import ImageItem from '../base/ImageItem'
 import ListIcons from './ListIcons'
-import { hindMadurai } from '@/assets/font'
 import { usePathname } from 'next/navigation'
+import { hindMadurai } from '../../../public/font'
 
 const ListItemFooter = [
 	{
@@ -69,7 +69,7 @@ const ListItemFooter = [
 	}
 ]
 
-const Footer = () => {
+const Footer = ({ dictionary }: any) => {
 	const pathname = usePathname()
 
 	if (pathname === '/login' || pathname === '/signup') {
@@ -135,6 +135,7 @@ const Footer = () => {
 								key={item.id}
 								title={item.title}
 								listItems={item.listItem}
+								dictionary={dictionary}
 							/>
 						)
 					})}

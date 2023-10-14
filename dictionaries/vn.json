@@ -1,0 +1,185 @@
+{
+    "header": {
+      "title": "Vẻ đẹp có mục đích, và mục đích đó là bạn.",
+      "description": "Sản phẩm được làm từ 100% nguyên liệu tự nhiên không gây tác động phụ, khác với đối thủ của họ. Lorem Ipsum là văn bản mẫu mặc định của họ, và xuất hiện trên nhiều trang web.",
+      "button": "Mua Ngay",
+      "button02": "Tìm Hiểu Thêm"
+    },
+    "navbar":{
+      "Home": "Trang Chủ",
+      "Product": "Sản Phẩm",
+      "Shop": "Cửa Hàng",
+      "login": "Đăng Nhập",
+      "Infor": "Thông Tin",
+      "Order": "Đơn Hàng",
+      "Logout": "Đăng Xuất"
+    },
+    "Home":{
+      "introduce":{
+        "box1":{
+          "label":"Số năm kinh nghiệm",
+          "description":"Chúng tôi có 05 năm kinh nghiệm trong lĩnh vực thẩm mỹ này. Đưa ra những hướng dẫn tốt nhất."
+        },
+        "box2":{
+          "label":"Huấn luyện viên giàu kinh nghiệm",
+          "description":"Chúng tôi có 05 năm kinh nghiệm trong lĩnh vực thẩm mỹ này. Đưa ra những hướng dẫn tốt nhất."
+        },
+        "box3":{
+          "label":"Khách hàng vui vẻ",
+          "description":"Chúng tôi có 05 năm kinh nghiệm trong lĩnh vực thẩm mỹ này. Đưa ra những hướng dẫn tốt nhất."
+        },
+        "box4":{
+          "label":"Định kỳ hàng tháng",
+          "description":"Chúng tôi có 05 năm kinh nghiệm trong lĩnh vực thẩm mỹ này. Đưa ra những hướng dẫn tốt nhất."
+        },
+        "title":"Chúng tôi giúp thói quen hàng ngày của bạn trở nên bền vững hơn bằng các sản phẩm.",
+        "description":"Tại cửa hàng thương mại điện tử của chúng tôi, chúng tôi tận tâm nâng cao thói quen chăm sóc da hàng ngày của bạn thông qua các sản phẩm thân thiện với môi trường. Bộ sưu tập đặc biệt của chúng tôi khuyến khích làn da khỏe mạnh, sáng hơn và đặt ưu tiên cao cho các thực hành thân thiện với môi trường. Từ nguyên liệu đến bao bì, sự bền vững là trung tâm của công việc chúng tôi. Khi bạn lựa chọn sản phẩm của chúng tôi, bạn không chỉ đầu tư cho làn da của mình mà còn đóng góp vào một tương lai xanh hơn. Hãy cùng tham gia vào hành trình chăm sóc da biến đổi này với chúng tôi!",
+        "founder":"Người sáng lập"
+      },
+      "brands":{
+        "title":"Thương hiệu của chúng tôi",
+        "description":"Trải nghiệm sự xuất sắc với các thương hiệu cao cấp của chúng tôi: Khám phá tuyển tập hàng đầu của chúng tôi về các thương hiệu nổi tiếng được biết đến về chất lượng và sự xuất sắc."
+      },
+      "topproduct":{
+        "title":"Top sản phẩm bán chạy",
+        "from":"Từ",
+        "item":"sản phẩm"
+      },
+      "review":{
+        "title":"Mọi người nói gì về chúng tôi"
+      }
+    },
+    "Product":{
+      "button": "Thêm vào giỏ",
+      "description": "Miêu tả",
+      "review": "Đánh giá",
+      "related": "Sản phẩm tương tự",
+      "related2": "Xem tất cả",
+      "title": "Tìm kiếm",
+      "content":"Tìm giải pháp chăm sóc da hoàn hảo của bạn với tính năng tìm kiếm sản phẩm toàn diện của chúng tôi. Khám phá nhiều loại mỹ phẩm chăm sóc da phù hợp với nhu cầu riêng của bạn.",
+      "search":"Nhập tên sản phẩm...",
+      "Sorting":"Sắp xếp theo",
+      "create":"Mới nhất",
+      "price":"Giá",
+      "Category":"Danh mục",
+      "All":"Tất cả",
+      "Body":"Cơ thể",
+      "Hair":"Tóc",
+      "Facial":"Mặt",
+      "Brand":"Thương hiệu",
+      "filter":"Lọc",
+      "showing":"Hiển thị"
+    },
+    "Title":{
+      "Shop":"Cửa Hàng",
+      "Products":"Sản Phẩm",
+      "Latest news":"Tin Tức Mới Nhất"
+    },
+    "Shop":{
+      "Header":{
+        "title":"Khám Phá Vẻ Đẹp",
+        "description":"L'Oréal đã đặt cho mình nhiệm vụ cung cấp cho tất cả phụ nữ và nam giới trên khắp thế giới sự đổi mới tốt nhất trong lĩnh vực mỹ phẩm về chất lượng, hiệu quả và an toàn.",
+        "button":"Mua Ngay",
+        "Tag":{
+          "quote":"Bốn phân khúc của chúng tôi đóng một vai trò chiến lược quan trọng vì chúng cho phép L’Oréal bao quát mọi khía cạnh của làm đẹp.",
+          "author":"Nicolas Hieronimus",
+          "position":"Giám Đốc Điều Hành"  
+        }
+      }, 
+      "category":{
+        "Body":{
+          "type": "Cơ thể",
+          "content":"Quá nhiều sản phẩm cho mọi người trong gia đình bạn"
+        },
+        "Facial":{
+          "type": "Mặt",
+          "content":"Do thay đổi theo mùa, dị ứng, rửa tay quá nhiều"
+        },
+        "Hair":{
+          "type": "Tóc",
+          "content":"Khô , xơ, chẻ ngọn hoặc hư màu"
+        }
+
+      },
+      "voucher":{
+        "min": "Giảm giá tối thiểu",
+        "button":"Đã thu thập",
+        "collect":"Thu thập"
+      },
+      "Product":{
+        "description":"Phụ nữ làm ra những nguyên liệu hoàn toàn tự nhiên, lấy từ vỏ trái đất.",
+        "all":"Tất cả"
+      }
+    },
+    "Footer":{
+      "copyright":"© 2023 Glow&Grace. Tất cả các quyền. Bởi XuanTuoi",
+      "Services":{
+        "title":"Dịch vụ",
+        "1.0":"Blog",
+        "1.1":"Sản phẩm của chúng tôi",
+        "1.2":"Tài khoản"
+      },
+      "Customer Care":{
+        "title":"Chăm sóc khách hàng",
+        "2.0":"Chính sách bảo mật",
+        "2.1":"FAQs"
+      },
+      "Shop":{
+        "title":"Cửa hàng",
+        "3.0":"L'Oréal",
+        "3.1":"The Ordinary",
+        "3.2":"Bioderma"
+      }
+    },
+    "Cart":{ 
+      "title":"Giỏ hàng",
+      "select":"Chọn tất cả",
+      "vouchercode":"Mã giảm giá",
+      "freeship":"Voucher Miễn Phí Vận Chuyển",
+      "coupon":"Voucher giảm giá",
+      "subtotal": "Tổng tiền tạm tính",
+      "err":"Vui lòng chọn ít nhất một sản phẩm",
+      "err02":"Vui lòng nhập mã voucher",
+      "err03":"Vui lòng điền tất cả các trường",
+      "apply":"Áp dụng",
+      "checkout":"Thanh toán",
+      "item":"sản phẩm",
+      "steplabel1":"Địa chỉ giao hàng",
+      "steplabel2":"Chi tiết thanh toán",
+      "steplabel3":"Xác nhận đơn hàng",
+      "firstname":"Họ và tên đệm",
+      "lastname":"Tên",
+      "phone":"Số điện thoại",
+      "address":"Địa chỉ",
+      "nextBtn":"Tiếp theo",
+      "backBtn":"Quay lại",
+      "buyBtn":"Mua hàng",
+      "creditcard":"Thẻ tín dụng",
+      "cardname":"Tên trên thẻ",
+      "cardnum":"Số thẻ",
+      "recieve":"Thanh toán khi nhận hàng",
+      "shipping":"Phí vận chuyển",
+      "voucher": "Mã giảm giá",
+      "total": "Tổng tiền"
+    },
+    "Order":{
+      "title":"Đơn đặt hàng",
+      "time01":"Thời gian đặt hàng",
+      "time02":"Thời gian giao hàng",
+      "address":"Địa chỉ giao hàng",
+      "total":"Tổng tiền",
+      "status":"Trạng thái",
+      "cancel":"Hủy đơn",
+      "number":"STT",
+      "image":"Ảnh",
+      "name":"Tên sản phẩm",
+      "shop":"Cửa hàng",
+      "price":"Giá",
+      "quantity":"Số lượng",
+      "subtotal":"Tổng tiền tạm tính",
+      "action":"Hành động",
+      "confirm":"Bạn có chắc chắn hủy đơn hàng này không",
+      "Ok":"Có",
+      "No":"Hủy"
+    }
+  }

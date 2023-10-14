@@ -1,6 +1,5 @@
 'use client'
 
-import Loading from '@/app/loading'
 import { useStore } from '@/store'
 import { usePathname, useRouter } from 'next/navigation'
 import React, { useEffect } from 'react'

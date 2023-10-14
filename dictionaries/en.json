@@ -1,0 +1,187 @@
+{
+    "header": {
+      "title": "Beauty Has A Purpose and Purpose Is You",
+      "description": "Products made out of 100% natural ingredients with no side effects unlike their competitors. Lorem Ipsum as their default model text, and many web sites.",
+      "button": "Shop Now",
+      "button02": "Learn More"
+    },
+    "navbar":{
+      "Home": "Home",
+      "Product": "Product",
+      "Shop": "Shop",
+      "login": "Login",
+      "Infor":"Infor",
+      "Order": "Order",
+      "Logout": "Logout"
+    },
+    "Home":{
+      "introduce":{
+        "box1":{
+          "label":"Years of Experience",
+          "description":"We are 05 years of experienced in this cosmetic field. Giving the best instructions."
+        },
+        "box2":{
+          "label":"Experienced Trainer",
+          "description":"We are 05 years of experienced in this cosmetic field. Giving the best instructions."
+        },
+        "box3":{
+          "label":"Happy Clients",
+          "description":"We are 05 years of experienced in this cosmetic field. Giving the best instructions."
+        },
+        "box4":{
+          "label":"Monthly Routine",
+          "description":"We are 05 years of experienced in this cosmetic field. Giving the best instructions."
+        },
+        "title":"We make your daily routine more sustainable with products",
+        "description":"At our e-commerce store, we're dedicated to enhancing your daily skincare routine with sustainable products. Our curated selection promotes healthier, more radiant skin while also prioritizing eco-friendly practices. From our ingredients to our packaging, sustainability is at the core of what we do. When you choose our products, you're not only investing in your skin but also in a greener future. Join us in this transformative skincare journey!",
+        "founder":"Founder"
+      },
+      "brands":{
+        "title":"Our Local Brands",
+        "description":"Experience Excellence with Our Premium Brands: Explore our top-tier selection of renowned brands known for quality and excellence."
+      },
+      "topproduct":{
+        "title":"Top Comestic Products",
+        "from":"From",
+        "item":"item"
+      },
+      "review":{
+        "title":"What People Say About Us"
+      }
+    },
+    "Product":{
+      "button": "Add to cart",
+      "description": "Description",
+      "review": "Reviews",
+      "related": "Similar Products",
+      "related2": "View all",
+      "title": "Search",
+      "content":"Find your perfect skincare solution with our comprehensive product search. Discover a wide range of skincare cosmetics for your unique needs.",
+      "search":"Seach for...",
+      "Sorting":"Sort by",
+      "create":"Created at",
+      "price":"Price",
+      "Category":"Category",
+      "All":"All",
+      "Body":"Body",
+      "Hair":"Hair",
+      "Facial":"Facial",
+      "Brand":"Brand",
+      "filter":"Filter",
+      "showing":"showing"
+
+    },
+    "Title":{
+      "Shop":"Shop",
+      "Products":"Products",
+      "Latest news":"Latest news"
+    },
+    "Shop":{
+      "Header":{
+        "title":"A Deep Dive Into Beauty",
+        "description":"L’Oréal has set itself the mission of offering all women and men worldwide the best of cosmetics innovation in terms of quality, efficacy and safety",
+        "button":"Buy Now",
+        "Tag":{
+          "quote":"Our four Divisions play a major strategic role as they enable L’Oréal to cover all the aspects of beauty.",
+          "author":"Nicolas Hieronimus",
+          "position":"Chief Executive Officer"  
+        }
+      },
+      "category":{
+        "title":"Shop",
+        "Body":{
+          "type": "Body",
+          "content":"Too many products for everyone in your household"
+        },
+        "Facial":{
+          "type": "Facial",
+          "content":"Caused by seasonal changes, allergies, excessive hand washing"
+        },
+        "Hair":{
+          "type": "Hair",
+          "content":"Dry, split ends, brittle, or color damaged"
+        }
+
+      },
+      "voucher":{
+        "min": "Min. spend",
+        "button":"COLLECTED",
+        "collect":"Collect"
+      },
+      "Product":{
+        "description":"Women made purely natural ingredients, taken from the earth’s crust.",
+        "all":"View all"
+      }
+    },
+    "Footer":{
+      "copyright":"© 2023 Glow&Grace. All Right Reserved. With Love By XuanTuoi",
+      "Services":{
+        "title":"Services",
+        "1.0":"Blog",
+        "1.1":"'Our Products",
+        "1.2":"Account"
+      },
+      "Customer Care":{
+        "title":"Customer Care",
+        "2.0":"Privacy Policy",
+        "2.1":"FAQs"
+      },
+      "Shop":{
+        "title":"Shop",
+        "3.0":"L'Oréal",
+        "3.1":"The Ordinary",
+        "3.2":"Bioderma"
+      }
+    },
+    "Cart":{
+      "title":"Shopping Cart",
+      "select":"Select all",
+      "vouchercode":"Voucher code",
+      "freeship":"Shipping Fee Voucher",
+      "coupon":"Voucher for entire products",
+      "subtotal": "Sub total",
+      "err":"Please select at least one product",
+      "err02":"Please enter voucher code",
+      "err03":"Please fill in all fields",
+      "apply":"Apply",
+      "checkout":"Checkout",
+      "item":"item",
+      "steplabel1":"Shipping Address",
+      "steplabel2":"Payment details",
+      "steplabel3":"Review your order",
+      "firstname":"First name",
+      "lastname":"Last name",
+      "phone":"Phone number",
+      "address":"Address",
+      "nextBtn":"Next",
+      "backBtn":"Back",
+      "buyBtn":"Buy",
+      "creditcard":"Credit card",
+      "cardnum":"Card number",
+      "cardname":"Card name",
+      "recieve":"Payment when receive product",
+      "shipping":"Shipping",
+      "voucher": "Voucher",
+      "total": "Total"
+    },
+    "Order":{
+      "title":"Orders",
+      "time01":"Order time",
+      "time02":"Delivery time",
+      "address":"Address",
+      "total":"Total",
+      "status":"Status",
+      "cancel":"Cancel",
+      "number":"Number",
+      "image":"Image",
+      "name":"Product name",
+      "shop":"Shop",
+      "price":"Price",
+      "quantity":"Quantity",
+      "subtotal":"Sub total",
+      "action":"Action",
+      "confirm":"Are you sure to cancel this order",
+      "Ok":"Ok",
+      "No":"Cancel"
+    }
+  }

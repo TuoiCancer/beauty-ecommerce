@@ -1,15 +1,19 @@
-import { hindMadurai, ibarra } from '@/assets/font'
 import { Box, Typography } from '@mui/material'
 import React from 'react'
+import { hindMadurai, ibarra } from '../../../public/font'
 
 const IntroItem = ({
 	title,
 	label,
-	description
+	description,
+	index,
+	dictionary
 }: {
 	title: string
 	label: string
 	description: string
+	index: number
+	dictionary: any
 }) => {
 	return (
 		<Box
@@ -44,7 +48,7 @@ const IntroItem = ({
 					padding: { xs: '8px 0', md: '30px 0 20px 0' }
 				}}
 			>
-				{label}
+				{dictionary['Home']['introduce'][`box${index + 1}`].label}
 			</Typography>
 			<Typography
 				className={hindMadurai.className}
@@ -55,7 +59,7 @@ const IntroItem = ({
 					lineHeight: { xs: '140%', md: ' 180% ' }
 				}}
 			>
-				{description}
+				{dictionary['Home']['introduce'][`box${index + 1}`].description}
 			</Typography>
 		</Box>
 	)

@@ -6,7 +6,7 @@ import { listNews } from '@/constants'
 import { Box, Typography } from '@mui/material'
 import React from 'react'
 
-const BlogPage = () => {
+const BlogPage = ({ dictionary }: any) => {
 	const [limit, setLimit] = React.useState(12)
 	return (
 		<Box
@@ -42,7 +42,11 @@ const BlogPage = () => {
 				{listNews.map((item, index) => {
 					return <BlogItem key={index} blog={item} />
 				})}
-				<PaginationItem rowPerPage={limit} setRowPerPage={setLimit} />
+				<PaginationItem
+					rowPerPage={limit}
+					setRowPerPage={setLimit}
+					dictionary={dictionary}
+				/>
 			</Box>
 		</Box>
 	)

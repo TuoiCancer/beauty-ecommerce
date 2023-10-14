@@ -1,10 +1,8 @@
-import { roboto } from '@/assets/font'
-import { checkout } from '@/constants'
 import { useStore } from '@/store'
 import { Box, Button, Typography } from '@mui/material'
 import React from 'react'
 import ImageItem from '../base/ImageItem'
-import ReviewListProduct, { ReviewListProductProps } from './ReviewListProduct'
+import ReviewListProduct from './ReviewListProduct'
 
 import PersonIcon from '@mui/icons-material/Person'
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone'
@@ -24,7 +22,8 @@ const ConfirmCheckout = ({
 	voucherFreeShipId,
 	voucherDiscountId,
 	isApplyVoucher,
-	isApplyVoucherShipping
+	isApplyVoucherShipping,
+	dictionary
 }: any) => {
 	const { UserSlice } = useStore()
 
@@ -75,18 +74,6 @@ const ConfirmCheckout = ({
 
 	return (
 		<Box>
-			<Typography
-				className={roboto.className}
-				variant='h2'
-				sx={{
-					color: '#000',
-					fontSize: { xs: '20px', md: '22px' },
-					fontWeight: 500,
-					margin: { xs: '12px 0', md: '36px 0 36px 0' }
-				}}
-			>
-				Order summary
-			</Typography>
 			<Box
 				sx={{
 					my: { xs: '16px' }
@@ -136,7 +123,7 @@ const ConfirmCheckout = ({
 						alignItems: 'center'
 					}}
 				>
-					<Typography variant='h3'>Shipping</Typography>
+					<Typography variant='h3'>{dictionary.Cart.shipping}</Typography>
 					<Typography variant='h4'>
 						{isApplyVoucherShipping
 							? formatCurrencyV2(
@@ -153,7 +140,7 @@ const ConfirmCheckout = ({
 						alignItems: 'center'
 					}}
 				>
-					<Typography variant='h3'>Voucher</Typography>
+					<Typography variant='h3'>{dictionary.Cart.voucher}</Typography>
 					<Typography variant='h4'>
 						{isApplyVoucher ? `-${formatCurrency(voucherDiscount)}` : 0}
 					</Typography>
@@ -166,7 +153,7 @@ const ConfirmCheckout = ({
 						alignItems: 'center'
 					}}
 				>
-					<Typography variant='h3'>Total</Typography>
+					<Typography variant='h3'>{dictionary.Cart.total}</Typography>
 					<Typography variant='h4'>
 						{formatCurrency(totalProductPrice)}
 					</Typography>
@@ -231,7 +218,7 @@ const ConfirmCheckout = ({
 						variant='h3'
 						sx={{ color: '#000', fontSize: { xs: '18px', md: '22px' } }}
 					>
-						Shipping Address
+						{dictionary.Cart['steplabel1']}
 					</Typography>
 					<Box className='shipping-wrapper'>
 						<PersonIcon />
@@ -263,7 +250,7 @@ const ConfirmCheckout = ({
 						}
 					}}
 				>
-					<Typography variant='h3'>Payment details</Typography>
+					<Typography variant='h3'>{dictionary.Cart.steplabel2}</Typography>
 					{UserSlice.paymentInfor?.paymentMethod === 'card' ? (
 						<>
 							<Box
@@ -271,11 +258,13 @@ const ConfirmCheckout = ({
 									mb: { xs: '8px' }
 								}}
 							>
-								<Typography variant='h5'>Card name:</Typography>
+								<Typography variant='h5'>
+									{dictionary.Cart.cardname}:
+								</Typography>
 								<Typography variant='h6'>Techcombank</Typography>
 							</Box>
 							<Box>
-								<Typography variant='h5'>Card num:</Typography>
+								<Typography variant='h5'>{dictionary.Cart.cardnum}:</Typography>
 								<Typography variant='h6'>xxxxxxxx021</Typography>
 							</Box>
 						</>
@@ -287,7 +276,7 @@ const ConfirmCheckout = ({
 								alignItems: 'center'
 							}}
 						>
-							<Typography variant='h6'>Payment when recieve</Typography>
+							<Typography variant='h6'>{dictionary.Cart.recieve}</Typography>
 							<ImageItem
 								imgSrc='https://cdn-icons-png.flaticon.com/128/1570/1570917.png'
 								width='32px'
@@ -314,7 +303,7 @@ const ConfirmCheckout = ({
 					onClick={handleBack}
 					sx={{ mr: 1 }}
 				>
-					Back
+					{dictionary.Cart.backBtn}
 				</Button>
 				<Box sx={{ flex: '1 1 auto' }} />
 				<Button
@@ -327,7 +316,9 @@ const ConfirmCheckout = ({
 						color: '#fff'
 					}}
 				>
-					{activeStep === steps.length - 1 ? 'Buy' : 'Next'}
+					{activeStep === steps.length - 1
+						? `${dictionary.Cart.buyBtn}`
+						: `${dictionary.Cart.nextBtn}`}
 				</Button>
 			</Box>
 		</Box>
