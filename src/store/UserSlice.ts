@@ -25,6 +25,8 @@ export interface IUserSlice {
 	setShippingInfor: (value: any) => void
 	paymentInfor: any
 	setPaymentInfor: (value: any) => void
+	lang: string
+	setLang: (value: string) => void
 }
 
 const UserSlice: StateCreator<
@@ -45,6 +47,7 @@ const UserSlice: StateCreator<
 	successMess: '',
 	rememberPassword: false,
 	errorMess: '',
+	lang: 'en',
 	username: '',
 	password: '',
 	isRefresh: false,
@@ -106,7 +109,11 @@ const UserSlice: StateCreator<
 		set(({ UserSlice }: any) => {
 			UserSlice.paymentInfor = cbFunction(UserSlice.paymentInfor)
 		})
-	}
+	},
+	setLang: lang =>
+		set(({ UserSlice }: any) => {
+			UserSlice.lang = lang
+		})
 })
 
 export default UserSlice as (

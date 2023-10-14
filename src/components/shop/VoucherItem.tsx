@@ -4,7 +4,7 @@ import BaseButton from '../base/BaseButton'
 import { formatCurrency } from '@/helper'
 import { useStore } from '@/store'
 import { useRouter } from 'next/navigation'
-const VoucherItem = ({ voucher, collectVoucherFn }: any) => {
+const VoucherItem = ({ voucher, collectVoucherFn, dictionary }: any) => {
 	const { UserSlice } = useStore()
 	const route = useRouter()
 
@@ -78,7 +78,8 @@ const VoucherItem = ({ voucher, collectVoucherFn }: any) => {
 								whiteSpace: 'nowrap'
 							}}
 						>
-							Min. spend {formatCurrency(voucher.voucher_min_order_value)}
+							{dictionary['Shop']['voucher'].min}{' '}
+							{formatCurrency(voucher.voucher_min_order_value)}
 						</Typography>
 					</Box>
 				</Box>
@@ -107,12 +108,12 @@ const VoucherItem = ({ voucher, collectVoucherFn }: any) => {
 								background: '#F4FCEE'
 							}}
 						>
-							COLLECTED
+							{dictionary['Shop']['voucher'].button}
 						</Typography>
 					</Box>
 				) : (
 					<BaseButton
-						label='COLLECT'
+						label={dictionary['Shop']['voucher'].collect}
 						variant='contained'
 						type='button'
 						styleSx={{

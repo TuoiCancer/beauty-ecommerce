@@ -7,7 +7,7 @@ import { SelectChangeEvent } from '@mui/material/Select'
 
 import MenuIcon from '@mui/icons-material/Menu'
 import CartHeader from './CartHeader'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { useStore } from '@/store'
 
 const listMenu = [
@@ -45,26 +45,17 @@ const listMenu = [
 ]
 
 const Header = ({
+	dictionary,
 	isFixed = true,
 	isHaveBg = true,
 	isHaveShadow = true,
 	textColor = '#000',
 	style = {}
-}) => {
+}: any) => {
 	const { UserSlice } = useStore()
-	const matches = useMediaQuery('(min-width:900px)')
-	const [openPoper, setOpenPoper] = React.useState(false)
 
-	const [language, setLanguage] = React.useState('en')
-	const [isShowMenu, setIsShowMenu] = React.useState(false)
-
-	const handleChange = (event: SelectChangeEvent) => {
-		setLanguage(event.target.value as string)
-	}
-
-	const pathname = usePathname()
-
-	if (pathname.includes('/shop/')) {
+	const pathName = usePathname()
+	if (pathName.includes('/shop/')) {
 		textColor = '#fff'
 		isHaveBg = false
 		isHaveShadow = false
@@ -76,6 +67,26 @@ const Header = ({
 			right: 0,
 			zIndex: 999
 		}
+	}
+
+	const matches = useMediaQuery('(min-width:900px)')
+	const router = useRouter()
+	const [openPoper, setOpenPoper] = React.useState(false)
+
+	const [language, setLanguage] = React.useState(pathName.split('/')[1])
+	const [isShowMenu, setIsShowMenu] = React.useState(false)
+
+	const redirectedPathName = (locale: string) => {
+		if (!pathName) return '/'
+		const segments = pathName.split('/')
+		segments[1] = locale
+		return segments.join('/')
+	}
+
+	const handleChange = (event: SelectChangeEvent) => {
+		UserSlice.setLang(event.target.value as string)
+		setLanguage(event.target.value as string)
+		router.push(redirectedPathName(event.target.value as string))
 	}
 
 	return matches ? (
@@ -143,10 +154,12 @@ const Header = ({
 				{listMenu.map((item, index) => {
 					return (
 						<HeaderItem
+							language={language}
+							dictionary={dictionary}
 							key={index}
 							item={item}
 							textColor={textColor}
-							isPathNameMatch={pathname.includes(item?.link || '')}
+							isPathNameMatch={pathName.includes(item?.link || '')}
 						/>
 					)
 				})}
@@ -157,6 +170,7 @@ const Header = ({
 				textColor={textColor}
 				handleChange={handleChange}
 				language={language}
+				dictionary={dictionary}
 			/>
 		</Box>
 	) : (
@@ -217,7 +231,13 @@ const Header = ({
 					{/* Menu */}
 					{listMenu.map(item => {
 						return (
-							<HeaderItem key={item.id} item={item} textColor={textColor} />
+							<HeaderItem
+								key={item.id}
+								item={item}
+								textColor={textColor}
+								dictionary={dictionary}
+								language={language}
+							/>
 						)
 					})}
 					<CartHeader
@@ -226,6 +246,7 @@ const Header = ({
 						language={language}
 						openPoper={openPoper}
 						setOpenPoper={setOpenPoper}
+						dictionary={dictionary}
 					/>
 				</Box>
 			)}

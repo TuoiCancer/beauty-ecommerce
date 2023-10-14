@@ -51,7 +51,7 @@ const HandleRoute = ({ children }: { children: React.ReactNode }) => {
 	}, [])
 
 	useEffect(() => {
-		if (UserSlice.user) {
+		if (UserSlice.user?.id) {
 			getCartByUserId({
 				userId: UserSlice.user?.id
 			})

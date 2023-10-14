@@ -11,7 +11,13 @@ export const useCreateOrder = () => {
 			})
 		},
 		{
-			onSuccess: data => {},
+			onSuccess: data => {
+				updateStore((state: IStore) => {
+					state.UserSlice.isError = false
+					state.UserSlice.isSuccess = true
+					state.UserSlice.successMess = 'Order successfully'
+				})
+			},
 			onError: (err: any) => {
 				updateStore((state: IStore) => {
 					state.UserSlice.isError = true

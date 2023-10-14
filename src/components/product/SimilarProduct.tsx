@@ -1,4 +1,4 @@
-import { poppins } from '@/assets/font'
+import { poppins } from '../../../public/font'
 import { classifyCategoryByType, listProduct } from '@/constants'
 import { useStore } from '@/store'
 import { ProductInterface } from '@/utils/product.interface'
@@ -12,7 +12,8 @@ import ProductItem from '../shop/ProductItem'
 const SimilarProduct = ({
 	listSimilarProduct,
 	productData,
-	addToCart
+	addToCart,
+	dictionary
 }: any) => {
 	const category = classifyCategoryByType.find(item =>
 		item.type.includes(productData?.product_category)
@@ -42,7 +43,7 @@ const SimilarProduct = ({
 						lineHeight: '125.5%'
 					}}
 				>
-					Similar Product
+					{dictionary['Product'].related}
 				</Typography>
 				<Link
 					href={`/user/product?shopName=${productData?.user?.username}&category=${category?.category}`}
@@ -73,7 +74,7 @@ const SimilarProduct = ({
 								mr: { xs: '18px', md: '24px' }
 							}}
 						>
-							View all
+							{dictionary['Product'].related2}
 						</Typography>
 						<Lefticon />
 					</Box>

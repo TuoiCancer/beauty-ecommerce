@@ -13,9 +13,11 @@ import { toast } from 'react-toastify'
 import { OrderInterface } from '@/utils/order.interface'
 
 export default function OrderTable({
-	listOrder
+	listOrder,
+	dictionary
 }: {
 	listOrder: OrderInterface[]
+	dictionary: any
 }) {
 	const [anchorEl, setAnchorEl] = React.useState(null)
 
@@ -61,12 +63,12 @@ export default function OrderTable({
 					>
 						<TableCell />
 						<TableCell>ID</TableCell>
-						<TableCell align='left'>Time order</TableCell>
-						<TableCell align='left'>Time delivery</TableCell>
-						<TableCell align='left'>Address</TableCell>
-						<TableCell align='left'>Total</TableCell>
-						<TableCell align='left'>Status</TableCell>
-						<TableCell align='left'>Cancel</TableCell>
+						<TableCell align='left'>{dictionary.Order.time01}</TableCell>
+						<TableCell align='left'>{dictionary.Order.time02}</TableCell>
+						<TableCell align='left'>{dictionary.Order.address}</TableCell>
+						<TableCell align='left'>{dictionary.Order.total}</TableCell>
+						<TableCell align='left'>{dictionary.Order.status}</TableCell>
+						<TableCell align='left'>{dictionary.Order.cancel}</TableCell>
 					</TableRow>
 				</TableHead>
 				<TableBody>
@@ -78,6 +80,7 @@ export default function OrderTable({
 							handleClose={handleClose}
 							handleCancelOrder={handleCancelOrder}
 							anchorEl={anchorEl}
+							dictionary={dictionary}
 						/>
 					))}
 				</TableBody>

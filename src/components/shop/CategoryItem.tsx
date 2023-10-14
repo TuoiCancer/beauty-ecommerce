@@ -8,12 +8,14 @@ const CategoryItem = ({
 	pathImg,
 	title,
 	description,
-	shopName
+	shopName,
+	dictionary
 }: {
 	pathImg: string
 	title: string
 	description: string
 	shopName: string
+	dictionary: any
 }) => {
 	return (
 		<Box
@@ -46,7 +48,10 @@ const CategoryItem = ({
 					imgSrc={pathImg}
 					style={{
 						width: { xs: '40px', md: '60px' },
-						height: { xs: '40px', md: '60px' }
+						height: { xs: '40px', md: '60px' },
+						'& img': {
+							objectFit: 'contain'
+						}
 					}}
 				/>
 				<Typography
@@ -58,7 +63,7 @@ const CategoryItem = ({
 						fontSize: { xs: '24px', md: '30px' }
 					}}
 				>
-					{title}
+					{dictionary['Shop']['category'][title].type}
 				</Typography>
 				<Typography
 					variant='body1'
@@ -68,7 +73,7 @@ const CategoryItem = ({
 						lineHeight: { md: '125%' }
 					}}
 				>
-					{description}
+					{dictionary['Shop']['category'][title].content}
 				</Typography>
 			</Link>
 		</Box>

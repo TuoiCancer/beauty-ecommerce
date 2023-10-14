@@ -1,5 +1,5 @@
 'use client'
-import { roboto } from '@/assets/font'
+import { roboto } from '../../../public/font'
 import { useStore } from '@/store'
 import {
 	Box,
@@ -17,15 +17,18 @@ import ShippingAddressForm from './ShippingAddressForm'
 
 const steps = [
 	{
+		id: 1,
 		title: 'Shipping Address',
 		Component: ShippingAddressForm
 	},
 	{
-		title: 'Payment details ',
+		id: 2,
+		title: 'Payment details',
 		Component: PaymentDetails
 	},
 	{
-		title: 'Review your order ',
+		id: 3,
+		title: 'Review your order',
 		Component: ConfirmCheckout
 	}
 ]
@@ -39,7 +42,8 @@ const StepperItem = ({
 	voucherFreeShipId,
 	voucherDiscountId,
 	isApplyVoucher,
-	isApplyVoucherShipping
+	isApplyVoucherShipping,
+	dictionary
 }: any) => {
 	const [activeStep, setActiveStep] = React.useState(0)
 
@@ -60,7 +64,7 @@ const StepperItem = ({
 					mb: { xs: '24px', md: '32px' }
 				}}
 			>
-				Check out
+				{dictionary.Cart.checkout}
 			</Typography>
 			<Box>
 				<Stepper activeStep={activeStep} alternativeLabel>
@@ -85,7 +89,7 @@ const StepperItem = ({
 										}
 									}}
 								>
-									{item.title}
+									{dictionary.Cart[`steplabel${item.id}`]}
 								</StepLabel>
 							</Step>
 						)
@@ -102,6 +106,7 @@ const StepperItem = ({
 							if (index === activeStep) {
 								return (
 									<item.Component
+										dictionary={dictionary}
 										key={index}
 										activeStep={activeStep}
 										steps={steps}

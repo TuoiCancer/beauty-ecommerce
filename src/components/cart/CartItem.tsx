@@ -1,4 +1,4 @@
-import { poppins, roboto } from '@/assets/font'
+import { poppins, roboto } from '../../../public/font'
 import { Box, Checkbox, Typography } from '@mui/material'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
@@ -21,6 +21,7 @@ export interface CartItemProps {
 	deleteCartUser: (data: any) => void
 	setProductSelected: (data: any) => void
 	cartDetail: any
+	dictionary: any
 }
 
 const CartItem = ({
@@ -31,7 +32,8 @@ const CartItem = ({
 	deleteCartUser,
 	setProductSelected,
 	productSelected,
-	cartDetail
+	cartDetail,
+	dictionary
 }: CartItemProps) => {
 	const [isSelectAll, setIsSelectAll] = useState(false)
 	const [listSelected, setListSelected] = useState<any[]>([]) // danh sách các sản phẩm trong cart được chọn, chỉ dùng để hiển thị tick xanh ở select all
@@ -153,7 +155,7 @@ const CartItem = ({
 							fontFamily: 'Poppins'
 						}}
 					>
-						Select all
+						{dictionary.Cart.select}
 					</Typography>
 				</Box>
 			</Box>
@@ -168,6 +170,7 @@ const CartItem = ({
 						setProductSelected={setProductSelected}
 						setListSelected={setListSelected}
 						listSelected={listSelected}
+						dictionary={dictionary}
 					/>
 				)
 			})}

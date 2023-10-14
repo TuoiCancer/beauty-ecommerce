@@ -13,7 +13,8 @@ const PaginationItem = ({
 	setPage,
 	setRowPerPage,
 	rowPerPage,
-	paginationMeta
+	paginationMeta,
+	dictionary
 }: any) => {
 	const handleChange = (event: SelectChangeEvent) => {
 		setRowPerPage(event.target.value as string)
@@ -46,7 +47,7 @@ const PaginationItem = ({
 						marginRight: '12px'
 					}}
 				>
-					Showing
+					{dictionary.Product.showing}
 				</Typography>
 				<Select
 					value={rowPerPage}

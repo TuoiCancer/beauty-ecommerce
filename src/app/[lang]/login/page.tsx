@@ -5,11 +5,11 @@ import { Box, Checkbox, TextField, Typography } from '@mui/material'
 import Image from 'next/legacy/image'
 import React from 'react'
 import { useRouter } from 'next/navigation'
-import { poppins } from '@/assets/font'
 import { validateSigninForm } from '@/helper/validate'
 import { toast } from 'react-toastify'
 import { useLogin } from '@/service/react-query/user.query'
 import { useStore } from '@/store'
+import { poppins } from '../../../../public/font'
 
 const LoginPage = () => {
 	const router = useRouter()

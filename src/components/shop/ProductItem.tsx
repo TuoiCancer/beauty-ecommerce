@@ -1,4 +1,3 @@
-import { poppins } from '@/assets/font'
 import { formatCurrency } from '@/helper'
 import { useStore } from '@/store'
 import { Box, Tooltip, Typography } from '@mui/material'
@@ -185,7 +184,6 @@ const ProductItem = ({
 					<Tooltip title={productName} placement='bottom'>
 						<Typography
 							variant='h3'
-							className={poppins.className}
 							sx={{
 								mt: { xs: '8px', md: '18px' },
 								color: '#000',
@@ -195,7 +193,8 @@ const ProductItem = ({
 								overflow: 'hidden',
 								fontWeight: '400',
 								display: '-webkit-box',
-								textOverflow: 'ellipsis'
+								textOverflow: 'ellipsis',
+								fontFamily: 'Poppins'
 							}}
 						>
 							{productName} {productName}
@@ -203,23 +202,23 @@ const ProductItem = ({
 					</Tooltip>
 					<Typography
 						variant='h5'
-						className={poppins.className}
 						sx={{
 							color: '#000',
 							fontSize: { xs: '14px', md: '15px' },
 							fontWeight: '300',
-							my: { xs: '2px' }
+							my: { xs: '2px' },
+							fontFamily: 'Poppins'
 						}}
 					>
 						{productType}
 					</Typography>
 					<Typography
 						variant='h6'
-						className={poppins.className}
 						sx={{
 							color: '#406D1C',
 							fontSize: { lg: '20px' },
-							fontWeight: '400'
+							fontWeight: '400',
+							fontFamily: 'Poppins'
 						}}
 					>
 						{formatCurrency(price)}

@@ -19,7 +19,8 @@ const PaymentDetails = ({
 	activeStep,
 	steps,
 	handleBack,
-	setActiveStep
+	setActiveStep,
+	dictionary
 }: any) => {
 	const { UserSlice } = useStore()
 	const handleNext = () => {
@@ -32,17 +33,6 @@ const PaymentDetails = ({
 					pt: { lg: '42px' }
 				}}
 			>
-				<Typography
-					variant='h6'
-					sx={{
-						color: '#000',
-						fontSize: { xs: '16px', md: '18px', lg: '22px' },
-						fontWeight: 500,
-						mb: { xs: '20px', lg: '24px' }
-					}}
-				>
-					Payment method
-				</Typography>
 				<Box>
 					<RadioGroup
 						defaultValue='card'
@@ -91,7 +81,7 @@ const PaymentDetails = ({
 											mb: { xs: '12px', md: 0 }
 										}}
 									>
-										Credit card
+										{dictionary.Cart.creditcard}
 									</Typography>
 									<Box
 										sx={{
@@ -157,7 +147,7 @@ const PaymentDetails = ({
 											sx={{
 												flex: 1
 											}}
-											placeholder='Card number *'
+											placeholder={dictionary.Cart.cardnum}
 											value={UserSlice.paymentInfor.paymentData.cardNumber}
 											onChange={e => {
 												UserSlice.setPaymentInfor((prev: any) => {
@@ -194,7 +184,7 @@ const PaymentDetails = ({
 										pl: { md: '16px' }
 									}}
 								>
-									Payment when receive product
+									{dictionary.Cart.recieve}
 								</Typography>
 							}
 						/>
@@ -214,7 +204,7 @@ const PaymentDetails = ({
 					onClick={handleBack}
 					sx={{ mr: 1 }}
 				>
-					Back
+					{dictionary.Cart.backBtn}
 				</Button>
 				<Box sx={{ flex: '1 1 auto' }} />
 				<Button
@@ -227,7 +217,9 @@ const PaymentDetails = ({
 						color: '#fff'
 					}}
 				>
-					{activeStep === steps.length - 1 ? 'Buy' : 'Next'}
+					{activeStep === steps.length - 1
+						? `${dictionary.Cart.buyBtn}`
+						: `${dictionary.Cart.nextBtn}`}
 				</Button>
 			</Box>
 		</Box>

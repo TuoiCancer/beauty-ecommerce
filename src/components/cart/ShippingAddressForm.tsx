@@ -10,7 +10,8 @@ const ShippingAddressForm = ({
 	handleBack,
 	setActiveStep,
 	productSelected,
-	handleClose
+	handleClose,
+	dictionary
 }: any) => {
 	const { UserSlice } = useStore()
 
@@ -23,7 +24,7 @@ const ShippingAddressForm = ({
 			UserSlice.shippingInfor.address === '' ||
 			UserSlice.shippingInfor.phone === ''
 		) {
-			toast.warning('Please fill in all fields', {
+			toast.warning(dictionary.Cart.err03, {
 				position: 'top-center'
 			})
 		} else if (!regex.test(UserSlice.shippingInfor.phone)) {
@@ -82,7 +83,7 @@ const ShippingAddressForm = ({
 							width: '100%'
 						}}
 						value={UserSlice.shippingInfor.firstName}
-						placeholder='First name *'
+						placeholder={`${dictionary.Cart.firstname} *`}
 						onChange={e => {
 							UserSlice.setShippingInfor((prev: any) => {
 								return {
@@ -98,7 +99,7 @@ const ShippingAddressForm = ({
 							width: '100%'
 						}}
 						value={UserSlice.shippingInfor.lastName}
-						placeholder='Last name *'
+						placeholder={`${dictionary.Cart.lastname} *`}
 						onChange={e => {
 							UserSlice.setShippingInfor((prev: any) => {
 								return {
@@ -111,7 +112,7 @@ const ShippingAddressForm = ({
 				</Box>
 				<TextField
 					value={UserSlice.shippingInfor.phone}
-					placeholder='Phone number *'
+					placeholder={`${dictionary.Cart.phone} *`}
 					onChange={e => {
 						UserSlice.setShippingInfor((prev: any) => {
 							return {
@@ -123,7 +124,7 @@ const ShippingAddressForm = ({
 				/>
 				<TextField
 					value={UserSlice.shippingInfor.address}
-					placeholder='Address *'
+					placeholder={`${dictionary.Cart.address} *`}
 					onChange={e => {
 						UserSlice.setShippingInfor((prev: any) => {
 							return {
@@ -223,7 +224,7 @@ const ShippingAddressForm = ({
 					onClick={handleBack}
 					sx={{ mr: 1 }}
 				>
-					Back
+					{dictionary.Cart.backBtn}
 				</Button>
 				<Box sx={{ flex: '1 1 auto' }} />
 				<Button
@@ -236,7 +237,9 @@ const ShippingAddressForm = ({
 						color: '#fff'
 					}}
 				>
-					{activeStep === steps.length - 1 ? 'Buy' : 'Next'}
+					{activeStep === steps.length - 1
+						? `${dictionary.Cart.buyBtn}`
+						: `${dictionary.Cart.nextBtn}`}
 				</Button>
 			</Box>
 		</Box>

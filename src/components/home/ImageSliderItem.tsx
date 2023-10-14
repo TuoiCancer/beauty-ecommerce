@@ -1,8 +1,8 @@
 import React from 'react'
 
 import { Box, Typography } from '@mui/material'
-import { inter, roboto } from '@/assets/font'
 import ImageItem from '../base/ImageItem'
+import { roboto } from '../../../public/font'
 
 export interface Comment {
 	id: string

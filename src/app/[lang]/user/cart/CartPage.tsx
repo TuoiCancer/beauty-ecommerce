@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client'
-import { poppins, roboto } from '@/assets/font'
 import BaseButton from '@/components/base/BaseButton'
 import ImageItem from '@/components/base/ImageItem'
 import CartItem from '@/components/cart/CartItem'
@@ -23,8 +22,9 @@ import { Box, Modal, TextField, Typography } from '@mui/material'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
+import { poppins, roboto } from '../../../../../public/font'
 
-const CartPage = () => {
+const CartPage = ({ dictionary }: any) => {
 	const { UserSlice } = useStore()
 	const route = useRouter()
 	const { data: cartDetail, refetch: getCartDetail } = useGetCartDetailByUserId(
@@ -70,7 +70,7 @@ const CartPage = () => {
 
 	const handleOpen = () => {
 		if (!productSelected.length) {
-			toast.warn('Please select at least one product', {
+			toast.warn(dictionary.Cart.err, {
 				position: 'top-center'
 			})
 		} else {
@@ -286,12 +286,12 @@ const CartPage = () => {
 					mb: { xs: '24px', lg: '52px' }
 				}}
 			>
-				Shopping Cart
+				{dictionary.Cart.title}
 			</Typography>
 			{/* Items in cart */}
 			<Box
 				sx={{
-					mb: { xs: '32px', md: '94px' },
+					mb: { xs: '32px', md: '52px' },
 					maxHeight: { xs: '100%', md: '70vh' },
 					overflowY: 'auto',
 					'&::-webkit-scrollbar': {
@@ -325,13 +325,14 @@ const CartPage = () => {
 								<CartItem
 									key={index}
 									shopName={key}
-									link={shop?.link || ''}
+									link={`${UserSlice.lang}${shop?.link}` || ''}
 									products={cartDetail.cart_products[key].products}
 									cartDetail={cartDetail}
 									updateFn={updateCartUser}
 									deleteCartUser={deleteCartUser}
 									setProductSelected={setProductSelected}
 									productSelected={productSelected}
+									dictionary={dictionary}
 								/>
 							)
 						}
@@ -367,7 +368,7 @@ const CartPage = () => {
 							mr: { md: '24px' }
 						}}
 					>
-						Voucher code:
+						{dictionary.Cart.vouchercode}
 					</Typography>
 					<TextField
 						id='outlined-basic'
@@ -387,7 +388,7 @@ const CartPage = () => {
 					<BaseButton
 						onClick={() => {
 							if (!voucherCode) {
-								toast.warn('Please enter voucher code', {
+								toast.warn(dictionary.Cart.err02, {
 									position: 'top-center'
 								})
 							} else {
@@ -395,7 +396,7 @@ const CartPage = () => {
 							}
 						}}
 						bgStyle='color'
-						label='Apply'
+						label={dictionary.Cart.apply}
 						variant='contained'
 						styleSx={{
 							marginLeft: { md: '42px' },
@@ -434,7 +435,7 @@ const CartPage = () => {
 									color: '#000'
 								}}
 							>
-								{voucherShipping ? 'Shipping Fee Voucher: ' : ''}
+								{voucherShipping ? `${dictionary.Cart.freeship}: ` : ''}
 							</Typography>
 							<Typography
 								variant='h6'
@@ -477,7 +478,7 @@ const CartPage = () => {
 							}}
 						>
 							<Typography variant='h5'>
-								{voucherDiscount ? 'Voucher for entire products: ' : ''}
+								{voucherDiscount ? `${dictionary.Cart.coupon}: ` : ''}
 							</Typography>
 							<Typography
 								variant='h6'
@@ -518,7 +519,7 @@ const CartPage = () => {
 						}}
 					>
 						<Typography variant='h5'>
-							Sub total
+							{dictionary.Cart.subtotal}
 							<Typography
 								variant='h6'
 								component='span'
@@ -530,7 +531,7 @@ const CartPage = () => {
 									fontWeight: 400
 								}}
 							>
-								({productSelected?.length || 0} items) :
+								({productSelected?.length || 0} {dictionary.Cart.item}) :
 							</Typography>
 						</Typography>
 						<Typography
@@ -552,7 +553,7 @@ const CartPage = () => {
 			<BaseButton
 				onClick={handleOpen}
 				bgStyle='gradient'
-				label='Checkout'
+				label={dictionary.Cart.checkout}
 				variant='contained'
 				styleSx={{
 					mt: { xs: '24px' },
@@ -601,6 +602,7 @@ const CartPage = () => {
 						voucherDiscountId={voucherDiscountId}
 						isApplyVoucher={isApplyVoucher}
 						isApplyVoucherShipping={isApplyVoucherShipping}
+						dictionary={dictionary}
 					/>
 				</Box>
 			</Modal>

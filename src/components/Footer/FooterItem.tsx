@@ -3,6 +3,7 @@ import React from 'react'
 import { Box, Typography } from '@mui/material'
 import { Ibarra_Real_Nova } from 'next/font/google'
 import Link from 'next/link'
+import { useStore } from '@/store'
 const ibarra = Ibarra_Real_Nova({
 	display: 'swap',
 	subsets: ['latin-ext'],
@@ -18,8 +19,11 @@ interface ListItem {
 export interface FooterProps {
 	title: string
 	listItems: ListItem[]
+	dictionary: any
 }
-const FooterItem = ({ title, listItems }: FooterProps) => {
+const FooterItem = ({ title, listItems, dictionary }: FooterProps) => {
+	const { UserSlice } = useStore()
+
 	return (
 		<Box
 			sx={{
@@ -35,7 +39,7 @@ const FooterItem = ({ title, listItems }: FooterProps) => {
 					color: '#fff'
 				}}
 			>
-				{title}
+				{dictionary['Footer'][title].title}
 			</Typography>
 			<Box
 				sx={{
@@ -54,7 +58,7 @@ const FooterItem = ({ title, listItems }: FooterProps) => {
 			>
 				{listItems.map(item => {
 					return (
-						<Link key={item.id} href={item?.link || ''}>
+						<Link key={item.id} href={`/${UserSlice.lang}/${item?.link}` || ''}>
 							{item.label}
 						</Link>
 					)

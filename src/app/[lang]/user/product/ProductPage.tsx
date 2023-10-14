@@ -1,6 +1,5 @@
 'use client'
 
-import { ibarra } from '@/assets/font'
 import ImageItem from '@/components/base/ImageItem'
 import ProgressLoading from '@/components/base/ProgressLoading'
 import PaginationItem from '@/components/product/Pagination'
@@ -15,8 +14,9 @@ import { Box, TextField, Typography } from '@mui/material'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
+import { ibarra } from '../../../../../public/font'
 
-const ProductPage = () => {
+const ProductPage = ({ dictionary }: any) => {
 	const searchParams = useSearchParams()
 	const search = searchParams.get('shopName')
 	const categoryPath = searchParams.get('category')
@@ -216,7 +216,7 @@ const ProductPage = () => {
 						lineHeight: '125.5%'
 					}}
 				>
-					Search
+					{dictionary.Product.title}
 				</Typography>
 				<Typography
 					sx={{
@@ -228,9 +228,7 @@ const ProductPage = () => {
 						textAlign: 'center'
 					}}
 				>
-					Find your perfect skincare solution with our comprehensive product
-					search. Discover a wide range of skincare cosmetics for your unique
-					needs.
+					{dictionary.Product.content}
 				</Typography>
 				<Box
 					sx={{
@@ -241,7 +239,7 @@ const ProductPage = () => {
 					<TextField
 						id='outlined-basic'
 						variant='outlined'
-						placeholder='Search for... '
+						placeholder={dictionary.Product.search}
 						onKeyDown={e => {
 							if (e.code === 'Enter') {
 								setPage(1)
@@ -350,6 +348,7 @@ const ProductPage = () => {
 						filterOptions={filterOptions}
 						orderBy={orderBy}
 						setOrderBy={setOrderBy}
+						dictionary={dictionary}
 					/>
 					{/* List Product */}
 					<Box
@@ -395,6 +394,7 @@ const ProductPage = () => {
 					setRowPerPage={setRowPerPage}
 					rowPerPage={rowPerPage}
 					paginationMeta={paginationMeta}
+					dictionary={dictionary}
 				/>
 			</Box>
 		</Box>

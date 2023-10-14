@@ -24,13 +24,15 @@ const RowItem = ({
 	handleClose,
 	handleCancelOrder,
 	handleClick,
-	anchorEl
+	anchorEl,
+	dictionary
 }: {
 	row: OrderInterface
 	handleClose: () => void
 	handleCancelOrder: () => void
 	handleClick: (event: any) => void
 	anchorEl: any
+	dictionary: any
 }) => {
 	const [openColaspe, setOpenColapse] = React.useState(false)
 	return (
@@ -133,7 +135,7 @@ const RowItem = ({
 										fontSize: '14px'
 									}}
 								>
-									Are you sure to cancel this order
+									{dictionary.Order.confirm}
 								</Typography>
 								<Box
 									sx={{
@@ -144,7 +146,7 @@ const RowItem = ({
 								>
 									<BaseButton
 										onClick={handleClose}
-										label='Cancel'
+										label={dictionary.Order.No}
 										variant='text'
 										styleSx={{
 											color: '#ccc',
@@ -154,7 +156,7 @@ const RowItem = ({
 									/>
 									<BaseButton
 										onClick={handleCancelOrder}
-										label='OK'
+										label={dictionary.Order.Ok}
 										variant='text'
 										styleSx={{
 											color: 'var(--main-green)',
@@ -189,14 +191,24 @@ const RowItem = ({
 											}
 										}}
 									>
-										<TableCell align='center'>Number</TableCell>
-										<TableCell>Image</TableCell>
-										<TableCell align='left'>Product name</TableCell>
-										<TableCell align='left'>Shop</TableCell>
-										<TableCell align='center'>Quantity</TableCell>
-										<TableCell align='left'>Price</TableCell>
-										<TableCell align='left'>Sub total</TableCell>
-										<TableCell align='center'>Action</TableCell>
+										<TableCell align='center'>
+											{dictionary.Order.number}
+										</TableCell>
+										<TableCell>{dictionary.Order.image}</TableCell>
+										<TableCell align='left'>{dictionary.Order.name}</TableCell>
+										<TableCell align='center'>
+											{dictionary.Order.shop}
+										</TableCell>
+										<TableCell align='left'>
+											{dictionary.Order.quantity}
+										</TableCell>
+										<TableCell align='left'>{dictionary.Order.price}</TableCell>
+										<TableCell align='left'>
+											{dictionary.Order.subtotal}
+										</TableCell>
+										<TableCell align='center'>
+											{dictionary.Order.action}
+										</TableCell>
 									</TableRow>
 								</TableHead>
 								<TableBody

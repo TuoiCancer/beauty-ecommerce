@@ -9,27 +9,28 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import LogoutIcon from '@mui/icons-material/Logout'
 import AvatarPoper from './AvatarPoper'
 import LocalMallIcon from '@mui/icons-material/LocalMall'
-import Loading from '@/app/loading'
 import { useLogin, useLogout } from '@/service/react-query/user.query'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
+import { i18n } from '../../../i18n-config'
 
 const CartHeader = ({
 	textColor,
 	language,
 	handleChange,
 	openPoper,
-	setOpenPoper
+	setOpenPoper,
+	dictionary
 }: {
 	textColor: string
 	language: string
 	handleChange: (event: any) => void
 	openPoper: boolean
 	setOpenPoper: (value: boolean) => void
+	dictionary: any
 }) => {
 	const { UserSlice } = useStore()
 	const router = useRouter()
 	const { isLoading, mutate: logout } = useLogout()
-
 	const handleClick = () => {
 		setOpenPoper(!openPoper)
 	}
@@ -37,8 +38,6 @@ const CartHeader = ({
 	const handleLogout = () => {
 		logout()
 		setOpenPoper(false)
-		//reload page
-		// window.location.reload()
 	}
 
 	const listAvatarPoper = [
@@ -72,7 +71,6 @@ const CartHeader = ({
 		// }
 	]
 
-	// if (isLoading) return <Loading />
 	return (
 		<Box
 			sx={{
@@ -87,7 +85,6 @@ const CartHeader = ({
 				value={language}
 				onChange={handleChange}
 				sx={{
-					// mr: { md: '20px' },
 					color: { xs: '#000', md: textColor },
 					'& fieldset': {
 						border: 'none'
@@ -100,9 +97,17 @@ const CartHeader = ({
 					}
 				}}
 			>
-				<MenuItem value={'en'}>Eng</MenuItem>
-				<MenuItem value={'vn'}>Viet Nam</MenuItem>
-				<MenuItem value={'ko'}>Korean</MenuItem>
+				{i18n.locales.map(locale => {
+					return (
+						<MenuItem key={locale} value={locale}>
+							{locale === 'en'
+								? 'English'
+								: locale === 'vn'
+								? 'Tiếng Việt'
+								: 'Korean'}
+						</MenuItem>
+					)
+				})}
 			</Select>
 
 			<Box
@@ -143,7 +148,7 @@ const CartHeader = ({
 					</Box>
 				</Box>
 				<Link
-					href='/user/cart'
+					href={`/${UserSlice.lang}/user/cart`}
 					onClick={(e: any) => {
 						e.preventDefault()
 						if (!UserSlice.isLoggedIn) {
@@ -151,7 +156,7 @@ const CartHeader = ({
 							router.push('/login')
 							return
 						}
-						router.push('/user/cart')
+						router.push(`/${UserSlice.lang}/user/cart`)
 					}}
 				>
 					{textColor === '#000' ? (
@@ -213,6 +218,7 @@ const CartHeader = ({
 										icon={item.icon}
 										text={item.text}
 										onClick={item?.onClick}
+										dictionary={dictionary}
 									/>
 								)
 							})}
@@ -228,7 +234,7 @@ const CartHeader = ({
 						color: textColor
 					}}
 				>
-					Login
+					{dictionary['navbar'].login}
 				</Link>
 			)}
 		</Box>

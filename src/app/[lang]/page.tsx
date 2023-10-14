@@ -5,6 +5,7 @@ import Loading from './loading'
 
 const ContainerComponent = () => {
 	const route = useRouter()
+
 	useEffect(() => {
 		route.push('/user/home')
 	}, [])
