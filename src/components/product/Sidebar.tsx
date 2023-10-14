@@ -1,5 +1,4 @@
 'use client'
-import { ibarra } from '../../../public/font'
 import { listBrands, listCategory } from '@/constants'
 import {
 	Box,
@@ -13,6 +12,7 @@ import React from 'react'
 import BaseButton from '../base/BaseButton'
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp'
 import { useStore } from '@/store'
+import { ibarra } from '../../../public/font'
 const Title = ({ title, dictionary }: { title: string; dictionary: any }) => {
 	return (
 		<Typography

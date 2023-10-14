@@ -1,4 +1,3 @@
-import { poppins } from '../../../public/font'
 import { classifyCategoryByType, listProduct } from '@/constants'
 import { useStore } from '@/store'
 import { ProductInterface } from '@/utils/product.interface'
@@ -6,6 +5,7 @@ import { Box, Typography } from '@mui/material'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React from 'react'
+import { poppins } from '../../../public/font'
 import Lefticon from '../icon/Lefticon'
 import ProductItem from '../shop/ProductItem'
 

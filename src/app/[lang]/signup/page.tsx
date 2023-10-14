@@ -16,12 +16,12 @@ import Typography from '@mui/material/Typography'
 import Image from 'next/legacy/image'
 import React, { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { poppins } from '../../../public/font'
 import WestIcon from '@mui/icons-material/West'
 import { useSignup } from '@/service/react-query/user.query'
 import { toast } from 'react-toastify'
 import { validateSignupForm } from '@/helper/validate'
 import Loading from '../loading'
+import { poppins } from '../../../../public/font'
 
 const SignupPage = () => {
 	const router = useRouter()

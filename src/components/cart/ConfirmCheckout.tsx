@@ -1,10 +1,8 @@
-import { roboto } from '../../../public/font'
-import { checkout } from '@/constants'
 import { useStore } from '@/store'
 import { Box, Button, Typography } from '@mui/material'
 import React from 'react'
 import ImageItem from '../base/ImageItem'
-import ReviewListProduct, { ReviewListProductProps } from './ReviewListProduct'
+import ReviewListProduct from './ReviewListProduct'
 
 import PersonIcon from '@mui/icons-material/Person'
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone'

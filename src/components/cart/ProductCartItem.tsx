@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { poppins, roboto } from '../../../public/font'
 
 import { Box, Checkbox, Typography } from '@mui/material'
 import ImageItem from '../base/ImageItem'
 import Link from 'next/link'
 import { useStore } from '@/store'
 import { formatCurrency, getPriceFormat } from '@/helper'
+import { poppins, roboto } from '../../../public/font'
 const ProductCartItem = ({
 	item,
 	updateFn,

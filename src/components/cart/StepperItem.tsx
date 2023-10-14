@@ -1,6 +1,4 @@
 'use client'
-import { roboto } from '../../../public/font'
-import { useStore } from '@/store'
 import {
 	Box,
 	Button,
@@ -11,6 +9,7 @@ import {
 	CircularProgress
 } from '@mui/material'
 import React from 'react'
+import { roboto } from '../../../public/font'
 import ConfirmCheckout from './ConfirmCheckout'
 import PaymentDetails from './PaymentDetails'
 import ShippingAddressForm from './ShippingAddressForm'

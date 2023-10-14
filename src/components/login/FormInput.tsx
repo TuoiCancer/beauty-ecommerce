@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box, TextField, Typography } from '@mui/material'
-import { poppins } from '../../../public/font'
+import { poppins } from '../../../../public/font'
 
 const FormInput = ({
 	label, //

@@ -1,6 +1,6 @@
-import { unicaOne } from '../../../public/font'
 import { Typography } from '@mui/material'
 import React from 'react'
+import { unicaOne } from '../../../public/font'
 
 const Title = ({ title, dictionary }: { title: string; dictionary: any }) => {
 	console.log('title', title)

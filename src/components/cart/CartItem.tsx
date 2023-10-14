@@ -1,7 +1,7 @@
-import { poppins, roboto } from '../../../public/font'
 import { Box, Checkbox, Typography } from '@mui/material'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
+import { roboto } from '../../../public/font'
 import ImageItem from '../base/ImageItem'
 import Lefticon from '../icon/Lefticon'
 import ProductCartItem from './ProductCartItem'
