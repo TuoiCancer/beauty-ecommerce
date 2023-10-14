@@ -42,7 +42,11 @@ const BlogPage = () => {
 				{listNews.map((item, index) => {
 					return <BlogItem key={index} blog={item} />
 				})}
-				<PaginationItem rowPerPage={limit} setRowPerPage={setLimit} />
+				<PaginationItem
+					rowPerPage={limit}
+					setRowPerPage={setLimit}
+					dictionary={dictionary}
+				/>
 			</Box>
 		</Box>
 	)
