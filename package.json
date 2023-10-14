@@ -7,7 +7,7 @@
 		"start": "next start",
 		"build": "next build",
 		"lint": "next lint",
-		"commit": "git add . && cz && git push",
+		"commit": "git add .  && git push",
 		"format": "prettier --write \"./**/*.ts\" \"./**/*.tsx\""
 	},
 	"dependencies": {
