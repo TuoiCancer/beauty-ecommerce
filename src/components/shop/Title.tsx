@@ -3,7 +3,6 @@ import React from 'react'
 import { unicaOne } from '../../../public/font'
 
 const Title = ({ title, dictionary }: { title: string; dictionary: any }) => {
-	console.log('title', title)
 	return (
 		<Typography
 			variant='h2'

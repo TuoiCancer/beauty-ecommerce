@@ -29,7 +29,7 @@ import { poppins } from '../../../../../../public/font'
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews)
 
-const ShopPageDetail = ({ dictionary }: any) => {
+const ShopPageDetail = ({ dictionary, lang }: any) => {
 	const theme = useTheme()
 	const { UserSlice } = useStore()
 	const productListRef = useRef<HTMLDivElement | null>(null)
@@ -138,6 +138,7 @@ const ShopPageDetail = ({ dictionary }: any) => {
 									description={item.description}
 									shopName={shopName || ''}
 									dictionary={dictionary}
+									lang={lang}
 								/>
 							)
 						})}
@@ -310,6 +311,7 @@ const ShopPageDetail = ({ dictionary }: any) => {
 							(item: ProductInterface) => {
 								return (
 									<ProductItem
+										lang={lang}
 										productId={item.id}
 										key={item.id}
 										imgSrc={item.product_thumbnail}

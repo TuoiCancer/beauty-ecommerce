@@ -7,12 +7,14 @@ const ProductSearchWrapper = ({
 	listProduct,
 	page,
 	rowPerPage,
-	addToCart
+	addToCart,
+	lang
 }: {
 	listProduct: any[]
 	page: number
 	rowPerPage: number
 	addToCart: any
+	lang: string
 }) => {
 	const listProductDisplay = listProduct.filter(item => item.page === page)[0]
 		.data
@@ -31,6 +33,7 @@ const ProductSearchWrapper = ({
 						price={`${item.product_price}`}
 						shopId={item.user.id}
 						quantity={item.product_quantity}
+						lang={lang}
 						style={{
 							width: { md: '200px', xl: '260px' },
 							height: { md: '300px', xl: '420px' },

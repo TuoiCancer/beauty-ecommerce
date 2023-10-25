@@ -26,7 +26,7 @@ import {
 	poppins
 } from '../../../../../../public/font'
 
-const ProductDetail = ({ dictionary }: any) => {
+const ProductDetail = ({ dictionary, lang }: any) => {
 	const [activeImg, setActiveImg] = React.useState(0)
 	const [quantity, setQuantity] = React.useState(1)
 	const [isActiveReviews, setIsActiveReviews] = React.useState(false)
@@ -64,6 +64,11 @@ const ProductDetail = ({ dictionary }: any) => {
 
 	useEffect(() => {
 		if (productData) {
+			Object.keys(productData?.product_attribute).map((key, index) => {
+				const listUseage =
+					productData?.product_attribute[key].split('/ENTER/') || []
+			})
+
 			getListSimilarProduct()
 		}
 	}, [productData])
@@ -526,7 +531,12 @@ const ProductDetail = ({ dictionary }: any) => {
 							: Object.keys(productData?.product_attribute).map(
 									(key, index) => {
 										const listUseage =
-											productData?.product_attribute[key].split('/ENTER/') || []
+											key !== 'benefits'
+												? productData?.product_attribute[key].split(
+														'/ENTER/'
+												  ) || []
+												: productData?.product_attribute[key].split('ENTER') ||
+												  []
 										return (
 											<Box key={index}>
 												<Typography
@@ -573,6 +583,7 @@ const ProductDetail = ({ dictionary }: any) => {
 				</Box>
 				{/* Similar Product */}
 				<SimilarProduct
+					lang={lang}
 					listSimilarProduct={listSimilarProduct}
 					productData={productData}
 					addToCart={addToCart}

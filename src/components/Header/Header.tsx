@@ -7,7 +7,7 @@ import { SelectChangeEvent } from '@mui/material/Select'
 
 import MenuIcon from '@mui/icons-material/Menu'
 import CartHeader from './CartHeader'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useStore } from '@/store'
 
 const listMenu = [
@@ -55,6 +55,11 @@ const Header = ({
 	const { UserSlice } = useStore()
 
 	const pathName = usePathname()
+
+	const searchParams = useSearchParams()
+	const search = searchParams.get('shopName')
+	const categoryPath = searchParams.get('category')
+
 	if (pathName.includes('/shop/')) {
 		textColor = '#fff'
 		isHaveBg = false
@@ -77,16 +82,32 @@ const Header = ({
 	const [isShowMenu, setIsShowMenu] = React.useState(false)
 
 	const redirectedPathName = (locale: string) => {
+		console.log(
+			'pathName in header------>',
+			pathName,
+			'search ---------->',
+			search,
+			'categoryPath---------->',
+			categoryPath
+		)
 		if (!pathName) return '/'
 		const segments = pathName.split('/')
 		segments[1] = locale
-		return segments.join('/')
+		console.log('segments in header------>', segments.join('/'))
+		let path = segments.join('/')
+		if (search) {
+			path = `${path}?shopName=${search}`
+		}
+		if (categoryPath) {
+			path = `${path}&category=${categoryPath}`
+		}
+		return path
 	}
 
 	const handleChange = (event: SelectChangeEvent) => {
 		UserSlice.setLang(event.target.value as string)
 		setLanguage(event.target.value as string)
-		router.push(redirectedPathName(event.target.value as string))
+		router.push(redirectedPathName(event.target.value))
 	}
 
 	return matches ? (

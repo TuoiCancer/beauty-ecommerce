@@ -16,7 +16,7 @@ import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { ibarra } from '../../../../../public/font'
 
-const ProductPage = ({ dictionary }: any) => {
+const ProductPage = ({ dictionary, lang }: any) => {
 	const searchParams = useSearchParams()
 	const search = searchParams.get('shopName')
 	const categoryPath = searchParams.get('category')
@@ -34,8 +34,8 @@ const ProductPage = ({ dictionary }: any) => {
 
 	const [filterOptions, setFilterOptions] = React.useState<IFilterOption>({
 		searchKey: '',
-		brand: 'All',
-		category: 'All',
+		brand: brand,
+		category: category,
 		sort: 'createdAt',
 		order: 'ASC'
 	})
@@ -370,6 +370,7 @@ const ProductPage = ({ dictionary }: any) => {
 								page={page}
 								rowPerPage={rowPerPage}
 								addToCart={addToCart}
+								lang={lang}
 							/>
 						)}
 

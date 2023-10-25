@@ -84,8 +84,8 @@ const TopProductItem = ({ item, dictionary }: any) => {
 							variant='h5'
 							sx={{
 								color: '#121212',
-								fontSize: '24px',
-								margin: { xs: '20px 0' },
+								fontSize: { xs: '18px', md: '24px' },
+								margin: { xs: '20px 0 8px 0', md: '20px 0' },
 								fontWeight: 600,
 								lineHeight: '115.5%',
 								display: '-webkit-box',

@@ -114,7 +114,8 @@ const CartHeader = ({
 				sx={{
 					position: 'relative',
 					mt: { xs: '24px', md: '0' },
-					mr: '36px'
+					mr: '36px',
+					mb: { xs: '12px', md: '0' }
 				}}
 			>
 				<Box
@@ -164,7 +165,10 @@ const CartHeader = ({
 							imgSrc='/img/Cart_000.png'
 							style={{
 								width: { xs: '26px', md: '39px' },
-								height: { xs: '26px', md: '35px' }
+								height: { xs: '26px', md: '35px' },
+								'& img': {
+									objectFit: 'contain'
+								}
 							}}
 						/>
 					) : (
@@ -172,7 +176,10 @@ const CartHeader = ({
 							imgSrc='/img/Cart_fff.png'
 							style={{
 								width: { xs: '26px', md: '39px' },
-								height: { xs: '26px', md: '35px' }
+								height: { xs: '26px', md: '35px' },
+								'& img': {
+									objectFit: 'contain'
+								}
 							}}
 						/>
 					)}
@@ -196,7 +203,7 @@ const CartHeader = ({
 						<Box
 							sx={{
 								position: 'absolute',
-								top: '110%',
+								top: { xs: '102%', md: '110%' },
 								right: '0',
 								zIndex: 5,
 								backgroundColor: '#fff',

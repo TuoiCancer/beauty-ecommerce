@@ -13,7 +13,8 @@ const SimilarProduct = ({
 	listSimilarProduct,
 	productData,
 	addToCart,
-	dictionary
+	dictionary,
+	lang
 }: any) => {
 	const category = classifyCategoryByType.find(item =>
 		item.type.includes(productData?.product_category)
@@ -93,6 +94,7 @@ const SimilarProduct = ({
 				{listSimilarProduct.map((item: ProductInterface) => {
 					return (
 						<ProductItem
+							lang={lang}
 							productId={item.id}
 							key={item.id}
 							imgSrc={item.product_thumbnail}

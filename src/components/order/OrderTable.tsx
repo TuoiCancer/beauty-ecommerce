@@ -14,26 +14,13 @@ import { OrderInterface } from '@/utils/order.interface'
 
 export default function OrderTable({
 	listOrder,
-	dictionary
+	dictionary,
+	cancelOrder
 }: {
 	listOrder: OrderInterface[]
 	dictionary: any
+	cancelOrder: any
 }) {
-	const [anchorEl, setAnchorEl] = React.useState(null)
-
-	const handleClick = (event: any) => {
-		setAnchorEl(event.currentTarget)
-	}
-
-	const handleClose = () => {
-		setAnchorEl(null)
-	}
-
-	const handleCancelOrder = () => {
-		toast.success('Cancel order success')
-		handleClose()
-	}
-
 	return (
 		<TableContainer
 			component={Paper}
@@ -76,11 +63,8 @@ export default function OrderTable({
 						<RowItem
 							key={row.id}
 							row={row}
-							handleClick={handleClick}
-							handleClose={handleClose}
-							handleCancelOrder={handleCancelOrder}
-							anchorEl={anchorEl}
 							dictionary={dictionary}
+							cancelOrder={cancelOrder}
 						/>
 					))}
 				</TableBody>

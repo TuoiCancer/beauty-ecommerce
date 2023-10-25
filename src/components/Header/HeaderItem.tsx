@@ -96,8 +96,8 @@ const HeaderItem = ({
 						imgSrc='/img/down_000.png'
 						style={{
 							marginLeft: '12px',
-							width: '20px',
-							height: '16px'
+							width: { xs: '14px', md: '20px' },
+							height: { xs: '10px', md: '16px' }
 						}}
 					/>
 				) : (

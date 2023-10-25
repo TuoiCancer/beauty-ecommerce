@@ -16,7 +16,8 @@ const ProductItem = ({
 	productId,
 	addToCart,
 	shopId,
-	quantity
+	quantity,
+	lang
 }: {
 	imgSrc: string
 	productName: string
@@ -27,6 +28,7 @@ const ProductItem = ({
 	addToCart: any
 	shopId: string
 	quantity?: number
+	lang: string
 }) => {
 	const { UserSlice } = useStore()
 	const router = useRouter()
@@ -76,7 +78,7 @@ const ProductItem = ({
 			}}
 		>
 			<Link
-				href={`/user/product/${productId}`}
+				href={`/${lang}/user/product/${productId}`}
 				style={{
 					textDecoration: 'none'
 				}}

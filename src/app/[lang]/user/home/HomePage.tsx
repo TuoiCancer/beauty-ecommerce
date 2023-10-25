@@ -18,15 +18,7 @@ import { useGetBestSellerProduct } from '@/service/react-query/product.query'
 import { ProductInterface } from '@/utils/product.interface'
 import Loading from '../../loading'
 import { hindMadurai, homemadeApple, ibarra } from '../../../../../public/font'
-
-// import { Ibarra_Real_Nova } from 'next/font/google'
-
-// const ibarra = Ibarra_Real_Nova({
-// 	weight: ['400', '700'],
-// 	style: ['normal', 'italic'],
-// 	subsets: ['latin'],
-// 	display: 'swap'
-// })
+import RecommendProduct from '@/components/home/RecommendProduct'
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews)
 
@@ -73,7 +65,13 @@ const listIntroduce = [
 	}
 ]
 
-export default function Home({ dictionary }: { dictionary: any }) {
+export default function Home({
+	dictionary,
+	lang
+}: {
+	dictionary: any
+	lang: string
+}) {
 	const { UserSlice } = useStore()
 	const theme = useTheme()
 	const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
@@ -285,7 +283,7 @@ export default function Home({ dictionary }: { dictionary: any }) {
 						lg: 'var(--max-width-lg)',
 						xl: 'var(--max-width-xl)'
 					},
-					margin: '0 auto',
+					margin: { xs: '0 12px', sm: '0 auto' },
 					px: { sm: '24px' },
 					display: 'flex',
 					justifyContent: 'center',
@@ -389,7 +387,7 @@ export default function Home({ dictionary }: { dictionary: any }) {
 					position: 'relative',
 					overflow: 'hidden',
 					mb: { xs: '64px' },
-					pt: { sm: '64px' }
+					pt: { xs: '32px', sm: '64px' }
 				}}
 			>
 				<Box
@@ -530,6 +528,7 @@ export default function Home({ dictionary }: { dictionary: any }) {
 						})}
 				</Box>
 			</Box>
+			<RecommendProduct lang={lang} />
 			{/* Review */}
 			<Box
 				sx={{

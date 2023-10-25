@@ -13,7 +13,7 @@ const HomeComponent = async ({
 
 	return (
 		<Box>
-			<Home dictionary={dictionary} />
+			<Home dictionary={dictionary} lang={lang} />
 		</Box>
 	)
 }

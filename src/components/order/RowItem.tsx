@@ -18,23 +18,42 @@ import BaseButton from '../base/BaseButton'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import { OrderInterface } from '@/utils/order.interface'
 import { ProductInterface } from '@/utils/product.interface'
+import { Modal } from '@mui/material'
+import ReviewOrder from './ReviewOrder'
 
 const RowItem = ({
 	row,
-	handleClose,
-	handleCancelOrder,
-	handleClick,
-	anchorEl,
-	dictionary
+	dictionary,
+	cancelOrder
 }: {
 	row: OrderInterface
-	handleClose: () => void
-	handleCancelOrder: () => void
-	handleClick: (event: any) => void
-	anchorEl: any
 	dictionary: any
+	cancelOrder: any
 }) => {
 	const [openColaspe, setOpenColapse] = React.useState(false)
+	const [open, setOpen] = React.useState(false)
+	const [anchorEl, setAnchorEl] = React.useState(null)
+
+	const handleClick = (event: any) => {
+		setAnchorEl(event.currentTarget)
+	}
+
+	const handleClose = () => {
+		setAnchorEl(null)
+	}
+
+	const closeReview = () => {
+		setOpen(false)
+	}
+
+	const handleCancelOrder = () => {
+		cancelOrder({
+			order_id: row.id,
+			order_status: 'cancelled'
+		})
+		handleClose()
+	}
+
 	return (
 		<React.Fragment>
 			<TableRow
@@ -64,7 +83,9 @@ const RowItem = ({
 					{row.id}
 				</TableCell>
 				<TableCell align='left'>{formatDate(row.createdAt)}</TableCell>
-				<TableCell align='left'>{formatDate(row.createdAt)}</TableCell>
+				<TableCell align='left'>
+					{row.time_delivery ? formatDate(row.time_delivery) : ''}
+				</TableCell>
 				<TableCell align='left'>
 					{`${row.order_shipping.address} - ${row.order_shipping.district} - ${row.order_shipping.city}`
 						.length < 50
@@ -92,7 +113,7 @@ const RowItem = ({
 						{row.order_status}
 					</Typography>
 				</TableCell>
-				{row.order_status !== 'Cancelled' ? (
+				{row.order_status !== 'cancelled' ? (
 					<TableCell
 						align='center'
 						sx={{
@@ -206,9 +227,11 @@ const RowItem = ({
 										<TableCell align='left'>
 											{dictionary.Order.subtotal}
 										</TableCell>
-										<TableCell align='center'>
-											{dictionary.Order.action}
-										</TableCell>
+										{row.order_status === 'delivered' && (
+											<TableCell align='center'>
+												{dictionary.Order.action}
+											</TableCell>
+										)}
 									</TableRow>
 								</TableHead>
 								<TableBody
@@ -276,14 +299,19 @@ const RowItem = ({
 														product.product_quantity * product.product_price
 													)}
 												</TableCell>
-												<TableCell align='center'>
-													<MoreHorizIcon
-														sx={{
-															cursor: 'pointer',
-															color: '#000'
-														}}
-													/>
-												</TableCell>
+												{row.order_status === 'delivered' && (
+													<TableCell align='center'>
+														<BaseButton
+															variant='outlined'
+															label='Nhận xét'
+															onClick={() => setOpen(true)}
+															styleSx={{
+																textTransform: 'capitalize',
+																fontSize: '14px'
+															}}
+														/>
+													</TableCell>
+												)}
 											</TableRow>
 										)
 									)}
@@ -293,6 +321,10 @@ const RowItem = ({
 					</Collapse>
 				</TableCell>
 			</TableRow>
+
+			<Modal open={open} onClose={closeReview}>
+				<ReviewOrder product={row} />
+			</Modal>
 		</React.Fragment>
 	)
 }

@@ -5,7 +5,7 @@ import ShopPageDetail from './ShopPageDetail'
 
 const page = async ({ params: { lang } }: { params: { lang: Locale } }) => {
 	const dictionary = await getDictionary(lang)
-	return <ShopPageDetail dictionary={dictionary} />
+	return <ShopPageDetail dictionary={dictionary} lang={lang} />
 }
 
 export default page

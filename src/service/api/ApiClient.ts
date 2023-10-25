@@ -225,4 +225,12 @@ export class ApiService {
 			'Content-Type': 'application/json'
 		}
 	})
+
+	cancelOrder = configApi({
+		path: 'v1/orders/update',
+		method: 'PATCH',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
 }
