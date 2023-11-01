@@ -10,7 +10,7 @@ const RatingItem = ({
 	sx?: any
 }) => {
 	const star = numberOfRate
-	const starBorder = 5 - numberOfRate
+	const starBorder = 5 - numberOfRate > 0 ? 5 - numberOfRate : 0
 	return (
 		<Box
 			sx={{

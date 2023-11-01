@@ -323,7 +323,7 @@ const RowItem = ({
 			</TableRow>
 
 			<Modal open={open} onClose={closeReview}>
-				<ReviewOrder product={row} />
+				<ReviewOrder product={row?.products[0]} onClose={closeReview} />
 			</Modal>
 		</React.Fragment>
 	)

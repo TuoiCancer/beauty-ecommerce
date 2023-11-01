@@ -1,6 +1,5 @@
 import { ProductInterface } from '@/utils/product.interface'
-import { Box } from '@mui/material'
-import React, { useEffect } from 'react'
+import React from 'react'
 import ProductItem from '../shop/ProductItem'
 
 const ProductSearchWrapper = ({
@@ -36,7 +35,7 @@ const ProductSearchWrapper = ({
 						lang={lang}
 						style={{
 							width: { md: '200px', xl: '260px' },
-							height: { md: '300px', xl: '420px' },
+							height: { md: '300px', xl: '430px' },
 							'& h3': {
 								fontSize: { md: '16px' }
 							},

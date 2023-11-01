@@ -41,7 +41,8 @@
         "description":"Trải nghiệm sự xuất sắc với các thương hiệu cao cấp của chúng tôi: Khám phá tuyển tập hàng đầu của chúng tôi về các thương hiệu nổi tiếng được biết đến về chất lượng và sự xuất sắc."
       },
       "topproduct":{
-        "title":"Top sản phẩm bán chạy",
+        "title":"Gợi ý sản phẩm hàng đầu",
+        "description":"Chúng tôi cung cấp những gợi ý tốt nhất để giúp bạn đưa ra quyết định mua sắm thông minh.",
         "from":"Từ",
         "item":"sản phẩm"
       },

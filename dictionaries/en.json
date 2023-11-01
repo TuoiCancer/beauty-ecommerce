@@ -41,7 +41,8 @@
         "description":"Experience Excellence with Our Premium Brands: Explore our top-tier selection of renowned brands known for quality and excellence."
       },
       "topproduct":{
-        "title":"Top Comestic Products",
+        "title":"Recommend Products",
+        "description":"We provide the best recommendations to help you make informed shopping decisions.",
         "from":"From",
         "item":"item"
       },

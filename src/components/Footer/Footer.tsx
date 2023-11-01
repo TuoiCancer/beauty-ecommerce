@@ -120,7 +120,8 @@ const Footer = ({ dictionary }: any) => {
 									fontSize: '18px',
 									lineHeight: '180%',
 									fontWeight: 400,
-									marginBottom: '20px'
+									marginBottom: '20px',
+									fontFamily: 'Montserrat'
 								}
 							}}
 						>

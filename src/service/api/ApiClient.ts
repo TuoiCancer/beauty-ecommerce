@@ -226,9 +226,33 @@ export class ApiService {
 		}
 	})
 
+	getBestSellerProductsByShopId = configApi({
+		path: 'v1/products/best-seller',
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
+
 	cancelOrder = configApi({
 		path: 'v1/orders/update',
 		method: 'PATCH',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
+
+	createReview = configApi({
+		path: 'v1/reviews',
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
+
+	getReviewByParentId = configApi({
+		path: 'v1/reviews',
+		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json'
 		}

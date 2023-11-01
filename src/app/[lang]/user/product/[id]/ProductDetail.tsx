@@ -25,6 +25,9 @@ import {
 	ibarra,
 	poppins
 } from '../../../../../../public/font'
+import { useGetReviewByParentId } from '@/service/react-query/review.query'
+import { ReviewInterface } from '@/utils/review.interface'
+import ReviewContainer from '@/components/product/ReviewContainer'
 
 const ProductDetail = ({ dictionary, lang }: any) => {
 	const [activeImg, setActiveImg] = React.useState(0)
@@ -54,8 +57,18 @@ const ProductDetail = ({ dictionary, lang }: any) => {
 		product_id: id
 	})
 
-	const { isLoading: isAddingToCart, mutate: addToCart } = useAddToCart()
+	const {
+		data: listReviewParent,
+		isLoading: isGettingReviewParents,
+		mutate: getParentReviews
+	} = useGetReviewByParentId()
 
+	const { isLoading: isAddingToCart, mutate: addToCart } = useAddToCart()
+	useEffect(() => {
+		getParentReviews({
+			productId: id
+		})
+	}, [])
 	useEffect(() => {
 		if (id) {
 			refetch()
@@ -191,7 +204,11 @@ const ProductDetail = ({ dictionary, lang }: any) => {
 				>
 					<Box
 						sx={{
-							mr: { md: '44px' }
+							mr: { lg: '44px' },
+							display: { xs: 'flex', lg: 'block' },
+							justifyContent: { xs: 'space-between' },
+							width: { xs: '100%', lg: 'auto' },
+							flexWrap: { xs: 'wrap', lg: 'unset' }
 						}}
 					>
 						{productData.product_listImages?.map(
@@ -200,8 +217,8 @@ const ProductDetail = ({ dictionary, lang }: any) => {
 									key={index}
 									imgSrc={item}
 									style={{
-										width: { xs: '80px', md: '142px' },
-										height: { xs: '80px', md: '142px' },
+										width: { xs: '80px', md: '100px' },
+										height: { xs: '80px', md: '100px' },
 										mb: { xs: '24px', lg: '64px' },
 										border: index === activeImg ? '3px solid #6BB82F' : 'none'
 									}}
@@ -213,7 +230,7 @@ const ProductDetail = ({ dictionary, lang }: any) => {
 					<Box
 						sx={{
 							position: 'relative',
-							width: { xs: '80%', md: '540px', lg: '400px' },
+							width: { xs: '80%', md: '540px', lg: '500px' },
 							height: { xs: '200px', md: '560px' }
 						}}
 					>
@@ -481,7 +498,7 @@ const ProductDetail = ({ dictionary, lang }: any) => {
 							justifyContent: { xs: 'space-between', md: 'flex-start' },
 
 							'& h4': {
-								fontSize: { xs: '24px', md: '32px' },
+								fontSize: { xs: '20px', md: '24px' },
 								lineHeight: '125.5%',
 								mr: { md: '32px' },
 								userSelect: 'none',
@@ -517,68 +534,78 @@ const ProductDetail = ({ dictionary, lang }: any) => {
 							mt: { xs: '20px', md: '32px' }
 						}}
 					>
-						{isActiveReviews
-							? listComments.map((item, index) => (
-									<ReviewItem
-										key={index}
-										img={item.user.avatar}
-										username={item.user.username}
-										rating={item.rating}
-										content={item.content}
-										time={item.time}
-									/>
-							  ))
-							: Object.keys(productData?.product_attribute).map(
-									(key, index) => {
-										const listUseage =
-											key !== 'benefits'
-												? productData?.product_attribute[key].split(
-														'/ENTER/'
-												  ) || []
-												: productData?.product_attribute[key].split('ENTER') ||
-												  []
-										return (
-											<Box key={index}>
+						{isActiveReviews &&
+						listReviewParent &&
+						listReviewParent.length > 0 ? (
+							<ReviewContainer
+								getParentReviews={getParentReviews}
+								listReview={listReviewParent}
+								productId={id}
+							/>
+						) : (
+							isActiveReviews &&
+							listReviewParent &&
+							listReviewParent.length === 0 && (
+								<Typography
+									sx={{
+										color: '#737373',
+										fontSize: '18px',
+										fontWeight: 300,
+										lineHeight: '180%',
+										fontFamily: 'Roboto'
+									}}
+								>
+									No reviews
+								</Typography>
+							)
+						)}
+						{!isActiveReviews &&
+							Object.keys(productData?.product_attribute).map((key, index) => {
+								const listUseage =
+									key !== 'benefits'
+										? productData?.product_attribute[key].split('/ENTER/') || []
+										: productData?.product_attribute[key].split('ENTER') || []
+								return (
+									<Box key={index}>
+										<Typography
+											variant='h4'
+											className={roboto.className}
+											sx={{
+												color: '#737373',
+												fontSize: '22px',
+												fontWeight: 300,
+												lineHeight: '180%',
+												mt: { md: '24px' }
+											}}
+										>
+											{key === 'size'
+												? 'Size:'
+												: key === 'useage'
+												? 'How to use: '
+												: key === 'benefits'
+												? 'Benefits:'
+												: 'Ingredients:'}
+										</Typography>
+										{listUseage.map((useage: string, idx: number) => {
+											return (
 												<Typography
-													variant='h4'
+													key={idx}
 													className={roboto.className}
 													sx={{
 														color: '#737373',
-														fontSize: '22px',
+														fontSize: '18px',
 														fontWeight: 300,
 														lineHeight: '180%',
-														mt: { md: '24px' }
+														my: { md: '8px' }
 													}}
 												>
-													{key === 'size'
-														? 'Size:'
-														: key === 'useage'
-														? 'How to use: '
-														: key === 'benefits'
-														? 'Benefits:'
-														: 'Ingredients:'}
+													{useage}
 												</Typography>
-												{listUseage.map((useage: string, idx: number) => {
-													return (
-														<Typography
-															key={idx}
-															className={roboto.className}
-															sx={{
-																color: '#737373',
-																fontSize: '18px',
-																fontWeight: 300,
-																lineHeight: '180%',
-																my: { md: '8px' }
-															}}
-														>
-															{useage}
-														</Typography>
-													)
-												})}
-											</Box>
-										)
-									}
-							  )}
+											)
+										})}
+									</Box>
+								)
+							})}
 					</Box>
 				</Box>
 				{/* Similar Product */}

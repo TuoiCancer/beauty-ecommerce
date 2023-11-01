@@ -2,6 +2,7 @@
 
 import { Button } from '@mui/material'
 import React from 'react'
+import { motion } from 'framer-motion'
 
 interface IBaseButtonProps {
 	label: string
@@ -23,15 +24,23 @@ const BaseButton: React.FunctionComponent<IBaseButtonProps> = ({
 	bgStyle
 }) => {
 	return (
-		<Button
-			className={`${className}`}
-			variant={variant}
-			onClick={onClick}
-			type={type}
-			sx={{ ...styleSx }}
+		<motion.div
+			style={{
+				display: 'inline-block'
+			}}
+			whileHover={{ scale: 1.05 }}
+			transition={{ type: 'spring', stiffness: 400, damping: 10 }}
 		>
-			{label}
-		</Button>
+			<Button
+				className={`${className}`}
+				variant={variant}
+				onClick={onClick}
+				type={type}
+				sx={{ ...styleSx }}
+			>
+				{label}
+			</Button>
+		</motion.div>
 	)
 }
 

@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 import React from 'react'
 import ImageItem from '../base/ImageItem'
 import Options from './Options'
+import { motion } from 'framer-motion'
 
 const ProductItem = ({
 	imgSrc,
@@ -77,156 +78,172 @@ const ProductItem = ({
 				...style
 			}}
 		>
-			<Link
-				href={`/${lang}/user/product/${productId}`}
-				style={{
-					textDecoration: 'none'
+			<motion.div
+				animate={{
+					opacity: 1
+				}}
+				initial={{
+					opacity: 0
+				}}
+				layout
+				exit={{
+					opacity: 0
 				}}
 			>
-				<Box
-					sx={{
-						width: '100%',
-						height: { xs: '200px', md: '320px' },
-						position: 'relative',
-						overflow: 'hidden'
+				<Link
+					href={`/${lang}/user/product/${productId}`}
+					style={{
+						textDecoration: 'none'
 					}}
 				>
-					{/* SOLD OUT IMAGE */}
-					{quantity === 0 && (
-						<ImageItem
-							imgSrc='/img/soldout.png'
-							style={{
-								position: 'absolute',
-								top: '0',
-								left: '0',
-								width: '64px',
-								height: { xs: '40px', md: '40px' },
-								zIndex: '3'
-							}}
-						/>
-					)}
 					<Box
-						id='layer_product'
 						sx={{
 							width: '100%',
-							height: { xs: '200px', md: '420px' },
-							position: 'absolute',
-							top: '0',
-							left: '0',
-							display: 'none',
-							transition: 'all 0.3s linear'
+							height: { xs: '200px', md: '320px' },
+							position: 'relative',
+							overflow: 'hidden'
 						}}
 					>
-						{/* Layer  */}
+						{/* SOLD OUT IMAGE */}
+						{quantity === 0 && (
+							<ImageItem
+								imgSrc='/img/soldout.png'
+								style={{
+									position: 'absolute',
+									top: '0',
+									left: '0',
+									width: '64px',
+									height: { xs: '40px', md: '40px' },
+									zIndex: '3'
+								}}
+							/>
+						)}
 						<Box
+							id='layer_product'
 							sx={{
 								width: '100%',
 								height: { xs: '200px', md: '420px' },
 								position: 'absolute',
 								top: '0',
 								left: '0',
-								zIndex: '1',
-								overflow: 'hidden',
-								backgroundColor: '#000',
-								opacity: '0.5'
-							}}
-						/>
-						{/* List Options */}
-						<Box
-							id='option-container'
-							sx={{
-								position: 'absolute',
-								zIndex: '3',
-								top: { xs: '50%' },
-								right: { xs: '12px' },
-								transform: { xs: 'translate(0,-50%)' }
+								display: 'none',
+								transition: 'all 0.3s linear'
 							}}
 						>
-							<Options iconSrc='/img/Cart_000.png' onClick={handleAddToCart} />
-							<Options
-								iconSrc='/img/Heart.png'
-								onClick={(e: any) => {
-									e.preventDefault()
+							{/* Layer  */}
+							<Box
+								sx={{
+									width: '100%',
+									height: { xs: '200px', md: '420px' },
+									position: 'absolute',
+									top: '0',
+									left: '0',
+									zIndex: '1',
+									overflow: 'hidden',
+									backgroundColor: '#000',
+									opacity: '0.5'
 								}}
 							/>
-							<Options
-								iconSrc='/img/Eye.png'
-								onClick={(e: any) => {
-									e.preventDefault()
-									router.push(`/user/product/${productId}`)
+							{/* List Options */}
+							<Box
+								id='option-container'
+								sx={{
+									position: 'absolute',
+									zIndex: '3',
+									top: { xs: '50%' },
+									right: { xs: '12px' },
+									transform: { xs: 'translate(0,-50%)' }
 								}}
-							/>
+							>
+								<Options
+									iconSrc='/img/Cart_000.png'
+									onClick={handleAddToCart}
+								/>
+								<Options
+									iconSrc='/img/Heart.png'
+									onClick={(e: any) => {
+										e.preventDefault()
+									}}
+								/>
+								<Options
+									iconSrc='/img/Eye.png'
+									onClick={(e: any) => {
+										e.preventDefault()
+										router.push(`/user/product/${productId}`)
+									}}
+								/>
+							</Box>
 						</Box>
-					</Box>
-					<ImageItem
-						idBox='img-product'
-						imgSrc={imgSrc}
-						style={{
-							width: '100%',
-							height: '100%',
-							transition: 'all 0.3s ease-in-out',
-							'&:hover': {
+						<ImageItem
+							idBox='img-product'
+							imgSrc={imgSrc}
+							style={{
+								width: '100%',
+								height: '100%',
+								transition: 'all 0.3s ease-in-out',
+								'&:hover': {
+									'& img': {
+										transform: 'scale(1.1)'
+									}
+								},
 								'& img': {
-									transform: 'scale(1.1)'
+									objectFit: 'contain'
 								}
-							},
-							'& img': {
-								objectFit: 'contain'
-							}
+							}}
+						/>
+					</Box>
+					<Box
+						sx={{
+							marginLeft: { sm: '20px' },
+							mt: { xs: '8px', md: '18px' },
+							width: '100%'
 						}}
-					/>
-				</Box>
-				<Box
-					sx={{
-						marginLeft: { sm: '20px' },
-						mt: { xs: '8px', md: '18px' },
-						width: '100%'
-					}}
-				>
-					<Tooltip title={productName} placement='bottom'>
+					>
+						<Tooltip title={productName} placement='bottom'>
+							<Typography
+								variant='h3'
+								sx={{
+									mt: { xs: '8px', md: '18px' },
+									color: '#000',
+									fontSize: { xs: '18px', md: '20px' },
+									WebkitLineClamp: 1,
+									WebkitBoxOrient: 'vertical',
+									overflow: 'hidden',
+									fontWeight: '400',
+									display: '-webkit-box',
+									textOverflow: 'ellipsis',
+									fontFamily: 'Poppins'
+								}}
+							>
+								{productName} {productName}
+							</Typography>
+						</Tooltip>
 						<Typography
-							variant='h3'
+							variant='h5'
 							sx={{
-								mt: { xs: '8px', md: '18px' },
 								color: '#000',
-								fontSize: { xs: '18px', md: '20px' },
-								WebkitLineClamp: 1,
-								WebkitBoxOrient: 'vertical',
-								overflow: 'hidden',
-								fontWeight: '400',
-								display: '-webkit-box',
-								textOverflow: 'ellipsis',
+								fontSize: { xs: '14px', md: '15px' },
+								fontWeight: '300',
+								my: { xs: '2px' },
 								fontFamily: 'Poppins'
 							}}
 						>
-							{productName} {productName}
+							{productType}
 						</Typography>
-					</Tooltip>
-					<Typography
-						variant='h5'
-						sx={{
-							color: '#000',
-							fontSize: { xs: '14px', md: '15px' },
-							fontWeight: '300',
-							my: { xs: '2px' },
-							fontFamily: 'Poppins'
-						}}
-					>
-						{productType}
-					</Typography>
-					<Typography
-						variant='h6'
-						sx={{
-							color: '#406D1C',
-							fontSize: { lg: '20px' },
-							fontWeight: '400',
-							fontFamily: 'Poppins'
-						}}
-					>
-						{formatCurrency(price)}
-					</Typography>
-				</Box>
-			</Link>
+						<Typography
+							variant='h6'
+							sx={{
+								color: '#406D1C',
+								fontSize: { lg: '20px' },
+								fontWeight: '400',
+								fontFamily: 'Poppins'
+							}}
+						>
+							{formatCurrency(price)}
+						</Typography>
+					</Box>
+				</Link>
+			</motion.div>
 		</Box>
 	)
 }

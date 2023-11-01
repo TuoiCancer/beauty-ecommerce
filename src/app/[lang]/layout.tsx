@@ -34,9 +34,9 @@ export default function RootLayout({
 				<QueryClientProviderComponent>
 					<Suspense fallback={<Loading />}>
 						<HandleRoute>{children}</HandleRoute>
-						<ScrollToTop />
-						<ShowErr />
 					</Suspense>
+					<ScrollToTop />
+					<ShowErr />
 				</QueryClientProviderComponent>
 			</body>
 		</html>
