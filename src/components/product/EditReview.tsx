@@ -2,14 +2,12 @@ import React from 'react'
 import { Box, TextField } from '@mui/material'
 import SendIcon from '@mui/icons-material/Send'
 
-export default function ReplyReview({
-	contentReply,
-	setShowReplyBox,
-	focus,
-	setContentReply,
-	setIdParentReply,
-	handleCreateReview
-}: any) {
+const EditReview = ({
+	contentEdit,
+	setContentEdit,
+	setShowEditBox,
+	handleEditReview
+}: any) => {
 	return (
 		<Box
 			sx={{
@@ -18,9 +16,8 @@ export default function ReplyReview({
 			}}
 		>
 			<TextField
-				value={contentReply}
-				placeholder='Type something to reply...'
-				autoFocus={focus}
+				value={contentEdit}
+				autoFocus={true}
 				multiline
 				rows={2}
 				fullWidth
@@ -37,17 +34,16 @@ export default function ReplyReview({
 					}
 				}}
 				onChange={e => {
-					setContentReply(e.target.value)
+					setContentEdit(e.target.value)
 				}}
 				onKeyDown={e => {
 					if (e.key === 'Escape') {
-						setShowReplyBox(false)
-						setIdParentReply('')
+						setShowEditBox(false)
 					}
 				}}
 			/>
 			<Box
-				onClick={handleCreateReview}
+				onClick={handleEditReview}
 				sx={{
 					'&:hover': {
 						'& svg': {
@@ -73,3 +69,5 @@ export default function ReplyReview({
 		</Box>
 	)
 }
+
+export default EditReview

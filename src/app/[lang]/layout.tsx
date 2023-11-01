@@ -31,13 +31,13 @@ export default function RootLayout({
 	return (
 		<html lang={params.lang}>
 			<body>
-				<QueryClientProviderComponent>
-					<Suspense fallback={<Loading />}>
+				<Suspense fallback={<Loading />}>
+					<QueryClientProviderComponent>
 						<HandleRoute>{children}</HandleRoute>
-					</Suspense>
-					<ScrollToTop />
-					<ShowErr />
-				</QueryClientProviderComponent>
+						<ScrollToTop />
+						<ShowErr />
+					</QueryClientProviderComponent>
+				</Suspense>
 			</body>
 		</html>
 	)
