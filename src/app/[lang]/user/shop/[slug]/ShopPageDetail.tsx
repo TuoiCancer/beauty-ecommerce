@@ -26,10 +26,11 @@ import VoucherItem from '@/components/shop/VoucherItem'
 import { useStore } from '@/store'
 import Loading from '@/app/[lang]/loading'
 import { poppins } from '../../../../../../public/font'
+import { useGetBestSellerProductsByShopId } from '../../../../../service/react-query/product.query'
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews)
 
-const ShopPageDetail = ({ dictionary }: any) => {
+const ShopPageDetail = ({ dictionary, lang }: any) => {
 	const theme = useTheme()
 	const { UserSlice } = useStore()
 	const productListRef = useRef<HTMLDivElement | null>(null)
@@ -49,6 +50,13 @@ const ShopPageDetail = ({ dictionary }: any) => {
 		data: dataGetListProduct
 	} = useGetProductByPage()
 
+	const {
+		data: listBestSeller,
+		refetch,
+		isLoading
+	} = useGetBestSellerProductsByShopId(idShop)
+
+	// const
 	const { mutate: collectVoucherFn, isSuccess } = useCollectVoucher()
 
 	const { mutate: addToCart } = useAddToCart()
@@ -138,6 +146,7 @@ const ShopPageDetail = ({ dictionary }: any) => {
 									description={item.description}
 									shopName={shopName || ''}
 									dictionary={dictionary}
+									lang={lang}
 								/>
 							)
 						})}
@@ -305,23 +314,22 @@ const ShopPageDetail = ({ dictionary }: any) => {
 						mt: { xs: '48px', md: '74px' }
 					}}
 				>
-					{dataGetListProduct?.result[0]?.data &&
-						dataGetListProduct?.result[0]?.data.map(
-							(item: ProductInterface) => {
-								return (
-									<ProductItem
-										productId={item.id}
-										key={item.id}
-										imgSrc={item.product_thumbnail}
-										productName={item.product_name}
-										productType={item.product_category}
-										price={item.product_price.toFixed(2)}
-										shopId={item.user.id}
-										addToCart={addToCart}
-									/>
-								)
-							}
-						)}
+					{listBestSeller &&
+						listBestSeller.map((item: ProductInterface) => {
+							return (
+								<ProductItem
+									lang={lang}
+									productId={item.id}
+									key={item.id}
+									imgSrc={item.product_thumbnail}
+									productName={item.product_name}
+									productType={item.product_category}
+									price={item.product_price.toFixed(2)}
+									shopId={idShop}
+									addToCart={addToCart}
+								/>
+							)
+						})}
 				</Box>
 			</Box>
 			{/* Video */}

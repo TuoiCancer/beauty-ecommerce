@@ -1,14 +1,19 @@
 'use client'
 import { Box, useMediaQuery } from '@mui/material'
-import React from 'react'
+import React, { useRef } from 'react'
 import ImageItem from '../base/ImageItem'
 import HeaderItem from './HeaderItem'
 import { SelectChangeEvent } from '@mui/material/Select'
 
 import MenuIcon from '@mui/icons-material/Menu'
 import CartHeader from './CartHeader'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useStore } from '@/store'
+
+import { motion, sync, useCycle } from 'framer-motion'
+import { useDimensions } from './use-dimensions'
+import { MenuToggle } from './MenuToggle'
+import { Navigation } from './Navigation'
 
 const listMenu = [
 	{
@@ -55,6 +60,11 @@ const Header = ({
 	const { UserSlice } = useStore()
 
 	const pathName = usePathname()
+
+	const searchParams = useSearchParams()
+	const search = searchParams.get('shopName')
+	const categoryPath = searchParams.get('category')
+
 	if (pathName.includes('/shop/')) {
 		textColor = '#fff'
 		isHaveBg = false
@@ -74,19 +84,49 @@ const Header = ({
 	const [openPoper, setOpenPoper] = React.useState(false)
 
 	const [language, setLanguage] = React.useState(pathName.split('/')[1])
-	const [isShowMenu, setIsShowMenu] = React.useState(false)
+
+	const [isOpen, toggleOpen] = useCycle(false, true)
+	const containerRef = useRef(null)
+	const { height } = useDimensions(containerRef)
+
+	const sidebar = {
+		open: (height = 1000) => ({
+			clipPath: `circle(${height * 2 + 200}px at 40px 40px)`,
+			transition: {
+				type: 'spring',
+				stiffness: 20,
+				restDelta: 2
+			}
+		}),
+		closed: {
+			clipPath: 'circle(30px at 40px 40px)',
+			transition: {
+				delay: 0.5,
+				type: 'spring',
+				stiffness: 400,
+				damping: 40
+			}
+		}
+	}
 
 	const redirectedPathName = (locale: string) => {
 		if (!pathName) return '/'
 		const segments = pathName.split('/')
 		segments[1] = locale
-		return segments.join('/')
+		let path = segments.join('/')
+		if (search) {
+			path = `${path}?shopName=${search}`
+		}
+		if (categoryPath) {
+			path = `${path}&category=${categoryPath}`
+		}
+		return path
 	}
 
 	const handleChange = (event: SelectChangeEvent) => {
 		UserSlice.setLang(event.target.value as string)
 		setLanguage(event.target.value as string)
-		router.push(redirectedPathName(event.target.value as string))
+		router.push(redirectedPathName(event.target.value))
 	}
 
 	return matches ? (
@@ -149,7 +189,6 @@ const Header = ({
 						height: { md: '54px' }
 					}}
 				/>
-
 				{/* Menu */}
 				{listMenu.map((item, index) => {
 					return (
@@ -206,50 +245,24 @@ const Header = ({
 					height: '46px'
 				}}
 			/>
-			<MenuIcon
-				sx={{
-					cursor: 'pointer',
-					color: textColor
-				}}
-				onClick={() => {
-					setIsShowMenu(!isShowMenu)
-				}}
-			/>
-
-			{isShowMenu && (
-				<Box
-					sx={{
-						position: 'absolute',
-						top: '100%',
-						right: '0',
-						backgroundColor: '#fff',
-						zIndex: 2,
-						padding: '12px',
-						boxShadow: '0px 18px 36px 0px rgba(200, 200, 200, 0.25)'
-					}}
-				>
-					{/* Menu */}
-					{listMenu.map(item => {
-						return (
-							<HeaderItem
-								key={item.id}
-								item={item}
-								textColor={textColor}
-								dictionary={dictionary}
-								language={language}
-							/>
-						)
-					})}
-					<CartHeader
-						textColor={textColor}
-						handleChange={handleChange}
-						language={language}
-						openPoper={openPoper}
-						setOpenPoper={setOpenPoper}
-						dictionary={dictionary}
-					/>
-				</Box>
-			)}
+			<motion.nav
+				initial={false}
+				animate={isOpen ? 'open' : 'closed'}
+				custom={height}
+				ref={containerRef}
+			>
+				<motion.div className='background' variants={sidebar} />
+				<Navigation
+					textColor={textColor}
+					dictionary={dictionary}
+					language={language}
+					listMenu={listMenu}
+					handleChange={handleChange}
+					openPoper={openPoper}
+					setOpenPoper={setOpenPoper}
+				/>
+				<MenuToggle toggle={() => toggleOpen()} />
+			</motion.nav>
 		</Box>
 	)
 }

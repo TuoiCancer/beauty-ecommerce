@@ -3,6 +3,7 @@ import { ProductInterface } from './product.interface'
 export interface OrderInterface {
 	id: string
 	createdAt: string
+	time_delivery: string
 	updateAt: string
 	order_checkout: {
 		totalPrice: number

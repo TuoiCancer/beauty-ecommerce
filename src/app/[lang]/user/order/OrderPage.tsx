@@ -1,12 +1,17 @@
 'use client'
+import ProgressLoading from '@/components/base/ProgressLoading'
 import OrderTable from '@/components/order/OrderTable'
-import { useGetAllOrder } from '@/service/react-query/order.query'
+import {
+	useCancelOrder,
+	useGetAllOrder
+} from '@/service/react-query/order.query'
 import { useStore } from '@/store'
 import { Box, Typography } from '@mui/material'
 import React, { useEffect } from 'react'
 import Loading from '../../loading'
 
 const OrderPage = ({ dictionary }: any) => {
+	const [isRefetchFn, setIsRefetchFn] = React.useState(false)
 	const { UserSlice } = useStore()
 
 	const {
@@ -17,9 +22,22 @@ const OrderPage = ({ dictionary }: any) => {
 		userId: UserSlice.user?.id
 	})
 
+	const {
+		isLoading: isCancelOrder,
+		mutate: cancelOrder,
+		isSuccess
+	} = useCancelOrder()
+
 	useEffect(() => {
 		refetch()
 	}, [])
+
+	useEffect(() => {
+		if (isSuccess) {
+			refetch()
+			// setIsRefetchFn(false)
+		}
+	}, [isSuccess])
 
 	if (isLoading) return <Loading />
 
@@ -48,7 +66,11 @@ const OrderPage = ({ dictionary }: any) => {
 			>
 				{dictionary.Order.title}
 			</Typography>
-			<OrderTable listOrder={listOrder.data} dictionary={dictionary} />
+			<OrderTable
+				listOrder={listOrder.data}
+				dictionary={dictionary}
+				cancelOrder={cancelOrder}
+			/>
 		</Box>
 	)
 }

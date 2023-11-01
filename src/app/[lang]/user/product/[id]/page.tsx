@@ -5,7 +5,7 @@ import ProductDetail from './ProductDetail'
 
 const page = async ({ params: { lang } }: { params: { lang: Locale } }) => {
 	const dictionary = await getDictionary(lang)
-	return <ProductDetail dictionary={dictionary} />
+	return <ProductDetail dictionary={dictionary} lang={lang} />
 }
 
 export default page

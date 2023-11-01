@@ -12,6 +12,7 @@ import LocalMallIcon from '@mui/icons-material/LocalMall'
 import { useLogin, useLogout } from '@/service/react-query/user.query'
 import { usePathname, useRouter } from 'next/navigation'
 import { i18n } from '../../../i18n-config'
+import { motion } from 'framer-motion'
 
 const CartHeader = ({
 	textColor,
@@ -71,171 +72,224 @@ const CartHeader = ({
 		// }
 	]
 
+	const variants = {
+		open: {
+			y: 0,
+			opacity: 1,
+			transition: {
+				y: { stiffness: 1000, velocity: -100 }
+			}
+		},
+		closed: {
+			y: 50,
+			opacity: 0,
+			transition: {
+				y: { stiffness: 1000 }
+			}
+		}
+	}
+
 	return (
 		<Box
 			sx={{
 				display: 'flex',
 				justifyContent: 'space-between',
 				alignItems: { xs: 'flex-start', md: 'center' },
-				flexDirection: { xs: 'column', md: 'row' }
+				flexDirection: { xs: 'column', md: 'row' },
+				'& li': {
+					listStyle: 'none'
+				}
 			}}
 		>
-			<Select
-				id='select language'
-				value={language}
-				onChange={handleChange}
-				sx={{
-					color: { xs: '#000', md: textColor },
-					'& fieldset': {
-						border: 'none'
-					},
-					'& svg': {
-						color: { xs: '#000', md: textColor }
-					},
-					'& .MuiSelect-select': {
-						p: { xs: '0' }
-					}
-				}}
+			<motion.li
+				variants={variants}
+				whileHover={{ scale: 1.1 }}
+				whileTap={{ scale: 0.95 }}
 			>
-				{i18n.locales.map(locale => {
-					return (
-						<MenuItem key={locale} value={locale}>
-							{locale === 'en'
-								? 'English'
-								: locale === 'vn'
-								? 'Tiếng Việt'
-								: 'Korean'}
-						</MenuItem>
-					)
-				})}
-			</Select>
+				<Select
+					id='select language'
+					value={language}
+					onChange={handleChange}
+					sx={{
+						color: { xs: '#000', md: textColor },
+						'& fieldset': {
+							border: 'none'
+						},
+						'& svg': {
+							color: { xs: '#000', md: textColor }
+						},
+						'& .MuiSelect-select': {
+							p: { xs: '0' }
+						}
+					}}
+				>
+					{i18n.locales.map(locale => {
+						return (
+							<MenuItem key={locale} value={locale}>
+								{locale === 'en'
+									? 'English'
+									: locale === 'vn'
+									? 'Tiếng Việt'
+									: 'Korean'}
+							</MenuItem>
+						)
+					})}
+				</Select>
+			</motion.li>
 
-			<Box
-				sx={{
-					position: 'relative',
-					mt: { xs: '24px', md: '0' },
-					mr: '36px'
-				}}
+			<motion.li
+				variants={variants}
+				whileHover={{ scale: 1.1 }}
+				whileTap={{ scale: 0.95 }}
 			>
 				<Box
 					sx={{
-						zIndex: 3,
-						cursor: 'pointer',
-						position: 'absolute',
-						right: { xs: '-100%', md: '-50% ', xl: '-50%' },
-						top: { xs: '-50%', md: '-32%', lg: '-30%' }
+						position: 'relative',
+						mt: { xs: '24px', md: '0' },
+						mr: '36px',
+						mb: { xs: '12px', md: '0' }
 					}}
 				>
 					<Box
 						sx={{
-							backgroundColor: '#9E5F00',
-							width: { xs: '24px', md: '28px' },
-							height: { xs: '24px', md: '28px' },
-							borderRadius: '50%',
-							textAlign: 'center'
+							zIndex: 3,
+							cursor: 'pointer',
+							position: 'absolute',
+							right: { xs: '-100%', md: '-50% ', xl: '-50%' },
+							top: { xs: '-50%', md: '-32%', lg: '-30%' }
 						}}
 					>
-						<Typography
-							sx={{
-								color: '#fff',
-								fontSize: { xs: '12px', md: '16px' },
-								fontWeight: 600,
-								lineHeight: { xs: '24px', md: '28px' }
-							}}
-						>
-							{UserSlice.isLoggedIn ? UserSlice.totalProductInCart : 0}
-						</Typography>
-					</Box>
-				</Box>
-				<Link
-					href={`/${UserSlice.lang}/user/cart`}
-					onClick={(e: any) => {
-						e.preventDefault()
-						if (!UserSlice.isLoggedIn) {
-							// push ro login page
-							router.push('/login')
-							return
-						}
-						router.push(`/${UserSlice.lang}/user/cart`)
-					}}
-				>
-					{textColor === '#000' ? (
-						<ImageItem
-							imgSrc='/img/Cart_000.png'
-							style={{
-								width: { xs: '26px', md: '39px' },
-								height: { xs: '26px', md: '35px' }
-							}}
-						/>
-					) : (
-						<ImageItem
-							imgSrc='/img/Cart_fff.png'
-							style={{
-								width: { xs: '26px', md: '39px' },
-								height: { xs: '26px', md: '35px' }
-							}}
-						/>
-					)}
-				</Link>
-			</Box>
-			{UserSlice.isLoggedIn && (
-				<Box
-					sx={{
-						cursor: 'pointer'
-					}}
-				>
-					<Avatar
-						{...stringAvatar(UserSlice.user?.username || 'U')}
-						onClick={e => {
-							e.stopPropagation()
-							// handleClick()
-							setOpenPoper(!openPoper)
-						}}
-					/>
-					{openPoper && (
 						<Box
 							sx={{
-								position: 'absolute',
-								top: '110%',
-								right: '0',
-								zIndex: 5,
-								backgroundColor: '#fff',
-								color: '#000',
-								boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
-								borderRadius: '4px',
-								padding: { xs: '8px 12px' },
-								'& a': {
-									textDecoration: 'none',
-									color: '#000'
-								}
+								backgroundColor: '#9E5F00',
+								width: { xs: '24px', md: '28px' },
+								height: { xs: '24px', md: '28px' },
+								borderRadius: '50%',
+								textAlign: 'center'
 							}}
 						>
-							{listAvatarPoper.map((item, index) => {
-								return (
-									<AvatarPoper
-										key={index}
-										href={item?.href}
-										icon={item.icon}
-										text={item.text}
-										onClick={item?.onClick}
-										dictionary={dictionary}
-									/>
-								)
-							})}
+							<Typography
+								sx={{
+									color: '#fff',
+									fontSize: { xs: '12px', md: '16px' },
+									fontWeight: 600,
+									lineHeight: { xs: '24px', md: '28px' }
+								}}
+							>
+								{UserSlice.isLoggedIn ? UserSlice.totalProductInCart : 0}
+							</Typography>
 						</Box>
-					)}
+					</Box>
+					<Link
+						href={`/${UserSlice.lang}/user/cart`}
+						onClick={(e: any) => {
+							e.preventDefault()
+							if (!UserSlice.isLoggedIn) {
+								// push ro login page
+								router.push('/login')
+								return
+							}
+							router.push(`/${UserSlice.lang}/user/cart`)
+						}}
+					>
+						{textColor === '#000' ? (
+							<ImageItem
+								imgSrc='/img/Cart_000.png'
+								style={{
+									width: { xs: '26px', md: '39px' },
+									height: { xs: '26px', md: '35px' },
+									'& img': {
+										objectFit: 'contain'
+									}
+								}}
+							/>
+						) : (
+							<ImageItem
+								imgSrc='/img/Cart_000.png'
+								style={{
+									width: { xs: '26px', md: '39px' },
+									height: { xs: '26px', md: '35px' },
+									'& img': {
+										objectFit: 'contain'
+									}
+								}}
+							/>
+						)}
+					</Link>
 				</Box>
-			)}
-			{!UserSlice.isLoggedIn && (
-				<Link
-					href='/login'
-					style={{
-						textDecoration: 'none',
-						color: textColor
-					}}
+			</motion.li>
+
+			{UserSlice.isLoggedIn && (
+				<motion.li
+					variants={variants}
+					whileHover={{ scale: 1.1 }}
+					whileTap={{ scale: 0.95 }}
 				>
-					{dictionary['navbar'].login}
-				</Link>
+					<Box
+						sx={{
+							cursor: 'pointer'
+						}}
+					>
+						<Avatar
+							{...stringAvatar(UserSlice.user?.username || 'U')}
+							onClick={e => {
+								e.stopPropagation()
+								// handleClick()
+								setOpenPoper(!openPoper)
+							}}
+						/>
+						{openPoper && (
+							<Box
+								sx={{
+									position: 'absolute',
+									top: { xs: '102%', md: '110%' },
+									right: '0',
+									zIndex: 5,
+									backgroundColor: '#fff',
+									color: '#000',
+									boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+									borderRadius: '4px',
+									padding: { xs: '8px 12px' },
+									'& a': {
+										textDecoration: 'none',
+										color: '#000'
+									}
+								}}
+							>
+								{listAvatarPoper.map((item, index) => {
+									return (
+										<AvatarPoper
+											key={index}
+											href={item?.href}
+											icon={item.icon}
+											text={item.text}
+											onClick={item?.onClick}
+											dictionary={dictionary}
+										/>
+									)
+								})}
+							</Box>
+						)}
+					</Box>
+				</motion.li>
+			)}
+
+			{!UserSlice.isLoggedIn && (
+				<motion.li
+					variants={variants}
+					whileHover={{ scale: 1.1 }}
+					whileTap={{ scale: 0.95 }}
+				>
+					<Link
+						href='/login'
+						style={{
+							textDecoration: 'none',
+							color: textColor
+						}}
+					>
+						{dictionary['navbar'].login}
+					</Link>
+				</motion.li>
 			)}
 		</Box>
 	)

@@ -9,74 +9,58 @@ import TopProductItem from '@/components/home/TopProductItem'
 import { listBrands, listComments } from '@/constants'
 import SwipeableViews from 'react-swipeable-views'
 import { Box, MobileStepper, Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useTheme } from '@mui/material/styles'
 import { autoPlay } from 'react-swipeable-views-utils'
 import { useRouter } from 'next/navigation'
 import { useStore } from '@/store'
 import { useGetBestSellerProduct } from '@/service/react-query/product.query'
-import { ProductInterface } from '@/utils/product.interface'
+import {
+	ProductInterface,
+	TopProductInterface
+} from '@/utils/product.interface'
 import Loading from '../../loading'
 import { hindMadurai, homemadeApple, ibarra } from '../../../../../public/font'
-
-// import { Ibarra_Real_Nova } from 'next/font/google'
-
-// const ibarra = Ibarra_Real_Nova({
-// 	weight: ['400', '700'],
-// 	style: ['normal', 'italic'],
-// 	subsets: ['latin'],
-// 	display: 'swap'
-// })
+import RecommendProduct from '@/components/home/RecommendProduct'
+import { motion } from 'framer-motion'
+import { ListIntroduce } from '@/components/Header/Introduce'
+import TextIntro from '@/components/Header/Introduce/TextIntro'
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews)
 
-const menuItems = [
-	{ id: 1, label: 'Home', isHasDropdown: false },
-	{ id: 2, label: 'Product', isHasDropdown: false },
-	{ id: 3, label: 'Shop', isHasDropdown: true }
-]
-
-const menuDropdownItems = [
-	{ id: 1, label: 'L’Oréal' },
-	{ id: 2, label: 'The Ordinary' },
-	{ id: 3, label: 'Bioderma' }
-]
-
-const listIntroduce = [
-	{
-		id: '1',
-		title: '05+',
-		lable: 'Years of Experience',
-		description:
-			'We are 05 years of experienced in this yoga field. Giving the best instructions.'
-	},
-	{
-		id: '2',
-		title: '15+',
-		lable: 'Experienced Trainer',
-		description:
-			'We are 05 years of experienced in this yoga field. Giving the best instructions.'
-	},
-	{
-		id: '3',
-		title: '5K+',
-		lable: 'Happy Clients',
-		description:
-			'We are 05 years of experienced in this yoga field. Giving the best instructions.'
-	},
-	{
-		id: '4',
-		title: '24+',
-		lable: 'Monthly Routine',
-		description:
-			'We are 05 years of experienced in this yoga field. Giving the best instructions.'
+const textIntroVariants = {
+	hidden: { opacity: 0, x: 40 },
+	visible: {
+		opacity: 1,
+		x: 0
 	}
-]
+}
 
-export default function Home({ dictionary }: { dictionary: any }) {
+const textHeaderVariants = {
+	hidden: { opacity: 0, x: -40 },
+	visible: {
+		opacity: 1,
+		x: 0
+	}
+}
+
+const brandVariants = {
+	hidden: { opacity: 0, y: 80 },
+	visible: {
+		opacity: 1,
+		y: 0
+	}
+}
+
+export default function Home({
+	dictionary,
+	lang
+}: {
+	dictionary: any
+	lang: string
+}) {
 	const { UserSlice } = useStore()
 	const theme = useTheme()
-	const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
 	const [activeStep, setActiveStep] = useState(0)
 
 	const route = useRouter()
@@ -89,14 +73,6 @@ export default function Home({ dictionary }: { dictionary: any }) {
 	useEffect(() => {
 		refetch()
 	}, [])
-
-	const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-		setAnchorElNav(event.currentTarget)
-	}
-
-	const handleCloseNavMenu = () => {
-		setAnchorElNav(null)
-	}
 
 	const handleStepChange = (step: number) => {
 		setActiveStep(step)
@@ -183,204 +159,201 @@ export default function Home({ dictionary }: { dictionary: any }) {
 					/>
 				</Box>
 
-				<Box
-					sx={{
-						height: { md: '100%' },
-						margin: {
-							xs: '12px',
-							sm: '12px 24px',
-							md: ' 0 24px',
-							lg: '0 64px',
-							xl: '0 120px'
-						},
-						maxWidth: { sm: '520px', md: '620px' },
-						position: 'relative',
-						top: { xs: '50%', sm: '60%', md: '50%' },
-						transform: { xs: 'translateY(-50%)', md: 'translateY(-25%)' }
-					}}
+				<motion.div
+					variants={textHeaderVariants}
+					initial='hidden'
+					whileInView='visible'
+					transition={{ type: 'spring' }}
 				>
 					<Box
 						sx={{
-							position: 'absolute',
-							top: '16%',
-							right: '-20px',
-							width: { lg: '40px', xl: '90px' },
-							height: { lg: '40px', xl: '90px' },
-							borderRadius: '50%',
-							background:
-								'linear-gradient(180deg, rgba(82, 115, 61, 0.80) 25%, rgba(200, 210, 172, 0.00) 100%)',
-							backdropFilter: 'blur(20px)',
-							zIndex: '-1'
-						}}
-					/>
-					<Typography
-						className={ibarra.className}
-						variant='h1'
-						sx={{
-							color: '#121212',
-							fontSize: { xs: '26px', sm: '36px', md: '48px', lg: '64px' },
-							fontWeight: 700,
-							lineHeight: '121.5%' /* 77.76px */
-							// fontFamily: 'Ibarra Real Nova'
+							height: { md: '100%' },
+							margin: {
+								xs: '12px',
+								sm: '12px 24px',
+								md: ' 0 24px',
+								lg: '0 64px',
+								xl: '0 120px'
+							},
+							maxWidth: { sm: '520px', md: '620px' },
+							position: 'relative',
+							top: 0,
+							transform: { xs: 'translateY(80%)', sm: 'translateY(50%)' }
 						}}
 					>
-						{dictionary['header'].title}
-					</Typography>
-					<Typography
-						className={hindMadurai.className}
-						variant='h2'
-						sx={{
-							color: '#3E3E3E',
-							fontSize: { xs: '14px', sm: '16px', md: '18px' },
-							fontWeight: 400,
-							lineHeight: '180%',
-							padding: { xs: '12px 0', md: '45px 0' }
-						}}
-					>
-						{dictionary['header'].description}
-					</Typography>
-					<Box>
-						<BaseButton
-							bgStyle='gradient'
-							label={dictionary['header'].button}
-							variant='contained'
-							type='button'
-							styleSx={{
-								padding: { md: '16px 40px' },
-								borderRadius: { md: '50px' },
-								color: '#fff',
-								background: 'linear-gradient(146deg, #315316 0%, #72A748 100%)',
-								fontStyle: 'capitalize',
-								mr: { xs: '12px', md: '20px' }
+						<Box
+							sx={{
+								position: 'absolute',
+								top: '16%',
+								right: '-20px',
+								width: { lg: '40px', xl: '90px' },
+								height: { lg: '40px', xl: '90px' },
+								borderRadius: '50%',
+								background:
+									'linear-gradient(180deg, rgba(82, 115, 61, 0.80) 25%, rgba(200, 210, 172, 0.00) 100%)',
+								backdropFilter: 'blur(20px)',
+								zIndex: '-1'
 							}}
-							onClick={() => route.push(`/${UserSlice.lang}/user/product`)}
 						/>
+						<Typography
+							className={ibarra.className}
+							variant='h1'
+							sx={{
+								color: '#121212',
+								fontSize: { xs: '26px', sm: '36px', md: '48px', lg: '64px' },
+								fontWeight: 700,
+								lineHeight: '121.5%' /* 77.76px */
+								// fontFamily: 'Ibarra Real Nova'
+							}}
+						>
+							{dictionary['header'].title}
+						</Typography>
+						<Typography
+							className={hindMadurai.className}
+							variant='h2'
+							sx={{
+								color: '#3E3E3E',
+								fontSize: { xs: '14px', sm: '16px', md: '18px' },
+								fontWeight: 400,
+								lineHeight: '180%',
+								padding: { xs: '12px 0', md: '45px 0' }
+							}}
+						>
+							{dictionary['header'].description}
+						</Typography>
+						<Box>
+							<BaseButton
+								bgStyle='gradient'
+								label={dictionary['header'].button}
+								variant='contained'
+								type='button'
+								styleSx={{
+									padding: { md: '16px 40px' },
+									borderRadius: { md: '50px' },
+									color: '#fff',
+									background:
+										'linear-gradient(146deg, #315316 0%, #72A748 100%)',
+									fontStyle: 'capitalize',
+									mr: { xs: '12px', md: '20px' }
+								}}
+								onClick={() => route.push(`/${UserSlice.lang}/user/product`)}
+							/>
 
-						<BaseButton
-							bgStyle='gradient'
-							label={dictionary['header'].button02}
-							variant='outlined'
-							type='button'
-							styleSx={{
-								padding: { md: '16px 40px' },
-								borderRadius: { md: '50px' },
-								color: '#000',
-								border: '1px solid #72A748',
-								'&:hover': {
-									border: '1px solid #315316',
-									background: 'transparent'
-								}
-							}}
-						/>
+							<BaseButton
+								bgStyle='gradient'
+								label={dictionary['header'].button02}
+								variant='outlined'
+								type='button'
+								styleSx={{
+									padding: { md: '16px 40px' },
+									borderRadius: { md: '50px' },
+									color: '#000',
+									border: '1px solid #72A748',
+									'&:hover': {
+										border: '1px solid #315316',
+										background: 'transparent'
+									}
+								}}
+							/>
+						</Box>
 					</Box>
-				</Box>
+				</motion.div>
 			</Box>
 			{/* Introduce */}
 			<Box
+				id='introduce'
 				sx={{
 					maxWidth: {
-						xs: 'var(--max-width-xs)',
+						xs: '100%',
 						sm: 'var(--max-width-sm)',
 						md: 'var(--max-width-md)',
 						lg: 'var(--max-width-lg)',
 						xl: 'var(--max-width-xl)'
 					},
-					margin: '0 auto',
+					margin: { xs: '0 12px', sm: '0 auto' },
 					px: { sm: '24px' },
 					display: 'flex',
 					justifyContent: 'center',
 					alignItems: 'center',
 					pt: { sm: '62px', md: '80px', lg: '136px' },
-					flexDirection: { xs: 'column', md: 'row' }
+					flexDirection: { xs: 'column', lg: 'row' },
+					overflow: 'hidden'
 				}}
 			>
-				<Box
-					sx={{
-						display: 'flex',
-						justifyContent: 'center',
-						alignItems: 'center',
-						flex: { lg: 2, xl: 1 },
-						flexWrap: 'wrap',
-						mb: { xs: '16px' }
-					}}
-				>
-					{listIntroduce.map((item, index: number) => {
-						return (
-							<IntroItem
-								key={item.id}
-								title={item.title}
-								label={item.lable}
-								description={item.description}
-								index={index}
-								dictionary={dictionary}
-							/>
-						)
-					})}
-				</Box>
+				<ListIntroduce dictionary={dictionary} />
+
 				<Box
 					sx={{
 						flex: { lg: 1 }
 					}}
 				>
-					<Typography
-						className={ibarra.className}
-						variant='h1'
-						sx={{
-							color: '#121212',
-							fontSize: { xs: '24px', md: '48px' },
-							fontWeight: 700,
-							lineHeight: '125.5%'
-						}}
+					<motion.div
+						className='box'
+						variants={textIntroVariants}
+						initial='hidden'
+						whileInView='visible'
+						transition={{ type: 'spring' }}
 					>
-						{dictionary['Home']['introduce'].title}
-					</Typography>
-					<Typography
-						variant='h2'
-						className={hindMadurai.className}
-						sx={{
-							color: '#3E3E3E',
-							fontSize: { xs: '16px', md: '18px' },
-							lineHeight: '180%',
-							padding: { xs: '12px 0', md: '48px 0' }
-						}}
-					>
-						{dictionary['Home']['introduce'].description}
-					</Typography>
-					<Typography
-						variant='h3'
-						className={homemadeApple.className}
-						sx={{
-							color: '#315316',
-							fontSize: { xs: '20px', md: '36px' },
-							fontFamily: 'Homemade Apple',
-							margin: { xs: '16px 0' }
-						}}
-					>
-						glow $ grace
-					</Typography>
-					<Typography
-						variant='h4'
-						sx={{
-							color: '#121212',
-							fontSize: '20px',
-							lineHeight: '150%',
-							margin: { md: '20px 0 0px 0' }
-						}}
-						className={hindMadurai.className}
-					>
-						Xuan Tuoi
-					</Typography>
-					<Typography
-						variant='h4'
-						sx={{
-							color: '#121212',
-							fontSize: '14px',
-							lineHeight: '180%'
-						}}
-						className={hindMadurai.className}
-					>
-						{dictionary['Home']['introduce'].founder}
-					</Typography>
+						<Typography
+							className={ibarra.className}
+							variant='h1'
+							sx={{
+								color: '#121212',
+								fontSize: { xs: '24px', md: '48px' },
+								fontWeight: 700,
+								lineHeight: '125.5%'
+							}}
+						>
+							{dictionary['Home']['introduce'].title}
+						</Typography>
+						<Typography
+							variant='h2'
+							className={hindMadurai.className}
+							sx={{
+								color: '#3E3E3E',
+								fontSize: { xs: '16px', md: '18px' },
+								lineHeight: '180%',
+								padding: { xs: '12px 0', md: '48px 0' }
+							}}
+						>
+							{dictionary['Home']['introduce'].description}
+						</Typography>
+						<Typography
+							variant='h3'
+							className={homemadeApple.className}
+							sx={{
+								color: '#315316',
+								fontSize: { xs: '20px', md: '36px' },
+								fontFamily: 'Homemade Apple',
+								margin: { xs: '16px 0' }
+							}}
+						>
+							glow $ grace
+						</Typography>
+						<Typography
+							variant='h4'
+							sx={{
+								color: '#121212',
+								fontSize: '20px',
+								lineHeight: '150%',
+								margin: { md: '20px 0 0px 0' }
+							}}
+							className={hindMadurai.className}
+						>
+							Xuan Tuoi
+						</Typography>
+						<Typography
+							variant='h4'
+							sx={{
+								color: '#121212',
+								fontSize: '14px',
+								lineHeight: '180%'
+							}}
+							className={hindMadurai.className}
+						>
+							{dictionary['Home']['introduce'].founder}
+						</Typography>
+					</motion.div>
 				</Box>
 			</Box>
 			{/* Brands  */}
@@ -389,7 +362,7 @@ export default function Home({ dictionary }: { dictionary: any }) {
 					position: 'relative',
 					overflow: 'hidden',
 					mb: { xs: '64px' },
-					pt: { sm: '64px' }
+					pt: { xs: '32px', sm: '64px' }
 				}}
 			>
 				<Box
@@ -420,32 +393,45 @@ export default function Home({ dictionary }: { dictionary: any }) {
 						flexDirection: 'column'
 					}}
 				>
-					<Typography
-						variant='h1'
-						className={ibarra.className}
-						sx={{
-							color: '#121212',
-							fontSize: { xs: '24px', md: '40px', lg: '48px' },
-							fontWeight: 700,
-							lineHeight: '125.5%'
+					<motion.div
+						variants={brandVariants}
+						initial='hidden'
+						whileInView='visible'
+						transition={{ type: 'spring' }}
+						style={{
+							display: 'flex',
+							alignItems: 'center',
+							flexDirection: 'column',
+							width: '100%'
 						}}
 					>
-						{dictionary['Home']['brands'].title}
-					</Typography>
-					<Typography
-						variant='h2'
-						className={hindMadurai.className}
-						sx={{
-							color: '#3E3E3E',
-							fontSize: '18px',
-							lineHeight: '180%',
-							maxWidth: { md: '846px' },
-							textAlign: 'center',
-							margin: { md: '12px 0' }
-						}}
-					>
-						{dictionary['Home']['brands'].description}
-					</Typography>
+						<Typography
+							variant='h1'
+							className={ibarra.className}
+							sx={{
+								color: '#121212',
+								fontSize: { xs: '24px', md: '40px', lg: '48px' },
+								fontWeight: 700,
+								lineHeight: '125.5%'
+							}}
+						>
+							{dictionary['Home']['brands'].title}
+						</Typography>
+						<Typography
+							variant='h2'
+							className={hindMadurai.className}
+							sx={{
+								color: '#3E3E3E',
+								fontSize: '18px',
+								lineHeight: '180%',
+								maxWidth: { md: '846px' },
+								textAlign: 'center',
+								margin: { md: '12px 0' }
+							}}
+						>
+							{dictionary['Home']['brands'].description}
+						</Typography>
+					</motion.div>
 					<Box
 						sx={{
 							width: '100%',
@@ -473,64 +459,14 @@ export default function Home({ dictionary }: { dictionary: any }) {
 					</Box>
 				</Box>
 			</Box>
-			{/* Top Products */}
-			<Box
-				sx={{
-					maxWidth: {
-						xs: 'var(--max-width-xs)',
-						sm: 'var(--max-width-sm)',
-						md: 'var(--max-width-md)',
-						lg: 'var(--max-width-lg)',
-						xl: 'var(--max-width-xl)'
-					},
-					margin: '0 auto',
-					pt: { md: '80px', lg: '120px' },
-					px: { md: '24px' }
-				}}
-			>
-				<Typography
-					variant='h1'
-					className={ibarra.className}
-					sx={{
-						textAlign: 'center',
-						color: '#121212',
-						fontSize: { xs: '24px', md: '40px', lg: '48px' },
-						fontWeight: 700,
-						lineHeight: '125.5%',
-						pb: { md: '82px', lg: '160px' }
-					}}
-				>
-					{dictionary['Home']['topproduct'].title}
-				</Typography>
-				<Box
-					sx={{
-						display: 'grid',
-						gridTemplateColumns: {
-							xs: '1fr',
-							sm: '1fr 1fr',
-							md: '1fr',
-							lg: '1fr 1fr 1fr',
-							xl: '1fr 1fr 1fr 1fr'
-						},
-						gap: { xs: '24px', sm: '12px', md: '24px', lg: '0' },
-						'& a': {
-							textDecoration: 'none'
-						}
-					}}
-				>
-					{dataGetListProduct &&
-						dataGetListProduct.map((item: ProductInterface) => {
-							return (
-								<TopProductItem
-									key={item.id}
-									item={item}
-									dictionary={dictionary}
-								/>
-							)
-						})}
-				</Box>
-			</Box>
+			{/* Recommend Products */}
+			<RecommendProduct
+				lang={lang}
+				dataGetListProduct={dataGetListProduct}
+				dictionary={dictionary}
+			/>
 			{/* Review */}
+
 			<Box
 				sx={{
 					// display: 'none',

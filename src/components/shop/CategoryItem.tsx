@@ -9,13 +9,15 @@ const CategoryItem = ({
 	title,
 	description,
 	shopName,
-	dictionary
+	dictionary,
+	lang
 }: {
 	pathImg: string
 	title: string
 	description: string
 	shopName: string
 	dictionary: any
+	lang: string
 }) => {
 	return (
 		<Box
@@ -39,7 +41,7 @@ const CategoryItem = ({
 			}}
 		>
 			<Link
-				href={`/user/product?shopName=${shopName}&category=${title}`}
+				href={`/${lang}/user/product?shopName=${shopName}&category=${title}`}
 				style={{
 					textDecoration: 'none'
 				}}

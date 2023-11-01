@@ -1,7 +1,6 @@
 'use client'
 
 import ImageItem from '@/components/base/ImageItem'
-import ProgressLoading from '@/components/base/ProgressLoading'
 import PaginationItem from '@/components/product/Pagination'
 import ProductSearchWrapper from '@/components/product/ProductSearchWrapper'
 import SidebarProduct from '@/components/product/Sidebar'
@@ -12,11 +11,13 @@ import { useStore } from '@/store'
 import { IFilterOption } from '@/utils/filterOption.interface'
 import { Box, TextField, Typography } from '@mui/material'
 import { usePathname, useSearchParams } from 'next/navigation'
-import { useRouter } from 'next/router'
+import { motion } from 'framer-motion'
+
 import React, { useEffect } from 'react'
 import { ibarra } from '../../../../../public/font'
+import ProgressLoading from '@/components/base/ProgressLoading'
 
-const ProductPage = ({ dictionary }: any) => {
+const ProductPage = ({ dictionary, lang }: any) => {
 	const searchParams = useSearchParams()
 	const search = searchParams.get('shopName')
 	const categoryPath = searchParams.get('category')
@@ -34,8 +35,8 @@ const ProductPage = ({ dictionary }: any) => {
 
 	const [filterOptions, setFilterOptions] = React.useState<IFilterOption>({
 		searchKey: '',
-		brand: 'All',
-		category: 'All',
+		brand: brand,
+		category: category,
 		sort: 'createdAt',
 		order: 'ASC'
 	})
@@ -285,7 +286,8 @@ const ProductPage = ({ dictionary }: any) => {
 								product_shop: filterOptions.brand,
 								product_category: filterOptions.category,
 								search_key: searchKey,
-								user_id: UserSlice.user?.id
+								user_id: UserSlice.user?.id,
+								order: orderBy
 							})
 							setFilterOptions({
 								...filterOptions,
@@ -351,41 +353,55 @@ const ProductPage = ({ dictionary }: any) => {
 						dictionary={dictionary}
 					/>
 					{/* List Product */}
-					<Box
-						sx={{
-							display: 'grid',
-							gridTemplateColumns: {
-								xs: 'repeat(1, 1fr)',
-								md: 'repeat(3, 1fr)',
-								lg: 'repeat(4, 1fr)',
-								xl: 'repeat(4, 1fr)'
-							},
-							gridGap: { xs: '12px', md: '20px', lg: '32px' },
-							mx: { xs: '12px', sm: 0 }
+					<motion.div
+						animate={{
+							opacity: 1
+						}}
+						initial={{
+							opacity: 0
+						}}
+						layout
+						exit={{
+							opacity: 0
 						}}
 					>
-						{listProduct.length !== 0 && (
-							<ProductSearchWrapper
-								listProduct={listProduct}
-								page={page}
-								rowPerPage={rowPerPage}
-								addToCart={addToCart}
-							/>
-						)}
+						<Box
+							sx={{
+								display: 'grid',
+								gridTemplateColumns: {
+									xs: 'repeat(1, 1fr)',
+									md: 'repeat(3, 1fr)',
+									lg: 'repeat(4, 1fr)',
+									xl: 'repeat(4, 1fr)'
+								},
+								gridGap: { xs: '12px', md: '20px', lg: '32px' },
+								mx: { xs: '12px', sm: 0 }
+							}}
+						>
+							{listProduct.length !== 0 && (
+								<ProductSearchWrapper
+									listProduct={listProduct}
+									page={page}
+									rowPerPage={rowPerPage}
+									addToCart={addToCart}
+									lang={lang}
+								/>
+							)}
 
-						{listProduct.length === 0 && (
-							<Typography
-								sx={{
-									fontSize: { xs: '14px', md: '18px' },
-									whiteSpace: 'nowrap',
-									fontFamily: 'Montserrat'
-								}}
-							>
-								Empty product
-							</Typography>
-						)}
-						{gettingProducts && <ProgressLoading />}
-					</Box>
+							{listProduct.length === 0 && (
+								<Typography
+									sx={{
+										fontSize: { xs: '14px', md: '18px' },
+										whiteSpace: 'nowrap',
+										fontFamily: 'Montserrat'
+									}}
+								>
+									Empty product
+								</Typography>
+							)}
+							{gettingProducts && <ProgressLoading />}
+						</Box>
+					</motion.div>
 				</Box>
 				{/* Pagination */}
 				<PaginationItem

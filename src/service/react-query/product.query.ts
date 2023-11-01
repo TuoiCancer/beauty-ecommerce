@@ -142,3 +142,14 @@ export const useGetBestSellerProduct = () => {
 		}
 	)
 }
+
+export const useGetBestSellerProductsByShopId = (shopId: string) => {
+	const getBestSellerProductService = ApiService.createInstance()
+	return useQuery(['Get best seller product by shop id', shopId], () => {
+		return getBestSellerProductService.getBestSellerProductsByShopId({
+			pathParams: {
+				shopId: shopId
+			}
+		})
+	})
+}

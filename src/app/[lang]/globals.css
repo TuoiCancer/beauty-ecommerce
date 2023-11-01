@@ -6,16 +6,17 @@
 	--bg-login: #bed9d4;
 	--bg-signup: #dabeb0;
 	--main-green: #2c5f23;
+	--secondary-green: #328524;
 	--max-width-xl: 1480px;
 	--max-width-lg: 1280px;
 	--max-width-md: 980px;
 	--max-width-sm: 736px;
 	--max-width-xs: 480px;
-	--packed-button: #FDB140;
+	--packaged-button: #FDB140;
 	--shipping-button: #204700;
-	--delivered-button: #E3631B;
+	--delivered-button: #319E48;
 	--cancelled-button: #ACACAC;
-	--pending-button: #598683;
+	--pending-button: #E3631B;
 	--completed-button: #319E48;
 }
 
@@ -53,7 +54,7 @@ body::-webkit-scrollbar-thumb {
 /* Hide scrollbar for IE and Edge */
 .main {
 	-ms-overflow-style: none;
-	overflow: unset;
+	overflow: hidden;
 }
 
 .navbar-title span {
