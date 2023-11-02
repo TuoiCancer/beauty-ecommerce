@@ -62,22 +62,24 @@ const ReviewOptions = ({
 			}}
 		>
 			{userId === UserSlice?.user?.id && (
-				<Box
-					className='option-item'
-					onClick={() => {
-						setShowEditBox(true)
-						setShowOptionsReview(false)
-					}}
-				>
-					<EditIcon />
-					<Typography variant='body1'>Edit</Typography>
-				</Box>
-			)}
+				<>
+					<Box
+						className='option-item'
+						onClick={() => {
+							setShowEditBox(true)
+							setShowOptionsReview(false)
+						}}
+					>
+						<EditIcon />
+						<Typography variant='body1'>Edit</Typography>
+					</Box>
 
-			<Box className='option-item' onClick={handleDeleteReview}>
-				<DeleteSweepIcon />
-				<Typography variant='body1'>Delete</Typography>
-			</Box>
+					<Box className='option-item' onClick={handleDeleteReview}>
+						<DeleteSweepIcon />
+						<Typography variant='body1'>Delete</Typography>
+					</Box>
+				</>
+			)}
 		</Box>
 	)
 }
