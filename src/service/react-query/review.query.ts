@@ -36,7 +36,12 @@ export const useCreateReviewMutation = () => {
 					state.UserSlice.successMess = 'Review successfully'
 				})
 			},
-			onError: (error: any) => {}
+			onError: (error: any) => {
+				updateStore((state: IStore) => {
+					state.UserSlice.isError = true
+					state.UserSlice.errorMess = error.response.data.message
+				})
+			}
 		}
 	)
 }

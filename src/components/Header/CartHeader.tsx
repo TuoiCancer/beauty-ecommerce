@@ -1,6 +1,13 @@
 import { stringAvatar } from '@/helper'
 import { useStore } from '@/store'
-import { Box, MenuItem, Popper, Select, Typography } from '@mui/material'
+import {
+	Box,
+	MenuItem,
+	Popper,
+	Select,
+	Typography,
+	useMediaQuery
+} from '@mui/material'
 import Avatar from '@mui/material/Avatar/Avatar'
 import Link from 'next/link'
 import React from 'react'
@@ -32,6 +39,7 @@ const CartHeader = ({
 	const { UserSlice } = useStore()
 	const router = useRouter()
 	const { isLoading, mutate: logout } = useLogout()
+	const matches = useMediaQuery('(min-width:900px)')
 	const handleClick = () => {
 		setOpenPoper(!openPoper)
 	}
@@ -205,7 +213,7 @@ const CartHeader = ({
 							/>
 						) : (
 							<ImageItem
-								imgSrc='/img/Cart_000.png'
+								imgSrc={matches ? '/img/Cart_fff.png' : '/img/Cart_000.png'}
 								style={{
 									width: { xs: '26px', md: '39px' },
 									height: { xs: '26px', md: '35px' },

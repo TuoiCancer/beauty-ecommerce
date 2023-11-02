@@ -7,7 +7,9 @@ const ShowErr = () => {
 	const { UserSlice } = useStore()
 	useEffect(() => {
 		if (UserSlice.isError) {
-			toast.error(UserSlice.errorMess)
+			toast.error(UserSlice.errorMess, {
+				position: 'top-center'
+			})
 			UserSlice.setIsError(false)
 		}
 		if (UserSlice.isSuccess) {
