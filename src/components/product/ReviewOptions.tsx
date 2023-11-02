@@ -8,7 +8,9 @@ const ReviewOptions = ({
 	productId,
 	reviewId,
 	setShowOptionsReview,
-	setShowEditBox
+	setShowEditBox,
+	userId,
+	UserSlice
 }: any) => {
 	const handleDeleteReview = () => {
 		setShowOptionsReview(false)
@@ -59,16 +61,19 @@ const ReviewOptions = ({
 				}
 			}}
 		>
-			<Box
-				className='option-item'
-				onClick={() => {
-					setShowEditBox(true)
-					setShowOptionsReview(false)
-				}}
-			>
-				<EditIcon />
-				<Typography variant='body1'>Edit</Typography>
-			</Box>
+			{userId === UserSlice?.user?.id && (
+				<Box
+					className='option-item'
+					onClick={() => {
+						setShowEditBox(true)
+						setShowOptionsReview(false)
+					}}
+				>
+					<EditIcon />
+					<Typography variant='body1'>Edit</Typography>
+				</Box>
+			)}
+
 			<Box className='option-item' onClick={handleDeleteReview}>
 				<DeleteSweepIcon />
 				<Typography variant='body1'>Delete</Typography>

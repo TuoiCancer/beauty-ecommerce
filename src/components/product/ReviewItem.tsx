@@ -36,6 +36,7 @@ export interface ReviewItemProps {
 	productId: string
 	totalReply: number
 	getParentReviews: any
+	userId: string
 }
 
 const StyledRating = styled(Rating)({
@@ -60,7 +61,8 @@ export default function ReviewItem({
 	time,
 	totalReply,
 	productId,
-	getParentReviews
+	getParentReviews,
+	userId
 }: ReviewItemProps) {
 	const {
 		data: listReviewChildrent,
@@ -123,7 +125,7 @@ export default function ReviewItem({
 			productId,
 			parentCommentId: id,
 			content: contentReply,
-			userId: UserSlice.user.id
+			userId: UserSlice?.user?.id || ''
 		})
 	}
 
@@ -281,39 +283,44 @@ export default function ReviewItem({
 							</Typography>
 						</Box>
 					</motion.div>
-					<motion.div
-						initial={{ scale: 0 }}
-						animate={{ scale: 1.2 }}
-						transition={{
-							type: 'spring',
-							stiffness: 260,
-							damping: 20
-						}}
-						id='option-review'
-						style={{
-							display: 'none'
-						}}
-						onClick={() => setShowOptionsReview(!showOptionsReview)}
-					>
-						<MoreHorizIcon
-							sx={{
-								transform: 'rotate(90deg)',
-								color: '#a3a3a3',
-								mt: '8px',
-								cursor: 'pointer',
-								transition: 'all 0.3s ease',
-								'&:hover': {
-									color: '#000'
-								}
+					{UserSlice.isLoggedIn && (
+						<motion.div
+							initial={{ scale: 0 }}
+							animate={{ scale: 1.2 }}
+							transition={{
+								type: 'spring',
+								stiffness: 260,
+								damping: 20
 							}}
-						/>
-					</motion.div>
-					{showOptionsReview && (
+							id='option-review'
+							style={{
+								display: 'none'
+							}}
+							onClick={() => setShowOptionsReview(!showOptionsReview)}
+						>
+							<MoreHorizIcon
+								sx={{
+									transform: 'rotate(90deg)',
+									color: '#a3a3a3',
+									mt: '8px',
+									cursor: 'pointer',
+									transition: 'all 0.3s ease',
+									'&:hover': {
+										color: '#000'
+									}
+								}}
+							/>
+						</motion.div>
+					)}
+
+					{showOptionsReview && UserSlice.isLoggedIn && (
 						<ReviewOptions
+							userId={userId}
 							setShowEditBox={setShowEditBox}
 							deleteReview={deleteReview}
 							productId={productId}
 							reviewId={id}
+							UserSlice={UserSlice}
 							setShowOptionsReview={setShowOptionsReview}
 						/>
 					)}

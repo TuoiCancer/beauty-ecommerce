@@ -30,6 +30,7 @@ export default function ReviewContainer({
 					id={item.id}
 					img={item.user.avatar}
 					username={item.user.username}
+					userId={item.user.id}
 					rating={item.rating}
 					content={item.content}
 					time={item.createdAt}
