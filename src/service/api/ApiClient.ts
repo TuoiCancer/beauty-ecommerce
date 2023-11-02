@@ -257,4 +257,20 @@ export class ApiService {
 			'Content-Type': 'application/json'
 		}
 	})
+
+	deleteReviewAndChild = configApi({
+		path: 'v1/reviews',
+		method: 'DELETE',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
+
+	editReview = configApi({
+		path: 'v1/reviews',
+		method: 'PATCH',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
 }
