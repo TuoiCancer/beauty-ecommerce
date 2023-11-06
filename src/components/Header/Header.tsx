@@ -152,9 +152,9 @@ const Header = ({
 				pr: '30px',
 				'&::after': {
 					content: '""',
-					position: 'absolute',
+					position: isHaveBg ? 'absolute' : 'fixed',
 					display: openPoper ? 'block' : 'none',
-					top: '-15px',
+					top: isHaveBg ? '-15px' : 0,
 					right: '0',
 					bottom: '0',
 					left: '-16%',

@@ -87,7 +87,7 @@ export default function Home({
 		>
 			{/* Header */}
 			<Box
-				sx={{
+				sx={{  
 					width: { md: '100%' },
 					height: { xs: '50vh', md: '80vh', xl: '100vh' },
 					background: 'linear-gradient(176deg, #FFF 0%, #F1F1F1 100%)',
