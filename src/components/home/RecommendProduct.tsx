@@ -61,7 +61,6 @@ const RecommendProduct = ({
 				},
 				margin: '0 auto',
 				pt: { md: '120px' },
-				px: { md: '24px' },
 
 				'& .swiper-button-next, .swiper-button-prev': {
 					color: '#fff',
@@ -75,9 +74,17 @@ const RecommendProduct = ({
 				},
 				'& .swiper-slide': {
 					width: '100%',
-					margin: { xs: '0', sm: '10px' },
+					px: { xs: '12px', sm: '16px', lg: '24px' },
+					py: { xs: '12px', sm: '16px', lg: '24px' },
+					// margin: { xs: '0 !important' },
 					display: 'grid',
-					gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))'
+					gridTemplateColumns: {
+						xl: '1fr 1fr 1fr 1fr',
+						lg: '1fr 1fr 1fr',
+						md: '1fr 1fr',
+						sm: '1fr'
+					},
+					gridGap: '16px'
 				}
 			}}
 		>
