@@ -1,5 +1,5 @@
 import { ListItem, ListItemButton, ListItemIcon, ListItemText, makeStyles, styled } from '@mui/material';
-import { ListAdminSidebarItemType, listAdminSidebarItems } from '../../../config/admin-sidebar-item';
+import { ListAdminSidebarItemType, listAdminSidebarItems } from './../../../../config/admin-sidebar-item';
 import { useParams, usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 

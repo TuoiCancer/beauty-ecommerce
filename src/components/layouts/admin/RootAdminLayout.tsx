@@ -2,8 +2,8 @@
 
 import { Box, CssBaseline } from "@mui/material";
 import React, { useState } from "react";
-import AdminSidebar from "./AdminSidebar";
-import AdminHeader from "./AdminHeader";
+import AdminSidebar from "./sidebar/AdminSidebar";
+import AdminHeader from "./header/AdminHeader";
 
 interface IRootAdminLayout {
   children: React.ReactNode

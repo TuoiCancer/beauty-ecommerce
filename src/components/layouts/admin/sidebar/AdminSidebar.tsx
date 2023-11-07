@@ -5,7 +5,7 @@ import MuiDrawer from '@mui/material/Drawer';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import React from "react";
 import AdminSidebarItem from "./AdminSidebarItem";
-import { appbarHeight, drawerWidth } from "./RootAdminLayout";
+import { appbarHeight, drawerWidth } from "../RootAdminLayout";
 
 interface IAdminSidebar {
   open: boolean;
