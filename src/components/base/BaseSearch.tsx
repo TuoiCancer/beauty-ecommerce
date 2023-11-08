@@ -1,13 +1,29 @@
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import { Box, TextField } from "@mui/material";
+import SearchIcon from '@mui/icons-material/Search'
+import { Box, TextField } from '@mui/material'
 
 const BaseSearch = () => {
-  return (
-    <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-      <AccountCircle sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
-      <TextField id="input-with-sx" label="With sx" variant="standard" />
-    </Box>
-  );
+	return (
+    <TextField
+      variant='standard'
+      margin='normal'
+      required
+      name='search'
+      fullWidth
+      autoComplete='search'
+      autoFocus
+      placeholder='Search...'
+      InputProps={{
+        startAdornment: <SearchIcon sx={{ color: '#9FA2AB', mr: 1, my: 0.5 }} />,
+        disableUnderline: true
+      }}
+      sx={{
+        backgroundColor: '#F8F9FA',
+        padding: '0.25rem 1rem',
+        borderRadius: '20px',
+        margin: 0
+      }}
+    />
+	)
 }
 
-export default BaseSearch;
+export default BaseSearch

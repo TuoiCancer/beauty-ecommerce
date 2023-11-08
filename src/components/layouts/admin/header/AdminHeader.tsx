@@ -7,10 +7,12 @@ import { appbarHeight, drawerWidth } from "../RootAdminLayout";
 import { usePathname } from "next/navigation";
 import BaseSearch from "@/components/base/BaseSearch";
 import AdminAvatar from "./AdminAvatar";
+import { useStore } from "@/store";
 
 interface IAdminHeader {
   open: boolean;
-  onOpenDrawer: () => void
+  onOpenDrawer: () => void,
+  dictionary: { [key: string]: any }
 }
 
 interface AppBarProps extends MuiAppBarProps {
@@ -36,20 +38,20 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-const AdminHeader = ({ open, onOpenDrawer }: IAdminHeader) => {
+const AdminHeader = ({ open, onOpenDrawer, dictionary }: IAdminHeader) => {
   const pathname = usePathname();
+  const { UserSlice } = useStore();
 
   const getTitle = () => {
     const splitPath = pathname.split('/');
-    const rawTitle = splitPath[splitPath.length - 1];
-    const title = rawTitle.charAt(0).toUpperCase() + rawTitle.substring(1);   
-    return title === 'Admin' ? 'Dashboard' : title;
+    const rawTitle = splitPath[splitPath.length - 1];  
+    return dictionary['sidebar'][rawTitle === 'admin' ? 'dashboard' : rawTitle];
   }
 
   return (
     <AppBar sx={{ backgroundColor: '#fff' }} position="fixed" open={open}>
-      <Toolbar sx={{ justifyContent: 'space-between' }}>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}> 
+      <Toolbar sx={{ justifyContent: 'space-between', height: '100%' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', width: '20%' }}>
           <IconButton
             aria-label="open drawer"
             onClick={onOpenDrawer}
@@ -66,8 +68,12 @@ const AdminHeader = ({ open, onOpenDrawer }: IAdminHeader) => {
             {getTitle()}
           </Typography>
         </Box>
-        <BaseSearch />
-        <AdminAvatar />
+        <Box sx={{ width: '40%' }}>
+          <BaseSearch />
+        </Box>
+        <Box sx={{ width: '20%', display: 'flex', justifyContent: 'flex-end' }}>
+          <AdminAvatar username={UserSlice.user?.username} />
+        </Box>
       </Toolbar>
     </AppBar>
   );

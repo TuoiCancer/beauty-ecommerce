@@ -3,7 +3,12 @@ import { ListAdminSidebarItemType, listAdminSidebarItems } from './../../../../c
 import { useParams, usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-const AdminSidebarItem = ({ open }: {open?: boolean}) => {
+interface IAdminSidebarItem {
+  open: boolean,
+  dictionary: { [key: string]: any }
+}
+
+const AdminSidebarItem = ({ open, dictionary }: IAdminSidebarItem) => {
   const router = useRouter();
   const [sidebarSettings, setSidebarSettings] = useState<ListAdminSidebarItemType[]>(listAdminSidebarItems);
 
@@ -75,7 +80,7 @@ const AdminSidebarItem = ({ open }: {open?: boolean}) => {
               }}>
               {item.icon}
             </ListItemIcon>
-            <ListItemText sx={{ fontSize: '16px' }} primary={item.label} />
+            <ListItemText sx={{ fontSize: '16px' }} primary={dictionary['sidebar'][item.label]} />
           </ListItemButton>
         </ListItem>
        ))}

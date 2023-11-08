@@ -17,42 +17,42 @@ export type ListAdminSidebarItemType = {
 export const listAdminSidebarItems: ListAdminSidebarItemType[] = [
   {
     id: 'dashboard',
-    label: 'Dashboard',
+    label: 'dashboard',
     path: '/admin',
     icon: <DashboardIcon />,
     isActive: false
   },
   {
     id: 'order',
-    label: 'Orders',
+    label: 'orders',
     path: '/admin/orders',
     icon: <ReceiptIcon />,
     isActive: false
   },
   {
     id: 'product',
-    label: 'Products',
+    label: 'products',
     path: '/admin/products',
     icon: <Inventory2Icon />,
     isActive: false
   },
   {
     id: 'blog',
-    label: 'Blogs',
+    label: 'blogs',
     path: '/admin/blogs',
     icon: <NoteAltIcon />,
     isActive: false
   },
   {
     id: 'voucher',
-    label: 'Vouchers',
+    label: 'vouchers',
     path: '/admin/vouchers',
     icon: <LocalActivityIcon />,
     isActive: false
   },
   {
     id: 'review',
-    label: 'Reviews',
+    label: 'reviews',
     path: '/admin/reviews',
     icon: <ReviewsIcon />,
     isActive: false

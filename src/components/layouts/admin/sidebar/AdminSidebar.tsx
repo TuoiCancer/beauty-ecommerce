@@ -9,7 +9,8 @@ import { appbarHeight, drawerWidth } from "../RootAdminLayout";
 
 interface IAdminSidebar {
   open: boolean;
-  onCloseDrawer: () => void
+  onCloseDrawer: () => void,
+  dictionary: { [key: string]: any }
 }
 
 const openedMixin = (theme: Theme): CSSObject => ({
@@ -71,7 +72,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-const AdminSidebar = ({open, onCloseDrawer}: IAdminSidebar) => {
+const AdminSidebar = ({open, onCloseDrawer, dictionary}: IAdminSidebar) => {
   return (
     <Box sx={{ height: '100vh' }}>
       <Drawer variant="permanent" open={open}>
@@ -83,7 +84,7 @@ const AdminSidebar = ({open, onCloseDrawer}: IAdminSidebar) => {
         </DrawerHeader>
         <Divider />
         <List>
-          <AdminSidebarItem open={open} />
+          <AdminSidebarItem open={open} dictionary={dictionary} />
         </List>
       </Drawer>
     </Box>
