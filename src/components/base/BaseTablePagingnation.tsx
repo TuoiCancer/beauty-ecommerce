@@ -1,6 +1,6 @@
 'use client';
 
-import { PAGE_SIZE_OPTIONS } from "@/constants/common.constant";
+import {DEFAULT_PAGE_LIMIT, PAGE_SIZE_OPTIONS} from "@/constants/common.constant";
 import { Box, MenuItem, Pagination, PaginationItem, Select, SelectChangeEvent, Typography } from "@mui/material";
 import { FunctionComponent, useState } from "react";
 
@@ -17,7 +17,7 @@ const BaseTablePagingnation: FunctionComponent<ITablePagingProps> = ({
   onPageChange,
   size
 }) => {
-  const [rowPerPage, setRowPerPage] = useState(5);
+  const [rowPerPage, setRowPerPage] = useState(DEFAULT_PAGE_LIMIT);
   const handleRowPerPageChange = (event: SelectChangeEvent<number>) => {
     const { value } = event.target;
     setRowPerPage(Number(value));
@@ -47,7 +47,7 @@ const BaseTablePagingnation: FunctionComponent<ITablePagingProps> = ({
                 classes='table-page-item'
                 {...item} 
                 sx={{ 
-                  "&.Mui-selected": {
+                  '&.Mui-selected': {
                     color: '#fff', 
                     backgroundColor: '#FFC909',
                     '&:hover': {

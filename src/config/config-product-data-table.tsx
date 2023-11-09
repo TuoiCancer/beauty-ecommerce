@@ -1,12 +1,10 @@
 import { Avatar, Chip } from '@mui/material'
 import {
 	GridColDef,
-	GridColumnHeaderParams,
 	GridRenderCellParams,
 } from '@mui/x-data-grid'
 import { RenderDateCell, RenderHeader, RenderNoCell, RenderPriceCell, renderColorChip } from './common-config';
 import { configDefaultOption } from './common-config';
-import { PRODUCT_STATUS } from '@/constants/product_status.constant';
 
 export const productTableColumn: GridColDef[] = [
 	{

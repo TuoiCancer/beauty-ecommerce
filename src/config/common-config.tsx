@@ -22,7 +22,7 @@ export const configDefaultOption = {
 
 export const RenderHeader = (params: GridColumnHeaderParams) => {
 	return (
-		<Typography fontWeight='600' color='#343A40' fontSize='14px'>
+		<Typography fontWeight='600' color='#343A40' fontSize='14px' noWrap>
 			{params.colDef.headerName}
 		</Typography>
 	)
