@@ -65,7 +65,6 @@ const AdminProductPage: FunctionComponent<IAdminProductPageProps> = ({ lang, dic
 			const dataFilter = newData.filter((item, index) => {
 				return newData.findIndex(item2 => item2.page === item.page) === index
 			});
-      console.log(dataFilter);
       
 			// sắp xếp từ bé đến lớn của page
 			dataFilter.sort((a, b) => {
@@ -78,14 +77,14 @@ const AdminProductPage: FunctionComponent<IAdminProductPageProps> = ({ lang, dic
   
 
   return (
-    <Box>
+    // <Box sx={{ width: 'calc(100% - 268px)' }}>
       <BaseDataTable
         total={paginationMeta.itemCount}
         paging={{ page: paginationMeta.page, limit: paginationMeta.limit, total: paginationMeta.itemCount }}
         configColumn={productTableColumn}
-        data={listProduct[0].data}
+        data={listProduct[0]?.data ?? []}
       />
-    </Box>
+    // </Box>
   )
 };
 

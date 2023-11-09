@@ -1,7 +1,7 @@
 import { PAGE_SIZE_OPTIONS } from '@/constants/common.constant';
 import { PageLimit, PagingData, PagingParam, SearchingParam, SortingParam } from '@/models/base-param-payload.type';
 import { DataGrid, GridColDef, GridPaginationModel, GridSortModel } from '@mui/x-data-grid';
-import PaginationItem from '../product/Pagination';
+import BaseTablePagingnation, { ITablePagingProps } from './BaseTablePagingnation';
 
 interface IDataTableProps {
   total: number;
@@ -43,18 +43,33 @@ const BaseDataTable: React.FunctionComponent<IDataTableProps> = ({
     <DataGrid
       rows={data}
       rowCount={total}
+      rowSelection={false}
       columns={configColumn}
       initialState={{
         pagination: {
-          paginationModel: { page: page - 1, pageSize: limit },
+          paginationModel: { page: page - 1, pageSize: limit }
         },
       }}
       pageSizeOptions={PAGE_SIZE_OPTIONS}
       checkboxSelection={false}
-      paginationMode="client"
       onPaginationModelChange={changePagingModel}
       onSortModelChange={changeSortingModel}
       sortingOrder={['desc', 'asc']}
+      sx={{
+        '& .table-cell-text': {
+          fontSize: '14px',
+          color: '#6C757D'
+        }
+      }}
+      slots={{
+        pagination: BaseTablePagingnation,
+      }}
+      slotProps={{
+        pagination: {
+          count: total,
+          size: 'medium'
+        }
+      }}
     />
   );
 }

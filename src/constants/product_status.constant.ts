@@ -1,6 +1,6 @@
 export const PRODUCT_STATUS = {
-  ['inStock']: 'In Stock',
-  ['outOfStock']: 'Out Of Stock',
-  ['commingSoon']: 'Comming Soon',
-  ['onSale']: 'On Sale',
+  IN_STOCK: 'inStock',
+  OUT_OF_STOCK: 'outOfStock',
+  COMMING_SOON: 'commingSoon',
+  ON_SALE: 'onSale'
 }

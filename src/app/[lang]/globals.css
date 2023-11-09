@@ -18,6 +18,7 @@
 	--cancelled-button: #ACACAC;
 	--pending-button: #E3631B;
 	--completed-button: #319E48;
+	--waiting-button: #598683;
 }
 
 /* @keyframes slideInFromLeft {

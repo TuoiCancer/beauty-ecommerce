@@ -4,6 +4,7 @@ import { Box, CssBaseline } from "@mui/material";
 import React, { useState } from "react";
 import AdminSidebar from "./sidebar/AdminSidebar";
 import AdminHeader from "./header/AdminHeader";
+import AdminMainContent from "./AdminMainContent";
 
 interface IRootAdminLayout {
   children: React.ReactNode,
@@ -28,12 +29,12 @@ const RootAdminLayout = ({ children, dictionary }: IRootAdminLayout) => {
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AdminSidebar open={open} onCloseDrawer={handleDrawerClose} dictionary={dictionary}/>
-      <Box sx={{ width: '100%' }}>
+      <AdminMainContent open={open}>
         <AdminHeader open={open} onOpenDrawer={handleDrawerOpen} dictionary={dictionary}/>
-        <Box sx={{ marginTop: `${appbarHeight}px` }}>
+        <Box sx={{ marginTop: `${appbarHeight}px`, height: `calc(100% - ${appbarHeight}px)` }}>
           {children}
         </Box>
-      </Box>
+      </AdminMainContent>
     </Box>
   );
 };
