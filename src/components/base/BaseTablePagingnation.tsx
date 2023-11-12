@@ -2,26 +2,31 @@
 
 import {DEFAULT_PAGE_LIMIT, PAGE_SIZE_OPTIONS} from "@/constants/common.constant";
 import { Box, MenuItem, Pagination, PaginationItem, Select, SelectChangeEvent, Typography } from "@mui/material";
-import { FunctionComponent, useState } from "react";
+import {ChangeEvent, FunctionComponent, useState} from "react";
+import {usePathname, useRouter} from "next/navigation";
 
 export interface ITablePagingProps {
   count: number,
-  onPageChange?: () => void,
   page: number,
+  onPageChange: (event: ChangeEvent<unknown>, page: number) => void,
   size?: 'small' | 'medium' | 'large'
 }
 
 const BaseTablePagingnation: FunctionComponent<ITablePagingProps> = ({
   count,
   page,
-  onPageChange,
-  size
+  size,
+  onPageChange
 }) => {
   const [rowPerPage, setRowPerPage] = useState(DEFAULT_PAGE_LIMIT);
+
+  const router = useRouter();
+  const pathname = usePathname();
   const handleRowPerPageChange = (event: SelectChangeEvent<number>) => {
     const { value } = event.target;
     setRowPerPage(Number(value));
   }
+
   return(
     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', padding: '0.5rem 1rem' }}>
       <Typography color='#6C757D' fontSize={14}>Showing 1 to 10 of {count} entries</Typography>
@@ -33,7 +38,7 @@ const BaseTablePagingnation: FunctionComponent<ITablePagingProps> = ({
           </Select>
         </Box>
         <Pagination
-          count={count} 
+          count={count}
           page={page} 
           onChange={onPageChange}
           size={size}
@@ -43,8 +48,7 @@ const BaseTablePagingnation: FunctionComponent<ITablePagingProps> = ({
           showLastButton
           renderItem={(item) => {
             return (
-              <PaginationItem 
-                classes='table-page-item'
+              <PaginationItem
                 {...item} 
                 sx={{ 
                   '&.Mui-selected': {

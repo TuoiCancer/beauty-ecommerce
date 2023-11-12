@@ -153,3 +153,10 @@ export const useGetBestSellerProductsByShopId = (shopId: string) => {
 		})
 	})
 }
+
+export const useGetAdminProduct = (payload?: querySearchProduct) => {
+	const getAdminProductService = ApiService.createInstance();
+	return useQuery(['getAdminProduct'], () => getAdminProductService.getProductAdmin({
+		queryParams: payload
+	}));
+}

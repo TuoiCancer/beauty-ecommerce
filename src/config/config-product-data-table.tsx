@@ -3,7 +3,7 @@ import {
 	GridColDef,
 	GridRenderCellParams,
 } from '@mui/x-data-grid'
-import { RenderDateCell, RenderHeader, RenderNoCell, RenderPriceCell, renderColorChip } from './common-config';
+import { RenderDateCell, RenderNoCell, RenderPriceCell, renderColorChip } from './common-config';
 import { configDefaultOption } from './common-config';
 
 export const productTableColumn: GridColDef[] = [
