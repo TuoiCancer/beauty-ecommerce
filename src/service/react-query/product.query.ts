@@ -2,6 +2,7 @@ import { ApiService } from '../api/ApiClient'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { ProductInterface } from '@/utils/product.interface'
 import { IStore, updateStore } from '@/store'
+import { error } from 'console'
 
 interface querySearchProduct {
 	page: number
@@ -154,9 +155,12 @@ export const useGetBestSellerProductsByShopId = (shopId: string) => {
 	})
 }
 
-export const useGetAdminProduct = (payload?: querySearchProduct) => {
+export const useGetAdminProduct = (payload: querySearchProduct) => {
 	const getAdminProductService = ApiService.createInstance();
-	return useQuery(['getAdminProduct'], () => getAdminProductService.getProductAdmin({
-		queryParams: payload
-	}));
+	return useQuery(
+		['getAdminProduct', payload], 
+		() => getAdminProductService.getProductAdmin({ queryParams: payload }),
+		{
+			keepPreviousData: true
+		});
 }

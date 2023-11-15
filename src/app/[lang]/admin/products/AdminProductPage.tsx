@@ -11,6 +11,7 @@ import { useStore } from "@/store";
 import { DEFAULT_PAGE, DEFAULT_PAGE_LIMIT, DEFAULT_SORT } from "@/constants/common.constant";
 import {PagingParam} from "@/models/base-param-payload.type";
 import {useSearchParams} from "next/navigation";
+import ProgressLoading from "@/components/base/ProgressLoading";
 
 interface IAdminProductPageProps {
   lang: Locale,
@@ -24,16 +25,15 @@ const AdminProductPage: FunctionComponent<IAdminProductPageProps> = ({ lang, dic
 		limit: DEFAULT_PAGE_LIMIT,
 		itemCount: 0 // tổng số product get được từ api
   });
-	const [listProductFinal, setListProducFinal] = useState<any[]>([]);
+	const [listProduct, setListProduct] = useState<any[]>([]);
 
 	const { UserSlice } = useStore();
 
   const {
-		isLoading: gettingProducts,
-		isSuccess: successGetProduct,
-		refetch: getProductByPage,
-		data: dataGetListProduct,
-		isFetchedAfterMount
+		isLoading: waitingGetListProduct,
+		isFetched: fetchedGetListProduct,
+		refetch: getListProduct,
+		data: dataListProduct,
   } = useGetAdminProduct({
 		page: paginationMeta.page ?? DEFAULT_PAGE,
 		limit: paginationMeta.limit ?? DEFAULT_PAGE_LIMIT,
@@ -45,29 +45,29 @@ const AdminProductPage: FunctionComponent<IAdminProductPageProps> = ({ lang, dic
 		order: DEFAULT_SORT.SORT_TYPE
 	});
 
-	const handleDataResponse = () => getProductByPage();
-
 	useEffect(() => {
-		handleDataResponse();
-		if (isFetchedAfterMount) {
-			console.log(dataGetListProduct)
-			setPaginationMeta(dataGetListProduct.pageMetaDto);
-			setListProducFinal(dataGetListProduct.listProduct);
+		getListProduct();
+		if (fetchedGetListProduct) {
+			setPaginationMeta(dataListProduct.pageMetaDto);
+			setListProduct(dataListProduct.listProduct);
 		}
-	}, []);
+	}, [dataListProduct, paginationMeta]);
 
 	const onPageChange = (page: number) => {
 		setPaginationMeta(prev => ({...prev, page}));
 	}
 
   return (
-		<BaseDataTable
-			total={paginationMeta?.pageCount}
-			paging={{ page: paginationMeta?.page, limit: paginationMeta?.limit, total: paginationMeta?.itemCount }}
-			configColumn={productTableColumn}
-			data={listProductFinal}
-			onPagingModelChange={onPageChange}
-		/>
+		<>
+			<BaseDataTable
+				total={paginationMeta?.pageCount}
+				paging={{ page: paginationMeta?.page, limit: paginationMeta?.limit, total: paginationMeta?.itemCount }}
+				configColumn={productTableColumn}
+				data={listProduct}
+				onPagingModelChange={onPageChange}
+			/>
+			{waitingGetListProduct && <ProgressLoading />}
+		</>
   )
 };
 
