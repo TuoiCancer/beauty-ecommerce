@@ -8,9 +8,10 @@ const SidebarInfoItem = ({ item, dictionary }: any) => {
 	const [active, setActive] = React.useState(false)
 	const pathname = usePathname()
 	useEffect(() => {
-		const itemPage = item.href.split('/')[3]
-		if (pathname.includes(itemPage)) setActive(true)
-		else setActive(false)
+		const itemPage = item.href.split('/')[4]
+		if (pathname.includes(itemPage)) {
+			setActive(true)
+		} else setActive(false)
 	}, [pathname])
 	return (
 		<Link

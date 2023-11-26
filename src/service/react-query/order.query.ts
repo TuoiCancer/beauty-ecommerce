@@ -39,9 +39,7 @@ export const useGetAllOrder = (payload: any) => {
 			})
 		},
 		{
-			onSuccess: data => {
-				console.log('=============ORDER=============', data)
-			},
+			onSuccess: data => {},
 			onError: (err: any) => {
 				updateStore((state: IStore) => {
 					state.UserSlice.isError = true

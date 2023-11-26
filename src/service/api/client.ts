@@ -80,7 +80,6 @@ const configApi: any = ({ path, method, headers }: any) => {
 	}
 
 	return ({ data, pathParams, queryParams }: any) => {
-		console.log('--------data:::', data, '-----pathParams:::', pathParams)
 		let url = ''
 		let params = ''
 		let query = ''
