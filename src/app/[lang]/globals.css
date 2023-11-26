@@ -19,6 +19,7 @@
 	--pending-button: #E3631B;
 	--completed-button: #319E48;
 	--font-family: 'Montserrat', sans-serif;
+	--waiting-button: #598683;
 }
 
 /* @keyframes slideInFromLeft {

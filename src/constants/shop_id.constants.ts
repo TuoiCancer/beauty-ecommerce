@@ -1,0 +1,5 @@
+export const SHOP_ID = {
+  LOREAL: '8c4451cf-3617-4d71-b003-c09d2eb5aa53',
+  ORDINARY: '9a420be2-4df3-4595-a500-2211de5a9701',
+  BIODERMA: '40c9cb9c-1628-4995-b8a6-7a5ce183e087'
+}

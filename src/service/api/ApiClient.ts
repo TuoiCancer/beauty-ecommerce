@@ -98,6 +98,14 @@ export class ApiService {
 		}
 	})
 
+	getProductAdmin = configApi({
+		path: 'v1/products/admin-product',
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
+
 	getProductById = configApi({
 		path: 'v1/products',
 		method: 'GET',

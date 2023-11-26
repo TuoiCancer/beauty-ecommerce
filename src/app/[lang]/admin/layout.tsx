@@ -1,27 +1,20 @@
-import Header from '@/components/Header/Header'
-import Footer from '@/components/Footer/Footer'
-import CheckLogin from '@/components/base/CheckLogin'
+import { getDictionary } from '../../../../get-dictionary'
+import { Locale } from '../../../../i18n-config'
+import RootAdminLayout from '@/components/layouts/admin/RootAdminLayout'
 
-export default function RootLayout({
-	children
+export default async function RootLayout({
+	children,
+	params: { lang }
 }: {
-	children: React.ReactNode
+	children: React.ReactNode,
+	params: { lang: Locale }
 }) {
+	const dictionary = await getDictionary(lang);
 	return (
 		<>
-			<CheckLogin>
-				<Header
-					isHaveShadow={true}
-					isHaveBg={true}
-					textColor='#000'
-					style={{
-						left: 0,
-						right: 0,
-						zIndex: 6
-					}}
-				/>
+			<RootAdminLayout dictionary={dictionary}>
 				{children}
-			</CheckLogin>
+			</RootAdminLayout>
 		</>
 	)
 }

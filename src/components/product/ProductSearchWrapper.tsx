@@ -16,11 +16,11 @@ const ProductSearchWrapper = ({
 	lang: string
 }) => {
 	const listProductDisplay = listProduct.filter(item => item.page === page)[0]
-		.data
+		?.data
 
 	return (
 		<>
-			{listProductDisplay.map((item: ProductInterface, index: number) => {
+			{listProductDisplay?.map((item: ProductInterface, index: number) => {
 				return (
 					<ProductItem
 						key={index}
