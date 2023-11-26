@@ -198,7 +198,9 @@ export class ApiService {
 		path: 'v1/orders/create',
 		method: 'POST',
 		headers: {
-			'Content-Type': 'application/json'
+			'Content-Type': 'application/json',
+			'X-Client-Id': this.getXClientId(),
+			Authorization: this.getAccessToken()
 		}
 	})
 
@@ -246,7 +248,9 @@ export class ApiService {
 		path: 'v1/reviews',
 		method: 'POST',
 		headers: {
-			'Content-Type': 'application/json'
+			'Content-Type': 'application/json',
+			'X-Client-Id': this.getXClientId(),
+			Authorization: this.getAccessToken()
 		}
 	})
 
@@ -262,7 +266,9 @@ export class ApiService {
 		path: 'v1/reviews',
 		method: 'DELETE',
 		headers: {
-			'Content-Type': 'application/json'
+			'Content-Type': 'application/json',
+			'X-Client-Id': this.getXClientId(),
+			Authorization: this.getAccessToken()
 		}
 	})
 
@@ -270,7 +276,27 @@ export class ApiService {
 		path: 'v1/reviews',
 		method: 'PATCH',
 		headers: {
+			'Content-Type': 'application/json',
+			'X-Client-Id': this.getXClientId(),
+			Authorization: this.getAccessToken()
+		}
+	})
+
+	recommendProductForUser = configApi({
+		path: 'v1/products/recommend',
+		method: 'GET',
+		headers: {
 			'Content-Type': 'application/json'
+		}
+	})
+
+	updateUserInfo = configApi({
+		path: 'v1/users',
+		method: 'PATCH',
+		headers: {
+			'Content-Type': 'application/json'
+			// 'X-Client-Id': this.getXClientId(),
+			// Authorization: this.getAccessToken()
 		}
 	})
 }

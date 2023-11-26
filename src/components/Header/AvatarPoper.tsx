@@ -35,7 +35,8 @@ const AvatarPoper = ({
 						sx={{
 							marginLeft: '10px',
 							fontSize: '14px',
-							fontFamily: 'Montserrat'
+							fontFamily: 'Montserrat',
+							whiteSpace: 'nowrap'
 						}}
 					>
 						{dictionary['navbar'][text]}
@@ -62,7 +63,8 @@ const AvatarPoper = ({
 				sx={{
 					marginLeft: '10px',
 					fontSize: '14px',
-					fontFamily: 'Montserrat'
+					fontFamily: 'Montserrat',
+					whiteSpace: 'nowrap'
 				}}
 			>
 				{dictionary['navbar'][text]}

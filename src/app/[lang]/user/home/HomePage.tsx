@@ -14,7 +14,10 @@ import { useTheme } from '@mui/material/styles'
 import { autoPlay } from 'react-swipeable-views-utils'
 import { useRouter } from 'next/navigation'
 import { useStore } from '@/store'
-import { useGetBestSellerProduct } from '@/service/react-query/product.query'
+import {
+	useGetBestSellerProduct,
+	useRecommendProductForUser
+} from '@/service/react-query/product.query'
 import {
 	ProductInterface,
 	TopProductInterface
@@ -70,15 +73,29 @@ export default function Home({
 		refetch
 	} = useGetBestSellerProduct()
 
+	const {
+		data: listRecommendProducts,
+		isLoading: gettingRecommendProducts,
+		mutate: getListRecommend
+	} = useRecommendProductForUser()
+
+	// useEffect(() => {
+	// 	refetch()
+	// }, [])
+
 	useEffect(() => {
-		refetch()
-	}, [])
+		if (UserSlice.isLoggedIn) {
+			getListRecommend({
+				userId: UserSlice?.user?.id
+			})
+		}
+	}, [UserSlice.isLoggedIn])
 
 	const handleStepChange = (step: number) => {
 		setActiveStep(step)
 	}
 
-	if (gettingProducts) return <Loading />
+	if (gettingProducts || gettingRecommendProducts) return <Loading />
 	return (
 		<Box
 			sx={{
@@ -87,7 +104,7 @@ export default function Home({
 		>
 			{/* Header */}
 			<Box
-				sx={{  
+				sx={{
 					width: { md: '100%' },
 					height: { xs: '50vh', md: '80vh', xl: '100vh' },
 					background: 'linear-gradient(176deg, #FFF 0%, #F1F1F1 100%)',
@@ -462,7 +479,9 @@ export default function Home({
 			{/* Recommend Products */}
 			<RecommendProduct
 				lang={lang}
-				dataGetListProduct={dataGetListProduct}
+				dataGetListProduct={
+					UserSlice?.isLoggedIn ? listRecommendProducts : dataGetListProduct
+				}
 				dictionary={dictionary}
 			/>
 			{/* Review */}

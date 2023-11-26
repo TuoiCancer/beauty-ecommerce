@@ -267,7 +267,7 @@ const ShopPageDetail = ({ dictionary, lang }: any) => {
 						</Typography>
 					</Box>
 					<Link
-						href={`/user/product?shopName=${shopName}`}
+						href={`/${lang}/user/product?shopName=${shopName}`}
 						style={{
 							textDecoration: 'none'
 						}}
