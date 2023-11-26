@@ -12,7 +12,8 @@
       "login": "Login",
       "Infor":"Infor",
       "Order": "Order",
-      "Logout": "Logout"
+      "Logout": "Logout",
+      "Notify": "Notify"
     },
     "Home":{
       "introduce":{
@@ -184,5 +185,13 @@
       "confirm":"Are you sure to cancel this order",
       "Ok":"Ok",
       "No":"Cancel"
+    },
+    "Setting":{
+      "sidebar":{
+        "title":"User Profile",
+        "user-info":"User Information",
+        "notify":"Notification",
+        "authen":"Password and Security"
+      }
     }
   }

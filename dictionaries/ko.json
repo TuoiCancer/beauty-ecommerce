@@ -12,7 +12,8 @@
       "login": "로그인",
       "Infor": "정보",
       "Order":  "주문",
-      "Logout":  "로그아웃"
+      "Logout":  "로그아웃",
+      "Notify": "알림"
     },
     "Home":{
       "introduce":{
@@ -182,5 +183,13 @@
       "confirm":"이 주문을 취소하시겠습니까?",
       "Ok":"Ok",
       "No": "아니요"
+    },
+    "Setting":{
+      "sidebar":{
+        "title":"설정",
+        "user-info":"사용자 정보",
+        "notify":"알림",
+        "authen":"비밀번호 및 보안"
+      }
     }
   }

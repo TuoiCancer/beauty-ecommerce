@@ -114,7 +114,8 @@ export const useGetSimilarProduct = (payload: similarProductPayload) => {
 				queryParams: {
 					shop_id: payload.shop_id,
 					product_category: payload.product_category,
-					product_id: payload.product_id
+					product_id: payload.product_id,
+					limit: 5
 				}
 			})
 		}
@@ -149,6 +150,18 @@ export const useGetBestSellerProductsByShopId = (shopId: string) => {
 		return getBestSellerProductService.getBestSellerProductsByShopId({
 			pathParams: {
 				shopId: shopId
+			}
+		})
+	})
+}
+
+export const useRecommendProductForUser = () => {
+	const recommendProductForUserService = ApiService.createInstance()
+	return useMutation((payload: { userId: string }) => {
+		return recommendProductForUserService.recommendProductForUser({
+			queryParams: {
+				userId: payload.userId,
+				n: 5
 			}
 		})
 	})

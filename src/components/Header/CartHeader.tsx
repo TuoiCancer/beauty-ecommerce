@@ -13,6 +13,7 @@ import Link from 'next/link'
 import React from 'react'
 import ImageItem from '../base/ImageItem'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive'
 import LogoutIcon from '@mui/icons-material/Logout'
 import AvatarPoper from './AvatarPoper'
 import LocalMallIcon from '@mui/icons-material/LocalMall'
@@ -51,9 +52,16 @@ const CartHeader = ({
 
 	const listAvatarPoper = [
 		{
+			id: '4',
+			icon: <NotificationsActiveIcon />,
+			href: `/${language}/user/settings/notifications`, // for both admin and user
+			text: 'Notify',
+			onClick: handleClick
+		},
+		{
 			id: '1',
 			icon: <AccountCircleIcon />,
-			// href: '/user/infor', // for both admin and user
+			href: `/${language}/user/settings/infor`, // for both admin and user
 			text: 'Infor',
 			onClick: handleClick
 		},
@@ -62,7 +70,7 @@ const CartHeader = ({
 			icon: <LocalMallIcon />,
 			// href: '/user/order', // for both admin and user
 			text: 'Order',
-			href: '/user/order',
+			href: `/${language}/user/order`,
 			onClick: handleClick
 		},
 		{
@@ -235,7 +243,19 @@ const CartHeader = ({
 				>
 					<Box
 						sx={{
-							cursor: 'pointer'
+							cursor: 'pointer',
+							position: 'relative',
+							'&::before': {
+								content: '""',
+								position: 'absolute',
+								top: '-6%',
+								right: '2px',
+								backgroundColor: '#59ff94',
+								width: '12px',
+								height: '12px',
+								borderRadius: '50%',
+								zIndex: 5
+							}
 						}}
 					>
 						<Avatar
