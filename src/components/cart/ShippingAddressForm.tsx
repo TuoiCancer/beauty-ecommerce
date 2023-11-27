@@ -1,19 +1,56 @@
 import { listCity, listDistrict } from '@/constants'
 import { useStore } from '@/store'
+import {
+	DistrictInterface,
+	ProvinceInterface,
+	WardInterface
+} from '@/utils/index.interface'
 import { Box, Button, MenuItem, Select, TextField } from '@mui/material'
+import { useQuery } from '@tanstack/react-query'
+import axios from 'axios'
 import React, { useEffect } from 'react'
 import { toast } from 'react-toastify'
+import ProgressLoading from '../base/ProgressLoading'
 
 const ShippingAddressForm = ({
 	activeStep,
 	steps,
 	handleBack,
 	setActiveStep,
-	productSelected,
-	handleClose,
 	dictionary
 }: any) => {
 	const { UserSlice } = useStore()
+	const { data: listProvinces, isLoading } = useQuery({
+		queryKey: ['get list province'],
+		queryFn: () =>
+			axios.get('https://provinces.open-api.vn/api/p/').then(res => res.data)
+	})
+
+	const { data: listDistrictData, isLoading: isGettingDistricts } = useQuery({
+		queryKey: ['get list district'],
+		queryFn: () =>
+			axios.get('https://provinces.open-api.vn/api/d/').then(response => {
+				return response.data
+			})
+	})
+
+	const { data: listWardData, isLoading: isGetting } = useQuery({
+		queryKey: ['get list ward'],
+		queryFn: () =>
+			axios.get('https://provinces.open-api.vn/api/w/').then(response => {
+				return response.data
+			})
+	})
+
+	const [province, setProvince] = React.useState<ProvinceInterface | undefined>(
+		UserSlice.shippingInfor.city
+	)
+	const [district, setDistrict] = React.useState<DistrictInterface | undefined>(
+		UserSlice.shippingInfor.district
+	)
+	const [listDistrict, setListDistrict] = React.useState<DistrictInterface[]>()
+
+	const [listWard, setListWard] = React.useState<WardInterface[]>([])
 
 	const handleNext = () => {
 		const regex = /(84|0[3|2|8|9])+([0-9]{8})\b/
@@ -35,6 +72,42 @@ const ShippingAddressForm = ({
 			setActiveStep((prevActiveStep: number) => prevActiveStep + 1)
 		}
 	}
+
+	useEffect(() => {
+		if (province) {
+			// set list district when province change
+			const tmpDistrict = listDistrictData?.filter(
+				(item: DistrictInterface) => {
+					return item.province_code === province?.code
+				}
+			)
+			setListDistrict(tmpDistrict)
+		} else if (UserSlice?.shippingInfor?.city) {
+			const tmpDistrict = listDistrictData?.filter(
+				(item: DistrictInterface) => {
+					return item.province_code === UserSlice?.shippingInfor?.city?.code
+				}
+			)
+			setListDistrict(tmpDistrict)
+		}
+	}, [province, UserSlice, listDistrictData])
+
+	useEffect(() => {
+		if (district) {
+			const listWardTmp = listWardData?.filter((item: WardInterface) => {
+				return item.district_code === district?.code
+			})
+			setListWard(listWardTmp)
+		} else if (UserSlice?.shippingInfor?.district) {
+			setListWard(
+				listWardData?.filter((item: WardInterface) => {
+					return item.district_code === UserSlice?.shippingInfor?.district?.code
+				})
+			)
+		}
+	}, [district, UserSlice, listWardData])
+
+	if (isLoading || isGettingDistricts || isGetting) return <ProgressLoading />
 
 	return (
 		<Box>
@@ -122,18 +195,7 @@ const ShippingAddressForm = ({
 						})
 					}}
 				/>
-				<TextField
-					value={UserSlice.shippingInfor.address}
-					placeholder={`${dictionary.Cart.address} *`}
-					onChange={e => {
-						UserSlice.setShippingInfor((prev: any) => {
-							return {
-								...prev,
-								address: e.target.value
-							}
-						})
-					}}
-				/>
+
 				<Box
 					sx={{
 						display: 'flex',
@@ -155,17 +217,17 @@ const ShippingAddressForm = ({
 					<Select
 						label='City *'
 						sx={{
-							mr: { xs: '32px', md: '56px' }
+							mr: { xs: '32px', md: '56px' },
+							'& .MuiPaper-root': {
+								background: 'red'
+							}
 						}}
-						value={
-							listCity.find(
-								(item: any) => item.name === UserSlice.shippingInfor.city
-							)?.value || ''
-						}
+						value={UserSlice?.shippingInfor?.city?.name || province?.name || ''}
 						onChange={e => {
-							const tmpCity = listCity.find(
-								(item: any) => item.value === e.target.value
-							)?.name
+							const tmpCity = listProvinces?.find(
+								(item: ProvinceInterface) => item.name === e.target.value
+							)
+							setProvince(tmpCity)
 							UserSlice.setShippingInfor((prev: any) => {
 								return {
 									...prev,
@@ -174,9 +236,9 @@ const ShippingAddressForm = ({
 							})
 						}}
 					>
-						{listCity.map((item, index) => {
+						{listProvinces?.map((item: ProvinceInterface, index: number) => {
 							return (
-								<MenuItem key={item.id} value={item.value || ''}>
+								<MenuItem key={item.code} value={item.name || ''}>
 									{item.name || ''}
 								</MenuItem>
 							)
@@ -184,15 +246,12 @@ const ShippingAddressForm = ({
 					</Select>
 					<Select
 						label='State/Provine/Region *'
-						value={
-							listDistrict.find((item: any) => {
-								return item.name === UserSlice.shippingInfor.district
-							})?.value || ''
-						}
+						value={UserSlice?.shippingInfor?.district?.name}
 						onChange={e => {
-							const tmpDistrict = listDistrict.find(
-								(item: any) => item.value === e.target.value
-							)?.name
+							const tmpDistrict = listDistrict?.find(
+								(item: DistrictInterface) => item.name === e.target.value
+							)
+							setDistrict(tmpDistrict)
 							UserSlice.setShippingInfor((prev: any) => {
 								return {
 									...prev,
@@ -201,15 +260,59 @@ const ShippingAddressForm = ({
 							})
 						}}
 					>
-						{listDistrict.map((item, index) => {
+						{listDistrict?.map((item: DistrictInterface, index: number) => {
 							return (
-								<MenuItem key={item.id} value={item.value || ''}>
+								<MenuItem key={item.code} value={item.name || ''}>
 									{item.name || ''}
 								</MenuItem>
 							)
 						})}
 					</Select>
 				</Box>
+				<Select
+					sx={{
+						borderRadius: '10px',
+						border: '1px solid #EBEBEB',
+						background: '#F8F8F9',
+						fontSize: '16px',
+						fontWeight: 300,
+						fontFamily: 'Roboto',
+						mb: { md: '36px' }
+					}}
+					label='State/Provine/Region *'
+					value={UserSlice?.shippingInfor?.ward || ''}
+					onChange={e => {
+						const tmpWard = listWard.find(
+							(item: WardInterface) => item.name === e.target.value
+						)
+						UserSlice.setShippingInfor((prev: any) => {
+							return {
+								...prev,
+								ward: tmpWard?.name
+							}
+						})
+					}}
+				>
+					{listWard?.map((item: WardInterface, index: number) => {
+						return (
+							<MenuItem key={item.code} value={item.name || ''}>
+								{item.name || ''}
+							</MenuItem>
+						)
+					})}
+				</Select>
+				<TextField
+					value={UserSlice.shippingInfor.address}
+					placeholder={`${dictionary.Cart.address} * `}
+					onChange={e => {
+						UserSlice.setShippingInfor((prev: any) => {
+							return {
+								...prev,
+								address: e.target.value
+							}
+						})
+					}}
+				/>
 			</Box>
 			<Box
 				sx={{

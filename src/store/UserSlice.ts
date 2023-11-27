@@ -57,7 +57,8 @@ const UserSlice: StateCreator<
 		address: '',
 		phone: '',
 		city: '',
-		district: ''
+		district: '',
+		ward: ''
 	},
 	paymentInfor: {
 		paymentMethod: 'card',

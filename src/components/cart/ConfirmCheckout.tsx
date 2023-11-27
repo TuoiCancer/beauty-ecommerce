@@ -59,7 +59,7 @@ const ConfirmCheckout = ({
 		createOrderFn({
 			userId: UserSlice.user.id,
 			products: productSelected,
-			orderShipping: UserSlice.shippingInfor,
+			orderShipping: `${UserSlice.shippingInfor.address}, ${UserSlice.shippingInfor.ward}, ${UserSlice.shippingInfor.district}, ${UserSlice.shippingInfor.province}`,
 			orderPayment: UserSlice.paymentInfor,
 			orderCheckout: {
 				totalPrice: totalProductPrice,
@@ -233,10 +233,10 @@ const ConfirmCheckout = ({
 					<Box className='shipping-wrapper'>
 						<PlaceIcon />
 						<Typography variant='h4'>
-							{/* {UserSlice.shippingInfor?.address}, */}
-							4th floor - 8 Ton That Thuyet - My Dinh 2 - Nam Tu Liem - Ha Noi
-							{UserSlice.shippingInfor?.district} -{' '}
-							{UserSlice.shippingInfor?.city}
+							{UserSlice.shippingInfor?.address} -{' '}
+							{UserSlice.shippingInfor?.ward} -{' '}
+							{UserSlice.shippingInfor?.district?.name} -{' '}
+							{UserSlice.shippingInfor?.city?.name}
 						</Typography>
 					</Box>
 				</Box>

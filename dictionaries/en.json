@@ -162,7 +162,7 @@
       "firstname":"First name",
       "lastname":"Last name",
       "phone":"Phone number",
-      "address":"Address",
+      "address":"Address your order will be shipped to",
       "nextBtn":"Next",
       "backBtn":"Back",
       "buyBtn":"Buy",
