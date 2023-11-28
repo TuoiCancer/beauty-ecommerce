@@ -13,29 +13,39 @@ import {
 	SelectChangeEvent,
 	Typography
 } from '@mui/material'
-import { ChangeEvent, FunctionComponent, useState } from 'react'
+import {
+	ChangeEvent,
+	ChangeEventHandler,
+	FunctionComponent,
+	useState
+} from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 
 export interface ITablePagingProps {
 	count: number
 	page: number
+	totalRecords: number
 	onPageChange: (event: ChangeEvent<unknown>, page: number) => void
 	size?: 'small' | 'medium' | 'large'
+	onRowsPerPageChange: any
 }
 
 const BaseTablePagingnation: FunctionComponent<ITablePagingProps> = ({
 	count,
 	page,
 	size,
-	onPageChange
+	totalRecords,
+	onPageChange,
+	onRowsPerPageChange
 }) => {
 	const [rowPerPage, setRowPerPage] = useState(DEFAULT_PAGE_LIMIT)
 
 	const router = useRouter()
 	const pathname = usePathname()
+	console.log('PAGE_SIZE_OPTIONS', PAGE_SIZE_OPTIONS)
 	const handleRowPerPageChange = (event: SelectChangeEvent<number>) => {
-		const { value } = event.target
-		setRowPerPage(Number(value))
+		setRowPerPage(event.target.value as number)
+		onRowsPerPageChange(event)
 	}
 
 	return (
@@ -49,7 +59,7 @@ const BaseTablePagingnation: FunctionComponent<ITablePagingProps> = ({
 			}}
 		>
 			<Typography color='#6C757D' fontSize={14}>
-				Showing 1 to 10 of {count} entries
+				Showing 1 to 10 of {totalRecords} entries
 			</Typography>
 			<Box sx={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
 				<Box sx={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
