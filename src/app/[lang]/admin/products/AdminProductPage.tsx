@@ -34,7 +34,8 @@ const AdminProductPage: FunctionComponent<IAdminProductPageProps> = ({
 		page: DEFAULT_PAGE,
 		limit: DEFAULT_PAGE_LIMIT,
 		itemCount: 0 // tổng số product get được từ api
-	})
+	});
+	const [listProduct, setListProduct] = useState([]);
 
 	const { UserSlice } = useStore()
 
@@ -55,12 +56,12 @@ const AdminProductPage: FunctionComponent<IAdminProductPageProps> = ({
 	})
 
 	useEffect(() => {
-		console.log('dataListProduct ------> ', dataListProduct)
-		getListProduct()
+		getListProduct();
 		if (fetchedGetListProduct) {
-			setPaginationMeta(dataListProduct.pageMetaDto)
+			setPaginationMeta(dataListProduct.pageMetaDto);
+			setListProduct(dataListProduct.listProduct);
 		}
-	}, [dataListProduct, paginationMeta])
+	}, [dataListProduct])
 
 	const onPageChange = (page: number) => {
 		setPaginationMeta(prev => ({ ...prev, page }))
@@ -74,7 +75,8 @@ const AdminProductPage: FunctionComponent<IAdminProductPageProps> = ({
 		return <ProgressLoading />
 	}
 	return (
-		<BaseDataTable
+		<>
+			<BaseDataTable
 			total={paginationMeta?.pageCount}
 			paging={{
 				page: paginationMeta?.page,
@@ -82,10 +84,11 @@ const AdminProductPage: FunctionComponent<IAdminProductPageProps> = ({
 				total: paginationMeta?.itemCount
 			}}
 			configColumn={productTableColumn}
-			data={dataListProduct?.listProduct ?? []}
+			data={listProduct ?? []}
 			onPagingModelChange={onPageChange}
 			onLimitChange={onLimitChange}
 		/>
+		</>
 	)
 }
 
