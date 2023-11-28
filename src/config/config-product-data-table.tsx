@@ -1,17 +1,19 @@
 import { Avatar, Chip } from '@mui/material'
+import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import {
-	GridColDef,
-	GridRenderCellParams,
-} from '@mui/x-data-grid'
-import { RenderDateCell, RenderNoCell, RenderPriceCell, renderColorChip } from './common-config';
-import { configDefaultOption } from './common-config';
+	RenderDateCell,
+	RenderNoCell,
+	RenderPriceCell,
+	renderColorChip
+} from './common-config'
+import { configDefaultOption } from './common-config'
 
 export const productTableColumn: GridColDef[] = [
 	{
 		field: 'No',
 		headerName: '',
-		width: 50,
-		renderCell: (params: GridRenderCellParams) => <RenderNoCell {...params} />,
+		width: 80,
+		// renderCell: (params: GridRenderCellParams) => <RenderNoCell {...params} />,
 		sortable: false,
 		...configDefaultOption
 	},
@@ -26,8 +28,8 @@ export const productTableColumn: GridColDef[] = [
 		field: 'product_thumbnail',
 		headerName: 'Image',
 		flex: 1,
-    headerAlign: 'center',
-    align: 'center',
+		headerAlign: 'center',
+		align: 'center',
 		sortable: false,
 		renderCell: (params: GridRenderCellParams) => {
 			return <Avatar src={params.value} alt='product thumbnail' />
@@ -56,44 +58,55 @@ export const productTableColumn: GridColDef[] = [
 	{
 		field: 'product_price',
 		headerName: 'Price',
-    flex: 1,
-    renderCell: (params: GridRenderCellParams) => <RenderPriceCell {...params} />,
+		flex: 1,
+		renderCell: (params: GridRenderCellParams) => (
+			<RenderPriceCell {...params} />
+		),
 		...configDefaultOption
 	},
 	{
 		field: 'product_original_price',
 		headerName: 'Original Price',
-    flex: 1,
-    renderCell: (params: GridRenderCellParams) => <RenderPriceCell {...params} />,
+		flex: 1,
+		renderCell: (params: GridRenderCellParams) => (
+			<RenderPriceCell {...params} />
+		),
 		...configDefaultOption
 	},
 	{
 		field: 'createdAt',
 		headerName: 'Created At',
-    renderCell: (params: GridRenderCellParams) => <RenderDateCell {...params} />,
-    flex: 1,
+		renderCell: (params: GridRenderCellParams) => (
+			<RenderDateCell {...params} />
+		),
+		flex: 1,
 		...configDefaultOption
 	},
 	{
 		field: 'product_status',
 		headerName: 'Status',
-    flex: 1,
+		flex: 1,
 		sortable: false,
 		headerAlign: 'center',
 		align: 'center',
 		renderCell: (params: GridRenderCellParams) => {
-			const color = renderColorChip(params.value);
-			const outputLabel = (params.value as string).replace(/([A-Z])/g, ' $1');
-			const label = outputLabel.charAt(0).toUpperCase() + outputLabel.slice(1);
-			return <Chip label={label} sx={{ color: '#fff', backgroundColor: `${color}` }}/>
+			const color = renderColorChip(params.value)
+			const outputLabel = (params.value as string).replace(/([A-Z])/g, ' $1')
+			const label = outputLabel.charAt(0).toUpperCase() + outputLabel.slice(1)
+			return (
+				<Chip
+					label={label}
+					sx={{ color: '#fff', backgroundColor: `${color}` }}
+				/>
+			)
 		},
 		...configDefaultOption
 	},
 	{
 		field: 'Action',
 		headerName: 'Action',
-    headerAlign: 'center',
-    flex: 1,
+		headerAlign: 'center',
+		flex: 1,
 		maxWidth: 150,
 		sortable: false,
 		...configDefaultOption

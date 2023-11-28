@@ -6,7 +6,8 @@ import {
 	GridColumnHeaderParams,
 	GridRenderCellParams,
 	gridPaginatedVisibleSortedGridRowEntriesSelector,
-	gridPaginationRowRangeSelector
+	gridPaginationRowRangeSelector,
+	gridPageSelector
 } from '@mui/x-data-grid'
 
 export const configDefaultOption = {
@@ -33,8 +34,8 @@ export const RenderNoCell = (params: GridRenderCellParams) => {
 	const apiRef = { current: api }
 	const range = gridPaginationRowRangeSelector(apiRef)
 	const rows = gridPaginatedVisibleSortedGridRowEntriesSelector(apiRef)
+	const page = gridPageSelector(apiRef)
 	const index = rows.findIndex(r => r.id === id)
-
 	return index === -1 ? null : <>{range!.firstRowIndex + index + 1}</>
 }
 
@@ -56,12 +57,12 @@ export const RenderPriceCell = (params: GridRenderCellParams) => {
 export const renderColorChip = (status: string) => {
 	switch (status) {
 		case PRODUCT_STATUS.IN_STOCK:
-			return 'var(--packaged-button)';
+			return 'var(--packaged-button)'
 		case PRODUCT_STATUS.OUT_OF_STOCK:
-			return 'var(--cancelled-button)';
+			return 'var(--cancelled-button)'
 		case PRODUCT_STATUS.COMMING_SOON:
-			return 'var(--waiting-button)';
+			return 'var(--waiting-button)'
 		case PRODUCT_STATUS.ON_SALE:
-			return 'var(--completed-button)';
-	};
+			return 'var(--completed-button)'
+	}
 }
