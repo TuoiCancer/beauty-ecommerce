@@ -1,7 +1,7 @@
 import { Box, TextField, Typography } from '@mui/material'
 import React from 'react'
 
-const InputItem = ({ text, value, onChange }) => {
+const InputItem = ({ text, value, onChange }: any) => {
 	return (
 		<Box
 			sx={{
