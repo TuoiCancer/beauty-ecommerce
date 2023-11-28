@@ -15,6 +15,7 @@ import { TopProductInterface } from '@/utils/product.interface'
 import TopProductItem from './TopProductItem'
 
 import { motion } from 'framer-motion'
+import { useStore } from '@/store'
 // install Swiper modules
 SwiperCore.use([Navigation, Autoplay, A11y])
 
@@ -35,10 +36,9 @@ const RecommendProduct = ({
 	dataGetListProduct: TopProductInterface[]
 	dictionary: any
 }) => {
-	const theme = useTheme()
-	const biggerSm = useMediaQuery(theme.breakpoints.up('md'))
+	const { UserSlice } = useStore()
 	const productPerPage = 12
-	const totalPage = Math.ceil(dataGetListProduct.length / productPerPage)
+	const totalPage = Math.ceil(dataGetListProduct?.length / productPerPage)
 
 	const listTopProduct = Array.from({ length: totalPage }, (_, i) => i + 1).map(
 		item => {
@@ -61,7 +61,6 @@ const RecommendProduct = ({
 				},
 				margin: '0 auto',
 				pt: { md: '120px' },
-				px: { md: '24px' },
 
 				'& .swiper-button-next, .swiper-button-prev': {
 					color: '#fff',
@@ -75,9 +74,17 @@ const RecommendProduct = ({
 				},
 				'& .swiper-slide': {
 					width: '100%',
-					margin: { xs: '0', sm: '10px' },
+					px: { xs: '12px', sm: '16px', lg: '24px' },
+					py: { xs: '12px', sm: '16px', lg: '24px' },
+					// margin: { xs: '0 !important' },
 					display: 'grid',
-					gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))'
+					gridTemplateColumns: {
+						xl: '1fr 1fr 1fr 1fr',
+						lg: '1fr 1fr 1fr',
+						md: '1fr 1fr',
+						sm: '1fr'
+					},
+					gridGap: '16px'
 				}
 			}}
 		>
@@ -93,19 +100,38 @@ const RecommendProduct = ({
 					width: '100%'
 				}}
 			>
-				<Typography
-					variant='h1'
-					className={ibarra.className}
-					sx={{
-						textAlign: 'center',
-						color: '#121212',
-						fontSize: { xs: '24px', md: '40px', lg: '48px' },
-						fontWeight: 700,
-						lineHeight: '125.5%'
-					}}
-				>
-					{dictionary['Home']['topproduct'].title}
-				</Typography>
+				{UserSlice?.isLoggedIn && (
+					<Typography
+						variant='h1'
+						className={ibarra.className}
+						sx={{
+							textAlign: 'center',
+							color: '#121212',
+							fontSize: { xs: '24px', md: '40px', lg: '48px' },
+							fontWeight: 700,
+							lineHeight: '125.5%'
+						}}
+					>
+						{dictionary['Home']['topproduct'].title}
+					</Typography>
+				)}
+
+				{!UserSlice?.isLoggedIn && (
+					<Typography
+						variant='h1'
+						className={ibarra.className}
+						sx={{
+							textAlign: 'center',
+							color: '#121212',
+							fontSize: { xs: '24px', md: '40px', lg: '48px' },
+							fontWeight: 700,
+							lineHeight: '125.5%'
+						}}
+					>
+						Best Sellers of the Week
+					</Typography>
+				)}
+
 				<Typography
 					variant='h2'
 					className={hindMadurai.className}

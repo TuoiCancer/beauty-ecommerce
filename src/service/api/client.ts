@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-// export const BASE_URL = 'http://localhost:3003/api'
-export const BASE_URL = 'https://cosmetic-ecommerce.onrender.com/api'
+export const BASE_URL = 'http://localhost:3003/api'
+// export const BASE_URL = 'https://cosmetic-ecommerce.onrender.com/api'
 
 const apiClient = axios.create({
 	headers: {
@@ -41,6 +41,8 @@ apiClient.interceptors.request.use(
 		return Promise.reject(err)
 	}
 )
+//85a26cd1-4f5f-4468-b0ce-41118681234b
+//40c9cb9c-1628-4995-b8a6-7a5ce183e087
 
 apiClient.interceptors.response.use(response => {
 	return response

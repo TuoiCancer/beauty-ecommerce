@@ -12,7 +12,16 @@
       "login": "Login",
       "Infor":"Infor",
       "Order": "Order",
-      "Logout": "Logout"
+      "Logout": "Logout",
+      "Notify": "Notify"
+    },
+    "sidebar": {
+      "dashboard": "Dashboard",
+      "orders": "Orders",
+      "products": "Products",
+      "blogs": "Blogs",
+      "vouchers": "Vouchers",
+      "reviews": "Reviews"
     },
     "sidebar": {
       "dashboard": "Dashboard",
@@ -161,7 +170,7 @@
       "firstname":"First name",
       "lastname":"Last name",
       "phone":"Phone number",
-      "address":"Address",
+      "address":"Address your order will be shipped to",
       "nextBtn":"Next",
       "backBtn":"Back",
       "buyBtn":"Buy",
@@ -192,5 +201,13 @@
       "confirm":"Are you sure to cancel this order",
       "Ok":"Ok",
       "No":"Cancel"
+    },
+    "Setting":{
+      "sidebar":{
+        "title":"User Profile",
+        "user-info":"User Information",
+        "notify":"Notification",
+        "authen":"Password and Security"
+      }
     }
   }

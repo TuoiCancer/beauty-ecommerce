@@ -22,9 +22,9 @@ const Loading = () => {
 		>
 			<Box
 				sx={{
-					width: '2rem',
-					height: '2rem',
-					margin: '3rem 1rem',
+					width: { xs: '16px', md: '2rem' },
+					height: { xs: '16px', md: '2rem' },
+					margin: { xs: '2.4rem 20px', md: '3rem 1rem' },
 					background: 'var(--main-green)',
 					borderRadius: '50%',
 					animation: `0.9s ${bounce} infinite alternate`
@@ -32,9 +32,9 @@ const Loading = () => {
 			></Box>
 			<Box
 				sx={{
-					width: '2rem',
-					height: '2rem',
-					margin: '3rem 1rem',
+					width: { xs: '16px', md: '2rem' },
+					height: { xs: '16px', md: '2rem' },
+					margin: { xs: '2.4rem 20px', md: '3rem 1rem' },
 					background: 'var(--main-green)',
 					borderRadius: '50%',
 					animation: `0.9s ${bounce} infinite alternate`,
@@ -43,9 +43,9 @@ const Loading = () => {
 			></Box>
 			<Box
 				sx={{
-					width: '2rem',
-					height: '2rem',
-					margin: '3rem 1rem',
+					width: { xs: '16px', md: '2rem' },
+					height: { xs: '16px', md: '2rem' },
+					margin: { xs: '2.4rem 20px', md: '3rem 1rem' },
 					background: 'var(--main-green)',
 					borderRadius: '50%',
 					animation: `0.9s ${bounce} infinite alternate`,

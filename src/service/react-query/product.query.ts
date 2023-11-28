@@ -115,7 +115,8 @@ export const useGetSimilarProduct = (payload: similarProductPayload) => {
 				queryParams: {
 					shop_id: payload.shop_id,
 					product_category: payload.product_category,
-					product_id: payload.product_id
+					product_id: payload.product_id,
+					limit: 5
 				}
 			})
 		}
@@ -155,6 +156,7 @@ export const useGetBestSellerProductsByShopId = (shopId: string) => {
 	})
 }
 
+<<<<<<< HEAD
 export const useGetAdminProduct = (payload: querySearchProduct) => {
 	const getAdminProductService = ApiService.createInstance();
 	return useQuery(
@@ -164,3 +166,26 @@ export const useGetAdminProduct = (payload: querySearchProduct) => {
 			keepPreviousData: true
 		});
 }
+=======
+export const useRecommendProductForUser = () => {
+	const recommendProductForUserService = ApiService.createInstance()
+	return useMutation((payload: { userId: string }) => {
+		return recommendProductForUserService.recommendProductForUser({
+			queryParams: {
+				userId: payload.userId,
+				n: 5
+			}
+		})
+	})
+}
+export const useGetAdminProduct = (payload: querySearchProduct) => {
+	const getAdminProductService = ApiService.createInstance()
+	return useQuery(
+		['getAdminProduct', payload],
+		() => getAdminProductService.getProductAdmin({ queryParams: payload }),
+		{
+			keepPreviousData: true
+		}
+	)
+}
+>>>>>>> 2ebc3a00881ced87d69d52a8dca3f90c961eb4b1

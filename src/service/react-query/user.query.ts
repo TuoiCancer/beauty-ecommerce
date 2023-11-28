@@ -164,3 +164,41 @@ export const useRefreshToken = () => {
 		}
 	)
 }
+
+export const useUpdateUserInfo = () => {
+	const updateUserInfoService = ApiService.createInstance()
+	return useMutation(
+		(payload: {
+			id: string
+			username: string
+			gender: string
+			phone: string
+			address: string
+		}) => {
+			return updateUserInfoService.updateUserInfo({
+				data: {
+					username: payload.username,
+					gender: payload.gender,
+					phone: payload.phone,
+					address: payload.address
+				},
+				pathParams: {
+					id: payload.id
+				}
+			})
+		},
+		{
+			onSuccess: (data: any) => {
+				updateStore((state: IStore) => {
+					state.UserSlice.user = data
+				})
+			},
+			onError: (error: any) => {
+				updateStore((state: IStore) => {
+					state.UserSlice.isError = true
+					state.UserSlice.errorMess = error.response.data.message
+				})
+			}
+		}
+	)
+}

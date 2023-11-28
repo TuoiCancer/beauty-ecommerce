@@ -34,21 +34,25 @@ export function stringToColor(string: string) {
 	return color
 }
 
-export function stringAvatar(name: string) {
+export function stringAvatar(name: string, sx?: any) {
 	const nameArr = name.split(' ')
 	if (nameArr.length === 1) {
 		return {
 			sx: {
-				bgcolor: stringToColor(name)
+				bgcolor: stringToColor(name),
+				...sx
 			},
 			children: `${name[0].toUpperCase()}`
 		}
 	} else {
 		return {
 			sx: {
-				bgcolor: stringToColor(name)
+				bgcolor: stringToColor(name),
+				...sx
 			},
-			children: `${nameArr[0][0]}${nameArr[nameArr.length - 1][0]}`
+			children: `${nameArr[0][0]}${
+				nameArr[nameArr.length - 1][0]
+			}`.toUpperCase()
 		}
 	}
 }

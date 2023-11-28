@@ -12,7 +12,16 @@
       "login": "Đăng Nhập",
       "Infor": "Thông Tin",
       "Order": "Đơn Hàng",
-      "Logout": "Đăng Xuất"
+      "Logout": "Đăng Xuất",
+      "Notify": "Thông Báo"
+    },
+    "sidebar": {
+      "dashboard": "Thống kê",
+      "orders": "Đơn hàng",
+      "products": "Sản phẩm",
+      "blogs": "Bài viết",
+      "vouchers": "Mã giảm giá",
+      "reviews": "Nhận xét"
     },
     "sidebar": {
       "dashboard": "Thống kê",
@@ -190,5 +199,13 @@
       "confirm":"Bạn có chắc chắn hủy đơn hàng này không",
       "Ok":"Có",
       "No":"Hủy"
+    },
+    "Setting":{
+      "sidebar":{
+        "title":"Cài đặt tài khoản",
+        "user-info":"Thông tin người dùng",
+        "notify":"Thông báo",
+        "authen":"Mật khẩu và bảo mật"
+      }
     }
   }

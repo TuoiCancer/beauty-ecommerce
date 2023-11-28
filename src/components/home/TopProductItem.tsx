@@ -38,17 +38,19 @@ const TopProductItem = ({
 	const { UserSlice } = useStore()
 
 	return (
-		<Link
-			href={`/${UserSlice.lang}/user/product/${item.id}`}
+		<motion.div
+			className='box'
+			whileHover={{ scale: 1.05 }}
+			transition={{ type: 'spring', stiffness: 400, damping: 10 }}
 			style={{
-				marginBottom: '24px',
-				textDecoration: 'none'
+				margin: '0'
 			}}
 		>
-			<motion.div
-				className='box'
-				whileHover={{ scale: 1.05 }}
-				transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+			<Link
+				href={`/${UserSlice.lang}/user/product/${item.id}`}
+				style={{
+					textDecoration: 'none'
+				}}
 			>
 				<Box
 					sx={{
@@ -58,14 +60,13 @@ const TopProductItem = ({
 						display: 'flex',
 						flexDirection: 'column',
 						justifyContent: 'space-between',
-						mb: { xs: '24px', lg: '80px', xl: '0' },
+						mb: { xs: '12px', md: '24px' },
 						mt: { xs: '30px', md: '0px' },
-						mr: { xs: '12px' },
 						marginLeft: { xs: '12px', sm: '0' },
 						padding: {
 							xs: '12px',
 							sm: '16px 24px',
-							lg: '32px 16px 32px 16px '
+							lg: '32px 16px 32px 16px'
 						},
 						transition: 'all 0.2s ease-in-out',
 						boxShadow: {
@@ -207,8 +208,8 @@ const TopProductItem = ({
 						</Box>
 					</Box>
 				</Box>
-			</motion.div>
-		</Link>
+			</Link>
+		</motion.div>
 	)
 }
 
