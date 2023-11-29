@@ -23,6 +23,14 @@
       "vouchers": "할인 쿠폰",
       "reviews": "리뷰"
     },
+    "sidebar": {
+      "dashboard": "통계",
+      "orders": "주문",
+      "products": "제품",
+      "blogs": "블로그",
+      "vouchers": "할인 쿠폰",
+      "reviews": "리뷰"
+    },
     "Home":{
       "introduce":{
         "box1":{

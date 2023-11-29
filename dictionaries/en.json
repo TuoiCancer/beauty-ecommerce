@@ -23,6 +23,14 @@
       "vouchers": "Vouchers",
       "reviews": "Reviews"
     },
+    "sidebar": {
+      "dashboard": "Dashboard",
+      "orders": "Orders",
+      "products": "Products",
+      "blogs": "Blogs",
+      "vouchers": "Vouchers",
+      "reviews": "Reviews"
+    },
     "Home":{
       "introduce":{
         "box1":{

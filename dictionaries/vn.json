@@ -23,6 +23,14 @@
       "vouchers": "Mã giảm giá",
       "reviews": "Nhận xét"
     },
+    "sidebar": {
+      "dashboard": "Thống kê",
+      "orders": "Đơn hàng",
+      "products": "Sản phẩm",
+      "blogs": "Bài viết",
+      "vouchers": "Mã giảm giá",
+      "reviews": "Nhận xét"
+    },
     "Home":{
       "introduce":{
         "box1":{

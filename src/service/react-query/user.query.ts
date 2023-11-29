@@ -174,13 +174,15 @@ export const useUpdateUserInfo = () => {
 			gender: string
 			phone: string
 			address: string
+			age: number
 		}) => {
 			return updateUserInfoService.updateUserInfo({
 				data: {
 					username: payload.username,
 					gender: payload.gender,
 					phone: payload.phone,
-					address: payload.address
+					address: payload.address,
+					age: payload.age
 				},
 				pathParams: {
 					id: payload.id
@@ -190,7 +192,9 @@ export const useUpdateUserInfo = () => {
 		{
 			onSuccess: (data: any) => {
 				updateStore((state: IStore) => {
-					state.UserSlice.user = data
+					;(state.UserSlice.user = data),
+						(state.UserSlice.isSuccess = true),
+						(state.UserSlice.successMess = 'Update information successfully')
 				})
 			},
 			onError: (error: any) => {

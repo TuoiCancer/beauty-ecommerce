@@ -59,7 +59,7 @@ const ProductPage = ({ dictionary, lang }: any) => {
 	useEffect(() => {
 		if (rowPerPage) {
 			getProductByPage({
-				page: 1,
+				page: page,
 				limit: rowPerPage,
 				sort: filterOptions.sort,
 				order: orderBy,
