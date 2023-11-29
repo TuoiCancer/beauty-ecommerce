@@ -13,7 +13,7 @@ export const productTableColumn: GridColDef[] = [
 		field: 'No',
 		headerName: '',
 		width: 80,
-		// renderCell: (params: GridRenderCellParams) => <RenderNoCell {...params} />,
+		renderCell: (params: GridRenderCellParams) => <RenderNoCell {...params} />,
 		sortable: false,
 		...configDefaultOption
 	},

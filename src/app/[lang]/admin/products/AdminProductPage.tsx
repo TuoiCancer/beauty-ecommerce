@@ -77,17 +77,17 @@ const AdminProductPage: FunctionComponent<IAdminProductPageProps> = ({
 	return (
 		<>
 			<BaseDataTable
-			total={paginationMeta?.pageCount}
-			paging={{
-				page: paginationMeta?.page,
-				limit: paginationMeta?.limit,
-				total: paginationMeta?.itemCount
-			}}
-			configColumn={productTableColumn}
-			data={listProduct ?? []}
-			onPagingModelChange={onPageChange}
-			onLimitChange={onLimitChange}
-		/>
+				total={paginationMeta?.pageCount}
+				paging={{
+					page: paginationMeta?.page,
+					limit: paginationMeta?.limit,
+					total: paginationMeta?.itemCount
+				}}
+				configColumn={productTableColumn}
+				data={listProduct ?? []}
+				onPagingModelChange={onPageChange}
+				onLimitChange={onLimitChange}
+			/>
 		</>
 	)
 }

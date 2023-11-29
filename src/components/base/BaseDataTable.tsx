@@ -1,19 +1,16 @@
-import { PAGE_SIZE_OPTIONS } from '@/constants/common.constant'
 import {
 	PagingData,
-	PagingParam,
 	SearchingParam,
 	SortingParam
 } from '@/models/base-param-payload.type'
 import {
 	DataGrid,
 	GridColDef,
-	GridPaginationModel,
 	GridSortModel
 } from '@mui/x-data-grid'
-import BaseTablePagingnation, {
-	ITablePagingProps
-} from './BaseTablePagingnation'
+import BaseTablePagingnation from './BaseTablePagingnation'
+import { useDemoData } from '@mui/x-data-grid-generator';
+import { Box, SelectChangeEvent } from '@mui/material';
 
 interface IDataTableProps {
 	total: number
@@ -38,6 +35,11 @@ const BaseDataTable: React.FunctionComponent<IDataTableProps> = ({
 }) => {
 	const { page, limit, total: totalRecords } = paging
 
+  const { data: dataGrid } = useDemoData({
+    dataSet: 'Commodity',
+    rowLength: 100,
+  });
+
 	const changeSortingModel = (sort: GridSortModel) => {
 		const sortParam: SortingParam = {
 			sort: sort[0]?.field,
@@ -47,44 +49,32 @@ const BaseDataTable: React.FunctionComponent<IDataTableProps> = ({
 	}
 
 	return (
-		<DataGrid
-      rows={data}
-			// {...data.map((item, index) => {
-			// 	return {
-			// 		...item,
-			// 		No: limit * (page - 1) + index + 1
-			// 	}
-			// })}
-			rowSelection={true}
-			columns={configColumn}
-      autoPageSize
-			initialState={{
-				pagination: {
-					paginationModel: { page: page - 1, pageSize: limit }
-				}
-			}}
-			pageSizeOptions={PAGE_SIZE_OPTIONS}
-			checkboxSelection={false}
-			onSortModelChange={changeSortingModel}
-			sortingOrder={['desc', 'asc']}
-			sx={{
-				'& .table-cell-text': {
-					fontSize: '14px',
-					color: '#6C757D'
-				}
-			}}
-			slots={{
-				pagination: BaseTablePagingnation,
-			}}
-			slotProps={{
-				pagination: {
-					count: total,
-					size: 'medium',
-					onPageChange: (event, page) => onPagingModelChange(page),
-					onRowsPerPageChange: event => onLimitChange(Number(event.target.value))
-				}
-			}}
-		/>
+		<>
+      <DataGrid
+        {...dataGrid}
+        rows={data}
+        rowSelection={true}
+        columns={configColumn}
+        checkboxSelection={false}
+        onSortModelChange={changeSortingModel}
+        sortingOrder={['desc', 'asc']}
+        sx={{
+          '& .table-cell-text': {
+            fontSize: '14px',
+            color: '#6C757D'
+          }
+        }}
+        hideFooter
+      />
+      <BaseTablePagingnation
+        page={page}
+        count={total}
+        size='medium'
+        totalRecords={totalRecords}
+        onPageChange={(event, page) => onPagingModelChange(page)}
+        onRowsPerPageChange={(event: SelectChangeEvent<number>) => onLimitChange(Number(event.target.value))}
+      />
+    </>
 	)
 }
 
