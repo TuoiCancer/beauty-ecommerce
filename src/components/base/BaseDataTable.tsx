@@ -46,18 +46,18 @@ const BaseDataTable: React.FunctionComponent<IDataTableProps> = ({
 		handleSortingModelChange?.(sortParam)
 	}
 
-	console.log('---------------- data --------------', data)
-
 	return (
 		<DataGrid
-			{...data.map((item, index) => {
-				return {
-					...item,
-					No: limit * (page - 1) + index + 1
-				}
-			})}
-			rowSelection={false}
+      rows={data}
+			// {...data.map((item, index) => {
+			// 	return {
+			// 		...item,
+			// 		No: limit * (page - 1) + index + 1
+			// 	}
+			// })}
+			rowSelection={true}
 			columns={configColumn}
+      autoPageSize
 			initialState={{
 				pagination: {
 					paginationModel: { page: page - 1, pageSize: limit }
@@ -74,17 +74,14 @@ const BaseDataTable: React.FunctionComponent<IDataTableProps> = ({
 				}
 			}}
 			slots={{
-				pagination: BaseTablePagingnation
+				pagination: BaseTablePagingnation,
 			}}
 			slotProps={{
 				pagination: {
 					count: total,
-					totalRecords,
 					size: 'medium',
 					onPageChange: (event, page) => onPagingModelChange(page),
-					onRowsPerPageChange: event => {
-						onLimitChange(Number(event.target.value))
-					}
+					onRowsPerPageChange: event => onLimitChange(Number(event.target.value))
 				}
 			}}
 		/>

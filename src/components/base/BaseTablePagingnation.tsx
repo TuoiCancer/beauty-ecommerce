@@ -41,8 +41,7 @@ const BaseTablePagingnation: FunctionComponent<ITablePagingProps> = ({
 	const [rowPerPage, setRowPerPage] = useState(DEFAULT_PAGE_LIMIT)
 
 	const router = useRouter()
-	const pathname = usePathname()
-	console.log('PAGE_SIZE_OPTIONS', PAGE_SIZE_OPTIONS)
+	const pathname = usePathname();
 	const handleRowPerPageChange = (event: SelectChangeEvent<number>) => {
 		setRowPerPage(event.target.value as number)
 		onRowsPerPageChange(event)
