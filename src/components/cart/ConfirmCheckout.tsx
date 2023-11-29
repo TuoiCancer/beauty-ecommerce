@@ -54,12 +54,11 @@ const ConfirmCheckout = ({
 				? 15000 - voucherShipping
 				: 0
 			: 15000)
-
 	const handleNext = () => {
 		createOrderFn({
 			userId: UserSlice.user.id,
 			products: productSelected,
-			orderShipping: `${UserSlice.shippingInfor.address}, ${UserSlice.shippingInfor.ward}, ${UserSlice.shippingInfor.district}, ${UserSlice.shippingInfor.province}`,
+			orderShipping: `${UserSlice.shippingInfor.address}, ${UserSlice.shippingInfor.ward}, ${UserSlice.shippingInfor.district.name}, ${UserSlice.shippingInfor.city.name}`,
 			orderPayment: UserSlice.paymentInfor,
 			orderCheckout: {
 				totalPrice: totalProductPrice,

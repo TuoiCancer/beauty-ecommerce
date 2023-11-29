@@ -11,15 +11,16 @@ import TableCell from '@mui/material/TableCell'
 import IconButton from '@mui/material/IconButton'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
-import { formatCurrency, formatCurrencyV2, formatDate } from '@/helper'
+import { formatCurrencyV2, formatDate } from '@/helper'
 import ImageItem from '../base/ImageItem'
 import BaseButton from '../base/BaseButton'
 
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import { OrderInterface } from '@/utils/order.interface'
 import { ProductInterface } from '@/utils/product.interface'
 import { Modal } from '@mui/material'
 import ReviewOrder from './ReviewOrder'
+import { usePathname, useRouter } from 'next/navigation'
+import { AnyARecord } from 'dns'
 
 const RowItem = ({
 	row,
@@ -33,6 +34,10 @@ const RowItem = ({
 	const [openColaspe, setOpenColapse] = React.useState(false)
 	const [open, setOpen] = React.useState(false)
 	const [anchorEl, setAnchorEl] = React.useState(null)
+
+	const pathName = usePathname()
+	const router = useRouter()
+	const lang = pathName.split('/')[1]
 
 	const handleClick = (event: any) => {
 		setAnchorEl(event.currentTarget)
@@ -87,13 +92,10 @@ const RowItem = ({
 					{row.time_delivery ? formatDate(row.time_delivery) : ''}
 				</TableCell>
 				<TableCell align='left'>
-					{`${row.order_shipping.address} - ${row.order_shipping.district} - ${row.order_shipping.city}`
-						.length < 50
-						? `${row.order_shipping.address} - ${row.order_shipping.district} - ${row.order_shipping.city}`
-						: ` ${`${row.order_shipping.address} - ${row.order_shipping.district} - ${row.order_shipping.city}`.slice(
-								0,
-								50
-						  )}...`}
+					{`${row.order_shipping}`.length < 50
+						? `${row.order_shipping}`
+						: `${row.order_shipping}`.slice(0, 50)}
+					...
 				</TableCell>
 				<TableCell align='left'>
 					{formatCurrencyV2(row.order_checkout.totalPrice)}
@@ -245,6 +247,7 @@ const RowItem = ({
 											<TableRow
 												key={product.createdAt}
 												sx={{
+													cursor: 'pointer',
 													'& .MuiTableCell-root': {
 														fontFamily: 'Montserrat',
 														fontSize: '14px',
@@ -254,7 +257,19 @@ const RowItem = ({
 														fontWeight: '500'
 													}
 												}}
+												onClick={() => {
+													router.push(`/${lang}/user/product/${product.id}`)
+												}}
 											>
+												{/* <Link
+													key={index}
+													href={`/${lang}/user/product/${product.id}`}
+													passHref
+													style={{
+														textDecoration: 'none',
+														width: '100%'
+													}}
+												> */}
 												<TableCell component='th' scope='row' align='center'>
 													{index + 1}
 												</TableCell>
@@ -296,7 +311,7 @@ const RowItem = ({
 												</TableCell>
 												<TableCell align='center'>
 													{formatCurrencyV2(
-														product.product_quantity * product.product_price
+														product.quantityToBuy * product.product_price
 													)}
 												</TableCell>
 												{row.order_status === 'delivered' && (
@@ -304,7 +319,10 @@ const RowItem = ({
 														<BaseButton
 															variant='outlined'
 															label='Nhận xét'
-															onClick={() => setOpen(true)}
+															onClick={(e: any) => {
+																e.stopPropagation()
+																setOpen(true)
+															}}
 															styleSx={{
 																textTransform: 'capitalize',
 																fontSize: '14px'
