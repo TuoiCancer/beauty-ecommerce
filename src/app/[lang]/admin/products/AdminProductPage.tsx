@@ -14,6 +14,7 @@ import {
 	DEFAULT_SORT
 } from '@/constants/common.constant'
 import ProgressLoading from '@/components/base/ProgressLoading'
+import { GridRowId } from '@mui/x-data-grid'
 
 interface IAdminProductPageProps {
 	lang: Locale
@@ -63,6 +64,13 @@ const AdminProductPage: FunctionComponent<IAdminProductPageProps> = ({
 		setPaginationMeta(prev => ({ ...prev, limit }))
 	}
 
+	const handleButtonDelete = (id: GridRowId) => {
+		console.log(id);
+		
+	}
+
+	const columns = productTableColumn(handleButtonDelete);
+
 	if (waitingGetListProduct) {
 		return <ProgressLoading />
 	}
@@ -75,7 +83,7 @@ const AdminProductPage: FunctionComponent<IAdminProductPageProps> = ({
 					limit: paginationMeta?.limit,
 					total: paginationMeta?.itemCount
 				}}
-				configColumn={productTableColumn}
+				configColumn={columns}
 				data={listProduct ?? []}
 				onPagingModelChange={onPageChange}
 				onLimitChange={onLimitChange}

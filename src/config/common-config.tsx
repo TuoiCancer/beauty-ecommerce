@@ -86,7 +86,7 @@ export const renderColorChip = (status: string) => {
 	}
 }
 
-export default function RenderOptionCell(params: GridRenderCellParams) {
+export default function RenderOptionCell(params: GridRenderCellParams, onClickDeleteButton: () => void) {
 	const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
 
 	const handleClick = (event: any) => {
@@ -103,10 +103,6 @@ export default function RenderOptionCell(params: GridRenderCellParams) {
 	const [openModal, setOpenModal] = React.useState(false)
 	const handleOpenModal = () => setOpenModal(true)
 	const handleCloseModal = () => setOpenModal(false)
-
-	const handleDeleteProduct = () => {
-		console.log('delete')
-	}
 
 	return (
 		<Box
@@ -230,7 +226,7 @@ export default function RenderOptionCell(params: GridRenderCellParams) {
 						<BaseButton
 							label={`Yes, I'm sure`}
 							variant='contained'
-							onClick={handleDeleteProduct}
+							onClick={onClickDeleteButton}
 						/>
 					</Box>
 				</Box>

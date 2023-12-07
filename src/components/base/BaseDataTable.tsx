@@ -6,11 +6,13 @@ import {
 import {
 	DataGrid,
 	GridColDef,
+	GridRowId,
 	GridSortModel
 } from '@mui/x-data-grid'
 import BaseTablePagingnation from './BaseTablePagingnation'
 import { useDemoData } from '@mui/x-data-grid-generator';
 import { Box, SelectChangeEvent } from '@mui/material';
+import RenderOptionCell from '@/config/common-config';
 
 interface IDataTableProps {
 	total: number
@@ -65,6 +67,13 @@ const BaseDataTable: React.FunctionComponent<IDataTableProps> = ({
           }
         }}
         hideFooter
+				slotProps={{
+					cell: {
+						onClick: () => {
+							return 'a';
+						}
+					}
+				}}
       />
       <BaseTablePagingnation
         page={page}

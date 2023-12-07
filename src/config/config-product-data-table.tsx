@@ -1,6 +1,6 @@
 import ImageItem from '@/components/base/ImageItem'
-import { Avatar, Box, Chip, Popover, Typography } from '@mui/material'
-import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
+import { Chip } from '@mui/material'
+import { GridColDef, GridRenderCellParams, GridRowId } from '@mui/x-data-grid'
 import RenderOptionCell, {
 	RenderDateCell,
 	RenderNoCell,
@@ -9,7 +9,7 @@ import RenderOptionCell, {
 } from './common-config'
 import { configDefaultOption } from './common-config'
 
-export const productTableColumn: GridColDef[] = [
+export const productTableColumn = (handleButtonDelete: (id: GridRowId) => void): GridColDef[] => [
 	{
 		field: 'No',
 		headerName: '',
@@ -117,13 +117,15 @@ export const productTableColumn: GridColDef[] = [
 		...configDefaultOption
 	},
 	{
-		field: 'Action',
+		field: 'action',
 		headerName: 'Action',
 		headerAlign: 'center',
 		flex: 1,
 		maxWidth: 150,
 		sortable: false,
-		renderCell: RenderOptionCell,
+		renderCell: (params: GridRenderCellParams) => {
+			return RenderOptionCell(params, () => handleButtonDelete(params.id))
+		},
 		...configDefaultOption
 	}
 ]
