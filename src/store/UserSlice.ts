@@ -19,8 +19,6 @@ export interface IUserSlice {
 	rememberPassword: boolean
 	totalProductInCart: number
 	setTotalProductInCart: (value: number) => void
-	isReloadPage: boolean
-	setIsReloadPage: (value: boolean) => void
 	shippingInfor: any
 	setShippingInfor: (value: any) => void
 	paymentInfor: any
@@ -39,7 +37,6 @@ const UserSlice: StateCreator<
 	[],
 	IUserSlice
 > = set => ({
-	isReloadPage: false,
 	totalProductInCart: 0,
 	isLoggedIn: false,
 	isError: false,
@@ -96,10 +93,6 @@ const UserSlice: StateCreator<
 	setTotalProductInCart: totalProductInCart =>
 		set(({ UserSlice }: any) => {
 			UserSlice.totalProductInCart = totalProductInCart
-		}),
-	setIsReloadPage: isReloadPage =>
-		set(({ UserSlice }: any) => {
-			UserSlice.isReloadPage = isReloadPage
 		}),
 	setShippingInfor: cbFunction => {
 		set(({ UserSlice }: any) => {

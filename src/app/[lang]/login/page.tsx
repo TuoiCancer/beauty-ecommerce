@@ -35,7 +35,11 @@ const LoginPage = () => {
 
 	React.useEffect(() => {
 		if (isSuccess) {
-			router.push('/user/home')
+			if (UserSlice.user.role === 'SHOP') {
+				router.push('/admin/dashboard')
+			} else {
+				router.push('/user/home')
+			}
 		}
 	}, [isSuccess])
 

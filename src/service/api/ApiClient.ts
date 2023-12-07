@@ -307,4 +307,44 @@ export class ApiService {
 			// Authorization: this.getAccessToken()
 		}
 	})
+
+	getDashboardOverview = configApi({
+		path: 'v1/dashboard/overview',
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json',
+			'X-Client-Id': this.getXClientId(),
+			Authorization: this.getAccessToken()
+		}
+	})
+
+	getOrderAnalytics = configApi({
+		path: 'v1/dashboard/order-analytics',
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json',
+			'X-Client-Id': this.getXClientId(),
+			Authorization: this.getAccessToken()
+		}
+	})
+
+	getBestSellerProduct = configApi({
+		path: 'v1/dashboard/best-seller',
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json',
+			'X-Client-Id': this.getXClientId(),
+			Authorization: this.getAccessToken()
+		}
+	})
+
+	getUserByCountry = configApi({
+		path: 'v1/dashboard/user-by-country',
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json',
+			'X-Client-Id': this.getXClientId(),
+			Authorization: this.getAccessToken()
+		}
+	})
 }

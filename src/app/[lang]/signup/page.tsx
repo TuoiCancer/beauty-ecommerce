@@ -38,7 +38,11 @@ const SignupPage = () => {
 
 	useEffect(() => {
 		if (isSuccess) {
-			router.push('/user/home')
+			if (role === 'SHOP') {
+				router.push('/admin/dashboard')
+			} else {
+				router.push('/user/home')
+			}
 		}
 	}, [isSuccess])
 

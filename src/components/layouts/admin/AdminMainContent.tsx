@@ -7,8 +7,8 @@ interface MainContentProp extends MuiAppBarProps {
 }
 
 interface IAdminMainContentProps {
-  children: React.ReactNode,
-  open: boolean
+	children: React.ReactNode
+	open: boolean
 }
 
 const Main = styled('main', {
@@ -20,20 +20,20 @@ const Main = styled('main', {
 		duration: theme.transitions.duration.leavingScreen
 	}),
 	...(open && {
-    marginLeft: 0,
-    width: `calc(100% - ${drawerWidth}px)`,
+		marginLeft: 0,
+		width: `calc(100% - ${drawerWidth}px)`,
 		transition: theme.transitions.create('margin', {
 			easing: theme.transitions.easing.easeOut,
 			duration: theme.transitions.duration.enteringScreen
-		}),
+		})
 	})
 }))
 
 const AdminMainContent: React.FunctionComponent<IAdminMainContentProps> = ({
-  children,
-  open
+	children,
+	open
 }) => {
-  return <Main open={open}>{children}</Main>
-};
+	return <Main open={open}>{children}</Main>
+}
 
-export default AdminMainContent;
+export default AdminMainContent

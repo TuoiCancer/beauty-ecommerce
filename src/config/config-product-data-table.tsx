@@ -1,6 +1,7 @@
-import { Avatar, Chip } from '@mui/material'
+import ImageItem from '@/components/base/ImageItem'
+import { Avatar, Box, Chip, Popover, Typography } from '@mui/material'
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
-import {
+import RenderOptionCell, {
 	RenderDateCell,
 	RenderNoCell,
 	RenderPriceCell,
@@ -32,7 +33,20 @@ export const productTableColumn: GridColDef[] = [
 		align: 'center',
 		sortable: false,
 		renderCell: (params: GridRenderCellParams) => {
-			return <Avatar src={params.value} alt='product thumbnail' />
+			return (
+				<ImageItem
+					imgSrc={params.value}
+					style={{
+						width: '50px',
+						height: '50px',
+						borderRadius: '50%',
+						'& img': {
+							borderRadius: '50%'
+						}
+					}}
+				/>
+			)
+			// return <Avatar src={params.value} alt='product thumbnail' />
 		},
 		...configDefaultOption
 	},
@@ -109,6 +123,7 @@ export const productTableColumn: GridColDef[] = [
 		flex: 1,
 		maxWidth: 150,
 		sortable: false,
+		renderCell: RenderOptionCell,
 		...configDefaultOption
 	}
 ]

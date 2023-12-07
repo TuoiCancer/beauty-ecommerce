@@ -151,10 +151,10 @@ const RecommendProduct = ({
 			<Swiper
 				spaceBetween={50}
 				slidesPerView={1}
-				// autoplay={{
-				// 	delay: 5000,
-				// 	disableOnInteraction: false
-				// }}
+				autoplay={{
+					delay: 5000,
+					disableOnInteraction: false
+				}}
 				navigation
 			>
 				{listTopProduct &&

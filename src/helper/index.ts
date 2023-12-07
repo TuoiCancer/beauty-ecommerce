@@ -78,7 +78,10 @@ export const formatCurrency = (value: any) => {
 	return result.join('.') + 'đ'
 }
 
-export const formatCurrencyV2 = (value: any) => {
+export const formatCurrencyV2 = (value: any, dot?: string) => {
+	if (value === 0) return '0'
+	if (value < 1000) return value
+
 	const money = Math.ceil(value / 1000) * 1000 // ceil: làm tròn lên
 	let moneyString = money.toString()
 	let length = moneyString.length
@@ -93,7 +96,7 @@ export const formatCurrencyV2 = (value: any) => {
 	if (moneyString) {
 		result.unshift(moneyString)
 	}
-	return result.join('.')
+	return result.join(dot ? (dot === '' ? '' : dot) : '.')
 }
 
 export const getPriceFormat = (value: any) => {
@@ -112,4 +115,17 @@ export const getPriceFormat = (value: any) => {
 		result.unshift(moneyString)
 	}
 	return result.join('')
+}
+
+export const getListDate = (startDate: any, endDate: any) => {
+	const listDate = []
+	const currentDate = new Date(startDate)
+	const toDate = new Date(endDate)
+
+	while (currentDate <= toDate) {
+		listDate.push(currentDate.toISOString().split('T')[0])
+		currentDate.setDate(currentDate.getDate() + 1)
+	}
+
+	return listDate
 }
