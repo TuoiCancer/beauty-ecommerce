@@ -147,12 +147,12 @@ const ReviewOrder = ({ product, onClose }: any) => {
 							{rating === 5
 								? 'Excellent'
 								: rating === 4
-								? 'Good'
-								: rating === 3
-								? 'Average'
-								: rating === 2
-								? 'Fair'
-								: 'Poor'}
+								  ? 'Good'
+								  : rating === 3
+								    ? 'Average'
+								    : rating === 2
+								      ? 'Fair'
+								      : 'Poor'}
 						</Typography>
 					</Box>
 				</Box>

@@ -88,7 +88,6 @@ const DashboardHeader = ({ value, setValue }: DashboardHeaderProps) => {
 						}}
 						value={value}
 						onChange={(newValue: DateRange<Dayjs>) => {
-							console.log(newValue)
 							setRangeDate(newValue)
 						}}
 						calendars={1}

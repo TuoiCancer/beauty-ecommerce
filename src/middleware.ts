@@ -34,23 +34,18 @@ export function middleware(request: NextRequest) {
 		return
 	}
 
-	// Check if there is any supported locale in the pathname
-	const pathnameIsMissingLocale = i18n.locales.every(
-		locale => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
+	const pathnameHasLocale = i18n.locales.some(
+		locale => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
 	)
 
-	// Redirect if there is no locale
-	if (pathnameIsMissingLocale) {
-		const locale = getLocale(request)
+	if (pathnameHasLocale) return
 
-		// e.g. incoming request is /products
-		// The new URL is now /en-US/products
-		return NextResponse.redirect(
-			new URL(
-				`/${locale}${pathname.startsWith('/') ? '' : '/'}${pathname}`,
-				request.url
-			)
-		)
+	// Redirect if there is no locale
+	if (!pathnameHasLocale) {
+		// Redirect if there is no locale
+		const locale = getLocale(request)
+		request.nextUrl.pathname = `/${locale}${pathname}`
+		return Response.redirect(request.nextUrl)
 	}
 }
 

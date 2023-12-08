@@ -18,12 +18,16 @@ import {
 	ChangeEventHandler,
 	FunctionComponent,
 	useState
-} from 'react';
+} from 'react'
 
-function calculateDisplayRange(currentPage: number, itemsPerPage: number, totalRecords: number) {
-	const startIndex = (currentPage - 1) * itemsPerPage + 1;
-	const endIndex = Math.min(currentPage * itemsPerPage, totalRecords);
-	return { startIndex, endIndex };
+function calculateDisplayRange(
+	currentPage: number,
+	itemsPerPage: number,
+	totalRecords: number
+) {
+	const startIndex = (currentPage - 1) * itemsPerPage + 1
+	const endIndex = Math.min(currentPage * itemsPerPage, totalRecords)
+	return { startIndex, endIndex }
 }
 
 export interface ITablePagingProps {
@@ -43,14 +47,18 @@ const BaseTablePagingnation: FunctionComponent<ITablePagingProps> = ({
 	onPageChange,
 	onRowsPerPageChange
 }) => {
-	const [rowPerPage, setRowPerPage] = useState(DEFAULT_PAGE_LIMIT);
+	const [rowPerPage, setRowPerPage] = useState(DEFAULT_PAGE_LIMIT)
 
 	const handleRowPerPageChange = (event: SelectChangeEvent<number>) => {
 		setRowPerPage(event.target.value as number)
 		onRowsPerPageChange(event)
 	}
 
-	const { startIndex, endIndex } = calculateDisplayRange(page, rowPerPage, totalRecords);
+	const { startIndex, endIndex } = calculateDisplayRange(
+		page,
+		rowPerPage,
+		totalRecords
+	)
 
 	return (
 		<Box
@@ -64,7 +72,6 @@ const BaseTablePagingnation: FunctionComponent<ITablePagingProps> = ({
 				width: 'calc(100% - 268px)',
 				backgroundColor: '#fff'
 			}}
-
 		>
 			<Typography color='#6C757D' fontSize={14}>
 				Showing {startIndex} to {endIndex} of {totalRecords} entries

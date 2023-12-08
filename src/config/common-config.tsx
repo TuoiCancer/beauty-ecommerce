@@ -86,7 +86,10 @@ export const renderColorChip = (status: string) => {
 	}
 }
 
-export default function RenderOptionCell(params: GridRenderCellParams, onClickDeleteButton: () => void) {
+export default function RenderOptionCell(
+	params: GridRenderCellParams,
+	onClickDeleteButton: () => void
+) {
 	const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
 
 	const handleClick = (event: any) => {
@@ -226,7 +229,11 @@ export default function RenderOptionCell(params: GridRenderCellParams, onClickDe
 						<BaseButton
 							label={`Yes, I'm sure`}
 							variant='contained'
-							onClick={onClickDeleteButton}
+							onClick={() => {
+								handleClose()
+								handleCloseModal()
+								onClickDeleteButton()
+							}}
 						/>
 					</Box>
 				</Box>

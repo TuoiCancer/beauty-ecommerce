@@ -6,7 +6,10 @@ import { Box } from '@mui/material'
 import BaseDataTable from '@/components/base/BaseDataTable'
 import { productTableColumn } from '@/config/config-product-data-table'
 import { IFilterOption } from '@/utils/filterOption.interface'
-import { useGetAdminProduct } from '@/service/react-query/product.query'
+import {
+	useDeleteProduct,
+	useGetAdminProduct
+} from '@/service/react-query/product.query'
 import { useStore } from '@/store'
 import {
 	DEFAULT_PAGE,
@@ -48,6 +51,12 @@ const AdminProductPage: FunctionComponent<IAdminProductPageProps> = ({
 		order: DEFAULT_SORT.SORT_TYPE
 	})
 
+	const {
+		isLoading: isDeletingProduct,
+		mutate: deletePrroduct,
+		isSuccess
+	} = useDeleteProduct()
+
 	useEffect(() => {
 		getListProduct()
 		if (fetchedGetListProduct) {
@@ -65,13 +74,14 @@ const AdminProductPage: FunctionComponent<IAdminProductPageProps> = ({
 	}
 
 	const handleButtonDelete = (id: GridRowId) => {
-		console.log(id);
-		
+		deletePrroduct({
+			productId: `${id}`
+		})
 	}
 
-	const columns = productTableColumn(handleButtonDelete);
+	const columns = productTableColumn(handleButtonDelete)
 
-	if (waitingGetListProduct) {
+	if (waitingGetListProduct || isDeletingProduct) {
 		return <ProgressLoading />
 	}
 	return (

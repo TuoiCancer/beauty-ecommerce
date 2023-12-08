@@ -1,6 +1,6 @@
 'use client'
 import { Box, useMediaQuery } from '@mui/material'
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import ImageItem from '../base/ImageItem'
 import HeaderItem from './HeaderItem'
 import { SelectChangeEvent } from '@mui/material/Select'
@@ -83,7 +83,7 @@ const Header = ({
 	const router = useRouter()
 	const [openPoper, setOpenPoper] = React.useState(false)
 
-	const [language, setLanguage] = React.useState(pathName.split('/')[1])
+	const [language, setLanguage] = React.useState('en')
 
 	const [isOpen, toggleOpen] = useCycle(false, true)
 	const containerRef = useRef(null)
@@ -124,10 +124,14 @@ const Header = ({
 	}
 
 	const handleChange = (event: SelectChangeEvent) => {
-		UserSlice.setLang(event.target.value as string)
+		// UserSlice.setLang(event.target.value as string)
 		setLanguage(event.target.value as string)
 		router.push(redirectedPathName(event.target.value))
 	}
+
+	useEffect(() => {
+		setLanguage(pathName.split('/')[1])
+	}, [pathName])
 
 	return matches ? (
 		<Box

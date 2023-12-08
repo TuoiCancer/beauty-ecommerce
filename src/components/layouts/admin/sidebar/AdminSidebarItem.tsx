@@ -34,6 +34,12 @@ const AdminSidebarItem = ({ open, dictionary }: IAdminSidebarItem) => {
 		)
 	}, [])
 
+	useEffect(() => {
+		setSidebarSettings(prev =>
+			prev.map(item => ({ ...item, isActive: item.path === pathMatch }))
+		)
+	}, [pathname])
+
 	const handleActive = (sidebarItem: ListAdminSidebarItemType) => {
 		setSidebarSettings(prev => {
 			const index = prev.findIndex(item => item.id === sidebarItem.id)

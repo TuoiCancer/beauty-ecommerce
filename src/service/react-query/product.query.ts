@@ -177,3 +177,30 @@ export const useGetAdminProduct = (payload: querySearchProduct) => {
 		}
 	)
 }
+
+export const useDeleteProduct = () => {
+	const deleteProductService = ApiService.createInstance()
+	return useMutation(
+		(payload: { productId: string }) => {
+			return deleteProductService.deleteProduct({
+				pathParams: {
+					productId: payload.productId
+				}
+			})
+		},
+		{
+			onSuccess: () => {
+				updateStore((state: IStore) => {
+					state.UserSlice.isError = false
+					state.UserSlice.successMess = 'Delete product successfully'
+				})
+			},
+			onError: (error: any) => {
+				updateStore((state: IStore) => {
+					state.UserSlice.isError = true
+					state.UserSlice.errorMess = error.message
+				})
+			}
+		}
+	)
+}

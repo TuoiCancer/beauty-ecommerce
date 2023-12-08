@@ -10,9 +10,9 @@ import {
 	GridSortModel
 } from '@mui/x-data-grid'
 import BaseTablePagingnation from './BaseTablePagingnation'
-import { useDemoData } from '@mui/x-data-grid-generator';
-import { Box, SelectChangeEvent } from '@mui/material';
-import RenderOptionCell from '@/config/common-config';
+import { useDemoData } from '@mui/x-data-grid-generator'
+import { Box, SelectChangeEvent } from '@mui/material'
+import RenderOptionCell from '@/config/common-config'
 
 interface IDataTableProps {
 	total: number
@@ -37,10 +37,10 @@ const BaseDataTable: React.FunctionComponent<IDataTableProps> = ({
 }) => {
 	const { page, limit, total: totalRecords } = paging
 
-  const { data: dataGrid } = useDemoData({
-    dataSet: 'Commodity',
-    rowLength: 100,
-  });
+	const { data: dataGrid } = useDemoData({
+		dataSet: 'Commodity',
+		rowLength: 100
+	})
 
 	const changeSortingModel = (sort: GridSortModel) => {
 		const sortParam: SortingParam = {
@@ -52,38 +52,40 @@ const BaseDataTable: React.FunctionComponent<IDataTableProps> = ({
 
 	return (
 		<>
-      <DataGrid
-        {...dataGrid}
-        rows={data}
-        rowSelection={true}
-        columns={configColumn}
-        checkboxSelection={false}
-        onSortModelChange={changeSortingModel}
-        sortingOrder={['desc', 'asc']}
-        sx={{
-          '& .table-cell-text': {
-            fontSize: '14px',
-            color: '#6C757D'
-          }
-        }}
-        hideFooter
+			<DataGrid
+				{...dataGrid}
+				rows={data}
+				rowSelection={true}
+				columns={configColumn}
+				checkboxSelection={false}
+				onSortModelChange={changeSortingModel}
+				sortingOrder={['desc', 'asc']}
+				sx={{
+					'& .table-cell-text': {
+						fontSize: '14px',
+						color: '#6C757D'
+					}
+				}}
+				hideFooter
 				slotProps={{
 					cell: {
 						onClick: () => {
-							return 'a';
+							return 'a'
 						}
 					}
 				}}
-      />
-      <BaseTablePagingnation
-        page={page}
-        count={total}
-        size='medium'
-        totalRecords={totalRecords}
-        onPageChange={(event, page) => onPagingModelChange(page)}
-        onRowsPerPageChange={(event: SelectChangeEvent<number>) => onLimitChange(Number(event.target.value))}
-      />
-    </>
+			/>
+			<BaseTablePagingnation
+				page={page}
+				count={total}
+				size='medium'
+				totalRecords={totalRecords}
+				onPageChange={(event, page) => onPagingModelChange(page)}
+				onRowsPerPageChange={(event: SelectChangeEvent<number>) =>
+					onLimitChange(Number(event.target.value))
+				}
+			/>
+		</>
 	)
 }
 

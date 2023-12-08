@@ -122,6 +122,40 @@ export class ApiService {
 		}
 	})
 
+	getTopBestSeller = configApi({
+		path: 'v1/products/best-seller',
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
+
+	getBestSellerProductsByShopId = configApi({
+		path: 'v1/products/best-seller',
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
+
+	recommendProductForUser = configApi({
+		path: 'v1/products/recommend',
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
+
+	deleteProduct = configApi({
+		path: 'v1/products',
+		method: 'DELETE',
+		headers: {
+			'Content-Type': 'application/json'
+			// 'X-Client-Id': this.getXClientId(),
+			// Authorization: this.getAccessToken()
+		}
+	})
+
 	addToCart = configApi({
 		path: 'v1/carts',
 		method: 'PUT',
@@ -228,22 +262,6 @@ export class ApiService {
 		}
 	})
 
-	getTopBestSeller = configApi({
-		path: 'v1/products/best-seller',
-		method: 'GET',
-		headers: {
-			'Content-Type': 'application/json'
-		}
-	})
-
-	getBestSellerProductsByShopId = configApi({
-		path: 'v1/products/best-seller',
-		method: 'GET',
-		headers: {
-			'Content-Type': 'application/json'
-		}
-	})
-
 	cancelOrder = configApi({
 		path: 'v1/orders/update',
 		method: 'PATCH',
@@ -287,14 +305,6 @@ export class ApiService {
 			'Content-Type': 'application/json',
 			'X-Client-Id': this.getXClientId(),
 			Authorization: this.getAccessToken()
-		}
-	})
-
-	recommendProductForUser = configApi({
-		path: 'v1/products/recommend',
-		method: 'GET',
-		headers: {
-			'Content-Type': 'application/json'
 		}
 	})
 

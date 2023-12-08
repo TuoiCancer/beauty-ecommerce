@@ -11,7 +11,7 @@ import {
 import MenuIcon from '@mui/icons-material/Menu'
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
 import { appbarHeight, drawerWidth } from '../RootAdminLayout'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import BaseSearch from '@/components/base/BaseSearch'
 import AdminAvatar from './AdminAvatar'
 import { useStore } from '@/store'
@@ -52,6 +52,7 @@ const AppBar = styled(MuiAppBar, {
 const AdminHeader = ({ open, onOpenDrawer, dictionary }: IAdminHeader) => {
 	const pathname = usePathname()
 	const { UserSlice } = useStore()
+	const router = useRouter()
 
 	const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
 	const openPopper = Boolean(anchorEl)
@@ -76,6 +77,7 @@ const AdminHeader = ({ open, onOpenDrawer, dictionary }: IAdminHeader) => {
 	const handleLogout = () => {
 		logout()
 		setAnchorEl(null)
+		router.push('/login')
 	}
 
 	return (

@@ -1,8 +1,9 @@
 import { Box } from '@mui/system'
-import React from 'react'
+import React, { Suspense } from 'react'
 import { getDictionary } from '../../../../../get-dictionary'
 import { Locale } from '../../../../../i18n-config'
 import Home from './HomePage'
+import LoadingHome from './loading'
 
 const HomeComponent = async ({
 	params: { lang }
@@ -12,9 +13,9 @@ const HomeComponent = async ({
 	const dictionary = await getDictionary(lang)
 
 	return (
-		<Box>
+		<Suspense fallback={<LoadingHome />}>
 			<Home dictionary={dictionary} lang={lang} />
-		</Box>
+		</Suspense>
 	)
 }
 

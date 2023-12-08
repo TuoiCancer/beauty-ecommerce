@@ -145,8 +145,8 @@ const CartHeader = ({
 								{locale === 'en'
 									? 'English'
 									: locale === 'vn'
-									? 'Tiếng Việt'
-									: 'Korean'}
+									  ? 'Tiếng Việt'
+									  : 'Korean'}
 							</MenuItem>
 						)
 					})}

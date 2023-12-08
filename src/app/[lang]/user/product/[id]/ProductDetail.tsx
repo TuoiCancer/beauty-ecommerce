@@ -581,10 +581,10 @@ const ProductDetail = ({ dictionary, lang }: any) => {
 											{key === 'size'
 												? 'Size:'
 												: key === 'useage'
-												? 'How to use: '
-												: key === 'benefits'
-												? 'Benefits:'
-												: 'Ingredients:'}
+												  ? 'How to use: '
+												  : key === 'benefits'
+												    ? 'Benefits:'
+												    : 'Ingredients:'}
 										</Typography>
 										{listUseage.map((useage: string, idx: number) => {
 											return (

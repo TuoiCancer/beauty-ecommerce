@@ -9,7 +9,9 @@ import RenderOptionCell, {
 } from './common-config'
 import { configDefaultOption } from './common-config'
 
-export const productTableColumn = (handleButtonDelete: (id: GridRowId) => void): GridColDef[] => [
+export const productTableColumn = (
+	handleButtonDelete: (id: GridRowId) => void
+): GridColDef[] => [
 	{
 		field: 'No',
 		headerName: '',
