@@ -133,10 +133,8 @@ export const useRefreshToken = () => {
 	const refreshTokenService = ApiService.createInstance()
 
 	return useMutation(
-		(payload: any) => {
-			return refreshTokenService.refreshToken({
-				data: payload
-			})
+		() => {
+			return refreshTokenService.refreshToken()
 		},
 		{
 			onSuccess: (data: ResponseI) => {

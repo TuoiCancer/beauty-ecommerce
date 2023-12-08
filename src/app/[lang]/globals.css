@@ -42,6 +42,10 @@ body {
 	font-family: 'Montserrat', sans-serif;
 }
 
+body .MuiPaper-root.MuiPaper-elevation .MuiPickersLayout-root .MuiPickersLayout-contentWrapper .MuiDateRangeCalendar-root > div:first-child {
+	display: none;
+}
+
 body::-webkit-scrollbar {
 	background: #fff;
 	width: 4px;

@@ -7,8 +7,8 @@ import BaseDataTable from '@/components/base/BaseDataTable'
 import { productTableColumn } from '@/config/config-product-data-table'
 import { IFilterOption } from '@/utils/filterOption.interface'
 import {
-	useGetAdminProduct,
-	useGetProductByPage
+	useDeleteProduct,
+	useGetAdminProduct
 } from '@/service/react-query/product.query'
 import { useStore } from '@/store'
 import {
@@ -16,9 +16,8 @@ import {
 	DEFAULT_PAGE_LIMIT,
 	DEFAULT_SORT
 } from '@/constants/common.constant'
-import { PagingParam } from '@/models/base-param-payload.type'
-import { useSearchParams } from 'next/navigation'
 import ProgressLoading from '@/components/base/ProgressLoading'
+import { GridRowId } from '@mui/x-data-grid'
 
 interface IAdminProductPageProps {
 	lang: Locale
@@ -34,8 +33,8 @@ const AdminProductPage: FunctionComponent<IAdminProductPageProps> = ({
 		page: DEFAULT_PAGE,
 		limit: DEFAULT_PAGE_LIMIT,
 		itemCount: 0 // tổng số product get được từ api
-	});
-	const [listProduct, setListProduct] = useState([]);
+	})
+	const [listProduct, setListProduct] = useState([])
 
 	const { UserSlice } = useStore()
 
@@ -48,18 +47,21 @@ const AdminProductPage: FunctionComponent<IAdminProductPageProps> = ({
 		page: paginationMeta.page ?? DEFAULT_PAGE,
 		limit: paginationMeta.limit ?? DEFAULT_PAGE_LIMIT,
 		sort: DEFAULT_SORT.SORT_BY,
-		// product_shop: null,
-		// product_category: filterOptions.category,
-		// search_key: filterOptions.searchKey,
 		user_id: UserSlice.user?.id,
 		order: DEFAULT_SORT.SORT_TYPE
 	})
 
+	const {
+		isLoading: isDeletingProduct,
+		mutate: deletePrroduct,
+		isSuccess
+	} = useDeleteProduct()
+
 	useEffect(() => {
-		getListProduct();
+		getListProduct()
 		if (fetchedGetListProduct) {
-			setPaginationMeta(dataListProduct.pageMetaDto);
-			setListProduct(dataListProduct.listProduct);
+			setPaginationMeta(dataListProduct.pageMetaDto)
+			setListProduct(dataListProduct.listProduct)
 		}
 	}, [dataListProduct])
 
@@ -71,25 +73,33 @@ const AdminProductPage: FunctionComponent<IAdminProductPageProps> = ({
 		setPaginationMeta(prev => ({ ...prev, limit }))
 	}
 
-	if (waitingGetListProduct) {
+	const handleButtonDelete = (id: GridRowId) => {
+		deletePrroduct({
+			productId: `${id}`
+		})
+	}
+
+	const columns = productTableColumn(handleButtonDelete)
+
+	if (waitingGetListProduct || isDeletingProduct) {
 		return <ProgressLoading />
 	}
 	return (
 		<>
 			<BaseDataTable
-			total={paginationMeta?.pageCount}
-			paging={{
-				page: paginationMeta?.page,
-				limit: paginationMeta?.limit,
-				total: paginationMeta?.itemCount
-			}}
-			configColumn={productTableColumn}
-			data={listProduct ?? []}
-			onPagingModelChange={onPageChange}
-			onLimitChange={onLimitChange}
-		/>
+				total={paginationMeta?.pageCount}
+				paging={{
+					page: paginationMeta?.page,
+					limit: paginationMeta?.limit,
+					total: paginationMeta?.itemCount
+				}}
+				configColumn={columns}
+				data={listProduct ?? []}
+				onPagingModelChange={onPageChange}
+				onLimitChange={onLimitChange}
+			/>
 		</>
 	)
 }
 
-export default AdminProductPage;
+export default AdminProductPage

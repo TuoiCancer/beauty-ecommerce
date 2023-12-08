@@ -1,6 +1,7 @@
-import { Avatar, Chip } from '@mui/material'
-import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
-import {
+import ImageItem from '@/components/base/ImageItem'
+import { Chip } from '@mui/material'
+import { GridColDef, GridRenderCellParams, GridRowId } from '@mui/x-data-grid'
+import RenderOptionCell, {
 	RenderDateCell,
 	RenderNoCell,
 	RenderPriceCell,
@@ -8,12 +9,14 @@ import {
 } from './common-config'
 import { configDefaultOption } from './common-config'
 
-export const productTableColumn: GridColDef[] = [
+export const productTableColumn = (
+	handleButtonDelete: (id: GridRowId) => void
+): GridColDef[] => [
 	{
 		field: 'No',
 		headerName: '',
 		width: 80,
-		// renderCell: (params: GridRenderCellParams) => <RenderNoCell {...params} />,
+		renderCell: (params: GridRenderCellParams) => <RenderNoCell {...params} />,
 		sortable: false,
 		...configDefaultOption
 	},
@@ -32,7 +35,20 @@ export const productTableColumn: GridColDef[] = [
 		align: 'center',
 		sortable: false,
 		renderCell: (params: GridRenderCellParams) => {
-			return <Avatar src={params.value} alt='product thumbnail' />
+			return (
+				<ImageItem
+					imgSrc={params.value}
+					style={{
+						width: '50px',
+						height: '50px',
+						borderRadius: '50%',
+						'& img': {
+							borderRadius: '50%'
+						}
+					}}
+				/>
+			)
+			// return <Avatar src={params.value} alt='product thumbnail' />
 		},
 		...configDefaultOption
 	},
@@ -103,12 +119,15 @@ export const productTableColumn: GridColDef[] = [
 		...configDefaultOption
 	},
 	{
-		field: 'Action',
+		field: 'action',
 		headerName: 'Action',
 		headerAlign: 'center',
 		flex: 1,
 		maxWidth: 150,
 		sortable: false,
+		renderCell: (params: GridRenderCellParams) => {
+			return RenderOptionCell(params, () => handleButtonDelete(params.id))
+		},
 		...configDefaultOption
 	}
 ]

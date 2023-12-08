@@ -19,7 +19,16 @@ import {
 	FunctionComponent,
 	useState
 } from 'react'
-import { usePathname, useRouter } from 'next/navigation'
+
+function calculateDisplayRange(
+	currentPage: number,
+	itemsPerPage: number,
+	totalRecords: number
+) {
+	const startIndex = (currentPage - 1) * itemsPerPage + 1
+	const endIndex = Math.min(currentPage * itemsPerPage, totalRecords)
+	return { startIndex, endIndex }
+}
 
 export interface ITablePagingProps {
 	count: number
@@ -27,7 +36,7 @@ export interface ITablePagingProps {
 	totalRecords: number
 	onPageChange: (event: ChangeEvent<unknown>, page: number) => void
 	size?: 'small' | 'medium' | 'large'
-	onRowsPerPageChange: any
+	onRowsPerPageChange: (event: SelectChangeEvent<number>) => void
 }
 
 const BaseTablePagingnation: FunctionComponent<ITablePagingProps> = ({
@@ -40,12 +49,16 @@ const BaseTablePagingnation: FunctionComponent<ITablePagingProps> = ({
 }) => {
 	const [rowPerPage, setRowPerPage] = useState(DEFAULT_PAGE_LIMIT)
 
-	const router = useRouter()
-	const pathname = usePathname();
 	const handleRowPerPageChange = (event: SelectChangeEvent<number>) => {
 		setRowPerPage(event.target.value as number)
 		onRowsPerPageChange(event)
 	}
+
+	const { startIndex, endIndex } = calculateDisplayRange(
+		page,
+		rowPerPage,
+		totalRecords
+	)
 
 	return (
 		<Box
@@ -53,12 +66,15 @@ const BaseTablePagingnation: FunctionComponent<ITablePagingProps> = ({
 				display: 'flex',
 				justifyContent: 'space-between',
 				alignItems: 'center',
-				width: '100%',
-				padding: '0.5rem 1rem'
+				padding: '0.5rem 1rem',
+				position: 'fixed',
+				bottom: 0,
+				width: 'calc(100% - 268px)',
+				backgroundColor: '#fff'
 			}}
 		>
 			<Typography color='#6C757D' fontSize={14}>
-				Showing 1 to 10 of {totalRecords} entries
+				Showing {startIndex} to {endIndex} of {totalRecords} entries
 			</Typography>
 			<Box sx={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
 				<Box sx={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>

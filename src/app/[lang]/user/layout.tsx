@@ -2,6 +2,8 @@ import Header from '@/components/Header/Header'
 import Footer from '@/components/Footer/Footer'
 import { Locale } from '../../../../i18n-config'
 import { getDictionary } from '../../../../get-dictionary'
+import { Suspense } from 'react'
+import Loading from '../loading'
 
 export default async function RootLayout({
 	children,
@@ -12,8 +14,7 @@ export default async function RootLayout({
 }) {
 	const dictionary = await getDictionary(lang)
 	return (
-		<>
-			{/* <HandleRoute /> */}
+		<Suspense fallback={<Loading />}>
 			<Header
 				dictionary={dictionary}
 				isHaveShadow={true}
@@ -27,6 +28,6 @@ export default async function RootLayout({
 			/>
 			{children}
 			<Footer dictionary={dictionary} />
-		</>
+		</Suspense>
 	)
 }

@@ -1,5 +1,5 @@
 const VoucherPage = () => {
-  return (<>Voucher Page</>);
+	return <>Voucher Page</>
 }
 
-export default VoucherPage;
+export default VoucherPage

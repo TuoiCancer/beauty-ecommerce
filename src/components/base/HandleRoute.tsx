@@ -3,7 +3,9 @@ import React, { useEffect } from 'react'
 import { useStore } from '@/store'
 import { useRefreshToken } from '@/service/react-query/user.query'
 import { useGetCartByUserId } from '@/service/react-query/cart.query'
+import { useRouter } from 'next/navigation'
 const HandleRoute = ({ children }: { children: React.ReactNode }) => {
+	const route = useRouter()
 	const { UserSlice, AuthSlice } = useStore()
 
 	const { mutate: refreshToken } = useRefreshToken()
@@ -13,22 +15,13 @@ const HandleRoute = ({ children }: { children: React.ReactNode }) => {
 	useEffect(() => {
 		const data = localStorage.getItem('data')
 		const isRemember = localStorage.getItem('rememberPassword') === 'true'
-
 		if (!data) {
 			UserSlice.setTotalProductInCart(0)
 			UserSlice.setIsLoggedIn(false)
-			UserSlice.setIsReloadPage(true)
 			// set token to null
 			AuthSlice.setAccessToken(null)
 			AuthSlice.setRefreshToken(null)
-			// if (!isRemember) {
-			// 	UserSlice.setTotalProductInCart(0)
-			// 	UserSlice.setIsLoggedIn(false)
-			// 	UserSlice.setIsReloadPage(true)
-			// 	// set token to null
-			// 	AuthSlice.setAccessToken(null)
-			// 	AuthSlice.setRefreshToken(null)
-			// }
+			// route.push('/user/home')
 		} else {
 			// check token is expired or not
 			const { maxAge } = JSON.parse(data)?.token
@@ -37,14 +30,14 @@ const HandleRoute = ({ children }: { children: React.ReactNode }) => {
 			if (now > maxAgeDate) {
 				if (isRemember) {
 					// call api  refresh token
-					refreshToken({})
+					refreshToken()
 				} else {
 					UserSlice.setTotalProductInCart(0)
 					UserSlice.setIsLoggedIn(false)
-					UserSlice.setIsReloadPage(true)
 					// set token to null
 					AuthSlice.setAccessToken(null)
 					AuthSlice.setRefreshToken(null)
+					// route.push('/user/home')
 				}
 			}
 		}
@@ -57,20 +50,6 @@ const HandleRoute = ({ children }: { children: React.ReactNode }) => {
 			})
 		}
 	}, [UserSlice.user])
-
-	useEffect(() => {
-		if (UserSlice.isReloadPage) {
-			UserSlice.setIsReloadPage(false)
-			// window.location.reload()
-		}
-	}, [UserSlice.isReloadPage])
-
-	useEffect(() => {
-		if (!UserSlice.isLoggedIn) {
-			UserSlice.setTotalProductInCart(0)
-			UserSlice.setIsReloadPage(true)
-		}
-	}, [UserSlice.isLoggedIn])
 
 	return <>{children}</>
 }

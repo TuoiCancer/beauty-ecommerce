@@ -13,7 +13,7 @@ const CheckLogin = ({ children }: { children: React.ReactNode }) => {
 	useEffect(() => {
 		if (UserSlice.isLoggedIn) {
 			if (UserSlice.user.role === 'SHOP') {
-				route.push('/admin')
+				route.push('/admin/dashboard')
 			} else {
 				route.push('/user/home')
 			}

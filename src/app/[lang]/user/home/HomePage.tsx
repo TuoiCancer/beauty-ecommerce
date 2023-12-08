@@ -27,7 +27,6 @@ import { hindMadurai, homemadeApple, ibarra } from '../../../../../public/font'
 import RecommendProduct from '@/components/home/RecommendProduct'
 import { motion } from 'framer-motion'
 import { ListIntroduce } from '@/components/Header/Introduce'
-import TextIntro from '@/components/Header/Introduce/TextIntro'
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews)
 
