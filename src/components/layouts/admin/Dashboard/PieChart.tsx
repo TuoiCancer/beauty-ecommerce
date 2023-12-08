@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic'
 import { Box, Typography } from '@mui/material'
 import { upperCaseWord } from '@/helper/format'
 import { formatCurrencyV2 } from '@/helper'
+import { ApexOptions } from 'apexcharts'
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 const PieChart = ({ listUserByCountry }: any) => {
@@ -15,7 +16,7 @@ const PieChart = ({ listUserByCountry }: any) => {
 		)} - ${item.percent}%`
 	})
 
-	const options = {
+	const options: ApexOptions = {
 		chart: {
 			width: '100%',
 			height: 900
@@ -30,9 +31,6 @@ const PieChart = ({ listUserByCountry }: any) => {
 					size: '60%'
 				},
 				offsetY: 20
-			},
-			stroke: {
-				colors: undefined
 			}
 		},
 		colors: colorPalette,

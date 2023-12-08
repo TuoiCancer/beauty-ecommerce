@@ -4,6 +4,7 @@ import React from 'react'
 import dynamic from 'next/dynamic'
 import { Box, Typography } from '@mui/material'
 import { formatCurrencyV2, getListDate } from '@/helper'
+import { ApexOptions } from 'apexcharts'
 
 const ApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
@@ -11,16 +12,16 @@ const OrderAnalytics = ({ orderAnalyticData, toDate, fromDate }: any) => {
 	const listDate = getListDate(fromDate, toDate)
 	const colorPalette = ['#E3631B', '#FDB140', '#E3631B', '#319E48', '#ACACAC']
 
-	const listOrderPendingByDay =
+	const listOrderPendingByDay: any =
 		Object.values(orderAnalyticData?.listOrderPendingByDay || {}) || []
-	const listOrderPackagedByDay =
+	const listOrderPackagedByDay: any =
 		Object.values(orderAnalyticData?.listOrderPackagedByDay || {}) || []
 
-	const listOrderShippingByDay =
+	const listOrderShippingByDay: any =
 		Object.values(orderAnalyticData?.listOrderShippingByDay || {}) || []
-	const listOrderDeliveredByDay =
+	const listOrderDeliveredByDay: any =
 		Object.values(orderAnalyticData?.listOrderDeliveredByDay || {}) || []
-	const listOrderCancelByDay =
+	const listOrderCancelByDay: any =
 		Object.values(orderAnalyticData?.listOrderCancelByDay || {}) || []
 
 	const series = [
@@ -46,19 +47,13 @@ const OrderAnalytics = ({ orderAnalyticData, toDate, fromDate }: any) => {
 		}
 	]
 
-	const optionsLine = {
-		type: 'line',
+	const optionsLine: ApexOptions = {
 		chart: {
+			id: 'Order Analytics',
 			height: 340,
 			type: 'line',
 			zoom: {
 				enabled: false
-			}
-		},
-		plotOptions: {
-			stroke: {
-				width: 0,
-				curve: 'smooth'
 			}
 		},
 		colors: colorPalette,
