@@ -5,7 +5,9 @@ const nextConfig = {
 			'phutungnhapkhauchinhhang.com',
 			'static.thcdn.com',
 			'encrypted-tbn3.gstatic.com',
-			'cdn-icons-png.flaticon.com'
+			'cdn-icons-png.flaticon.com',
+			'avatars.githubusercontent.com',
+			'lh3.googleusercontent.com'
 		]
 	},
 	experimental: {

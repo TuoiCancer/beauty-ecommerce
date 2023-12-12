@@ -10,6 +10,7 @@ import ShowErr from '@/components/base/ShowErr'
 import HandleRoute from '@/components/base/HandleRoute'
 import Loading from './loading'
 import { i18n } from '../../../i18n-config'
+import { NextAuthProvider } from '@/config/provider'
 
 export const metadata: Metadata = {
 	title: 'Glow & Grace',
@@ -31,13 +32,15 @@ export default function RootLayout({
 	return (
 		<html lang={params.lang}>
 			<body>
-				<Suspense fallback={<Loading />}>
-					<QueryClientProviderComponent>
-						<HandleRoute>{children}</HandleRoute>
-						<ScrollToTop />
-						<ShowErr />
-					</QueryClientProviderComponent>
-				</Suspense>
+				<NextAuthProvider>
+					<Suspense fallback={<Loading />}>
+						<QueryClientProviderComponent>
+							<HandleRoute>{children}</HandleRoute>
+							<ScrollToTop />
+							<ShowErr />
+						</QueryClientProviderComponent>
+					</Suspense>
+				</NextAuthProvider>
 			</body>
 		</html>
 	)

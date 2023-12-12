@@ -15,6 +15,8 @@ interface loginTypes {
 	email: string
 	password: string
 	rememberPassword: boolean
+	type?: string
+	image?: string
 }
 
 export const useSignup = () => {
@@ -60,6 +62,7 @@ export const useLogin = () => {
 
 	return useMutation(
 		(payload: loginTypes) => {
+			console.log('payload', payload)
 			return loginRequestService.login({
 				data: payload
 			})
