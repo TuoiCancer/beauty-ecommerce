@@ -425,7 +425,7 @@ const SignupPage = () => {
 				<Image
 					priority
 					layout='fill'
-					src='/img/bg_signup.jpg'
+					src='/animations/signup.gif'
 					alt='Picture of the author'
 				/>
 			</Box>

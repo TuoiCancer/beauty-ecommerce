@@ -21,6 +21,7 @@ import { useLogin, useLogout } from '@/service/react-query/user.query'
 import { usePathname, useRouter } from 'next/navigation'
 import { i18n } from '../../../i18n-config'
 import { motion } from 'framer-motion'
+import { signOut } from 'next-auth/react'
 
 const CartHeader = ({
 	textColor,
@@ -46,6 +47,7 @@ const CartHeader = ({
 	}
 
 	const handleLogout = () => {
+		signOut()
 		logout()
 		setOpenPoper(false)
 	}
@@ -258,14 +260,35 @@ const CartHeader = ({
 							}
 						}}
 					>
-						<Avatar
-							{...stringAvatar(UserSlice.user?.username || 'U')}
-							onClick={e => {
-								e.stopPropagation()
-								// handleClick()
-								setOpenPoper(!openPoper)
-							}}
-						/>
+						{UserSlice?.user?.avatar ? (
+							<ImageItem
+								onClick={(e: any) => {
+									e.stopPropagation()
+									// handleClick()
+									setOpenPoper(!openPoper)
+								}}
+								imgSrc={UserSlice.user.avatar}
+								style={{
+									width: { xs: '40px', md: '48px' },
+									height: { xs: '40px', md: '48px' },
+									borderRadius: '50%',
+									objectFit: 'cover',
+									cursor: 'pointer',
+									'& img': {
+										borderRadius: '50%'
+									}
+								}}
+							/>
+						) : (
+							<Avatar
+								{...stringAvatar(UserSlice.user?.username || 'U')}
+								onClick={e => {
+									e.stopPropagation()
+									// handleClick()
+									setOpenPoper(!openPoper)
+								}}
+							/>
+						)}
 						{openPoper && (
 							<Box
 								sx={{

@@ -47,7 +47,19 @@ const UserInfo = () => {
 				}}
 			>
 				{UserSlice?.user?.avatar ? (
-					<ImageItem imgSrc={UserSlice?.user?.avatar} />
+					<ImageItem
+						imgSrc={UserSlice?.user?.avatar}
+						style={{
+							width: { xs: '40px', md: '64px' },
+							height: { xs: '40px', md: '64px' },
+							borderRadius: '50%',
+							objectFit: 'cover',
+							cursor: 'pointer',
+							'& img': {
+								borderRadius: '4px'
+							}
+						}}
+					/>
 				) : (
 					<Avatar
 						{...stringAvatar(UserSlice?.user?.username || 'U', {

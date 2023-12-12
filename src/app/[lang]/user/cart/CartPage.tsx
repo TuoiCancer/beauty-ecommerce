@@ -240,6 +240,12 @@ const CartPage = ({ dictionary }: any) => {
 		}
 	}, [UserSlice])
 
+	useEffect(() => {
+		if (isCreateOrderDone) {
+			route.push(`/user/order/success`)
+		}
+	}, [isCreateOrderDone])
+
 	const shopList = [
 		{
 			name: `L'Oreal`,

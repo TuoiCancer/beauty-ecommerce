@@ -3,13 +3,15 @@
 import BaseButton from '@/components/base/BaseButton'
 import { Box, Checkbox, TextField, Typography } from '@mui/material'
 import Image from 'next/legacy/image'
-import React, { Suspense } from 'react'
+import React, { Suspense, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { validateSigninForm } from '@/helper/validate'
 import { toast } from 'react-toastify'
 import { useLogin } from '@/service/react-query/user.query'
 import { useStore } from '@/store'
 import { poppins } from '../../../../public/font'
+import { useSession, signIn, signOut } from 'next-auth/react'
+import ImageItem from '@/components/base/ImageItem'
 
 const LoginPage = () => {
 	const router = useRouter()
@@ -18,6 +20,8 @@ const LoginPage = () => {
 	const [rememberPassword, setRememberPassword] = React.useState(false)
 	const [typeInputPassword, setTypeInputPassword] = React.useState(true)
 	const { UserSlice } = useStore()
+
+	const { data: session, status } = useSession()
 
 	const { isLoading, mutate: LoginFunc, isSuccess } = useLogin()
 
@@ -42,6 +46,22 @@ const LoginPage = () => {
 			}
 		}
 	}, [isSuccess])
+
+	useEffect(() => {
+		if (status === 'loading') {
+			// return <p>Loading...</p>
+		}
+		if (status === 'authenticated') {
+			console.log('authenticated', session)
+			LoginFunc({
+				email: session.user?.email || '',
+				password: '1111',
+				rememberPassword,
+				type: 'NEXT_AUTH',
+				image: session.user?.image || ''
+			})
+		}
+	}, [session])
 
 	return (
 		<Suspense fallback={<p>Loading LOGIN...</p>}>
@@ -118,7 +138,7 @@ const LoginPage = () => {
 							width: { xs: '100%', md: '545px', lg: '100%', xl: '560px' },
 							// height: { md: '618px' },
 							borderRadius: { xs: '8px', md: '40px' },
-							marginTop: { md: '80px', xl: '170px' },
+							marginTop: '80px',
 							padding: {
 								xs: '24px 12px',
 								md: '32px',
@@ -163,7 +183,7 @@ const LoginPage = () => {
 							placeholder='Email'
 							onChange={e => setEmail(e.target.value)}
 							sx={{
-								mt: { xs: '52px', md: '75px' },
+								mt: { xs: '52px', md: '62px' },
 								width: { xs: '100%' },
 								height: { xs: '32px', md: '52px' },
 								'& .MuiOutlinedInput-root': {
@@ -244,7 +264,7 @@ const LoginPage = () => {
 								width: { xs: '100%' },
 								display: 'flex',
 								alignItems: 'center',
-								pb: '20px',
+								pb: '8px',
 								pt: { xs: '12px', md: '24px' }
 							}}
 						>
@@ -259,10 +279,86 @@ const LoginPage = () => {
 								Remember password
 							</Typography>
 						</Box>
+						{/* NextAuth with Google, Github, Facebook */}
+						<Box
+							sx={{
+								width: { xs: '100%' },
+								display: 'flex',
+								alignItems: 'center',
+								justifyContent: 'center',
+								flexDirection: 'column'
+							}}
+						>
+							<Typography
+								variant='h6'
+								sx={{ fontSize: '18px', textAlign: 'center', mb: '12px' }}
+							>
+								Or login with
+							</Typography>
+							<Box
+								sx={{
+									display: 'flex',
+									alignItems: 'center',
+									justifyContent: 'center'
+								}}
+							>
+								<ImageItem
+									idBox='google'
+									style={{
+										width: { xs: '40px', md: '48px' },
+										height: { xs: '40px', md: '48px' },
+										mr: { xs: '12px', md: '24px' },
+										cursor: 'pointer',
+										transition: 'all 0.3s ease',
+										'&:hover': {
+											transform: 'scale(1.1)'
+										}
+									}}
+									imgSrc='/icon/google.png'
+									onClick={() => {
+										signIn('google')
+									}}
+								/>
+								<ImageItem
+									idBox='facebook'
+									style={{
+										width: { xs: '40px', md: '48px' },
+										height: { xs: '40px', md: '48px' },
+										mr: { xs: '12px', md: '24px' },
+										cursor: 'pointer',
+										transition: 'all 0.3s ease',
+										'&:hover': {
+											transform: 'scale(1.1)'
+										}
+									}}
+									imgSrc='/icon/facebook.png'
+									onClick={() => {
+										signIn('facebook')
+									}}
+								/>
+								<ImageItem
+									idBox='github'
+									style={{
+										width: { xs: '40px', md: '64px' },
+										height: { xs: '40px', md: '64px' },
+										mr: { xs: '12px', md: '24px' },
+										cursor: 'pointer',
+										transition: 'all 0.3s ease',
+										'&:hover': {
+											transform: 'scale(1.1)'
+										}
+									}}
+									imgSrc='/icon/github.png'
+									onClick={() => {
+										signIn('github')
+									}}
+								/>
+							</Box>
+						</Box>
 
 						<BaseButton
 							styleSx={{
-								my: { xs: '32px', lg: '40px' },
+								my: '32px',
 								backgroundColor: '#2C8578',
 								padding: '12px 80px',
 								fontSize: { xs: '16px', md: '20px' },
