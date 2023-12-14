@@ -13,6 +13,7 @@ import {
 	useUpdateCartUser
 } from '@/service/react-query/cart.query'
 import { useCreateOrder } from '@/service/react-query/order.query'
+import { useSendEmailByNodeMailer } from '@/service/react-query/sendmail.query'
 import {
 	useGetVoucherByVoucherCode,
 	useGetVoucherOfUser
@@ -23,6 +24,7 @@ import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { poppins, roboto } from '../../../../../public/font'
+import Loading from '../../loading'
 
 const CartPage = ({ dictionary }: any) => {
 	const { UserSlice } = useStore()
@@ -35,6 +37,12 @@ const CartPage = ({ dictionary }: any) => {
 	const { mutate: updateCartUser, isLoading, isSuccess } = useUpdateCartUser()
 	const { mutate: deleteCartUser, isSuccess: isDeleted } = useDeleteCartUser()
 
+	const {
+		mutate: sendMail,
+		isLoading: isSendingEmail,
+		isSuccess: sendSuccess
+	} = useSendEmailByNodeMailer()
+
 	// get voucher by voucher code
 	const { mutate: getVoucherByVoucherCode, data: voucherCodeFound } =
 		useGetVoucherByVoucherCode()
@@ -43,8 +51,11 @@ const CartPage = ({ dictionary }: any) => {
 		userId: UserSlice.user?.id
 	})
 
-	const { mutate: createOrderFn, isSuccess: isCreateOrderDone } =
-		useCreateOrder()
+	const {
+		mutate: createOrderFn,
+		isSuccess: isCreateOrderDone,
+		data: dataOrderCreate
+	} = useCreateOrder()
 
 	const [isRefetchFn, setIsRefetchFn] = useState(false)
 	const [open, setOpen] = useState(false)
@@ -242,6 +253,35 @@ const CartPage = ({ dictionary }: any) => {
 
 	useEffect(() => {
 		if (isCreateOrderDone) {
+			const sendEmail = async () => {
+				await fetch('/api/send', {
+					method: 'POST',
+					body: JSON.stringify({
+						username: UserSlice.user.username,
+						email: UserSlice.user.email,
+						order: dataOrderCreate
+					})
+				})
+					.then(res => {
+						return res.json()
+					})
+					.then(data => {
+						if (data && data.message === 'success') {
+							toast.success(
+								`Thank you for your order, ${UserSlice.user.username}! We've already send you an email. Check your inbox!`,
+								{
+									position: 'top-center'
+								}
+							)
+						} else {
+							alert('Apologies! Please try again.')
+						}
+					})
+					.catch(err => {
+						alert('Ooops! unfortunately some error has occurred.')
+					})
+			}
+			sendEmail()
 			route.push(`/user/order/success`)
 		}
 	}, [isCreateOrderDone])
@@ -265,6 +305,7 @@ const CartPage = ({ dictionary }: any) => {
 		setOpenPopup(true)
 	}
 
+	if (isSendingEmail) return <Loading />
 	// loading progess
 	return (
 		<Box

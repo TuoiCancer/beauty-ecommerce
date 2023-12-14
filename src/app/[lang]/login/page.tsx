@@ -153,7 +153,7 @@ const LoginPage = () => {
 						<Typography
 							variant='h1'
 							sx={{
-								fontSize: { xs: '32px', md: '48px', lg: '52px' },
+								fontSize: { xs: '32px', md: '40px', lg: '42px' },
 								fontWeight: '600',
 								color: ' #004339',
 								mb: { xs: '12px' }
@@ -264,7 +264,7 @@ const LoginPage = () => {
 								width: { xs: '100%' },
 								display: 'flex',
 								alignItems: 'center',
-								pb: '8px',
+								pb: '12px',
 								pt: { xs: '12px', md: '24px' }
 							}}
 						>
@@ -291,9 +291,22 @@ const LoginPage = () => {
 						>
 							<Typography
 								variant='h6'
-								sx={{ fontSize: '18px', textAlign: 'center', mb: '12px' }}
+								sx={{
+									fontSize: '18px',
+									textAlign: 'center',
+									mb: '12px',
+									'&::before, &::after': {
+										content: '""',
+										display: 'inline-block',
+										width: '50px',
+										height: '1px',
+										background: '#d7d7d7',
+										verticalAlign: 'middle',
+										margin: '0 12px'
+									}
+								}}
 							>
-								Or login with
+								Or
 							</Typography>
 							<Box
 								sx={{
@@ -305,9 +318,9 @@ const LoginPage = () => {
 								<ImageItem
 									idBox='google'
 									style={{
-										width: { xs: '40px', md: '48px' },
-										height: { xs: '40px', md: '48px' },
-										mr: { xs: '12px', md: '24px' },
+										width: { xs: '24px', md: '38px' },
+										height: { xs: '24px', md: '38px' },
+										mr: { xs: '12px', md: '18px' },
 										cursor: 'pointer',
 										transition: 'all 0.3s ease',
 										'&:hover': {
@@ -322,9 +335,9 @@ const LoginPage = () => {
 								<ImageItem
 									idBox='facebook'
 									style={{
-										width: { xs: '40px', md: '48px' },
-										height: { xs: '40px', md: '48px' },
-										mr: { xs: '12px', md: '24px' },
+										width: { xs: '24px', md: '38px' },
+										height: { xs: '24px', md: '38px' },
+										mr: { xs: '12px', md: '18px' },
 										cursor: 'pointer',
 										transition: 'all 0.3s ease',
 										'&:hover': {
@@ -339,9 +352,9 @@ const LoginPage = () => {
 								<ImageItem
 									idBox='github'
 									style={{
-										width: { xs: '40px', md: '64px' },
-										height: { xs: '40px', md: '64px' },
-										mr: { xs: '12px', md: '24px' },
+										width: { xs: '32px', md: '48px' },
+										height: { xs: '32px', md: '48px' },
+										mr: { xs: '0' },
 										cursor: 'pointer',
 										transition: 'all 0.3s ease',
 										'&:hover': {

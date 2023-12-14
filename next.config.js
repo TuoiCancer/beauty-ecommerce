@@ -7,7 +7,8 @@ const nextConfig = {
 			'encrypted-tbn3.gstatic.com',
 			'cdn-icons-png.flaticon.com',
 			'avatars.githubusercontent.com',
-			'lh3.googleusercontent.com'
+			'lh3.googleusercontent.com',
+			'encrypted-tbn0.gstatic.com'
 		]
 	},
 	experimental: {
