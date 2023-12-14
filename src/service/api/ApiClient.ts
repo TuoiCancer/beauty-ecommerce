@@ -357,4 +357,12 @@ export class ApiService {
 			Authorization: this.getAccessToken()
 		}
 	})
+
+	sendEmailByNodeMailer = configApi({
+		path: 'send',
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
 }
