@@ -58,14 +58,18 @@ const CartHeader = ({
 			icon: <NotificationsActiveIcon />,
 			href: `/${language}/user/settings/notifications`, // for both admin and user
 			text: 'Notify',
-			onClick: handleClick
+			onClick: handleClick,
+			img: '/icon/alarm.png',
+			gif: '/icon/alarm.gif'
 		},
 		{
 			id: '1',
 			icon: <AccountCircleIcon />,
 			href: `/${language}/user/settings/infor`, // for both admin and user
 			text: 'Infor',
-			onClick: handleClick
+			onClick: handleClick,
+			img: '/icon/profile.png',
+			gif: '/icon/profile.gif'
 		},
 		{
 			id: '2',
@@ -73,13 +77,17 @@ const CartHeader = ({
 			// href: '/user/order', // for both admin and user
 			text: 'Order',
 			href: `/${language}/user/order`,
-			onClick: handleClick
+			onClick: handleClick,
+			img: '/icon/orders.png',
+			gif: '/icon/orders.gif'
 		},
 		{
 			id: '3',
 			icon: <LogoutIcon />,
 			text: 'Logout',
-			onClick: handleLogout
+			onClick: handleLogout,
+			img: '/icon/logout.png',
+			gif: '/icon/logout.gif'
 		}
 		// {
 		// 	id: '4',
@@ -315,6 +323,8 @@ const CartHeader = ({
 											icon={item.icon}
 											text={item.text}
 											onClick={item?.onClick}
+											img={item.img}
+											gif={item.gif}
 											dictionary={dictionary}
 										/>
 									)

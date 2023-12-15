@@ -14,16 +14,6 @@ export default async function RootLayout({
 	return (
 		<Box
 			sx={{
-				pb: { md: '180px' },
-				pt: { md: '240px' },
-				maxWidth: {
-					xs: '100%',
-					sm: 'var(--max-width-sm)',
-					md: 'var(--max-width-md)',
-					lg: 'var(--max-width-lg)',
-					xl: 'var(--max-width-xl)'
-				},
-				margin: { xs: '0 12px', sm: '0 auto' },
 				display: 'grid',
 				gridTemplateColumns: { xs: '1fr', md: '1fr 3fr' }
 			}}

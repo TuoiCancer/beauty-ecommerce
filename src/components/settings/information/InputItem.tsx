@@ -5,7 +5,8 @@ const InputItem = ({ text, value, onChange }: any) => {
 	return (
 		<Box
 			sx={{
-				mb: '24px'
+				mb: '24px',
+				marginRight: '32px'
 			}}
 		>
 			<Typography
@@ -29,24 +30,24 @@ const InputItem = ({ text, value, onChange }: any) => {
 				sx={{
 					fontFamily: 'var(--font-family)',
 					fontWeight: '600',
-					maxWidth: '360px',
 					'& .MuiInputBase-root': {
 						py: '4px',
 						backgroundColor: '#FCFBFC',
-						borderRadius: '20px',
+						borderRadius: '8px',
 						'&.Mui-focused': {
 							backgroundColor: '#fff',
 							boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.09)'
 						},
 						'&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-							borderColor: 'rgba(0, 0, 0, 0.23)'
+							borderColor: '#02cbc5'
 						},
 						'& fieldset': {
-							borderWidth: '2px'
+							borderWidth: '1px',
+							borderColor: '#02cbc5'
 						},
 						'&:hover': {
 							'& fieldset': {
-								borderColor: 'rgba(0, 0, 0, 0.23)'
+								borderColor: '#02cbc5'
 							}
 						}
 					}

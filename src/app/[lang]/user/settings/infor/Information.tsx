@@ -12,7 +12,8 @@ const Information = ({ dictionary }: any) => {
 			id='content'
 			sx={{
 				gridColumn: { xs: '1 / 2', md: '2 / 3' },
-				pl: { xs: '0', md: '104px' }
+				backgroundColor: '#F8F8F8',
+				pt: '120px'
 			}}
 		>
 			<UserInfo />

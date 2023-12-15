@@ -1,19 +1,24 @@
 import { Box, Typography } from '@mui/material'
 import Link from 'next/link'
 import React from 'react'
+import ImageItem from '../base/ImageItem'
 
 const AvatarPoper = ({
 	icon,
 	text,
 	href,
 	onClick,
-	dictionary
+	dictionary,
+	img,
+	gif
 }: {
 	icon: React.ReactNode
 	text: string
 	href?: string
 	onClick?: () => void
 	dictionary: any
+	img?: string
+	gif?: string
 }) => {
 	if (href) {
 		return (
@@ -26,11 +31,35 @@ const AvatarPoper = ({
 						transition: 'all 0.2s ease-in-out',
 						display: 'flex',
 						'&:hover': {
-							color: 'var(--main-green)'
+							color: 'var(--main-green)',
+							'& #image-item': {
+								display: 'none'
+							}
+						},
+						'&:hover #gif-item': {
+							display: 'block'
+						},
+						'& #gif-item': {
+							display: 'none'
 						}
 					}}
 				>
-					{icon}
+					<ImageItem
+						idBox='image-item'
+						imgSrc={img || ''}
+						style={{
+							width: '36px',
+							height: '36px'
+						}}
+					/>
+					<ImageItem
+						idBox='gif-item'
+						imgSrc={gif || ''}
+						style={{
+							width: '36px',
+							height: '36px'
+						}}
+					/>
 					<Typography
 						sx={{
 							marginLeft: '10px',
@@ -54,11 +83,36 @@ const AvatarPoper = ({
 				transition: 'all 0.2s ease-in-out',
 				display: 'flex',
 				'&:hover': {
-					color: 'var(--main-green)'
+					color: 'var(--main-green)',
+					'& #image-item': {
+						display: 'none'
+					}
+				},
+				'&:hover #gif-item': {
+					display: 'block'
+				},
+				'& #gif-item': {
+					display: 'none'
 				}
 			}}
 		>
-			{icon}
+			<ImageItem
+				idBox='image-item'
+				imgSrc={img || ''}
+				style={{
+					width: '36px',
+					height: '36px'
+				}}
+			/>
+			<ImageItem
+				idBox='gif-item'
+				imgSrc={gif || ''}
+				style={{
+					width: '36px',
+					height: '36px'
+				}}
+			/>
+			{/* {icon} */}
 			<Typography
 				sx={{
 					marginLeft: '10px',
