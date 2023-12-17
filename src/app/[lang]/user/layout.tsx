@@ -4,6 +4,7 @@ import { Locale } from '../../../../i18n-config'
 import { getDictionary } from '../../../../get-dictionary'
 import { Suspense } from 'react'
 import Loading from '../loading'
+import DialogFlow from '@/components/DialogFlow'
 
 export default async function RootLayout({
 	children,
@@ -27,6 +28,7 @@ export default async function RootLayout({
 				}}
 			/>
 			{children}
+			<DialogFlow />
 			<Footer dictionary={dictionary} />
 		</Suspense>
 	)

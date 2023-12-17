@@ -46,11 +46,11 @@ const ProductSearchWrapper = ({
 							'& #option-container': {
 								top: { md: '21%', xl: '50%', lg: '20%' },
 								'& #option-item': {
-									width: { xs: '40px', md: '32px', xl: '40px' },
-									height: { xs: '40px', md: '32px', xl: '40px' },
+									width: { xs: '40px', md: '32px', xl: '52px' },
+									height: { xs: '40px', md: '32px', xl: '52px' },
 									'& img': {
-										width: { xs: '24px' },
-										height: { xs: '24px' }
+										width: { xs: '32px' },
+										height: { xs: '32px' }
 									}
 								}
 							}

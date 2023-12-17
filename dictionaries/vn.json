@@ -3,7 +3,18 @@
       "title": "Vẻ đẹp có mục đích, và mục đích đó là bạn.",
       "description": "Sản phẩm được làm từ 100% nguyên liệu tự nhiên không gây tác động phụ, khác với đối thủ của họ. Lorem Ipsum là văn bản mẫu mặc định của họ, và xuất hiện trên nhiều trang web.",
       "button": "Mua Ngay",
-      "button02": "Tìm Hiểu Thêm"
+      "button02": "Tìm Hiểu Thêm",
+      "slide02":{
+        "title":"Kem nền Matte & Che lỗ chân lông",
+        "description":"Kem nền số 1 của Maybelline, hoàn hảo cho da dầu. Không gây nhờn.",
+        "button":"Thêm vào giỏ hàng",
+        "text":"Cách hoạt động"
+      },
+      "slide03":{
+        "title":"Sắc đẹp Quốc tế",
+        "description":"Đắm mình trong thế giới của sắc đẹp toàn cầu với những sản phẩm chăm sóc da chất lượng cao từ những thương hiệu đáng tin cậy.",
+        "button":"Khám phá ngay"
+      }
     },
     "navbar":{
       "Home": "Trang Chủ",
@@ -14,14 +25,6 @@
       "Order": "Đơn Hàng",
       "Logout": "Đăng Xuất",
       "Notify": "Thông Báo"
-    },
-    "sidebar": {
-      "dashboard": "Thống kê",
-      "orders": "Đơn hàng",
-      "products": "Sản phẩm",
-      "blogs": "Bài viết",
-      "vouchers": "Mã giảm giá",
-      "reviews": "Nhận xét"
     },
     "sidebar": {
       "dashboard": "Thống kê",
@@ -61,7 +64,8 @@
         "title":"Gợi ý sản phẩm hàng đầu",
         "description":"Chúng tôi cung cấp những gợi ý tốt nhất để giúp bạn đưa ra quyết định mua sắm thông minh.",
         "from":"Từ",
-        "item":"sản phẩm"
+        "item":"sản phẩm",
+        "title02":  "Sản phẩm nổi bật"
       },
       "review":{
         "title":"Mọi người nói gì về chúng tôi"

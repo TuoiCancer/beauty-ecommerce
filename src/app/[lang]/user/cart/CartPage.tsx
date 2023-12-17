@@ -624,7 +624,7 @@ const CartPage = ({ dictionary }: any) => {
 						borderRadius: '4px',
 						background: '#FFF',
 						margin: { xs: '92px 8px', md: '80px auto' },
-						padding: { xs: '32px 12px', md: '50px 45px 70px 45px' },
+						padding: { xs: '32px 12px', md: '50px 45px 30px 45px' },
 						overflowY: 'scroll',
 						scrollBehavior: 'smooth',
 						'&::-webkit-scrollbar': {

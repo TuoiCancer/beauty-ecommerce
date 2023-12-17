@@ -119,12 +119,34 @@ const RowItem = ({
 					<TableCell
 						align='center'
 						sx={{
-							userSelect: 'none'
+							userSelect: 'none',
+							'& #trash-gif': {
+								display: 'none'
+							},
+							'&:hover': {
+								'& #trash-img': {
+									display: 'none'
+								},
+								'& #trash-gif': {
+									display: 'block'
+								}
+							}
 						}}
 					>
 						<ImageItem
+							idBox='trash-img'
 							onClick={handleClick}
-							imgSrc='/img/trash.png'
+							imgSrc='/icon/trash.png'
+							style={{
+								width: { xs: '24px', md: '30px' },
+								height: { xs: '24px', md: '30px' },
+								cursor: 'pointer'
+							}}
+						/>
+						<ImageItem
+							idBox='trash-gif'
+							onClick={handleClick}
+							imgSrc='/icon/trash.gif'
 							style={{
 								width: { xs: '24px', md: '30px' },
 								height: { xs: '24px', md: '30px' },
@@ -238,7 +260,7 @@ const RowItem = ({
 								</TableHead>
 								<TableBody
 									sx={{
-										maxHeight: '300px',
+										// maxHeight: '300px',
 										overflowY: 'scroll'
 									}}
 								>

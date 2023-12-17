@@ -66,3 +66,17 @@ body::-webkit-scrollbar-thumb {
 .navbar-title span {
 	border-bottom: 2px solid black;
 }
+
+.df-messenger-wrapper {
+	background-color: #7ca05f;
+}
+
+.df-messenger-wrapper .title-wrapper {
+	background-color: #7ca05f;
+}
+
+
+
+.df-messenger-wrapper #widgetIcon{
+	background-color: #7ca05f;
+}

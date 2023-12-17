@@ -3,7 +3,18 @@
       "title": "Beauty Has A Purpose and Purpose Is You",
       "description": "Products made out of 100% natural ingredients with no side effects unlike their competitors. Lorem Ipsum as their default model text, and many web sites.",
       "button": "Shop Now",
-      "button02": "Learn More"
+      "button02": "Learn More",
+      "slide02":{
+        "title":"Foundation Matte & Poreless",
+        "description":"Maybellin’s #1 foundation perfect for oily skin.no stickiness, no shine.",
+        "button":"Add to cart",
+        "text":"How it work"
+      },
+      "slide03":{
+        "title":"International Beauty",
+        "description":"Immerse yourself in the world of global beauty with high-quality skincare products from trusted brands.",
+        "button":"Explore Now"
+      }
     },
     "navbar":{
       "Home": "Home",
@@ -14,14 +25,6 @@
       "Order": "Order",
       "Logout": "Logout",
       "Notify": "Notify"
-    },
-    "sidebar": {
-      "dashboard": "Dashboard",
-      "orders": "Orders",
-      "products": "Products",
-      "blogs": "Blogs",
-      "vouchers": "Vouchers",
-      "reviews": "Reviews"
     },
     "sidebar": {
       "dashboard": "Dashboard",
@@ -61,7 +64,8 @@
         "title":"Recommend Products",
         "description":"We provide the best recommendations to help you make informed shopping decisions.",
         "from":"From",
-        "item":"item"
+        "item":"item",
+        "title02": "Best Sellers of the Week"
       },
       "review":{
         "title":"What People Say About Us"

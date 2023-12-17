@@ -8,7 +8,9 @@ const nextConfig = {
 			'cdn-icons-png.flaticon.com',
 			'avatars.githubusercontent.com',
 			'lh3.googleusercontent.com',
-			'encrypted-tbn0.gstatic.com'
+			'encrypted-tbn0.gstatic.com',
+			'api.vietqr.io',
+			'vietqr.net'
 		]
 	},
 	experimental: {

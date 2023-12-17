@@ -1,13 +1,16 @@
 'use client'
 import BaseButton from '@/components/base/BaseButton'
 import ImageItem from '@/components/base/ImageItem'
+import { useStore } from '@/store'
 import { Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import { useRouter } from 'next/navigation'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 const OrderSuccess = () => {
 	const router = useRouter()
+
+	const { UserSlice } = useStore()
 
 	const redirectToHome = () => {
 		router.push('/user/home')
@@ -16,6 +19,12 @@ const OrderSuccess = () => {
 	const redirectToOrders = () => {
 		router.push('/user/order')
 	}
+
+	useEffect(() => {
+		if (!UserSlice.user) {
+			router.push('/user/home')
+		}
+	}, [UserSlice])
 
 	return (
 		<Box

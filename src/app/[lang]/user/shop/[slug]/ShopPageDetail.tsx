@@ -27,6 +27,7 @@ import { useStore } from '@/store'
 import Loading from '@/app/[lang]/loading'
 import { poppins } from '../../../../../../public/font'
 import { useGetBestSellerProductsByShopId } from '../../../../../service/react-query/product.query'
+import { useGetShopByName } from '@/service/react-query/user.query'
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews)
 
@@ -38,23 +39,21 @@ const ShopPageDetail = ({ dictionary, lang }: any) => {
 	const shopId = pathname.split('/')[4] // loreal,"oridinary" ,"bioderma"
 	const shop = listShop.find(item => item.id === shopId)
 	const shopName = shop?.name
-	const idShop = shop?.shopId || ''
 
 	const [listImg, setListImg] = useState<string[]>([])
 	const [activeStep, setActiveStep] = useState(0)
 
 	const [isRefetchFn, setIsRefetchFn] = React.useState(false)
-	const {
-		isLoading: gettingProducts,
-		mutate: getProductByPage,
-		data: dataGetListProduct
-	} = useGetProductByPage()
+
+	const { data: shopInfo } = useGetShopByName({
+		name: shopId || ''
+	})
 
 	const {
 		data: listBestSeller,
 		refetch,
 		isLoading
-	} = useGetBestSellerProductsByShopId(idShop)
+	} = useGetBestSellerProductsByShopId(shopInfo ? shopInfo?.id : '')
 
 	// const
 	const { mutate: collectVoucherFn, isSuccess } = useCollectVoucher()
@@ -62,22 +61,22 @@ const ShopPageDetail = ({ dictionary, lang }: any) => {
 	const { mutate: addToCart } = useAddToCart()
 
 	const { data: listVoucher, refetch: getListVoucher } = useGetListVoucher({
-		shopId: idShop,
+		shopId: shopInfo ? shopInfo.id : '',
 		userId: UserSlice.user?.id
 	})
 
 	useEffect(() => {
 		setListImg(listImgURL.find(item => item.shopId === shopId)?.urls || [])
-		getProductByPage({
-			page: 1,
-			limit: 10,
-			sort: 'createdAt',
-			product_shop: shopName,
-			user_id: UserSlice.user?.id,
-			order: 'DESC'
-		})
 		getListVoucher()
 	}, [pathname])
+
+	useEffect(() => {
+		if (shopInfo) {
+			console.log('shopInfo', shopInfo)
+			refetch()
+			getListVoucher()
+		}
+	}, [shopInfo])
 
 	useEffect(() => {
 		if (isSuccess) {
@@ -96,7 +95,7 @@ const ShopPageDetail = ({ dictionary, lang }: any) => {
 		setActiveStep(step)
 	}
 
-	if (gettingProducts) return <Loading />
+	if (isLoading) return <Loading />
 	return (
 		<Box>
 			{/* Header */}
@@ -183,7 +182,7 @@ const ShopPageDetail = ({ dictionary, lang }: any) => {
 										width: '100%',
 										height: { xs: '300px', md: '500px' },
 										'& img': {
-											objectFit: 'contain'
+											objectFit: 'cover'
 										}
 									}}
 								/>
@@ -325,7 +324,7 @@ const ShopPageDetail = ({ dictionary, lang }: any) => {
 									productName={item.product_name}
 									productType={item.product_category}
 									price={item.product_price.toFixed(2)}
-									shopId={idShop}
+									shopId={shopInfo ? shopInfo?.id : ''}
 									addToCart={addToCart}
 								/>
 							)

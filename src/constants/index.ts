@@ -843,33 +843,31 @@ export const listImgURL = [
 		id: 1,
 		shopId: 'loreal',
 		urls: [
-			'/img/vouchers/loreal/02.png',
-			'/img/vouchers/loreal/01.jpg',
-			'/img/vouchers/loreal/voucher_banner01.webp',
-			'/img/vouchers/loreal/voucher_banner02.webp',
-			'/img/vouchers/loreal/voucher_banner03.webp'
+			'/img/vouchers/loreal/banner03.jpg',
+			'/img/vouchers/loreal/banner02.jpg',
+			'/img/vouchers/loreal/banner04.webp',
+			'/img/vouchers/loreal/banner05.webp'
 		]
 	},
 	{
 		id: 2,
 		shopId: 'ordinary',
 		urls: [
-			// '/img/vouchers/ordinary/01.webp',
-			'/img/vouchers/ordinary/02.png',
-			'/img/vouchers/ordinary/voucher_banner01.webp',
-			'/img/vouchers/ordinary/voucher_banner02.webp',
-			'/img/vouchers/ordinary/voucher_banner03.webp'
+			'/img/vouchers/ordinary/banner05.webp',
+			'/img/vouchers/ordinary/banner04.jpg',
+			'/img/vouchers/ordinary/banner01.jpg',
+			'/img/vouchers/ordinary/banner02.webp',
+			'/img/vouchers/ordinary/banner03.jpeg'
 		]
 	},
 	{
 		id: 3,
 		shopId: 'bioderma',
 		urls: [
-			'/img/vouchers/bioderma/02.webp',
-			'/img/vouchers/bioderma/01.jpg',
-			'/img/vouchers/bioderma/voucher_banner01.webp',
-			'/img/vouchers/bioderma/voucher_banner02.webp',
-			'/img/vouchers/bioderma/voucher_banner03.webp'
+			'/img/vouchers/bioderma/banner.webp',
+			'/img/vouchers/bioderma/banner01.jfif',
+			'/img/vouchers/bioderma/banner02.jpg',
+			'/img/vouchers/bioderma/02.webp'
 		]
 	}
 ]

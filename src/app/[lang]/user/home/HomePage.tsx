@@ -28,6 +28,17 @@ import RecommendProduct from '@/components/home/RecommendProduct'
 import { motion } from 'framer-motion'
 import { ListIntroduce } from '@/components/Header/Introduce'
 
+// import Swiper core and required modules
+import SwiperCore, { Navigation, A11y, EffectFade, Autoplay } from 'swiper'
+
+import { Swiper, SwiperSlide } from 'swiper/react'
+
+// Import Swiper styles
+import 'swiper/components/navigation/navigation.scss'
+import 'swiper/swiper.scss'
+import 'swiper/components/effect-fade/effect-fade.scss'
+import BannerSlide from '@/components/Header/BannerSlide'
+
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews)
 
 const textIntroVariants = {
@@ -39,7 +50,15 @@ const textIntroVariants = {
 }
 
 const textHeaderVariants = {
-	hidden: { opacity: 0, x: -40 },
+	hidden: { opacity: 0, x: -160 },
+	visible: {
+		opacity: 1,
+		x: 0
+	}
+}
+
+const textHeaderVariants02 = {
+	hidden: { opacity: 0, x: 160 },
 	visible: {
 		opacity: 1,
 		x: 0
@@ -98,183 +117,277 @@ export default function Home({
 	return (
 		<Box
 			sx={{
-				pb: { md: '180px' }
+				pb: { md: '180px' },
+				overflow: 'hidden'
 			}}
 		>
 			{/* Header */}
-			<Box
-				sx={{
-					width: { md: '100%' },
-					height: { xs: '50vh', md: '80vh', xl: '100vh' },
-					background: 'linear-gradient(176deg, #FFF 0%, #F1F1F1 100%)',
-					position: 'relative',
-					overflow: 'hidden'
-				}}
+			<Swiper
+				spaceBetween={50}
+				slidesPerView={1}
+				// autoplay={{
+				// 	delay: 5000,
+				// 	disableOnInteraction: false
+				// }}
+				navigation={false}
 			>
-				<Box
-					sx={{
-						position: 'absolute',
-						top: { xs: '0', sm: '0', lg: '-36%', xl: '-58%' },
-						right: { xs: '0', md: '-20%', lg: '-24%', xl: '-29%' },
-						width: {
-							xs: '200px',
-							sm: '400px',
-							md: '520px',
-							lg: '860px',
-							xl: '1400px'
-						},
-						height: {
-							xs: '200px',
-							sm: '400px',
-							md: '520px',
-							lg: '860px',
-							xl: '1359px'
-						},
-						borderRadius: '50%',
-						border: ' 1px solid rgba(110, 157, 72, 0.80)',
-						background: '#A0BE88 '
-					}}
-				>
-					<ImageItem
-						imgSrc='/img/leaf.png'
-						priority={true}
-						style={{
-							position: 'absolute',
-							top: { sm: '50%', md: '82%', lg: '50%' },
-							left: { sm: '-30%', md: '10%', lg: '-6%' },
-							transform: 'translate(-50%, -50%)',
-							width: { sm: '200px', lg: '400px' },
-							height: { sm: '200px', lg: '386px' }
-						}}
-					/>
-					<ImageItem
-						imgSrc='/img/leaf.png'
-						priority={true}
-						style={{
-							position: 'absolute',
-							top: '60%',
-							left: '37%',
-							transform: 'rotate(45deg)',
-							width: { lg: '216px' },
-							height: { lg: '206px' }
-						}}
-					/>
-
-					<ImageItem
-						imgSrc='/img/shadow.png'
-						style={{
-							position: 'absolute',
-							bottom: { md: '-20%', lg: '-14%', xl: '-10%' },
-							right: { md: '-70%', lg: '2%', xl: ' 30%' },
-							width: { md: '920px' },
-							height: { md: '110px' },
-							'& img': {
-								objectFit: 'fill'
-							}
-						}}
-					/>
-				</Box>
-
-				<motion.div
-					variants={textHeaderVariants}
-					initial='hidden'
-					whileInView='visible'
-					transition={{ type: 'spring' }}
-				>
+				<SwiperSlide>
 					<Box
 						sx={{
-							height: { md: '100%' },
-							margin: {
-								xs: '12px',
-								sm: '12px 24px',
-								md: ' 0 24px',
-								lg: '0 64px',
-								xl: '0 120px'
-							},
-							maxWidth: { sm: '520px', md: '620px' },
+							width: { md: '100%' },
+							height: { xs: '50vh', md: '80vh', xl: '100vh' },
+							background: 'linear-gradient(176deg, #FFF 0%, #F1F1F1 100%)',
 							position: 'relative',
-							top: 0,
-							transform: { xs: 'translateY(80%)', sm: 'translateY(50%)' }
+							overflow: 'hidden'
 						}}
 					>
 						<Box
 							sx={{
 								position: 'absolute',
-								top: '16%',
-								right: '-20px',
-								width: { lg: '40px', xl: '90px' },
-								height: { lg: '40px', xl: '90px' },
+								top: { xs: '0', sm: '0', lg: '-36%', xl: '-58%' },
+								right: { xs: '0', md: '-20%', lg: '-24%', xl: '-29%' },
+								width: {
+									xs: '200px',
+									sm: '400px',
+									md: '520px',
+									lg: '860px',
+									xl: '1400px'
+								},
+								height: {
+									xs: '200px',
+									sm: '400px',
+									md: '520px',
+									lg: '860px',
+									xl: '1359px'
+								},
 								borderRadius: '50%',
-								background:
-									'linear-gradient(180deg, rgba(82, 115, 61, 0.80) 25%, rgba(200, 210, 172, 0.00) 100%)',
-								backdropFilter: 'blur(20px)',
-								zIndex: '-1'
-							}}
-						/>
-						<Typography
-							className={ibarra.className}
-							variant='h1'
-							sx={{
-								color: '#121212',
-								fontSize: { xs: '26px', sm: '36px', md: '48px', lg: '64px' },
-								fontWeight: 700,
-								lineHeight: '121.5%' /* 77.76px */
-								// fontFamily: 'Ibarra Real Nova'
+								border: ' 1px solid rgba(110, 157, 72, 0.80)',
+								background: '#A0BE88 '
 							}}
 						>
-							{dictionary['header'].title}
-						</Typography>
-						<Typography
-							className={hindMadurai.className}
-							variant='h2'
-							sx={{
-								color: '#3E3E3E',
-								fontSize: { xs: '14px', sm: '16px', md: '18px' },
-								fontWeight: 400,
-								lineHeight: '180%',
-								padding: { xs: '12px 0', md: '45px 0' }
-							}}
-						>
-							{dictionary['header'].description}
-						</Typography>
-						<Box>
-							<BaseButton
-								bgStyle='gradient'
-								label={dictionary['header'].button}
-								variant='contained'
-								type='button'
-								styleSx={{
-									padding: { md: '16px 40px' },
-									borderRadius: { md: '50px' },
-									color: '#fff',
-									background:
-										'linear-gradient(146deg, #315316 0%, #72A748 100%)',
-									fontStyle: 'capitalize',
-									mr: { xs: '12px', md: '20px' }
+							<ImageItem
+								imgSrc='/img/leaf.png'
+								priority={true}
+								style={{
+									position: 'absolute',
+									top: { sm: '50%', md: '82%', lg: '50%' },
+									left: { sm: '-30%', md: '10%', lg: '-6%' },
+									transform: 'translate(-50%, -50%)',
+									width: { sm: '200px', lg: '400px' },
+									height: { sm: '200px', lg: '386px' }
 								}}
-								onClick={() => route.push(`/${UserSlice.lang}/user/product`)}
+							/>
+							<ImageItem
+								imgSrc='/img/leaf.png'
+								priority={true}
+								style={{
+									position: 'absolute',
+									top: '60%',
+									left: '37%',
+									transform: 'rotate(45deg)',
+									width: { lg: '216px' },
+									height: { lg: '206px' }
+								}}
 							/>
 
-							<BaseButton
-								bgStyle='gradient'
-								label={dictionary['header'].button02}
-								variant='outlined'
-								type='button'
-								styleSx={{
-									padding: { md: '16px 40px' },
-									borderRadius: { md: '50px' },
-									color: '#000',
-									border: '1px solid #72A748',
-									'&:hover': {
-										border: '1px solid #315316',
-										background: 'transparent'
+							<ImageItem
+								imgSrc='/img/shadow.png'
+								style={{
+									position: 'absolute',
+									bottom: { md: '-20%', lg: '-14%', xl: '-10%' },
+									right: { md: '-70%', lg: '2%', xl: ' 30%' },
+									width: { md: '920px' },
+									height: { md: '110px' },
+									'& img': {
+										objectFit: 'fill'
 									}
 								}}
 							/>
 						</Box>
+
+						<motion.div
+							variants={textHeaderVariants}
+							initial='hidden'
+							whileInView='visible'
+							transition={{ type: 'spring' }}
+						>
+							<Box
+								sx={{
+									height: { md: '100%' },
+									margin: {
+										xs: '12px',
+										sm: '12px 24px',
+										md: ' 0 24px',
+										lg: '0 64px',
+										xl: '0 120px'
+									},
+									maxWidth: { sm: '520px', md: '620px' },
+									position: 'relative',
+									top: 0,
+									transform: { xs: 'translateY(80%)', sm: 'translateY(50%)' }
+								}}
+							>
+								<Box
+									sx={{
+										position: 'absolute',
+										top: '16%',
+										right: '-20px',
+										width: { lg: '40px', xl: '90px' },
+										height: { lg: '40px', xl: '90px' },
+										borderRadius: '50%',
+										background:
+											'linear-gradient(180deg, rgba(82, 115, 61, 0.80) 25%, rgba(200, 210, 172, 0.00) 100%)',
+										backdropFilter: 'blur(20px)',
+										zIndex: '-1'
+									}}
+								/>
+								<Typography
+									className={ibarra.className}
+									variant='h1'
+									sx={{
+										color: '#121212',
+										fontSize: {
+											xs: '26px',
+											sm: '36px',
+											md: '48px',
+											lg: '64px'
+										},
+										fontWeight: 700,
+										lineHeight: '121.5%' /* 77.76px */
+										// fontFamily: 'Ibarra Real Nova'
+									}}
+								>
+									{dictionary['header'].title}
+								</Typography>
+								<Typography
+									className={hindMadurai.className}
+									variant='h2'
+									sx={{
+										color: '#3E3E3E',
+										fontSize: { xs: '14px', sm: '16px', md: '18px' },
+										fontWeight: 400,
+										lineHeight: '180%',
+										padding: { xs: '12px 0', md: '45px 0' }
+									}}
+								>
+									{dictionary['header'].description}
+								</Typography>
+								<Box>
+									<BaseButton
+										bgStyle='gradient'
+										label={dictionary['header'].button}
+										variant='contained'
+										type='button'
+										styleSx={{
+											padding: { md: '16px 40px' },
+											borderRadius: { md: '50px' },
+											color: '#fff',
+											background:
+												'linear-gradient(146deg, #315316 0%, #72A748 100%)',
+											fontStyle: 'capitalize',
+											mr: { xs: '12px', md: '20px' }
+										}}
+										onClick={() =>
+											route.push(`/${UserSlice.lang}/user/product`)
+										}
+									/>
+
+									<BaseButton
+										bgStyle='gradient'
+										label={dictionary['header'].button02}
+										variant='outlined'
+										type='button'
+										styleSx={{
+											padding: { md: '16px 40px' },
+											borderRadius: { md: '50px' },
+											color: '#000',
+											border: '1px solid #72A748',
+											'&:hover': {
+												border: '1px solid #315316',
+												background: 'transparent'
+											}
+										}}
+									/>
+								</Box>
+							</Box>
+						</motion.div>
 					</Box>
-				</motion.div>
-			</Box>
+				</SwiperSlide>
+				<SwiperSlide>
+					<BannerSlide dictionary={dictionary} />
+				</SwiperSlide>
+				<SwiperSlide>
+					<Box
+						sx={{
+							width: { md: '100%' },
+							height: { xs: '50vh', md: '80vh', xl: '100vh' },
+							position: 'relative',
+							overflow: 'hidden',
+							backgroundImage: 'url(/img/Home.png)',
+							backgroundSize: 'cover',
+							backgroundPosition: 'center',
+							backgroundRepeat: 'no-repeat',
+							display: 'flex',
+							flexDirection: 'column',
+							justifyContent: 'center',
+							paddingRight: { md: '0', lg: '52px' }
+						}}
+					>
+						<motion.div
+							variants={textHeaderVariants02}
+							initial='hidden'
+							whileInView='visible'
+							transition={{ type: 'spring' }}
+							style={{
+								textAlign: 'right'
+							}}
+						>
+							<Typography
+								className={ibarra.className}
+								variant='h1'
+								sx={{
+									color: '#fff',
+									fontSize: { xs: '26px', sm: '36px', md: '48px', lg: '64px' },
+									fontWeight: 700,
+									marginBottom: '12px'
+								}}
+							>
+								{dictionary['header']['slide03'].title}
+							</Typography>
+							<Typography
+								className={hindMadurai.className}
+								variant='h4'
+								sx={{
+									color: '#fff',
+									fontSize: { xs: '14px', sm: '16px', md: '18px' },
+									fontWeight: 400,
+									marginBottom: { xs: '24px', md: '52px' },
+									maxWidth: { xs: '100%', md: '900px' },
+									marginLeft: 'auto'
+								}}
+							>
+								{dictionary['header']['slide03'].description}
+							</Typography>
+							<BaseButton
+								onClick={() => route.push(`/${UserSlice.lang}/user/product`)}
+								className={ibarra.className}
+								variant='outlined'
+								label={dictionary['header']['slide03'].button}
+								styleSx={{
+									color: '#fff',
+									border: '1px solid #fff',
+									padding: { md: '16px 40px' },
+
+									'&:hover': {
+										border: '1px solid #fff',
+										background: 'transparent'
+									}
+								}}
+							/>
+						</motion.div>
+					</Box>
+				</SwiperSlide>
+			</Swiper>
 			{/* Introduce */}
 			<Box
 				id='introduce'
@@ -287,15 +400,38 @@ export default function Home({
 						xl: 'var(--max-width-xl)'
 					},
 					margin: { xs: '0 12px', sm: '0 auto' },
+					position: 'relative',
 					px: { sm: '24px' },
 					display: 'flex',
 					justifyContent: 'center',
 					alignItems: 'center',
 					pt: { sm: '62px', md: '80px', lg: '136px' },
-					flexDirection: { xs: 'column', lg: 'row' },
-					overflow: 'hidden'
+					flexDirection: { xs: 'column', lg: 'row' }
+					// overflow: 'hidden'
 				}}
 			>
+				<ImageItem
+					imgSrc='/img/decore_01.png'
+					style={{
+						position: 'absolute',
+						right: '-16%',
+						top: 0,
+						width: '126px',
+						height: '360px'
+					}}
+				/>
+
+				<ImageItem
+					imgSrc='/img/decore_02.png'
+					style={{
+						position: 'absolute',
+						left: '-16%',
+						bottom: '-6%',
+						width: '90px',
+						height: '260px'
+					}}
+				/>
+
 				<ListIntroduce dictionary={dictionary} />
 
 				<Box

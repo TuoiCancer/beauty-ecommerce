@@ -128,7 +128,7 @@ const RecommendProduct = ({
 							lineHeight: '125.5%'
 						}}
 					>
-						Best Sellers of the Week
+						{dictionary['Home']['topproduct'].title02}
 					</Typography>
 				)}
 
@@ -151,10 +151,10 @@ const RecommendProduct = ({
 			<Swiper
 				spaceBetween={50}
 				slidesPerView={1}
-				autoplay={{
-					delay: 5000,
-					disableOnInteraction: false
-				}}
+				// autoplay={{
+				// 	delay: 5000,
+				// 	disableOnInteraction: false
+				// }}
 				navigation
 			>
 				{listTopProduct &&

@@ -7,13 +7,15 @@ const IntroItem = ({
 	label,
 	description,
 	index,
-	dictionary
+	dictionary,
+	style
 }: {
 	title: string
 	label: string
 	description: string
 	index: number
 	dictionary: any
+	style?: any
 }) => {
 	return (
 		<Box
@@ -24,10 +26,12 @@ const IntroItem = ({
 				display: 'flex',
 				flexDirection: 'column',
 				alignItems: 'flex-start',
-				margin: { xs: '12px 0', md: '0 30px 30px 0' }
+				margin: { xs: '12px 0', md: '0 30px 30px 0' },
+				...style
 			}}
 		>
 			<Typography
+				id='title'
 				className={ibarra.className}
 				sx={{
 					color: '#315316',
@@ -39,6 +43,7 @@ const IntroItem = ({
 				{title}
 			</Typography>
 			<Typography
+				id='label01'
 				className={hindMadurai.className}
 				sx={{
 					color: '#121212',
@@ -51,6 +56,7 @@ const IntroItem = ({
 				{dictionary['Home']['introduce'][`box${index + 1}`].label}
 			</Typography>
 			<Typography
+				id='label02'
 				className={hindMadurai.className}
 				sx={{
 					color: '#3E3E3E',

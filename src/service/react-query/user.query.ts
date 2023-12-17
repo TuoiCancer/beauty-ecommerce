@@ -1,5 +1,5 @@
 import { IStore, updateStore } from '@/store'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { ApiService } from '../api/ApiClient'
 
 interface ResponseI {
@@ -198,6 +198,29 @@ export const useUpdateUserInfo = () => {
 						(state.UserSlice.successMess = 'Update information successfully')
 				})
 			},
+			onError: (error: any) => {
+				updateStore((state: IStore) => {
+					state.UserSlice.isError = true
+					state.UserSlice.errorMess = error.response.data.message
+				})
+			}
+		}
+	)
+}
+
+export const useGetShopByName = (payload: { name: string }) => {
+	const getShopByNameService = ApiService.createInstance()
+	return useQuery(
+		['getShopByName', payload],
+		() => {
+			return getShopByNameService.getShopByName({
+				queryParams: {
+					name: payload.name
+				}
+			})
+		},
+		{
+			onSuccess: (data: any) => {},
 			onError: (error: any) => {
 				updateStore((state: IStore) => {
 					state.UserSlice.isError = true

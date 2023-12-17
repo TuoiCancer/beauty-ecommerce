@@ -92,6 +92,29 @@ export const ListIntroduce = ({ dictionary }: any) => {
 								description={introItem.description}
 								index={index}
 								dictionary={dictionary}
+								style={{
+									background: index === 0 ? '#376016' : '',
+									position: 'relative',
+									'& #title': {
+										color: index === 0 ? '#91E050' : '315316'
+									},
+									'& #label01': {
+										color: index === 0 ? '#fff' : '#000'
+									},
+									'& #label02': {
+										color: index === 0 ? '#fff' : '#000'
+									},
+									'&::before': {
+										position: 'absolute',
+										content: '""',
+										top: '-10px',
+										left: '10px',
+										width: '100%',
+										height: '100%',
+										border: '1px solid #74C92F',
+										borderColor: index === 0 ? '#74C92F' : '#fff'
+									}
+								}}
 							/>
 						</motion.li>
 					)

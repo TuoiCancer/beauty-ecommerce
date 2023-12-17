@@ -99,7 +99,7 @@ const ProductItem = ({
 					<Box
 						sx={{
 							width: '100%',
-							height: { xs: '200px', md: '320px' },
+							height: { xs: '200px', lg: '320px' },
 							position: 'relative',
 							overflow: 'hidden'
 						}}
@@ -156,17 +156,20 @@ const ProductItem = ({
 								}}
 							>
 								<Options
-									iconSrc='/img/Cart_000.png'
+									gifSrc='/icon/shopping-cart.gif'
+									iconSrc='/icon/shopping-cart.png'
 									onClick={handleAddToCart}
 								/>
 								<Options
-									iconSrc='/img/Heart.png'
+									gifSrc='/icon/heart.gif'
+									iconSrc='/icon/heart.png'
 									onClick={(e: any) => {
 										e.preventDefault()
 									}}
 								/>
 								<Options
-									iconSrc='/img/Eye.png'
+									gifSrc='/icon/view.gif'
+									iconSrc='/icon/view.png'
 									onClick={(e: any) => {
 										e.preventDefault()
 										router.push(`/user/product/${productId}`)

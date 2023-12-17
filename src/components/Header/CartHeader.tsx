@@ -187,7 +187,7 @@ const CartHeader = ({
 					>
 						<Box
 							sx={{
-								backgroundColor: '#9E5F00',
+								backgroundColor: '#EB5B5B',
 								width: { xs: '24px', md: '28px' },
 								height: { xs: '24px', md: '28px' },
 								borderRadius: '50%',
