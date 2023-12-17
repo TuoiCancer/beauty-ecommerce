@@ -1,5 +1,6 @@
 import { listCard } from '@/constants'
 import { useStore } from '@/store'
+import { BankInterface } from '@/utils/bank.interface'
 import {
 	Box,
 	FormControlLabel,
@@ -13,7 +14,10 @@ import {
 	FormControl
 } from '@mui/material'
 import Button from '@mui/material/Button'
+import { useQuery } from '@tanstack/react-query'
+import axios from 'axios'
 import React from 'react'
+import ImageItem from '../base/ImageItem'
 
 const PaymentDetails = ({
 	activeStep,
@@ -26,6 +30,21 @@ const PaymentDetails = ({
 	const handleNext = () => {
 		setActiveStep((prevActiveStep: number) => prevActiveStep + 1)
 	}
+
+	const { data: listBank, isLoading: isGetting } = useQuery({
+		queryKey: ['get list bank'],
+		queryFn: () =>
+			axios
+				.get(
+					'https://api.vietqr.io/v2/banks?utm_source=j2team&utm_medium=url_shortener&utm_campaign=bank-list-api'
+				)
+				.then(response => {
+					return response.data.data
+				})
+	})
+
+	console.log('listBank', listBank)
+
 	return (
 		<Box>
 			<Box
@@ -44,7 +63,7 @@ const PaymentDetails = ({
 								}
 							}
 						}}
-						value={UserSlice.paymentInfor.paymentMethod}
+						value={UserSlice?.paymentInfor?.paymentMethod}
 						onChange={e => {
 							UserSlice.setPaymentInfor((prev: any) => {
 								return {
@@ -120,7 +139,9 @@ const PaymentDetails = ({
 												mr: { xs: '24px', md: '56px' },
 												flex: 1
 											}}
-											value={UserSlice.paymentInfor.paymentData.cardName || ''}
+											value={
+												UserSlice?.paymentInfor?.paymentData?.cardName || ''
+											}
 											placeholder='Card type *'
 											onChange={e => {
 												UserSlice.setPaymentInfor((prev: any) => {
@@ -128,16 +149,33 @@ const PaymentDetails = ({
 														...prev,
 														paymentData: {
 															cardName: e.target.value,
-															cardNumber: prev.paymentData.cardNumber
+															cardNumber: prev?.paymentData?.cardNumber
 														}
 													}
 												})
 											}}
 										>
-											{listCard.map((item, index) => {
+											{listBank?.map((item: BankInterface, index: number) => {
 												return (
-													<MenuItem key={item.id} value={item.value}>
-														{item.name}
+													<MenuItem
+														key={item.id}
+														value={item.shortName}
+														sx={{
+															display: 'flex',
+															justifyContent: 'space-between',
+															alignItems: 'center'
+															// top: '47%'
+														}}
+													>
+														<Typography>{item.shortName}</Typography>
+														<ImageItem
+															imgSrc={item.logo}
+															style={{
+																width: '100px',
+																height: '50px',
+																marginLeft: '10px'
+															}}
+														/>
 													</MenuItem>
 												)
 											})}
@@ -148,7 +186,7 @@ const PaymentDetails = ({
 												flex: 1
 											}}
 											placeholder={dictionary.Cart.cardnum}
-											value={UserSlice.paymentInfor.paymentData.cardNumber}
+											value={UserSlice?.paymentInfor?.paymentData?.cardNumber}
 											onChange={e => {
 												UserSlice.setPaymentInfor((prev: any) => {
 													return {

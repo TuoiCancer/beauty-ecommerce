@@ -91,7 +91,7 @@ const TopProductItem = ({
 							imgSrc={item.product_thumbnail}
 							style={{
 								width: { xs: '100%', md: '300px' },
-								height: { xs: '260px', md: '200px', lg: '268px' },
+								height: { xs: '140px', md: '160px', lg: '120px' },
 								'& img': {
 									objectFit: 'contain !important'
 								}

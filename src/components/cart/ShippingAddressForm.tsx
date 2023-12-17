@@ -123,7 +123,7 @@ const ShippingAddressForm = ({
 						fontSize: '16px',
 						fontWeight: 300,
 						fontFamily: 'Roboto',
-						mb: { xs: '12px', md: '36px' },
+						mb: { xs: '12px', md: '16px' },
 						width: '100%',
 						flex: 1,
 						padding: { md: '16px 24px' }
@@ -210,7 +210,7 @@ const ShippingAddressForm = ({
 							fontSize: '16px',
 							fontWeight: 300,
 							fontFamily: 'Roboto',
-							mb: { md: '36px' }
+							mb: { md: '16px' }
 						}
 					}}
 				>
@@ -277,7 +277,7 @@ const ShippingAddressForm = ({
 						fontSize: '16px',
 						fontWeight: 300,
 						fontFamily: 'Roboto',
-						mb: { md: '36px' }
+						mb: { md: '16px' }
 					}}
 					label='State/Provine/Region *'
 					value={UserSlice?.shippingInfor?.ward || ''}

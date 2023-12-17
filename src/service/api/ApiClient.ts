@@ -266,7 +266,9 @@ export class ApiService {
 		path: 'v1/orders/update',
 		method: 'PATCH',
 		headers: {
-			'Content-Type': 'application/json'
+			'Content-Type': 'application/json',
+			'X-Client-Id': this.getXClientId(),
+			Authorization: this.getAccessToken()
 		}
 	})
 
@@ -361,6 +363,14 @@ export class ApiService {
 	sendEmailByNodeMailer = configApi({
 		path: 'send',
 		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
+
+	getShopByName = configApi({
+		path: 'v1/users/shop',
+		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json'
 		}
