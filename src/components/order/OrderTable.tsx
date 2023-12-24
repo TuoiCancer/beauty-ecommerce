@@ -44,7 +44,8 @@ export default function OrderTable({
 								fontSize: '14px',
 								fontFamily: 'Montserrat',
 								fontWeight: '600',
-								padding: '26px 6px'
+								padding: '26px 6px',
+								whiteSpace: 'nowrap'
 							}
 						}}
 					>

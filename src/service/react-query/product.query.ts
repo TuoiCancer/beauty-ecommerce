@@ -146,7 +146,6 @@ export const useGetBestSellerProduct = () => {
 }
 
 export const useGetBestSellerProductsByShopId = (shopId: string) => {
-	console.log('shopId', shopId)
 	const getBestSellerProductService = ApiService.createInstance()
 	return useQuery(['Get best seller product by shop id', shopId], () => {
 		return getBestSellerProductService.getBestSellerProductsByShopId({

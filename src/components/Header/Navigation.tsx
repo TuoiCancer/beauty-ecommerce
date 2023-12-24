@@ -11,14 +11,16 @@ const variants = {
 			staggerChildren: 0.07,
 			delayChildren: 0.2
 		},
-		opacity: 1
+		opacity: 1,
+		display: 'block'
 	},
 	closed: {
 		transition: {
 			staggerChildren: 0.05,
 			staggerDirection: -1
 		},
-		opacity: 0
+		opacity: 0,
+		display: 'none'
 	}
 }
 const itemIds = [0, 1, 2, 3, 4]
@@ -34,6 +36,7 @@ export const Navigation = ({
 }: any) => (
 	<Box
 		sx={{
+			backgroundColor: 'red',
 			'& ul': {
 				position: 'absolute',
 				top: '100%',

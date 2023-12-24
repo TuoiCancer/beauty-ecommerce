@@ -327,9 +327,10 @@ const ProductDetail = ({ dictionary, lang }: any) => {
 								}}
 							>
 								{formatCurrency(
-									productData?.product_price > 800000
-										? productData?.product_price + 300000
-										: productData?.product_price + priceSale
+									productData?.product_original_price
+									// productData?.product_price > 800000
+									// 	? productData?.product_price + 300000
+									// 	: productData?.product_price + priceSale
 								)}
 							</Typography>
 							<Typography
@@ -342,15 +343,23 @@ const ProductDetail = ({ dictionary, lang }: any) => {
 									margin: { xs: '0 12px', md: '0 24px' }
 								}}
 							>
-								{(
-									(productData?.product_price > 800000
-										? 300000 /
-										  (productData?.product_price + 300000 ||
-												productData?.product_price * 2)
-										: priceSale /
-										  (productData?.product_price + priceSale ||
-												productData?.product_price * 2)) * 100
-								).toFixed(1)}
+								{
+									(
+										(1 -
+											productData?.product_price /
+												productData?.product_original_price) *
+										100
+									).toFixed(2)
+									// 	(
+									// 	(productData?.product_price > 800000
+									// 		? 300000 /
+									// 		  (productData?.product_price + 300000 ||
+									// 				productData?.product_price * 2)
+									// 		: priceSale /
+									// 		  (productData?.product_price + priceSale ||
+									// 				productData?.product_price * 2)) * 100
+									// ).toFixed(1)
+								}
 								%
 							</Typography>
 							<Typography

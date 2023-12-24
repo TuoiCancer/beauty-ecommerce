@@ -60,7 +60,11 @@ const ShopPageDetail = ({ dictionary, lang }: any) => {
 
 	const { mutate: addToCart } = useAddToCart()
 
-	const { data: listVoucher, refetch: getListVoucher } = useGetListVoucher({
+	const {
+		data: listVoucher,
+		refetch: getListVoucher,
+		isLoading: isGettingVouchers
+	} = useGetListVoucher({
 		shopId: shopInfo ? shopInfo.id : '',
 		userId: UserSlice.user?.id
 	})
@@ -95,7 +99,7 @@ const ShopPageDetail = ({ dictionary, lang }: any) => {
 		setActiveStep(step)
 	}
 
-	if (isLoading) return <Loading />
+	if (isLoading || isGettingVouchers) return <Loading />
 	return (
 		<Box>
 			{/* Header */}

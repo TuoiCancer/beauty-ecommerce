@@ -43,8 +43,6 @@ const PaymentDetails = ({
 				})
 	})
 
-	console.log('listBank', listBank)
-
 	return (
 		<Box>
 			<Box

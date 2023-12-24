@@ -372,7 +372,7 @@ const CartPage = ({ dictionary }: any) => {
 								<CartItem
 									key={index}
 									shopName={key}
-									link={`${UserSlice.lang}${shop?.link}` || ''}
+									link={`/${UserSlice.lang}${shop?.link}` || ''}
 									products={cartDetail.cart_products[key].products}
 									cartDetail={cartDetail}
 									updateFn={updateCartUser}

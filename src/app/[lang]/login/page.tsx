@@ -52,7 +52,6 @@ const LoginPage = () => {
 			// return <p>Loading...</p>
 		}
 		if (status === 'authenticated') {
-			console.log('authenticated', session)
 			LoginFunc({
 				email: session.user?.email || '',
 				password: '1111',

@@ -144,7 +144,7 @@ export default function Home({
 						<Box
 							sx={{
 								position: 'absolute',
-								top: { xs: '0', sm: '0', lg: '-36%', xl: '-58%' },
+								top: { xs: '45px', sm: '0', lg: '-36%', xl: '-58%' },
 								right: { xs: '0', md: '-20%', lg: '-24%', xl: '-29%' },
 								width: {
 									xs: '200px',
@@ -223,7 +223,7 @@ export default function Home({
 									},
 									maxWidth: { sm: '520px', md: '620px' },
 									position: 'relative',
-									top: 0,
+									top: { xs: '32px', md: 0 },
 									transform: { xs: 'translateY(80%)', sm: 'translateY(50%)' }
 								}}
 							>
@@ -330,7 +330,7 @@ export default function Home({
 							display: 'flex',
 							flexDirection: 'column',
 							justifyContent: 'center',
-							paddingRight: { md: '0', lg: '52px' }
+							paddingRight: { xs: '10px', md: '12px', lg: '52px' }
 						}}
 					>
 						<motion.div
@@ -376,8 +376,9 @@ export default function Home({
 								styleSx={{
 									color: '#fff',
 									border: '1px solid #fff',
-									padding: { md: '16px 40px' },
-
+									padding: { xs: '8px 12px', md: '16px 40px' },
+									fontSize: { xs: '14px', sm: '16px', md: '18px' },
+									textTransform: 'capitalize',
 									'&:hover': {
 										border: '1px solid #fff',
 										background: 'transparent'
@@ -414,8 +415,8 @@ export default function Home({
 					imgSrc='/img/decore_01.png'
 					style={{
 						position: 'absolute',
-						right: '-16%',
-						top: 0,
+						right: { xs: '-16%', sm: '-10%', md: '-5%', lg: '-16%' },
+						top: { xs: 0 },
 						width: '126px',
 						height: '360px'
 					}}
@@ -425,10 +426,11 @@ export default function Home({
 					imgSrc='/img/decore_02.png'
 					style={{
 						position: 'absolute',
-						left: '-16%',
-						bottom: '-6%',
+						left: { xs: '-16%', sm: '-10%', md: '-8%', lg: '-15%' },
+						bottom: { xs: '-6%', sm: 0 },
 						width: '90px',
-						height: '260px'
+						height: '260px',
+						zIndex: -1
 					}}
 				/>
 

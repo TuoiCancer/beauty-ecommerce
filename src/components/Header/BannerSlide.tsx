@@ -42,7 +42,9 @@ const BannerSlide = ({ dictionary }: any) => {
 				display: 'flex',
 				alignItems: 'center',
 				position: 'relative',
-				padding: '0 260px'
+				padding: { xs: '32px 10px 0 10px', lg: '0 100px', xl: '0 260px' },
+				flexDirection: { xs: 'column', md: 'row' },
+				justifyContent: { xs: 'flex-end', md: 'center' }
 			}}
 		>
 			<ImageItem
@@ -69,7 +71,13 @@ const BannerSlide = ({ dictionary }: any) => {
 							variant='h1'
 							className={ibarra.className}
 							sx={{
-								fontSize: { xs: '40px', md: '92px' },
+								fontSize: {
+									xs: '26px',
+									sm: '36px',
+									md: '52px',
+									lg: '84px',
+									xl: '92px'
+								},
 								fontWeight: 'bold',
 								color: ' #171717',
 								marginBottom: '18px'
@@ -82,9 +90,9 @@ const BannerSlide = ({ dictionary }: any) => {
 							sx={{
 								fontFamily: 'Poppins',
 								color: '#797979',
-								fontSize: '20px',
+								fontSize: { xs: '14px', sm: '16px', md: '20px' },
 								fontWeight: '400',
-								marginBottom: '48px',
+								marginBottom: { xs: '20px', sm: '8px', md: '48px' },
 								maxWidth: '500px'
 							}}
 						>
@@ -101,9 +109,9 @@ const BannerSlide = ({ dictionary }: any) => {
 							variant='contained'
 							label={dictionary['header']['slide02'].button}
 							styleSx={{
-								padding: '12px 36px',
-								fontSize: '18px',
-								borderRadius: '8px',
+								padding: { xs: '8px 12px', md: '12px 24px', lg: '12px 36px' },
+								fontSize: { xs: '12px', md: '18px' },
+								borderRadius: '12px',
 								background: '#78B25D',
 								color: '#fff',
 								textTransform: 'none',
@@ -115,7 +123,7 @@ const BannerSlide = ({ dictionary }: any) => {
 						/>
 						<Box
 							sx={{
-								display: 'flex',
+								display: { xs: 'none', md: 'flex' },
 								alignItems: 'center',
 								marginLeft: '26px'
 							}}
@@ -160,8 +168,8 @@ const BannerSlide = ({ dictionary }: any) => {
 					<ImageItem
 						imgSrc='/img/home03.png'
 						style={{
-							width: '485px',
-							height: '657px',
+							width: { xs: '120px', sm: '150px', md: '300px', xl: '485px' },
+							height: { xs: '160px', sm: '200px', md: '400px', xl: '657px' },
 							objectFit: 'cover'
 						}}
 					/>
@@ -174,7 +182,7 @@ const BannerSlide = ({ dictionary }: any) => {
 				>
 					<Box
 						sx={{
-							display: 'flex',
+							display: { xs: 'none', xl: 'flex' },
 							width: '244px',
 							height: '346px',
 							paddingLeft: '20px',

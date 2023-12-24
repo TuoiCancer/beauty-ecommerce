@@ -96,7 +96,7 @@ export const ListIntroduce = ({ dictionary }: any) => {
 									background: index === 0 ? '#376016' : '',
 									position: 'relative',
 									'& #title': {
-										color: index === 0 ? '#91E050' : '315316'
+										color: index === 0 ? '#fff' : '#315316'
 									},
 									'& #label01': {
 										color: index === 0 ? '#fff' : '#000'

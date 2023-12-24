@@ -19,7 +19,7 @@ const DialogFlow = () => {
 			intent='welcome'
 			chat-title='Glow&Grace Support'
 			agent-id='99261190-f4c4-441b-a88e-b83ec0b0427a'
-			language-code='vn'
+			language-code='en'
 		></df-messenger>
 	)
 }
