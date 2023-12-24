@@ -62,7 +62,6 @@ export const useLogin = () => {
 
 	return useMutation(
 		(payload: loginTypes) => {
-			console.log('payload', payload)
 			return loginRequestService.login({
 				data: payload
 			})

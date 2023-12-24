@@ -210,7 +210,7 @@ const ShippingAddressForm = ({
 							fontSize: '16px',
 							fontWeight: 300,
 							fontFamily: 'Roboto',
-							mb: { md: '16px' }
+							mb: { xs: '12px', md: '16px' }
 						}
 					}}
 				>
@@ -277,7 +277,7 @@ const ShippingAddressForm = ({
 						fontSize: '16px',
 						fontWeight: 300,
 						fontFamily: 'Roboto',
-						mb: { md: '16px' }
+						mb: { xs: '12px', md: '16px' }
 					}}
 					label='State/Provine/Region *'
 					value={UserSlice?.shippingInfor?.ward || ''}

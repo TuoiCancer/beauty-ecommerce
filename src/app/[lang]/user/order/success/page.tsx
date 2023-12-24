@@ -57,7 +57,8 @@ const OrderSuccess = () => {
 				sx={{
 					fontSize: '48px',
 					fontWeight: 700,
-					my: '12px'
+					my: '12px',
+					textAlign: 'center'
 				}}
 			>
 				Thank you for your order!

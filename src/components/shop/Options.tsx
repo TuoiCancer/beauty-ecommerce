@@ -18,8 +18,8 @@ const Options = ({
 			sx={{
 				backgroundColor: '#fff',
 				borderRadius: '50%',
-				width: { xs: '32px', md: '46px' },
-				height: { xs: '32px', md: '46px' },
+				width: { xs: '38px', md: '46px' },
+				height: { xs: '38px', md: '46px' },
 				display: 'flex',
 				alignItems: 'center',
 				justifyContent: 'center',
@@ -45,16 +45,16 @@ const Options = ({
 				idBox='img-option'
 				imgSrc={iconSrc}
 				style={{
-					width: { xs: '16px', lg: '18px', xl: '25px' },
-					height: { xs: '16px', lg: '18px', xl: '23px' }
+					width: { xs: '18px', xl: '25px' },
+					height: { xs: '18px', xl: '23px' }
 				}}
 			/>
 			<ImageItem
 				idBox='gif-option'
 				imgSrc={gifSrc}
 				style={{
-					width: { xs: '16px', lg: '18px', xl: '30px' },
-					height: { xs: '16px', lg: '18px', xl: '30px' }
+					width: { xs: '22px', xl: '30px' },
+					height: { xs: '22px', xl: '30px' }
 				}}
 			/>
 		</Box>

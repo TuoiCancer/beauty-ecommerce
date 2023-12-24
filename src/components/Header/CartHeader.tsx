@@ -264,7 +264,7 @@ const CartHeader = ({
 								width: '12px',
 								height: '12px',
 								borderRadius: '50%',
-								zIndex: 5
+								zIndex: 3
 							}
 						}}
 					>
@@ -303,7 +303,7 @@ const CartHeader = ({
 									position: 'absolute',
 									top: { xs: '102%', md: '110%' },
 									right: '0',
-									zIndex: 5,
+									zIndex: 3,
 									backgroundColor: '#fff',
 									color: '#000',
 									boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',

@@ -35,6 +35,7 @@ const CartItem = ({
 	cartDetail,
 	dictionary
 }: CartItemProps) => {
+	console.log('link', link)
 	const [isSelectAll, setIsSelectAll] = useState(false)
 	const [listSelected, setListSelected] = useState<any[]>([]) // danh sách các sản phẩm trong cart được chọn, chỉ dùng để hiển thị tick xanh ở select all
 
