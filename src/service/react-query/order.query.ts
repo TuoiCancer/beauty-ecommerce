@@ -75,3 +75,24 @@ export const useCancelOrder = () => {
 		}
 	)
 }
+
+export const useGetAllShopOrder = (payload: any) => {
+	const getAllShopOrderService = ApiService.createInstance()
+	return useQuery(
+		['getAllShopOrder', payload],
+		() => {
+			return getAllShopOrderService.getAllShopOrder({
+				pathParams: payload
+			})
+		},
+		{
+			onSuccess: data => {},
+			onError: (err: any) => {
+				updateStore((state: IStore) => {
+					state.UserSlice.isError = true
+					state.UserSlice.errorMess = err.response.data.message
+				})
+			}
+		}
+	)
+}

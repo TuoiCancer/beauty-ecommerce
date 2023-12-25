@@ -1,12 +1,6 @@
 'use client'
+import dynamic from 'next/dynamic'
 
-import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule'
-import AddIcon from '@mui/icons-material/Add'
-import BaseButton from '@/components/base/BaseButton'
-import ImageItem from '@/components/base/ImageItem'
-import ReviewItem from '@/components/product/ReviewItem'
-import SimilarProduct from '@/components/product/SimilarProduct'
-import { listComments, priceSale } from '@/constants'
 import {
 	useGetProductById,
 	useGetSimilarProduct
@@ -17,7 +11,6 @@ import React, { useEffect } from 'react'
 import { useAddToCart } from '@/service/react-query/cart.query'
 import { useStore } from '@/store'
 import { formatCurrency } from '@/helper'
-import Loading from '@/app/[lang]/loading'
 
 import {
 	roboto,
@@ -26,8 +19,22 @@ import {
 	poppins
 } from '../../../../../../public/font'
 import { useGetReviewByParentId } from '@/service/react-query/review.query'
-import { ReviewInterface } from '@/utils/review.interface'
-import ReviewContainer from '@/components/product/ReviewContainer'
+
+//lazy load
+const HorizontalRuleIcon = dynamic(
+	() => import('@mui/icons-material/HorizontalRule')
+)
+const AddIcon = dynamic(() => import('@mui/icons-material/Add'))
+const BaseButton = dynamic(() => import('@/components/base/BaseButton'))
+const ImageItem = dynamic(() => import('@/components/base/ImageItem'))
+const ReviewItem = dynamic(() => import('@/components/product/ReviewItem'))
+const SimilarProduct = dynamic(
+	() => import('@/components/product/SimilarProduct')
+)
+const Loading = dynamic(() => import('@/app/[lang]/loading'))
+const ReviewContainer = dynamic(
+	() => import('@/components/product/ReviewContainer')
+)
 
 const ProductDetail = ({ dictionary, lang }: any) => {
 	const [activeImg, setActiveImg] = React.useState(0)

@@ -3,6 +3,7 @@ import { Locale } from '../../../../i18n-config'
 import RootAdminLayout from '@/components/layouts/admin/RootAdminLayout'
 import { Suspense } from 'react'
 import Loading from '../loading'
+import LoadingAdmin from './loading'
 
 export default async function RootLayout({
 	children,
@@ -14,9 +15,7 @@ export default async function RootLayout({
 	const dictionary = await getDictionary(lang)
 	return (
 		<>
-			<Suspense fallback={<Loading />}>
-				<RootAdminLayout dictionary={dictionary}>{children}</RootAdminLayout>
-			</Suspense>
+			<RootAdminLayout dictionary={dictionary}>{children}</RootAdminLayout>
 		</>
 	)
 }

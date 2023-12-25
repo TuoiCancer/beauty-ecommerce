@@ -6,11 +6,7 @@ import LoadingCart from './loading'
 
 const page = async ({ params: { lang } }: { params: { lang: Locale } }) => {
 	const dictionary = await getDictionary(lang)
-	return (
-		<Suspense fallback={<LoadingCart />}>
-			<CartPage dictionary={dictionary} />
-		</Suspense>
-	)
+	return <CartPage dictionary={dictionary} />
 }
 
 export default page

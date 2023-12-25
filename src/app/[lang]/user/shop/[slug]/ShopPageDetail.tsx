@@ -1,35 +1,40 @@
 'use client'
+
+import dynamic from 'next/dynamic'
+
 import React, { useEffect, useRef, useState } from 'react'
-import { Box, MobileStepper, Typography } from '@mui/material'
-import HeaderShopDetail from '@/components/shop/HeaderShopDetail'
-import CategoryItem from '@/components/shop/CategoryItem'
-import Title from '@/components/shop/Title'
+import { Box, Typography } from '@mui/material'
 import { autoPlay } from 'react-swipeable-views-utils'
 import { useTheme } from '@mui/material/styles'
 import SwipeableViews from 'react-swipeable-views'
-//Icons
 import { listCategory, listImgURL, listNews, listShop } from '@/constants'
-import ProductItem from '@/components/shop/ProductItem'
-import Lefticon from '@/components/icon/Lefticon'
 import Link from 'next/link'
-import BlogItem from '@/components/shop/BlogItem'
-import { useGetProductByPage } from '@/service/react-query/product.query'
 import { usePathname } from 'next/navigation'
 import { ProductInterface } from '@/utils/product.interface'
 import { useAddToCart } from '@/service/react-query/cart.query'
-import ImageItem from '@/components/base/ImageItem'
 import {
 	useCollectVoucher,
 	useGetListVoucher
 } from '@/service/react-query/voucher.query'
-import VoucherItem from '@/components/shop/VoucherItem'
 import { useStore } from '@/store'
-import Loading from '@/app/[lang]/loading'
 import { poppins } from '../../../../../../public/font'
 import { useGetBestSellerProductsByShopId } from '../../../../../service/react-query/product.query'
 import { useGetShopByName } from '@/service/react-query/user.query'
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews)
+
+//lazy loading
+const HeaderShopDetail = dynamic(
+	() => import('@/components/shop/HeaderShopDetail')
+)
+const CategoryItem = dynamic(() => import('@/components/shop/CategoryItem'))
+const Title = dynamic(() => import('@/components/shop/Title'))
+const ProductItem = dynamic(() => import('@/components/shop/ProductItem'))
+const Lefticon = dynamic(() => import('@/components/icon/Lefticon'))
+const BlogItem = dynamic(() => import('@/components/shop/BlogItem'))
+const VoucherItem = dynamic(() => import('@/components/shop/VoucherItem'))
+const Loading = dynamic(() => import('@/app/[lang]/loading'))
+const ImageItem = dynamic(() => import('@/components/base/ImageItem'))
 
 const ShopPageDetail = ({ dictionary, lang }: any) => {
 	const theme = useTheme()

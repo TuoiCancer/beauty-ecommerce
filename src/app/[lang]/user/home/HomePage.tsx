@@ -1,11 +1,8 @@
 'use client'
 
-import BaseButton from '@/components/base/BaseButton'
-import ImageItem from '@/components/base/ImageItem'
-import BrandItem from '@/components/home/BrandItem'
-import ImageSliderItem, { Comment } from '@/components/home/ImageSliderItem'
-import IntroItem from '@/components/home/IntroItem'
-import TopProductItem from '@/components/home/TopProductItem'
+import dynamic from 'next/dynamic'
+
+import { Comment } from '@/components/home/ImageSliderItem'
 import { listBrands, listComments } from '@/constants'
 import SwipeableViews from 'react-swipeable-views'
 import { Box, MobileStepper, Typography } from '@mui/material'
@@ -18,26 +15,31 @@ import {
 	useGetBestSellerProduct,
 	useRecommendProductForUser
 } from '@/service/react-query/product.query'
-import {
-	ProductInterface,
-	TopProductInterface
-} from '@/utils/product.interface'
-import Loading from '../../loading'
 import { hindMadurai, homemadeApple, ibarra } from '../../../../../public/font'
-import RecommendProduct from '@/components/home/RecommendProduct'
 import { motion } from 'framer-motion'
 import { ListIntroduce } from '@/components/Header/Introduce'
 
+//Lazy loading
+const Loading = dynamic(() => import('../../loading'))
+const RecommendProduct = dynamic(
+	() => import('@/components/home/RecommendProduct')
+)
+const BaseButton = dynamic(() => import('@/components/base/BaseButton'))
+const ImageItem = dynamic(() => import('@/components/base/ImageItem'))
+const BrandItem = dynamic(() => import('@/components/home/BrandItem'))
+const ImageSliderItem = dynamic(
+	() => import('@/components/home/ImageSliderItem')
+)
+const BannerSlide = dynamic(() => import('@/components/Header/BannerSlide'))
+
+
 // import Swiper core and required modules
 import SwiperCore, { Navigation, A11y, EffectFade, Autoplay } from 'swiper'
-
 import { Swiper, SwiperSlide } from 'swiper/react'
-
 // Import Swiper styles
 import 'swiper/components/navigation/navigation.scss'
 import 'swiper/swiper.scss'
 import 'swiper/components/effect-fade/effect-fade.scss'
-import BannerSlide from '@/components/Header/BannerSlide'
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews)
 

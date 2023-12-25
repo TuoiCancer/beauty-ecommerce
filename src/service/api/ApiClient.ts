@@ -383,4 +383,12 @@ export class ApiService {
 			'Content-Type': 'application/json'
 		}
 	})
+
+	getAllShopOrder = configApi({
+		path: 'v1/orders/shop',
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
 }

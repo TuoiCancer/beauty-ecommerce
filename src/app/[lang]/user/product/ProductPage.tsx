@@ -1,21 +1,27 @@
 'use client'
 
-import ImageItem from '@/components/base/ImageItem'
-import PaginationItem from '@/components/product/Pagination'
-import ProductSearchWrapper from '@/components/product/ProductSearchWrapper'
-import SidebarProduct from '@/components/product/Sidebar'
-import ProductItem from '@/components/shop/ProductItem'
+import dynamic from 'next/dynamic'
 import { useAddToCart } from '@/service/react-query/cart.query'
 import { useGetProductByPage } from '@/service/react-query/product.query'
 import { useStore } from '@/store'
 import { IFilterOption } from '@/utils/filterOption.interface'
 import { Box, TextField, Typography } from '@mui/material'
-import { usePathname, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import { motion } from 'framer-motion'
 
 import React, { useEffect } from 'react'
 import { ibarra } from '../../../../../public/font'
-import ProgressLoading from '@/components/base/ProgressLoading'
+
+// Lazy load components
+const ProgressLoading = dynamic(
+	() => import('@/components/base/ProgressLoading')
+)
+const ImageItem = dynamic(() => import('@/components/base/ImageItem'))
+const PaginationItem = dynamic(() => import('@/components/product/Pagination'))
+const ProductSearchWrapper = dynamic(
+	() => import('@/components/product/ProductSearchWrapper')
+)
+const SidebarProduct = dynamic(() => import('@/components/product/Sidebar'))
 
 const ProductPage = ({ dictionary, lang }: any) => {
 	const searchParams = useSearchParams()

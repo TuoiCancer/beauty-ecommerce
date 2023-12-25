@@ -1,6 +1,9 @@
 'use client'
 
-import Loading from '@/app/[lang]/loading'
+import dynamic from 'next/dynamic'
+
+
+
 import {
 	useGetDashboardOrverview,
 	useGetOrderAnalytics,
@@ -12,20 +15,23 @@ import { Box } from '@mui/material'
 import { DateRange } from '@mui/x-date-pickers-pro'
 import dayjs, { Dayjs } from 'dayjs'
 import React, { useEffect } from 'react'
-import DashboardHeader from '../header/DashboardHeader'
-import { drawerWidth } from '../RootAdminLayout'
-import BestSeller from './BestSeller'
-import OrderAnalytics from './OrderAnalytics'
-import OverviewContainer from './OverviewContainer'
-import PieChart from './PieChart'
-import RevenueOverview from './RevenueOverview'
+
+//lazy load
+const Loading = dynamic(() => import('@/app/[lang]/loading'))
+const DashboardHeader = dynamic(() => import('../header/DashboardHeader'))
+const BestSeller = dynamic(() => import('./BestSeller'))
+const OrderAnalytics = dynamic(() => import('./OrderAnalytics'))
+const OverviewContainer = dynamic(() => import('./OverviewContainer'))
+const PieChart = dynamic(() => import('./PieChart'))
+const RevenueOverview = dynamic(() => import('./RevenueOverview'))
 
 const DashboardContainer = ({ dictionary }: { [key: string]: any }) => {
 	const today = dayjs()
+	const sevenDayAgo = today.subtract(7, 'day')
 	const nextSevenDay = today.add(7, 'day')
 	const [value, setValue] = React.useState<DateRange<Dayjs>>([
-		today,
-		nextSevenDay
+		sevenDayAgo,
+		today
 	])
 
 	const { UserSlice } = useStore()

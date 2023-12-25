@@ -9,9 +9,9 @@ import { formatCurrencyV2, getListDate } from '@/helper'
 
 const RevenueOverview = ({ dashboardOverviewData, toDate, fromDate }: any) => {
 	const listDate = getListDate(fromDate, toDate)
-	const listRevenue =
-		Object.values(dashboardOverviewData?.listRevenueByDay || {}).map(item =>
-			formatCurrencyV2(item, '')
+	const listRevenue: any =
+		Object.values(dashboardOverviewData?.listRevenueByDay || {}).map(
+			(item: any) => item.toFixed(2)
 		) || []
 
 	const option = {
