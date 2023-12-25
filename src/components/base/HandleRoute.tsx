@@ -12,9 +12,9 @@ const HandleRoute = ({ children }: { children: React.ReactNode }) => {
 
 	const { mutate: getCartByUserId } = useGetCartByUserId()
 
-	const data = localStorage.getItem('data')
 	useEffect(() => {
 		const isRemember = localStorage.getItem('rememberPassword') === 'true'
+		const data = localStorage.getItem('data')
 
 		if (!data) {
 			console.log('data', data)

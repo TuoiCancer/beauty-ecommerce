@@ -165,7 +165,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 }
 
 export default function OrderTableAdmin({ listOrder }: any) {
-	const [order, setOrder] = React.useState<Order>('asc')
+	const [order, setOrder] = React.useState<Order>('desc')
 	const [orderBy, setOrderBy] = React.useState<keyof Data>('createdAt')
 	const [page, setPage] = React.useState(0)
 	const [rowsPerPage, setRowsPerPage] = React.useState(10)

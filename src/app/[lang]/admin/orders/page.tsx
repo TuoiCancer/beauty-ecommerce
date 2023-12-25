@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
 import { useGetAllShopOrder } from '@/service/react-query/order.query'
 import { useStore } from '@/store'
@@ -13,11 +13,19 @@ const OrderTableAdmin = dynamic(
 const OrdersPage = () => {
 	const { UserSlice } = useStore()
 
-	const { isLoading, data: listOrder } = useGetAllShopOrder({
+	const {
+		isLoading,
+		data: listOrder,
+		refetch
+	} = useGetAllShopOrder({
 		shopId: UserSlice?.user?.id
 	})
 
-	console.log('listOrder', listOrder)
+	useEffect(() => {
+		console.log('listOrder', listOrder)
+
+		refetch()
+	}, [])
 
 	if (isLoading) {
 		return <Loading />
