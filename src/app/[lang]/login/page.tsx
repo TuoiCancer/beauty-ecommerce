@@ -255,7 +255,7 @@ const LoginPage = () => {
 									setTypeInputPassword(!typeInputPassword)
 								}}
 							>
-								Hide
+								{!typeInputPassword ? 'Hide' : 'Show'}
 							</Typography>
 						</Box>
 						<Box
