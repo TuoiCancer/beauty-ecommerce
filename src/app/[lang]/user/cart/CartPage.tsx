@@ -1,11 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client'
-import BaseButton from '@/components/base/BaseButton'
-import ImageItem from '@/components/base/ImageItem'
-import CartItem from '@/components/cart/CartItem'
-import SelectVoucherModal from '@/components/cart/SelectVoucherModal'
-import StepperItem from '@/components/cart/StepperItem'
-import Lefticon from '@/components/icon/Lefticon'
+import dynamic from 'next/dynamic'
+import React, { useEffect, useState } from 'react'
+
 import { formatCurrency, getPriceFormat } from '@/helper'
 import {
 	useDeleteCartUser,
@@ -20,10 +17,19 @@ import {
 import { useStore } from '@/store'
 import { Box, Modal, TextField, Typography } from '@mui/material'
 import { useRouter } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { poppins, roboto } from '../../../../../public/font'
-import Loading from '../../loading'
+
+// lazy loading
+const BaseButton = dynamic(() => import('@/components/base/BaseButton'))
+const ImageItem = dynamic(() => import('@/components/base/ImageItem'))
+const CartItem = dynamic(() => import('@/components/cart/CartItem'))
+const SelectVoucherModal = dynamic(
+	() => import('@/components/cart/SelectVoucherModal')
+)
+const StepperItem = dynamic(() => import('@/components/cart/StepperItem'))
+const Lefticon = dynamic(() => import('@/components/icon/Lefticon'))
+const Loading = dynamic(() => import('../../loading'))
 
 const CartPage = ({ dictionary }: any) => {
 	const { UserSlice } = useStore()

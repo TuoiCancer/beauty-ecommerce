@@ -198,7 +198,7 @@ const ProductItem = ({
 					<Box
 						sx={{
 							marginLeft: { sm: '20px' },
-							mt: { xs: '8px', md: '18px' },
+							mt: { xs: '8px', lg: '18px' },
 							width: '100%'
 						}}
 					>

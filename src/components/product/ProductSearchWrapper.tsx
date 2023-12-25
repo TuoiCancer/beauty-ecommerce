@@ -35,7 +35,7 @@ const ProductSearchWrapper = ({
 						lang={lang}
 						style={{
 							width: { md: '200px', xl: '260px' },
-							height: { md: '300px', xl: '430px' },
+							height: { xl: '430px' },
 							'& h3': {
 								fontSize: { md: '16px' }
 							},

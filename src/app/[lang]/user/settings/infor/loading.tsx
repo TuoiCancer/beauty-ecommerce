@@ -1,8 +1,9 @@
 'use client'
 import React from 'react'
+
 import { Box, keyframes } from '@mui/material'
 
-const LoadingProduct = () => {
+const loading = () => {
 	const bounce = keyframes`
   to {
     opacity: 0.3;
@@ -55,4 +56,4 @@ const LoadingProduct = () => {
 	)
 }
 
-export default LoadingProduct
+export default loading

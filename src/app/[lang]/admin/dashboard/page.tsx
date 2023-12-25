@@ -10,11 +10,7 @@ const DashboardPage = async ({
 	params: { lang: Locale }
 }) => {
 	const dictionary = await getDictionary(lang)
-	return (
-		<Suspense fallback={<Loading />}>
-			<DashboardContainer dictionary={dictionary} />
-		</Suspense>
-	)
+	return <DashboardContainer dictionary={dictionary} />
 }
 
 export default DashboardPage

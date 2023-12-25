@@ -1,6 +1,10 @@
 'use client'
+import dynamic from 'next/dynamic'
 
-import BaseButton from '@/components/base/BaseButton'
+// lazy load
+const BaseButton = dynamic(() => import('@/components/base/BaseButton'))
+const ImageItem = dynamic(() => import('@/components/base/ImageItem'))
+
 import { Box, Checkbox, TextField, Typography } from '@mui/material'
 import Image from 'next/legacy/image'
 import React, { Suspense, useEffect } from 'react'
@@ -11,7 +15,6 @@ import { useLogin } from '@/service/react-query/user.query'
 import { useStore } from '@/store'
 import { poppins } from '../../../../public/font'
 import { useSession, signIn, signOut } from 'next-auth/react'
-import ImageItem from '@/components/base/ImageItem'
 
 const LoginPage = () => {
 	const router = useRouter()
@@ -77,7 +80,7 @@ const LoginPage = () => {
 						display: 'flex',
 						width: { xs: '90%', sm: '500px', lg: 'auto' },
 						margin: { xs: '0 auto', lg: 0 },
-						paddingTop: { xs: '50%', sm: '20%', md: '32px' }
+						paddingTop: { xs: '12%', sm: '20%', md: '32px' }
 					}}
 				>
 					<Box
@@ -137,7 +140,7 @@ const LoginPage = () => {
 							width: { xs: '100%', md: '545px', lg: '100%', xl: '560px' },
 							// height: { md: '618px' },
 							borderRadius: { xs: '8px', md: '40px' },
-							marginTop: '80px',
+							marginTop: { md: '80px' },
 							padding: {
 								xs: '24px 12px',
 								md: '32px',

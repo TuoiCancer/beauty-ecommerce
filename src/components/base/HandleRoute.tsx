@@ -12,16 +12,19 @@ const HandleRoute = ({ children }: { children: React.ReactNode }) => {
 
 	const { mutate: getCartByUserId } = useGetCartByUserId()
 
+	const data = localStorage.getItem('data')
 	useEffect(() => {
-		const data = localStorage.getItem('data')
 		const isRemember = localStorage.getItem('rememberPassword') === 'true'
+
 		if (!data) {
+			console.log('data', data)
+
 			UserSlice.setTotalProductInCart(0)
 			UserSlice.setIsLoggedIn(false)
 			// set token to null
 			AuthSlice.setAccessToken(null)
 			AuthSlice.setRefreshToken(null)
-			// route.push('/user/home')
+			route.push('/user/home')
 		} else {
 			// check token is expired or not
 			const { maxAge } = JSON.parse(data)?.token

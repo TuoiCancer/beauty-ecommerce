@@ -1,6 +1,5 @@
 'use client'
-import ProgressLoading from '@/components/base/ProgressLoading'
-import OrderTable from '@/components/order/OrderTable'
+import dynamic from 'next/dynamic'
 import {
 	useCancelOrder,
 	useGetAllOrder
@@ -8,7 +7,9 @@ import {
 import { useStore } from '@/store'
 import { Box, Typography } from '@mui/material'
 import React, { useEffect } from 'react'
-import Loading from '../../loading'
+
+const Loading = dynamic(() => import('../../loading'))
+const OrderTable = dynamic(() => import('@/components/order/OrderTable'))
 
 const OrderPage = ({ dictionary }: any) => {
 	const [isRefetchFn, setIsRefetchFn] = React.useState(false)
