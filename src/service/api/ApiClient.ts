@@ -368,6 +368,14 @@ export class ApiService {
 		}
 	})
 
+	sendMailOrderSuccess = configApi({
+		path: 'success-order',
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
+
 	getShopByName = configApi({
 		path: 'v1/users/shop',
 		method: 'GET',

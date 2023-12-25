@@ -13,7 +13,6 @@ import {
 	useUpdateCartUser
 } from '@/service/react-query/cart.query'
 import { useCreateOrder } from '@/service/react-query/order.query'
-import { useSendEmailByNodeMailer } from '@/service/react-query/sendmail.query'
 import {
 	useGetVoucherByVoucherCode,
 	useGetVoucherOfUser
@@ -36,12 +35,6 @@ const CartPage = ({ dictionary }: any) => {
 	)
 	const { mutate: updateCartUser, isLoading, isSuccess } = useUpdateCartUser()
 	const { mutate: deleteCartUser, isSuccess: isDeleted } = useDeleteCartUser()
-
-	const {
-		mutate: sendMail,
-		isLoading: isSendingEmail,
-		isSuccess: sendSuccess
-	} = useSendEmailByNodeMailer()
 
 	// get voucher by voucher code
 	const { mutate: getVoucherByVoucherCode, data: voucherCodeFound } =
@@ -305,7 +298,6 @@ const CartPage = ({ dictionary }: any) => {
 		setOpenPopup(true)
 	}
 
-	if (isSendingEmail) return <Loading />
 	// loading progess
 	return (
 		<Box
