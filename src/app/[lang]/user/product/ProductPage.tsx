@@ -253,6 +253,7 @@ const ProductPage = ({ dictionary, lang }: any) => {
 								getProductByPage({
 									page: 1,
 									limit: rowPerPage,
+									order: orderBy,
 									sort: filterOptions.sort,
 									product_shop: filterOptions.brand,
 									product_category: filterOptions.category,
